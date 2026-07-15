@@ -14,14 +14,14 @@ interface PipelineFunnelProps {
 }
 
 const STAGES = [
-  { key: 'hold', label: 'Not Started', color: '#6b7280', num: 0 },
-  { key: '1', label: 'New Opportunity', color: '#1a1f4e', num: 1 },
-  { key: '2', label: 'Discovery', color: '#252a5a', num: 2 },
-  { key: '3', label: 'Solution Design', color: '#3a4080', num: 3 },
-  { key: '4', label: 'Proposal', color: '#5b2d6e', num: 4 },
-  { key: '5', label: 'Negotiation', color: '#7b3d8e', num: 5 },
-  { key: '6', label: 'Contract Review', color: '#2d7a0f', num: 6 },
-  { key: '8', label: 'Closed Won', color: '#3a6e00', num: 8 },
+  { key: 'hold', label: 'Not Started',       color: '#9ca3af', labelColor: '#6b7280',  num: 0,  suffix: ''   },
+  { key: '1',    label: 'New Opportunity',    color: '#1a1f4e', labelColor: '#1a1f4e',  num: 1,  suffix: ''   },
+  { key: '2',    label: 'Early Sales',        color: '#1a1f4e', labelColor: '#1a1f4e',  num: 2,  suffix: ''   },
+  { key: '3',    label: 'Mid Sales',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 3,  suffix: ''   },
+  { key: '4',    label: 'Late Sales / Pricing', color: '#1a1f4e', labelColor: '#1a1f4e', num: 4, suffix: ''   },
+  { key: '5',    label: 'Contracting',        color: '#1a1f4e', labelColor: '#1a1f4e',  num: 5,  suffix: ''   },
+  { key: '6',    label: 'Executed',           color: '#52b000', labelColor: '#52b000',  num: 6,  suffix: ' \u2713' },
+  { key: '8',    label: 'Disqualified',       color: '#d0021b', labelColor: '#d0021b',  num: 8,  suffix: ' \u2715' },
 ]
 
 function FilterTabGroup<T extends string>({
@@ -117,36 +117,48 @@ export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWav
           const count = stageCounts.cnt[stage.key]
           const rev = stageCounts.rev[stage.key]
           const barHeight = rev > 0 ? Math.max(10, Math.round((rev / maxRev) * 150)) : 4
-          const amtLabel = rev > 0 ? `$${(rev / 1_000_000).toFixed(1)}M` : '$0'
+          const amtLabel = rev > 0 ? `$${(rev / 1_000_000).toFixed(1)}M` : null
           return (
-            <div key={stage.key} style={{ display: 'flex', flexDirection: 'column', gap: 6, opacity: stage.key === 'hold' ? 0.82 : 1 }}>
+            <div key={stage.key} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {/* Bar */}
               <div style={{ height: 160, width: '100%', display: 'flex', alignItems: 'flex-end' }}>
                 <div
                   style={{
-                    background: `linear-gradient(180deg,${stage.color},${stage.color}cc)`,
+                    background: stage.color,
                     height: barHeight,
                     borderRadius: '6px 6px 3px 3px',
                     width: '100%',
                     display: 'flex',
                     alignItems: 'flex-start',
                     justifyContent: 'center',
-                    paddingTop: 10,
+                    paddingTop: 8,
                     transition: 'height 0.4s ease',
                   }}
                 >
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{amtLabel}</span>
+                  {amtLabel && barHeight > 20 && (
+                    <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{amtLabel}</span>
+                  )}
                 </div>
               </div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--ink)', textAlign: 'center' }}>
+              {/* Client count */}
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.55)', textAlign: 'center' }}>
                 {count} {count === 1 ? 'client' : 'clients'}
               </div>
+              {/* Numbered badge */}
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ width: 26, height: 26, borderRadius: '50%', background: stage.color, color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: stage.color,
+                  color: '#fff',
+                  fontSize: 12, fontWeight: 700,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
                   {stage.num}
                 </div>
               </div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: stage.key === 'hold' ? '#6b7280' : 'var(--ink)', textAlign: 'center', lineHeight: 1.35 }}>
-                {stage.label}
+              {/* Stage label */}
+              <div style={{ fontSize: 12, fontWeight: 700, color: stage.labelColor, textAlign: 'center', lineHeight: 1.35 }}>
+                {stage.label}{stage.suffix}
               </div>
             </div>
           )
