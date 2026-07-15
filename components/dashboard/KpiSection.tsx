@@ -23,9 +23,9 @@ interface KpiSectionProps {
 }
 
 const LABEL: React.CSSProperties = {
-  fontSize: 11,
+  fontSize: 13,
   fontWeight: 600,
-  letterSpacing: '0.09em',
+  letterSpacing: '0.07em',
   textTransform: 'uppercase',
   color: 'rgba(10,22,40,0.42)',
   lineHeight: 1.3,
@@ -41,9 +41,9 @@ const BIG_VAL: React.CSSProperties = {
 }
 
 const BOTTOM_LABEL: React.CSSProperties = {
-  fontSize: 10,
+  fontSize: 12,
   fontWeight: 600,
-  letterSpacing: '0.09em',
+  letterSpacing: '0.07em',
   textTransform: 'uppercase',
   color: 'rgba(10,22,40,0.42)',
   lineHeight: 1.3,
