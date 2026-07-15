@@ -52,7 +52,7 @@ const BOTTOM_LABEL: React.CSSProperties = {
 }
 
 const BOTTOM_VAL: React.CSSProperties = {
-  fontSize: 16,
+  fontSize: 22,
   fontWeight: 800,
   color: '#1a1f4e',
   lineHeight: 1,
