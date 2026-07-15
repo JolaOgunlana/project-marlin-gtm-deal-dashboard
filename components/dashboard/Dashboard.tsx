@@ -90,7 +90,7 @@ export function Dashboard() {
         title="New Deal Clients"
         totalRevLabel="Total Opportunity Revenue"
         totalRevValue="$0"
-        totalRevSub="Annual Contract Value"
+        totalRevSub="Annual contract value"
         totalClients="0"
         totalClientsSub="0 NA  ·  0 EMEA"
         executed="0"
