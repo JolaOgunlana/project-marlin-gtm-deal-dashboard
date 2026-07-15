@@ -130,21 +130,29 @@ export function KpiSection({
 
       {/* Bottom row */}
       {variant === 'existing' ? (
-        /* 7 equal columns */
+        /*
+         * 7 equal columns — 3 neutral | 2 green | 2 red
+         * All separated by vertical dividers
+         */
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
-          <Cell label="$ Margin Secured" value={marginSecured} />
-          <Cell label="% of $25M ACV" value={percentACV25 ?? '0%'} divider />
-          <Cell label="% of $40M Secured" value={percentACV40 ?? '0%'} divider />
-          <Cell label="$ Won" value={won} color="#2d7a0f" divider />
-          <Cell label="% of $25M ACV" value={percentWon ?? '0%'} color="#2d7a0f" divider />
-          <Cell label="$ Lost" value={lost} color="#d0021b" divider />
-          <Cell label="% Revenue Lost" value={percentLost ?? '0%'} color="#d0021b" divider />
+          <Cell label="$ Margin Secured"   value={marginSecured}          />
+          <Cell label="% of $25M ACV"      value={percentACV25 ?? '0%'}   divider />
+          <Cell label="% of $40M Secured"  value={percentACV40 ?? '0%'}   divider />
+          <Cell label="$ Won"              value={won}   color="#2d7a0f"  divider />
+          <Cell label="% of $25M ACV"      value={percentWon  ?? '0%'} color="#2d7a0f" divider />
+          <Cell label="$ Lost"             value={lost}  color="#d0021b"  divider />
+          <Cell label="% Revenue Lost"     value={percentLost ?? '0%'} color="#d0021b" divider />
         </div>
       ) : (
-        /* 3 columns */
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+        /*
+         * New Deal bottom row: 3 columns that mirror the top-row dividers.
+         * Top row = 4 equal columns (25% each).
+         * $ Margin Secured spans cols 1–2 (50%), $ Won = col 3 (25%), $ Lost = col 4 (25%).
+         * gridTemplateColumns uses "2fr 1fr 1fr" to reproduce those widths exactly.
+         */
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
           <Cell label="$ Margin Secured" value={marginSecured} />
-          <Cell label="$ Won" value={won} color="#2d7a0f" divider />
+          <Cell label="$ Won"  value={won}  color="#2d7a0f" divider />
           <Cell label="$ Lost" value={lost} color="#d0021b" divider />
         </div>
       )}
