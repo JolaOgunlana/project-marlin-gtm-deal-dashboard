@@ -37,6 +37,7 @@ export function Dashboard() {
 
       {/* KPI — Existing Deal Clients */}
       <KpiSection
+        variant="existing"
         title="Existing Deal Clients"
         totalRevLabel="Total Portfolio Revenue"
         totalRevValue="$151.2M"
@@ -56,6 +57,7 @@ export function Dashboard() {
 
       {/* KPI — New Deal Clients */}
       <KpiSection
+        variant="new"
         title="New Deal Clients"
         totalRevLabel="Total Opportunity Revenue"
         totalRevValue="$0"
@@ -65,11 +67,8 @@ export function Dashboard() {
         executed="0"
         disqualified="0"
         marginSecured="$0"
-        percentACV25="0%"
         won="$0"
-        percentWon="0%"
         lost="$0"
-        percentLost="0%"
       />
 
       {/* Pipeline Funnel */}
