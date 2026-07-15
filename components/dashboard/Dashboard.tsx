@@ -14,12 +14,11 @@ export function Dashboard() {
 
   return (
     <div className="db-wrap" style={{ fontFamily: "'Geist', system-ui, -apple-system, sans-serif" }}>
-      {/* Navy banner header */}
+      {/* Navy banner — full bleed, no radius */}
       <div style={{
         background: '#1a1f4e',
-        borderRadius: 12,
         marginBottom: 26,
-        padding: '22px 32px',
+        padding: '28px 32px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -28,7 +27,7 @@ export function Dashboard() {
       }}>
         {/* Left: title + internal tag */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 28, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+          <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
             Project Marlin GTM Deal Dashboard
           </div>
           <div style={{
@@ -73,6 +72,8 @@ export function Dashboard() {
         </div>
       </div>
 
+      {/* Content area with original padding */}
+      <div style={{ padding: '0 28px 48px' }}>
       {/* KPI — Existing Deal Clients */}
       <KpiSection
         variant="existing"
@@ -119,6 +120,7 @@ export function Dashboard() {
 
       {/* Client Table */}
       <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} />
+      </div>
     </div>
   )
 }
