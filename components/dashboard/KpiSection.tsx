@@ -92,8 +92,8 @@ export function KpiSection({
         <span style={{ fontSize: 18, fontWeight: 800, color: '#1a1f4e', letterSpacing: '0.005em' }}>{title}</span>
       </div>
 
-      {/* Top row — Revenue (1fr) | Clients (2fr) | Executed (1fr) | Disqualified (1fr) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr 1fr', borderBottom: DIVIDER }}>
+      {/* Top row — 4 equal columns */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderBottom: DIVIDER }}>
 
         {/* Col 1 — Total Revenue */}
         <div style={{ padding: '18px 22px 16px' }}>
@@ -150,7 +150,7 @@ export function KpiSection({
          * $ Margin Secured spans cols 1–2 (50%), $ Won = col 3 (25%), $ Lost = col 4 (25%).
          * gridTemplateColumns uses "2fr 1fr 1fr" to reproduce those widths exactly.
          */
-        <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr 1fr' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
           <Cell label="$ Margin Secured" value={marginSecured} />
           <Cell label="$ Won"  value={won}  color="#2d7a0f" divider />
           <Cell label="$ Lost" value={lost} color="#d0021b" divider />
