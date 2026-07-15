@@ -13,7 +13,7 @@ export function Dashboard() {
   const [waveFilter, setWaveFilter] = useState<WaveFilter>('all')
 
   return (
-    <div className="db-wrap" style={{ fontFamily: "'Geist', system-ui, -apple-system, sans-serif" }}>
+    <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       {/* Navy banner — full bleed, no radius */}
       <div style={{
         background: '#1a1f4e',
@@ -27,10 +27,10 @@ export function Dashboard() {
       }}>
         {/* Left: title + internal tag */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+          <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05, fontFamily: "var(--font-playfair), Georgia, serif" }}>
             Project Marlin GTM Deal Dashboard
           </div>
-          <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
             Internal Use Only
           </span>
         </div>
