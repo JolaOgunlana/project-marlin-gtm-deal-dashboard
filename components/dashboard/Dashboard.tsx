@@ -30,7 +30,7 @@ export function Dashboard() {
           <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
             Project Marlin GTM Deal Dashboard
           </div>
-          <span style={{ fontSize: 13, fontWeight: 600, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.04em' }}>
+          <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             Internal Use Only
           </span>
         </div>
