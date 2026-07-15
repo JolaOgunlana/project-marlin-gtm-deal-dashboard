@@ -14,23 +14,61 @@ export function Dashboard() {
 
   return (
     <div className="db-wrap" style={{ fontFamily: "'Geist', system-ui, -apple-system, sans-serif" }}>
-      {/* Header */}
-      <div style={{ marginBottom: 26, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
-        <div>
-          <div style={{ fontSize: 46, fontWeight: 900, color: '#1a1f4e', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+      {/* Navy banner header */}
+      <div style={{
+        background: '#1a1f4e',
+        borderRadius: 12,
+        marginBottom: 26,
+        padding: '22px 32px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 20,
+        flexWrap: 'wrap',
+      }}>
+        {/* Left: title + internal tag */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontSize: 28, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
             Project Marlin GTM Deal Dashboard
           </div>
-          <div style={{ fontSize: 14, color: 'rgba(26,31,78,0.5)', fontStyle: 'italic', fontWeight: 700, marginTop: 6 }}>
-            INTERNAL USE ONLY
+          <div style={{
+            display: 'inline-flex',
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+            padding: '3px 12px',
+            background: 'rgba(255,255,255,0.12)',
+            border: '1px solid rgba(255,255,255,0.25)',
+            borderRadius: 999,
+          }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              Internal Use Only
+            </span>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 7, flexShrink: 0 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 16px', background: '#ffffff', border: '1px solid rgba(26,31,78,0.2)', borderRadius: 999, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#7ed321', flexShrink: 0, display: 'inline-block' }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: '#1a1f4e', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>ACV Target $25M by October 1st 2026</span>
+
+        {/* Right: target pill + dates */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, flexShrink: 0 }}>
+          {/* Target pill */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '8px 18px',
+            background: 'rgba(255,255,255,0.10)',
+            border: '1px solid rgba(255,255,255,0.28)',
+            borderRadius: 999,
+          }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#7ed321', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #7ed32180' }} />
+            <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+              ACV Target $25M by October 1st 2026
+            </span>
           </div>
-          <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.6)', textAlign: 'right', lineHeight: 1.55, whiteSpace: 'nowrap' }}>
-            Last Update July 15th 18:00 EST<br />Next Update July 22nd 18:00 EST
+          {/* Dates */}
+          <div style={{ textAlign: 'right', lineHeight: 1.65 }}>
+            <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 1 }}>Last Update</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>July 15th 2026 · 18:00 EST</div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 4, marginBottom: 1 }}>Next Update</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>July 22nd 2026 · 18:00 EST</div>
           </div>
         </div>
       </div>
