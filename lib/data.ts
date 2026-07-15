@@ -83,7 +83,10 @@ export const clients: ClientRow[] = [
 ]
 
 export function formatRevM(rev: number): string {
-  if (rev >= 1_000_000) return `$${(rev / 1_000_000).toFixed(1)}M`
-  if (rev >= 1_000) return `$${(rev / 1_000).toFixed(0)}K`
-  return `$${rev}`
+  if (rev === 0) return '$0'
+  const m = rev / 1_000_000
+  // >= $1M or >= $100K: 1 decimal place  e.g. $27.2M or $0.6M
+  if (rev >= 100_000) return `$${m.toFixed(1)}M`
+  // < $100K: 2 decimal places so small values retain precision  e.g. $0.01M
+  return `$${m.toFixed(2)}M`
 }
