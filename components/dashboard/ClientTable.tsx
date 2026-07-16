@@ -74,7 +74,7 @@ export function ClientTable({ clientFilter, waveFilter }: ClientTableProps) {
           </colgroup>
           <thead>
             <tr style={{ background: '#f7f8fc' }}>
-              {['ID', 'Client Name', 'Client Type', 'Region', 'TMS Total Revenue', 'Wave', 'TCV', 'TCV Currency', 'Stage', 'Probability (%)', 'Risk', 'Next Step', 'Disqualified Reason', 'Opportunity Owner', 'Sales Category'].map((h) => (
+              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Total Revenue', 'Wave', 'TCV', 'TCV Currency', 'Stage', 'Probability (%)', 'Risk', 'Next Step', 'Disqualified Reason', 'Opportunity Owner', 'Sales Category'].map((h) => (
                 <th key={h} style={{ padding: '8px 7px', textAlign: 'left', fontSize: 9, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', color: '#1a1f4e', borderBottom: '1px solid #e2e4ee', whiteSpace: 'normal', lineHeight: 1.2, verticalAlign: 'bottom', wordBreak: 'break-word' }}>
                   {h}
                 </th>
