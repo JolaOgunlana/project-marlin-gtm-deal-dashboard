@@ -64,10 +64,10 @@ export function Dashboard() {
 
       {/* Content area with original padding */}
       <div style={{ padding: '0 28px 48px' }}>
-      {/* KPI — Existing Deal Clients */}
+      {/* KPI — Revenue Retention Opportunities */}
       <KpiSection
         variant="existing"
-        title="Existing Deal Clients"
+        title="Revenue Retention Opportunities"
         totalRevLabel="Total Portfolio Revenue"
         totalRevValue="$151.2M"
         totalRevSub="Current annual contract value"
@@ -84,10 +84,10 @@ export function Dashboard() {
         percentLost="0%"
       />
 
-      {/* KPI — New Deal Clients */}
+      {/* KPI — New Deal Opportunities */}
       <KpiSection
         variant="new"
-        title="New Deal Clients"
+        title="New Deal Opportunities"
         totalRevLabel="Total Opportunity Revenue"
         totalRevValue="$0"
         totalRevSub="Annual contract value"

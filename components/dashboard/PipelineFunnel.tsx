@@ -94,8 +94,8 @@ export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWav
             onSelect={onClientFilter}
             options={[
               { value: 'total' as ClientFilter, label: 'Total' },
-              { value: 'existing' as ClientFilter, label: 'Existing Deal Clients' },
-              { value: 'new' as ClientFilter, label: 'New Deal Clients' },
+              { value: 'existing' as ClientFilter, label: 'Revenue Retention Opportunities' },
+              { value: 'new' as ClientFilter, label: 'New Deal Opportunities' },
             ]}
           />
           <FilterTabGroup

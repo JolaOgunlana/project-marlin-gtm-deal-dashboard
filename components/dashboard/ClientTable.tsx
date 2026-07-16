@@ -43,7 +43,7 @@ export function ClientTable({ clientFilter, waveFilter }: ClientTableProps) {
     })
   }, [clientFilter, waveFilter])
 
-  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Existing Deal Clients' : 'New Deal Clients'
+  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
   const noteText = `${filtered.length} shown · ${cl} · ${wv}`
 
