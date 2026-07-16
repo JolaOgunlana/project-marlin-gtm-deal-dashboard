@@ -99,7 +99,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
           <FilterTabGroup
-            label="Clients"
+            label="Opportunities"
             active={clientFilter}
             onSelect={onClientFilter}
             options={[
@@ -175,9 +175,9 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                   )}
                 </div>
               </div>
-              {/* Client count */}
+              {/* Opportunity count */}
               <div style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.55)', textAlign: 'center' }}>
-                {count} {count === 1 ? 'client' : 'clients'}
+                {count} {count === 1 ? 'opportunity' : 'opportunities'}
               </div>
               {/* Numbered badge */}
               <div style={{ display: 'flex', justifyContent: 'center' }}>
