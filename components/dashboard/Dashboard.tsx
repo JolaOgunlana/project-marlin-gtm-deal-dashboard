@@ -82,7 +82,7 @@ export function Dashboard() {
         marginSecured="$0"
         percentACV25="0%"
         percentACV40="0%"
-        totalACV="$60M"
+        totalACV="0%"
         won="$0"
         percentWon="0%"
         lost="$0"
