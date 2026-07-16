@@ -129,7 +129,6 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
 
         </div>
       </div>
-      <div style={{ height: 1, background: 'var(--border)', margin: '0 -24px 20px' }} />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', gap: 10, alignItems: 'stretch' }}>
         {STAGES.map((stage) => {
           const count = stageCounts.cnt[stage.key]
