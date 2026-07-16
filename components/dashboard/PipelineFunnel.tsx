@@ -126,22 +126,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
               { value: 'EMEA' as RegionFilter, label: 'EMEA' },
             ]}
           />
-          <FilterTabGroup
-            label="Stage"
-            active={stageFilter}
-            onSelect={onStageFilter}
-            options={[
-              { value: 'all' as StageFilter, label: 'All' },
-              { value: 'hold' as StageFilter, label: 'Not Started' },
-              { value: '1' as StageFilter, label: '1 · New Opp.' },
-              { value: '2' as StageFilter, label: '2 · Early Sales' },
-              { value: '3' as StageFilter, label: '3 · Mid Sales' },
-              { value: '4' as StageFilter, label: '4 · Late Sales' },
-              { value: '5' as StageFilter, label: '5 · Contracting' },
-              { value: '6' as StageFilter, label: '6 · Executed' },
-              { value: '8' as StageFilter, label: '8 · Disqualified' },
-            ]}
-          />
+
         </div>
       </div>
       <div style={{ height: 1, background: 'var(--border)', margin: '0 -24px 20px' }} />
@@ -151,8 +136,22 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
           const rev = stageCounts.rev[stage.key]
           const barHeight = rev > 0 ? Math.max(10, Math.round((rev / maxRev) * 150)) : 4
           const amtLabel = rev > 0 ? `$${(rev / 1_000_000).toFixed(1)}M` : null
+          const isActive = stageFilter === stage.key
           return (
-            <div key={stage.key} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <button
+              key={stage.key}
+              onClick={() => onStageFilter(isActive ? 'all' : stage.key as StageFilter)}
+              style={{
+                display: 'flex', flexDirection: 'column', gap: 6,
+                background: isActive ? 'rgba(26,31,78,0.045)' : 'transparent',
+                border: isActive ? `2px solid ${stage.color}` : '2px solid transparent',
+                borderRadius: 10,
+                padding: '6px 4px 8px',
+                cursor: 'pointer',
+                transition: 'background 0.15s, border-color 0.15s',
+                outline: 'none',
+              }}
+            >
               {/* Bar */}
               <div style={{ height: 160, width: '100%', display: 'flex', alignItems: 'flex-end' }}>
                 <div
@@ -166,6 +165,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                     justifyContent: 'center',
                     paddingTop: 8,
                     transition: 'height 0.4s ease',
+                    opacity: stageFilter !== 'all' && !isActive ? 0.35 : 1,
                   }}
                 >
                   {amtLabel && barHeight > 20 && (
@@ -185,15 +185,17 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                   color: '#fff',
                   fontSize: 12, fontWeight: 700,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: isActive ? `0 0 0 3px ${stage.color}40` : 'none',
+                  transition: 'box-shadow 0.15s',
                 }}>
                   {stage.num}
                 </div>
               </div>
               {/* Stage label */}
-              <div style={{ fontSize: 12, fontWeight: 700, color: stage.labelColor, textAlign: 'center', lineHeight: 1.35 }}>
+              <div style={{ fontSize: 12, fontWeight: isActive ? 800 : 700, color: stage.labelColor, textAlign: 'center', lineHeight: 1.35 }}>
                 {stage.label}{stage.suffix}
               </div>
-            </div>
+            </button>
           )
         })}
       </div>
