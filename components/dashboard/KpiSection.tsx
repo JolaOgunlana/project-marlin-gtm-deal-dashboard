@@ -145,7 +145,7 @@ export function KpiSection({
           {/* Green: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
             <Cell label="$ Won"        value={won}                    color="#2d7a0f" />
-            <Cell label="% of $25M ACV" value={percentWon  ?? '0%'}  color="#2d7a0f" divider />
+            <Cell label="% of $25M ACV Oct" value={percentWon  ?? '0%'}  color="#2d7a0f" divider />
           </div>
           {/* Red: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
