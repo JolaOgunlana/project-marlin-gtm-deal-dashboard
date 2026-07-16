@@ -14,6 +14,7 @@ interface KpiSectionProps {
   // existing only
   percentACV25?: string
   percentACV40?: string
+  totalACV?: string
   percentWon?: string
   percentLost?: string
   won: string
@@ -72,6 +73,7 @@ export function KpiSection({
   marginSecured,
   percentACV25,
   percentACV40,
+  totalACV,
   percentWon,
   percentLost,
   won,
@@ -137,10 +139,11 @@ export function KpiSection({
          * Red group   (col 4 of top  = 1fr): 2 sub-columns — $Lost | %Rev Lost
          */
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
-          {/* Navy: 2 sub-cols */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+          {/* Navy: 3 sub-cols */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
             <Cell label="$ Margin Secured"         value={marginSecured}        />
             <Cell label="% of $40M Margin Secured" value={percentACV40 ?? '0%'} divider />
+            <Cell label="Total ACV"                value={totalACV ?? '$60M'}   divider />
           </div>
           {/* Green: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
