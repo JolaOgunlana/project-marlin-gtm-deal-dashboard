@@ -93,7 +93,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
   return (
     <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 12, padding: '28px 24px', marginBottom: 24, overflowX: 'auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 12 }}>
-        <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '0.01em', color: '#1a1f4e' }}>Pipeline by Opportunity Stage</div>
+        <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Pipeline by Opportunity Stage</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
           <FilterTabGroup
             label="Clients"
