@@ -141,7 +141,7 @@ export function KpiSection({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
             <Cell label="$ Margin Secured"  value={marginSecured}        />
             <Cell label="% of $25M ACV"     value={percentACV25 ?? '0%'} divider />
-            <Cell label="% of $40M Secured" value={percentACV40 ?? '0%'} divider />
+            <Cell label="% of $40M Margin Secured" value={percentACV40 ?? '0%'} divider />
           </div>
           {/* Green: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
