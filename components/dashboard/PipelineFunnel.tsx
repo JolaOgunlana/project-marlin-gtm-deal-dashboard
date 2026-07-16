@@ -5,12 +5,18 @@ import { clients } from '@/lib/data'
 
 type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
+type RegionFilter = 'all' | 'NA' | 'EMEA'
+type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 
 interface PipelineFunnelProps {
   clientFilter: ClientFilter
   waveFilter: WaveFilter
+  regionFilter: RegionFilter
+  stageFilter: StageFilter
   onClientFilter: (v: ClientFilter) => void
   onWaveFilter: (v: WaveFilter) => void
+  onRegionFilter: (v: RegionFilter) => void
+  onStageFilter: (v: StageFilter) => void
 }
 
 const STAGES = [
@@ -62,7 +68,7 @@ function FilterTabGroup<T extends string>({
   )
 }
 
-export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWaveFilter }: PipelineFunnelProps) {
+export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFilter, onClientFilter, onWaveFilter, onRegionFilter, onStageFilter }: PipelineFunnelProps) {
   const stageCounts = useMemo(() => {
     const cnt: Record<string, number> = {}
     const rev: Record<string, number> = {}
@@ -71,7 +77,8 @@ export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWav
     clients.forEach((row) => {
       const cMatch = clientFilter === 'total' || clientFilter === row.clientType
       const wMatch = waveFilter === 'all' || waveFilter === row.wave
-      if (!cMatch || !wMatch) return
+      const rMatch = regionFilter === 'all' || (regionFilter === 'NA' ? row.region === 'NA' : row.region.startsWith('EMEA'))
+      if (!cMatch || !wMatch || !rMatch) return
       const s = row.stage
       if (s in cnt) {
         cnt[s]++
@@ -79,7 +86,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWav
       }
     })
     return { cnt, rev }
-  }, [clientFilter, waveFilter])
+  }, [clientFilter, waveFilter, regionFilter])
 
   const maxRev = Math.max(1, ...STAGES.map((s) => stageCounts.rev[s.key]))
 
@@ -107,6 +114,32 @@ export function PipelineFunnel({ clientFilter, waveFilter, onClientFilter, onWav
               { value: '1' as WaveFilter, label: 'Wave 1' },
               { value: '2' as WaveFilter, label: 'Wave 2' },
               { value: '3' as WaveFilter, label: 'Wave 3' },
+            ]}
+          />
+          <FilterTabGroup
+            label="Region"
+            active={regionFilter}
+            onSelect={onRegionFilter}
+            options={[
+              { value: 'all' as RegionFilter, label: 'All' },
+              { value: 'NA' as RegionFilter, label: 'NA' },
+              { value: 'EMEA' as RegionFilter, label: 'EMEA' },
+            ]}
+          />
+          <FilterTabGroup
+            label="Stage"
+            active={stageFilter}
+            onSelect={onStageFilter}
+            options={[
+              { value: 'all' as StageFilter, label: 'All' },
+              { value: 'hold' as StageFilter, label: 'Not Started' },
+              { value: '1' as StageFilter, label: '1 · New Opp.' },
+              { value: '2' as StageFilter, label: '2 · Early Sales' },
+              { value: '3' as StageFilter, label: '3 · Mid Sales' },
+              { value: '4' as StageFilter, label: '4 · Late Sales' },
+              { value: '5' as StageFilter, label: '5 · Contracting' },
+              { value: '6' as StageFilter, label: '6 · Executed' },
+              { value: '8' as StageFilter, label: '8 · Disqualified' },
             ]}
           />
         </div>

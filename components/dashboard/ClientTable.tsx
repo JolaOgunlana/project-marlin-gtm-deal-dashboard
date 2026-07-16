@@ -5,10 +5,14 @@ import { clients, formatRevM, type ClientRow } from '@/lib/data'
 
 type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
+type RegionFilter = 'all' | 'NA' | 'EMEA'
+type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 
 interface ClientTableProps {
   clientFilter: ClientFilter
   waveFilter: WaveFilter
+  regionFilter: RegionFilter
+  stageFilter: StageFilter
 }
 
 function TBDCell() {
@@ -34,18 +38,22 @@ function RegionBadge({ region }: { region: string }) {
   )
 }
 
-export function ClientTable({ clientFilter, waveFilter }: ClientTableProps) {
+export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilter }: ClientTableProps) {
   const filtered = useMemo(() => {
     return clients.filter((row) => {
       const cMatch = clientFilter === 'total' || clientFilter === row.clientType
       const wMatch = waveFilter === 'all' || waveFilter === row.wave
-      return cMatch && wMatch
+      const rMatch = regionFilter === 'all' || (regionFilter === 'NA' ? row.region === 'NA' : row.region.startsWith('EMEA'))
+      const sMatch = stageFilter === 'all' || stageFilter === row.stage
+      return cMatch && wMatch && rMatch && sMatch
     })
-  }, [clientFilter, waveFilter])
+  }, [clientFilter, waveFilter, regionFilter, stageFilter])
 
   const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
-  const noteText = `${filtered.length} shown · ${cl} · ${wv}`
+  const rg = regionFilter === 'all' ? 'all regions' : regionFilter
+  const st = stageFilter === 'all' ? 'all stages' : `Stage ${stageFilter}`
+  const noteText = `${filtered.length} shown · ${cl} · ${wv} · ${rg} · ${st}`
 
   return (
     <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>

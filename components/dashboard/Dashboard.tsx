@@ -7,10 +7,14 @@ import { ClientTable } from './ClientTable'
 
 type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
+type RegionFilter = 'all' | 'NA' | 'EMEA'
+type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 
 export function Dashboard() {
   const [clientFilter, setClientFilter] = useState<ClientFilter>('total')
   const [waveFilter, setWaveFilter] = useState<WaveFilter>('all')
+  const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
+  const [stageFilter, setStageFilter] = useState<StageFilter>('all')
 
   return (
     <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -104,12 +108,16 @@ export function Dashboard() {
       <PipelineFunnel
         clientFilter={clientFilter}
         waveFilter={waveFilter}
+        regionFilter={regionFilter}
+        stageFilter={stageFilter}
         onClientFilter={(v) => setClientFilter(v)}
         onWaveFilter={(v) => setWaveFilter(v)}
+        onRegionFilter={(v) => setRegionFilter(v)}
+        onStageFilter={(v) => setStageFilter(v)}
       />
 
       {/* Client Table */}
-      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} />
+      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} />
       </div>
     </div>
   )
