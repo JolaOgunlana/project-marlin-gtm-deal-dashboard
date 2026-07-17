@@ -69,21 +69,21 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <colgroup>
-            <col style={{ width: '6%' }} />
-            <col style={{ width: '14%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '6%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '4%' }} />
-            <col style={{ width: '5%' }} />
-            <col style={{ width: '5%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '6%' }} />
-            <col style={{ width: '5%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '7%' }} />
+            <col style={{ width: '4%' }} />  {/* Oppt. ID */}
+            <col style={{ width: '10%' }} /> {/* Client Name */}
+            <col style={{ width: '5%' }} />  {/* Deal Type */}
+            <col style={{ width: '5%' }} />  {/* Region */}
+            <col style={{ width: '6%' }} />  {/* TMS Total Revenue */}
+            <col style={{ width: '3%' }} />  {/* Wave */}
+            <col style={{ width: '4%' }} />  {/* TCV */}
+            <col style={{ width: '4%' }} />  {/* TCV Currency */}
+            <col style={{ width: '4%' }} />  {/* Stage */}
+            <col style={{ width: '5%' }} />  {/* Probability */}
+            <col style={{ width: '4%' }} />  {/* Risk */}
+            <col style={{ width: '6%' }} />  {/* Next Step */}
+            <col style={{ width: '6%' }} />  {/* Disqualified Reason */}
+            <col style={{ width: '6%' }} />  {/* Opportunity Owner */}
+            <col style={{ width: '28%' }} /> {/* Whisper Outcome — intentionally wide */}
           </colgroup>
           <thead>
             <tr style={{ background: '#f7f8fc' }}>
@@ -130,7 +130,9 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                 <td style={{ padding: '8px 7px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle' }}><TBDCell /></td>
                 <td style={{ padding: '8px 7px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle' }}><TBDCell /></td>
                 <td style={{ padding: '8px 7px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle' }}><TBDCell /></td>
-                <td style={{ padding: '8px 7px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle' }}><TBDCell /></td>
+                <td style={{ padding: '8px 7px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'top', fontSize: 10.5, color: '#1a1f4e', lineHeight: 1.45, wordBreak: 'break-word', whiteSpace: 'normal' }}>
+                  {row.salesCategory && row.salesCategory !== 'TBD' ? row.salesCategory : <TBDCell />}
+                </td>
               </tr>
             ))}
           </tbody>
