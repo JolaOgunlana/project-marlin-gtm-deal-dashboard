@@ -7,12 +7,14 @@ type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
+type WhisperFilter = 'all' | 'completed'
 
 interface ClientTableProps {
   clientFilter: ClientFilter
   waveFilter: WaveFilter
   regionFilter: RegionFilter
   stageFilter: StageFilter
+  whisperFilter: WhisperFilter
 }
 
 function TBDCell() {
@@ -38,22 +40,25 @@ function RegionBadge({ region }: { region: string }) {
   )
 }
 
-export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilter }: ClientTableProps) {
+export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter }: ClientTableProps) {
   const filtered = useMemo(() => {
     return clients.filter((row) => {
       const cMatch = clientFilter === 'total' || clientFilter === row.clientType
       const wMatch = waveFilter === 'all' || waveFilter === row.wave
       const rMatch = regionFilter === 'all' || (regionFilter === 'NA' ? row.region === 'NA' : row.region.startsWith('EMEA'))
       const sMatch = stageFilter === 'all' || stageFilter === row.stage
-      return cMatch && wMatch && rMatch && sMatch
+      const isCompleted = row.salesCategory.trim() !== '' && row.salesCategory.trim() !== 'TBD'
+      const wMatch2 = whisperFilter === 'all' || (whisperFilter === 'completed' && isCompleted)
+      return cMatch && wMatch && rMatch && sMatch && wMatch2
     })
-  }, [clientFilter, waveFilter, regionFilter, stageFilter])
+  }, [clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter])
 
   const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
   const rg = regionFilter === 'all' ? 'all regions' : regionFilter
   const st = stageFilter === 'all' ? 'all stages' : `Stage ${stageFilter}`
-  const noteText = `${filtered.length} shown · ${cl} · ${wv} · ${rg} · ${st}`
+  const wp = whisperFilter === 'all' ? 'all whisper' : 'whisper completed'
+  const noteText = `${filtered.length} shown · ${cl} · ${wv} · ${rg} · ${st} · ${wp}`
 
   return (
     <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>

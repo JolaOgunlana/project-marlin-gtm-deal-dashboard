@@ -7,16 +7,19 @@ type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
+type WhisperFilter = 'all' | 'completed'
 
 interface PipelineFunnelProps {
   clientFilter: ClientFilter
   waveFilter: WaveFilter
   regionFilter: RegionFilter
   stageFilter: StageFilter
+  whisperFilter: WhisperFilter
   onClientFilter: (v: ClientFilter) => void
   onWaveFilter: (v: WaveFilter) => void
   onRegionFilter: (v: RegionFilter) => void
   onStageFilter: (v: StageFilter) => void
+  onWhisperFilter: (v: WhisperFilter) => void
 }
 
 const STAGES = [
@@ -68,7 +71,7 @@ function FilterTabGroup<T extends string>({
   )
 }
 
-export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFilter, onClientFilter, onWaveFilter, onRegionFilter, onStageFilter }: PipelineFunnelProps) {
+export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter, onClientFilter, onWaveFilter, onRegionFilter, onStageFilter, onWhisperFilter }: PipelineFunnelProps) {
   const stageCounts = useMemo(() => {
     const cnt: Record<string, number> = {}
     const rev: Record<string, number> = {}
@@ -129,7 +132,15 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
               { value: 'EMEA' as RegionFilter, label: 'EMEA' },
             ]}
           />
-
+          <FilterTabGroup
+            label="Whisper Completion"
+            active={whisperFilter}
+            onSelect={onWhisperFilter}
+            options={[
+              { value: 'all' as WhisperFilter, label: 'All' },
+              { value: 'completed' as WhisperFilter, label: 'Completed' },
+            ]}
+          />
         </div>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, minmax(0, 1fr))', gap: 10, alignItems: 'stretch' }}>

@@ -9,12 +9,14 @@ type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
+type WhisperFilter = 'all' | 'completed'
 
 export function Dashboard() {
   const [clientFilter, setClientFilter] = useState<ClientFilter>('total')
   const [waveFilter, setWaveFilter] = useState<WaveFilter>('all')
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
   const [stageFilter, setStageFilter] = useState<StageFilter>('all')
+  const [whisperFilter, setWhisperFilter] = useState<WhisperFilter>('all')
 
   return (
     <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -111,14 +113,16 @@ export function Dashboard() {
         waveFilter={waveFilter}
         regionFilter={regionFilter}
         stageFilter={stageFilter}
+        whisperFilter={whisperFilter}
         onClientFilter={(v) => setClientFilter(v)}
         onWaveFilter={(v) => setWaveFilter(v)}
         onRegionFilter={(v) => setRegionFilter(v)}
         onStageFilter={(v) => setStageFilter(v)}
+        onWhisperFilter={(v) => setWhisperFilter(v)}
       />
 
       {/* Client Table */}
-      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} />
+      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
       </div>
     </div>
   )
