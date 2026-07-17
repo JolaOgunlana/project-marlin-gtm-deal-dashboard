@@ -81,7 +81,9 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
       const cMatch = clientFilter === 'total' || clientFilter === row.clientType
       const wMatch = waveFilter === 'all' || waveFilter === row.wave
       const rMatch = regionFilter === 'all' || (regionFilter === 'NA' ? row.region === 'NA' : row.region.startsWith('EMEA'))
-      if (!cMatch || !wMatch || !rMatch) return
+      const isCompleted = row.salesCategory.trim() !== '' && row.salesCategory.trim() !== 'TBD'
+      const whisperMatch = whisperFilter === 'all' || (whisperFilter === 'completed' && isCompleted)
+      if (!cMatch || !wMatch || !rMatch || !whisperMatch) return
       const s = row.stage
       if (s in cnt) {
         cnt[s]++
@@ -89,7 +91,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
       }
     })
     return { cnt, rev }
-  }, [clientFilter, waveFilter, regionFilter])
+  }, [clientFilter, waveFilter, regionFilter, whisperFilter])
 
   const maxRev = Math.max(1, ...STAGES.map((s) => stageCounts.rev[s.key]))
 
