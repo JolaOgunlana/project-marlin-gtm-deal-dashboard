@@ -303,84 +303,113 @@ interface PlotAreaProps {
 }
 
 function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
-  const PLOT_H = 640 // px — tall enough for 63 pre-whisper bubbles
+  const PLOT_H = 640
+  const REF_W = 1200 // reference px width for collision maths
 
-  // Convert % → approximate px for collision checks (use fixed reference width)
-  const REF_W = 1000
-
-  type BubbleInfo = {
+  // ── Step 1: compute raw (t-based) centre for each client ──────────────────
+  type RawBubble = {
     c: CMClient
+    ar: { out: Rating; off: Rating }
+    score: number | null
+    diam: number
+    isEMEA: boolean
+    // % positions before tie-breaking
     xPct: number
     yPct: number
-    diam: number
-    score: number | null
-    ar: { out: Rating; off: Rating }
-    isEMEA: boolean
-    bubbleBg: string
-    labelAbove: boolean  // true = label above bubble, false = below
-    labelOffsetX: number // extra horizontal nudge to avoid overlap (px)
   }
 
-  const bubbles: BubbleInfo[] = plotted.map(c => {
+  const raw: RawBubble[] = plotted.map(c => {
     const ar = whisperMode === 'post' && c.post
       ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
       : { out: c.out, off: c.off }
-    const diam = revTierDiam(c.rev)
     const score = overallScore(c, whisperMode) ?? 50
     const qKey = `${ar.out}-${ar.off}`
     const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
     const t = qRange.max > qRange.min ? (score - qRange.min) / (qRange.max - qRange.min) : 0.5
-    const xPct = inBandX(ar.off as string, t)
-    const yPct = inBandY(ar.out as string, t)
-    const isEMEA = c.region.startsWith('EMEA')
     return {
-      c, xPct, yPct, diam, score: overallScore(c, whisperMode), ar,
-      isEMEA, bubbleBg: isEMEA ? '#9aa0c0' : '#1a1f4e',
-      labelAbove: true, labelOffsetX: 0,
+      c, ar, score: overallScore(c, whisperMode), diam: revTierDiam(c.rev),
+      isEMEA: c.region.startsWith('EMEA'),
+      xPct: inBandX(ar.off as string, t),
+      yPct: inBandY(ar.out as string, t),
     }
   })
 
-  // Simple collision resolution for labels:
-  // For each bubble, check if its label rect overlaps any prior label rect.
-  // If it does, flip to below; if still overlaps, add a horizontal nudge.
-  type LabelRect = { cx: number; top: number; bottom: number; left: number; right: number }
-  const usedRects: LabelRect[] = []
+  // ── Step 2: spiral tie-breaking for bubbles that share the same position ──
+  // Group by rounded (xPct, yPct) to detect stacks, then spiral them apart.
+  const posKey = (x: number, y: number) => `${Math.round(x * 10)},${Math.round(y * 10)}`
+  const seen: Record<string, number> = {} // key → count of bubbles already placed there
 
-  const resolved = bubbles.map(b => {
-    const cx = (b.xPct / 100) * REF_W
-    const cy = (b.yPct / 100) * PLOT_H
-    const labelW = Math.min(b.c.name.length * LABEL_CHAR_W, 120)
-    const halfW = labelW / 2
-    const gap = 4
+  type FinalBubble = RawBubble & { xPct: number; yPct: number; labelAbove: boolean; labelOffsetPx: number }
 
-    const rectAbove = { cx, top: cy - b.diam / 2 - gap - LABEL_H, bottom: cy - b.diam / 2 - gap, left: cx - halfW, right: cx + halfW }
-    const rectBelow = { cx, top: cy + b.diam / 2 + gap, bottom: cy + b.diam / 2 + gap + LABEL_H, left: cx - halfW, right: cx + halfW }
+  const SPIRAL_STEP_PCT = 2.2 // % of chart per spiral step
+  const GOLDEN_ANGLE = 2.39996 // radians — spreads points evenly
 
-    const overlaps = (a: LabelRect, bx: LabelRect) =>
-      a.left < bx.right && a.right > bx.left && a.top < bx.bottom && a.bottom > bx.top
+  const final: FinalBubble[] = raw.map(b => {
+    const key = posKey(b.xPct, b.yPct)
+    const idx = seen[key] ?? 0
+    seen[key] = idx + 1
 
-    const aboveOverlaps = usedRects.some(r => overlaps(r, rectAbove))
-    const belowOverlaps = usedRects.some(r => overlaps(r, rectBelow))
+    let xPct = b.xPct
+    let yPct = b.yPct
 
-    let chosen = rectAbove
-    let labelAbove = true
-    let labelOffsetX = 0
-
-    if (aboveOverlaps && !belowOverlaps) {
-      chosen = rectBelow; labelAbove = false
-    } else if (aboveOverlaps && belowOverlaps) {
-      // Both overlap — nudge horizontally by half the width + small gap
-      const nudge = halfW + 6
-      const rectNudged = { ...rectAbove, left: rectAbove.left + nudge, right: rectAbove.right + nudge, cx: cx + nudge }
-      chosen = rectNudged; labelOffsetX = nudge
+    if (idx > 0) {
+      // Spiral: radius grows with index, angle uses golden angle for even spread
+      const r = SPIRAL_STEP_PCT * Math.sqrt(idx)
+      const angle = idx * GOLDEN_ANGLE
+      xPct = b.xPct + r * Math.cos(angle)
+      yPct = b.yPct + r * Math.sin(angle)
+      // Clamp inside the chart (leave 1% margin)
+      xPct = Math.max(1, Math.min(99, xPct))
+      yPct = Math.max(1, Math.min(99, yPct))
     }
 
-    // Clamp to chart boundaries
-    if (chosen.top < 0) { chosen = { ...chosen, top: 0, bottom: LABEL_H }; labelAbove = false }
-    if (chosen.bottom > PLOT_H) { chosen = { ...chosen, top: PLOT_H - LABEL_H, bottom: PLOT_H }; labelAbove = true }
+    return { ...b, xPct, yPct, labelAbove: true, labelOffsetPx: 0 }
+  })
 
-    usedRects.push(chosen)
-    return { ...b, labelAbove, labelOffsetX }
+  // ── Step 3: label collision resolution ────────────────────────────────────
+  // Try 6 candidate positions per label (above, below, right, left, top-right, top-left).
+  // Place in the first non-overlapping slot; fall back to least-overlap option.
+  type LabelRect = { left: number; right: number; top: number; bottom: number; labelAbove: boolean; labelOffsetPx: number }
+  const placedLabels: LabelRect[] = []
+
+  const overlaps = (a: LabelRect, b: LabelRect) =>
+    a.left < b.right + 2 && a.right > b.left - 2 && a.top < b.bottom + 2 && a.bottom > b.top - 2
+
+  const resolved = final.map(b => {
+    const cx = (b.xPct / 100) * REF_W
+    const cy = (b.yPct / 100) * PLOT_H
+    const labelW = Math.min(b.c.name.length * LABEL_CHAR_W + 4, 150)
+    const halfW = labelW / 2
+    const r = b.diam / 2 + 4
+
+    // Candidate positions: above, below, top-right, top-left, right, left
+    const candidates: LabelRect[] = [
+      { left: cx - halfW, right: cx + halfW, top: cy - r - LABEL_H, bottom: cy - r, labelAbove: true,  labelOffsetPx: 0 },
+      { left: cx - halfW, right: cx + halfW, top: cy + r,            bottom: cy + r + LABEL_H, labelAbove: false, labelOffsetPx: 0 },
+      { left: cx + r * 0.5,         right: cx + r * 0.5 + labelW, top: cy - r - LABEL_H, bottom: cy - r, labelAbove: true, labelOffsetPx: r * 0.5 + halfW },
+      { left: cx - r * 0.5 - labelW,right: cx - r * 0.5, top: cy - r - LABEL_H, bottom: cy - r, labelAbove: true, labelOffsetPx: -(r * 0.5 + halfW) },
+      { left: cx + r,  right: cx + r + labelW, top: cy - LABEL_H / 2, bottom: cy + LABEL_H / 2, labelAbove: true, labelOffsetPx: r + halfW },
+      { left: cx - r - labelW, right: cx - r,  top: cy - LABEL_H / 2, bottom: cy + LABEL_H / 2, labelAbove: true, labelOffsetPx: -(r + halfW) },
+    ]
+
+    // Find first candidate with no overlaps
+    let chosen = candidates[0]
+    for (const cand of candidates) {
+      const inBounds = cand.top >= 0 && cand.bottom <= PLOT_H && cand.left >= 0 && cand.right <= REF_W
+      const noOverlap = !placedLabels.some(p => overlaps(p, cand))
+      if (noOverlap && inBounds) { chosen = cand; break }
+    }
+    // If none is clean, pick least-overlapping candidate
+    if (!chosen) {
+      chosen = candidates.reduce((best, cand) => {
+        const count = placedLabels.filter(p => overlaps(p, cand)).length
+        const bestCount = placedLabels.filter(p => overlaps(p, best)).length
+        return count < bestCount ? cand : best
+      }, candidates[0])
+    }
+
+    placedLabels.push(chosen)
+    return { ...b, labelAbove: chosen.labelAbove, labelOffsetPx: chosen.labelOffsetPx }
   })
 
   return (
@@ -402,24 +431,26 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
 
         {/* Bubbles + collision-resolved name labels */}
         {resolved.map((b, i) => {
-          const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, labelAbove, labelOffsetX } = b
-          const labelGap = diam / 2 + 5
+          const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, labelAbove, labelOffsetPx } = b
+          // Convert reference-px offset back to chart-relative px for CSS calc()
+          const labelShiftPx = labelOffsetPx // already in ref-px; used as a directional hint
+          const labelGap = diam / 2 + 4
           return (
             <React.Fragment key={i}>
-              {/* Label — absolutely positioned relative to plot, independent of bubble */}
+              {/* Label */}
               <div style={{
                 position: 'absolute',
-                left: `calc(${xPct}% + ${labelOffsetX}px)`,
+                left: `calc(${xPct}% + ${labelShiftPx > 0 ? labelGap : labelShiftPx < 0 ? -labelGap : 0}px)`,
                 top: labelAbove
                   ? `calc(${yPct}% - ${labelGap + LABEL_H}px)`
                   : `calc(${yPct}% + ${labelGap}px)`,
-                transform: 'translateX(-50%)',
+                transform: labelShiftPx === 0 ? 'translateX(-50%)' : labelShiftPx > 0 ? 'translateX(0)' : 'translateX(-100%)',
                 fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
                 whiteSpace: 'nowrap',
-                textShadow: '0 1px 5px rgba(255,255,255,0.95), 0 1px 5px rgba(255,255,255,0.95)',
+                textShadow: '0 1px 4px rgba(255,255,255,0.98), 0 0 8px rgba(255,255,255,0.98)',
                 zIndex: 5,
                 pointerEvents: 'none',
-                maxWidth: 130,
+                maxWidth: 160,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 lineHeight: `${LABEL_H}px`,
