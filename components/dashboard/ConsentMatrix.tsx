@@ -64,7 +64,7 @@ const CM_DATA: CMClient[] = [
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:17352102, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Fifth Third Bank", id:"5685", rev:14062039, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
-    preNudgeY: 53.335, postNudgeX: -23, postNudgeY: -4,
+    preNudgeY: 13.335, postNudgeX: -23, postNudgeY: -4,
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
       off:{ rating:"High", rationale:"His initial and largest concern is the low-cost location component. He advised this will more than likely present some legal challenges as well as business ops challenges. Through the operational lens, he is concerned about degradation of voice services specifically, with little to no concern on offshoring any and all back-office/non-voice work." },
@@ -144,7 +144,7 @@ const CM_DATA: CMClient[] = [
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
-// ── Helpers ─────────────────────��───────���────────────────������──����─────────────
+// ── Helpers ─────────────────────��───────���────────────────�������──����─────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -905,7 +905,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
   )
 }
 
-// ── Main component ────────────────────────────────�����─���───���─────────�����─────���──
+// ── Main component ───────────────────────────���────�����─���───���─────────�����─────���──
 type Page = 'dashboard' | 'consent'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
