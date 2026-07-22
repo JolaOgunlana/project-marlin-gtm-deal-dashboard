@@ -357,21 +357,20 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   }
 
   // ── Step 1: base positions from overall propensity within quadrant ─────────
+  // Position is always derived from PRE-whisper ratings/scores so that clients
+  // whose ratings did not change stay in exactly the same spot in both views.
   const base = plotted.map(c => {
-    const ar = whisperMode === 'post' && c.post
-      ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
-      : { out: c.out, off: c.off }
-    const score = overallScore(c, whisperMode) ?? 50
+    const ar = { out: c.out, off: c.off }
+    const scoreForPos = overallScore(c, 'pre') ?? 50
     const qKey = `${ar.out}-${ar.off}`
-    const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
-    const t = qRange.max > qRange.min ? (score - qRange.min) / (qRange.max - qRange.min) : 0.5
+    const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
+    const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
     const isEMEA = c.region.startsWith('EMEA')
     return {
       c, ar,
       score: overallScore(c, whisperMode),
       diam: revTierDiam(c.rev),
       isEMEA,
-      // NA = dark navy, EMEA = dark grey
       bubbleBg: isEMEA ? '#555b6e' : '#1a1f4e',
       stage: c.stage,
       xPct: inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : 0),
@@ -384,7 +383,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   // so they sit side-by-side rather than stacking. Y stays identical so they
   // remain visually "at the same level" — exactly like the reference image.
   const tieKey = (b: typeof base[0]) =>
-    `${b.ar.out}-${b.ar.off}-${Math.round((b.score ?? 50) * 2) / 2}`
+    `${b.ar.out}-${b.ar.off}-${Math.round((overallScore(b.c, 'pre') ?? 50) * 2) / 2}`
 
   // Count group sizes first
   const groupCount: Record<string, number> = {}
