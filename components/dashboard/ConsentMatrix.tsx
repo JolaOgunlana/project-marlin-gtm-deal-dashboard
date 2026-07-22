@@ -137,7 +137,7 @@ const CM_DATA: CMClient[] = [
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
-// ── Helpers ──────────────────────────────────────────────���─────────────────
+// ── Helpers ──────────────────────────────────────────────�����─────────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -358,18 +358,31 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
     labelOffsetPx: number
   }
 
+  // ── Step 1a: pre-compute pre-whisper positions for locked clients ───────────
+  const preBase = useMemo(() => {
+    return allClients.filter(c => c.lockPostPosition).map(c => {
+      const ar = { out: c.out, off: c.off }
+      const scoreForPos = overallScore(c, 'pre') ?? 50
+      const qKey = `${ar.out}-${ar.off}`
+      const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
+      const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
+      return { name: c.name, xPct: inBandX(ar.off as string, t), yPct: inBandY(ar.out as string, t) }
+    })
+  }, [allClients, quadrantRanges])
+
   // ── Step 1: base positions from overall propensity within quadrant ─────────
   const base = plotted.map(c => {
-    // If lockPostPosition is set, always use pre-whisper ratings for position
-    const posMode = (whisperMode === 'post' && c.lockPostPosition) ? 'pre' : whisperMode
-    const ar = posMode === 'post' && c.post
+    const ar = whisperMode === 'post' && c.post
       ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
       : { out: c.out, off: c.off }
-    const scoreForPos = overallScore(c, posMode) ?? 50
+    const scoreForPos = overallScore(c, whisperMode) ?? 50
     const qKey = `${ar.out}-${ar.off}`
     const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
     const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
     const isEMEA = c.region.startsWith('EMEA')
+    const locked = whisperMode === 'post' && c.lockPostPosition
+      ? preBase.find(p => p.name === c.name)
+      : null
     return {
       c, ar,
       score: overallScore(c, whisperMode),
@@ -377,8 +390,9 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
       isEMEA,
       bubbleBg: isEMEA ? '#555b6e' : '#1a1f4e',
       stage: c.stage,
-      xPct: inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : 0),
-      yPct: inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : 0),
+      xPct: locked ? locked.xPct : inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : 0),
+      yPct: locked ? locked.yPct : inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : 0),
+      lockPos: !!locked,
     }
   })
 
@@ -387,8 +401,9 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   // so they sit side-by-side rather than stacking. Y stays identical so they
   // remain visually "at the same level" — exactly like the reference image.
   const tieKey = (b: typeof base[0]) => {
-    const posMode = (whisperMode === 'post' && b.c.lockPostPosition) ? 'pre' : whisperMode
-    return `${b.ar.out}-${b.ar.off}-${Math.round((overallScore(b.c, posMode) ?? 50) * 2) / 2}`
+    // Locked clients get a unique key so they never join a fan group
+    if (b.lockPos) return `__locked__${b.c.name}`
+    return `${b.ar.out}-${b.ar.off}-${Math.round((overallScore(b.c, whisperMode) ?? 50) * 2) / 2}`
   }
 
   // Count group sizes first
