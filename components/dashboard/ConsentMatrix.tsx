@@ -1310,9 +1310,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
               </tbody>
             </table>
           </div>
-          <div style={{ padding: '10px 20px', borderTop: '1px solid #f0f1f7', fontSize: 11, color: 'rgba(26,31,78,0.45)', fontStyle: 'italic' }}>
-            {sorted.length} client{sorted.length !== 1 ? 's' : ''} shown · {whisperMode === 'post' ? 'Post-Whisper' : 'Pre-Whisper'} ratings · Green dot = whisper completed
-          </div>
+
         </div>
       </div>
     </div>
