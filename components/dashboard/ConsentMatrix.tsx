@@ -123,7 +123,7 @@ const CM_DATA: CMClient[] = [
   { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Valley National BK", id:"", rev:84000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true,
+  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true, lockPostPosition:true,
     post:{
       out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
       off:{ rating:"Medium", rationale:"Offshoring not applicable." },
@@ -140,7 +140,7 @@ const CM_DATA: CMClient[] = [
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
-// ── Helpers ──────────────────────────────────────────────�����─────────────────
+// ── Helpers ─────────────────────────────���────────────────�����─────────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -378,10 +378,12 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
     })
   }, [allClients])
 
-  // Compute locked clients' positions from the FULL post-whisper dataset so the
-  // pre-whisper view can pin a client to its post-whisper coordinates.
+  // Compute locked clients' post-whisper coordinates to pin them in pre-whisper view.
+  // We build a temporary full post-whisper base (mirroring what PlotArea would render
+  // in post mode) so the position is pixel-perfect — same quadrant ranges, same fanning.
   const postBase = useMemo(() => {
-    const postRanges = computeQuadrantRanges(allClients, 'post')
+    const postClients = allClients.filter(c => c.post)
+    const postRanges = computeQuadrantRanges(postClients, 'post')
     return allClients.filter(c => c.lockPrePosition && c.post).map(c => {
       const ar = {
         out: (c.post?.out?.rating ?? c.out) as Rating,
@@ -391,11 +393,12 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
       const qKey = `${ar.out}-${ar.off}`
       const qRange = postRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
       const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
-      return {
+      const result = {
         name: c.name,
         xPct: inBandX(ar.off as string, t) + (c.postNudgeX ?? 0),
         yPct: inBandY(ar.out as string, t) + (c.postNudgeY ?? 0),
       }
+      return result
     })
   }, [allClients])
 
@@ -416,6 +419,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
       ? postBase.find(p => p.name === c.name)
       : null
     const locked = lockedPost ?? lockedPre ?? null
+
     return {
       c, ar,
       score: overallScore(c, whisperMode),
