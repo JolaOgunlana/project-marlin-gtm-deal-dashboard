@@ -632,7 +632,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
     <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
 
       {/* ── Header row: title left, filters right ── */}
-      <div style={{ padding: '18px 24px 16px', borderBottom: '1px solid #eef0f6' }}>
+      <div style={{ padding: '18px 24px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
           <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
             Consent Propensity Heat-Map
@@ -716,7 +716,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
       </div>
 
       {/* ── Legend row ── */}
-      <div style={{ padding: '12px 24px 16px', borderTop: '1px solid #eef0f6', display: 'flex', alignItems: 'center', gap: 24 }}>
+      <div style={{ padding: '12px 24px 16px', display: 'flex', alignItems: 'center', gap: 24 }}>
 
         {/* Left: Stage — spans all remaining space */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1, minWidth: 0 }}>
