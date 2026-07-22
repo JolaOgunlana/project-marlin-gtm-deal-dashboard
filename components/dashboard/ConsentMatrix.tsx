@@ -663,13 +663,14 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 
   const HmPill = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
     <button onClick={onClick} style={{
-      fontFamily: 'inherit', fontSize: 11.5, fontWeight: active ? 700 : 500,
-      padding: '5px 12px', borderRadius: 999,
-      border: `1px solid ${active ? '#1a1f4e' : '#d8dae8'}`,
-      background: active ? '#1a1f4e' : '#fff',
-      color: active ? '#fff' : 'rgba(26,31,78,0.65)',
+      fontFamily: 'inherit', fontSize: 13, fontWeight: 600,
+      padding: '6px 13px', borderRadius: 999,
+      border: '1px solid',
+      borderColor: active ? '#1a1f4e' : '#e2e4ee',
+      background: active ? '#1a1f4e' : 'transparent',
+      color: active ? '#fff' : 'rgba(26,31,78,0.45)',
       cursor: 'pointer', whiteSpace: 'nowrap', lineHeight: 1,
-      transition: 'all 0.12s',
+      transition: 'all 0.15s',
     }}>{children}</button>
   )
 
