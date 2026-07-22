@@ -716,38 +716,46 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
       </div>
 
       {/* ── Legend row ── */}
-      <div style={{ padding: '14px 24px 18px', borderTop: '1px solid #eef0f6', display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
-        {/* Stage */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Stage</span>
+      <div style={{ padding: '12px 24px 16px', borderTop: '1px solid #eef0f6', display: 'flex', alignItems: 'center', gap: 24 }}>
+
+        {/* Left: Stage — spans all remaining space */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1, minWidth: 0 }}>
+          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
           {STAGE_LABELS.map(([, label, col]) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
               <div style={{ width: 11, height: 11, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
             </div>
           ))}
         </div>
-        {/* Region */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 24, marginRight: 24 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Region</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e' }} />
-            <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>North America</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#555b6e' }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>EMEA</span>
-          </div>
-        </div>
-        {/* Revenue Tier */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Revenue Tier</span>
-          {([[16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+']] as [number,string][]).map(([sz, label]) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', border: '2px solid rgba(255,255,255,0.7)', boxShadow: '0 1px 4px rgba(0,0,0,0.15)', flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
+
+        {/* Right: Region (top) + Revenue Tier (bottom) stacked */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, flexShrink: 0 }}>
+
+          {/* Region row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)' }}>Region</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e', flexShrink: 0 }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>North America</span>
             </div>
-          ))}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#555b6e', flexShrink: 0 }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>EMEA</span>
+            </div>
+          </div>
+
+          {/* Revenue Tier row — circles bottom-aligned with label beneath */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
+            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginBottom: 4 }}>Revenue Tier</span>
+            {([[16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+']] as [number,string][]).map(([sz, label]) => (
+              <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', flexShrink: 0 }} />
+                <span style={{ fontSize: 9.5, color: 'rgba(26,31,78,0.5)', whiteSpace: 'nowrap' }}>{label}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
 
