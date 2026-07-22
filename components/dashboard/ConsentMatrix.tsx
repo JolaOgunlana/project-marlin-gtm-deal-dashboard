@@ -231,10 +231,33 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
 }
 
 // ── Heat-map constants ─────────────────────────────────────────────────────
-// X = offshoring, Y = outsourcing. Each band occupies 1/3 of the axis.
-// Centre of each band: Low=16.67%, Medium=50%, High=83.33%
-const BAND_X: Record<string, number> = { Low: 16.67, Medium: 50, High: 83.33 }
-const BAND_Y: Record<string, number> = { High: 16.67, Medium: 50, Low: 83.33 } // top=low Y%, bottom=high Y%
+// Each band occupies exactly 1/3 of the axis (0–33.33%, 33.33–66.67%, 66.67–100%).
+// Within a band the overall propensity score (0–100) nudges the bubble:
+//   higher score → further right (X) and higher up (Y) within the band.
+// We leave 15% padding at each band edge so bubbles never sit on grid lines.
+const BAND_START: Record<string, number> = { Low: 0, Medium: 33.33, High: 66.67 }
+const BAND_SIZE = 33.33
+const BAND_PAD = 0.15 // fraction of band to leave as margin on each side
+
+// Returns X% position (0=left, 100=right) for an offshoring band + score
+const bandXPct = (band: string, score: number | null): number => {
+  const start = BAND_START[band] ?? 33.33
+  const inner = BAND_SIZE * (1 - 2 * BAND_PAD)
+  // higher off score → further right within band
+  const norm = score !== null ? score / 100 : 0.5
+  return start + BAND_SIZE * BAND_PAD + inner * norm
+}
+
+// Returns Y% position (0=top, 100=bottom) for an outsourcing band + score
+// High outsourcing = top (low Y%), so higher score → smaller Y%
+const bandYPct = (band: string, score: number | null): number => {
+  const bandTop: Record<string, number> = { High: 0, Medium: 33.33, Low: 66.67 }
+  const start = bandTop[band] ?? 33.33
+  const inner = BAND_SIZE * (1 - 2 * BAND_PAD)
+  // higher out score → higher up → lower Y%
+  const norm = score !== null ? score / 100 : 0.5
+  return start + BAND_SIZE * BAND_PAD + inner * (1 - norm)
+}
 
 const STAGE_COLOR: Record<string, string> = {
   0: '#c9ccdb', 1: '#1a1f4e', 2: '#7aa8ff', 3: '#8b5cf6',
@@ -252,18 +275,7 @@ const STAGE_LABELS: [string, string, string][] = [
 ]
 const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
 
-// Jitter seeds to separate overlapping bubbles slightly
-const JITTER: Record<string, [number, number]> = {}
-let _ji = 0
-const getJitter = (key: string) => {
-  if (!JITTER[key]) {
-    const angle = (_ji * 2.399) // golden angle
-    const r = Math.min(4, _ji * 0.4)
-    JITTER[key] = [Math.cos(angle) * r, Math.sin(angle) * r]
-    _ji++
-  }
-  return JITTER[key]
-}
+
 
 interface HeatMapProps {
   allClients: CMClient[]
@@ -447,21 +459,19 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
               const ar = whisperMode === 'post' && c.post
                 ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
                 : { out: c.out, off: c.off }
-              const xPct = BAND_X[ar.off as string] ?? 50
-              const yPct = BAND_Y[ar.out as string] ?? 50
               const diam = revTierDiam(c.rev)
               const score = overallScore(c, whisperMode)
+              const xPct = bandXPct(ar.off as string, score)
+              const yPct = bandYPct(ar.out as string, score)
               const isEMEA = c.region.startsWith('EMEA')
               const bubbleBg = isEMEA ? '#9aa0c0' : '#1a1f4e'
-              const jKey = `${c.name}-${ar.out}-${ar.off}`
-              const [jx, jy] = getJitter(jKey)
               return (
                 <div
                   key={i}
                   style={{
                     position: 'absolute',
-                    left: `calc(${xPct}% + ${jx}px)`,
-                    top: `calc(${yPct}% + ${jy}px)`,
+                    left: `${xPct}%`,
+                    top: `${yPct}%`,
                     transform: 'translate(-50%, -50%)',
                     zIndex: 4,
                     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
