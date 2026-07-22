@@ -32,6 +32,8 @@ interface CMClient {
   // Visual-only nudge in percentage points applied only in post-whisper view
   postNudgeX?: number
   postNudgeY?: number
+  // Lock this client to its pre-whisper position in the post-whisper heatmap
+  lockPostPosition?: boolean
 }
 
 type SortKey = 'id' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
@@ -118,7 +120,7 @@ const CM_DATA: CMClient[] = [
   { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Valley National BK", id:"", rev:84000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High",
+  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPostPosition:true,
     post:{
       out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
       off:{ rating:"Medium", rationale:"Offshoring not applicable." },
@@ -357,11 +359,13 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   }
 
   // ── Step 1: base positions from overall propensity within quadrant ─────────
-  // Position is always derived from PRE-whisper ratings/scores so that clients
-  // whose ratings did not change stay in exactly the same spot in both views.
   const base = plotted.map(c => {
-    const ar = { out: c.out, off: c.off }
-    const scoreForPos = overallScore(c, 'pre') ?? 50
+    // If lockPostPosition is set, always use pre-whisper ratings for position
+    const posMode = (whisperMode === 'post' && c.lockPostPosition) ? 'pre' : whisperMode
+    const ar = posMode === 'post' && c.post
+      ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
+      : { out: c.out, off: c.off }
+    const scoreForPos = overallScore(c, posMode) ?? 50
     const qKey = `${ar.out}-${ar.off}`
     const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
     const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
@@ -382,8 +386,10 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   // Clients sharing the exact same (out, off, score) fan out horizontally
   // so they sit side-by-side rather than stacking. Y stays identical so they
   // remain visually "at the same level" — exactly like the reference image.
-  const tieKey = (b: typeof base[0]) =>
-    `${b.ar.out}-${b.ar.off}-${Math.round((overallScore(b.c, 'pre') ?? 50) * 2) / 2}`
+  const tieKey = (b: typeof base[0]) => {
+    const posMode = (whisperMode === 'post' && b.c.lockPostPosition) ? 'pre' : whisperMode
+    return `${b.ar.out}-${b.ar.off}-${Math.round((overallScore(b.c, posMode) ?? 50) * 2) / 2}`
+  }
 
   // Count group sizes first
   const groupCount: Record<string, number> = {}
