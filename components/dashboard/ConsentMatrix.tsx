@@ -438,9 +438,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
         {resolved.map((b, i) => {
           const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, stage, labelAbove, labelOffsetPx } = b
           const labelGap = diam / 2 + 4
-          // Inner border: white for NA, light for EMEA — keeps bubble fill clean
-          const innerBorder = isEMEA ? '#a0aacf' : 'rgba(255,255,255,0.9)'
-          // Outer ring: solid stage color, no fade
+          // Stage color ring wraps the bubble fill
           const stageRingColor = STAGE_COLOR[String(stage)] ?? '#c9ccdb'
           return (
             <React.Fragment key={i}>
@@ -465,7 +463,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
                 {c.name}
               </div>
 
-              {/* Bubble */}
+              {/* Bubble — outer ring is the stage color, inner circle is the region color */}
               <div
                 onMouseEnter={e => {
                   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
@@ -478,15 +476,23 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
                   top: `${yPct}%`,
                   transform: 'translate(-50%, -50%)',
                   width: diam, height: diam, borderRadius: '50%',
-                  background: bubbleBg,
-                  border: `2px solid ${innerBorder}`,
-                  outline: `2px solid ${stageRingColor}`,
-                  outlineOffset: '1px',
+                  background: stageRingColor,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
                   cursor: 'default',
                   zIndex: 4,
+                  flexShrink: 0,
                 }}
-              />
+              >
+                {/* Inner filled circle */}
+                <div style={{
+                  width: diam - 8,
+                  height: diam - 8,
+                  borderRadius: '50%',
+                  background: bubbleBg,
+                  flexShrink: 0,
+                }} />
+              </div>
             </React.Fragment>
           )
         })}
