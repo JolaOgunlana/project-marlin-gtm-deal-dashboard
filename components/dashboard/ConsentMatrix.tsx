@@ -121,7 +121,9 @@ const CM_DATA: CMClient[] = [
   { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High",
     post:{
       out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
-      off:{ rating:"Medium", rationale:"Offshoring not applicable." }
+      off:{ rating:"Medium", rationale:"Offshoring not applicable." },
+      dig:{ rating:"Medium", rationale:"" },
+      price:{ rating:"High", rationale:"" }
     }},
   { name:"Empire Innovation Group", id:"9018", rev:25200, region:"NA", dealType:"existing", wave:1, stage:1, out:null, off:null, dig:null, price:null },
   { name:"San Diego County Credit Union", id:"", rev:18780, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
