@@ -334,13 +334,14 @@ interface TooltipInfo {
 interface PlotAreaProps {
   plotRef: React.RefObject<HTMLDivElement>
   canvasRef: React.RefObject<HTMLCanvasElement>
+  allClients: CMClient[]
   plotted: CMClient[]
   whisperMode: WhisperMode
   quadrantRanges: Record<string, { min: number; max: number }>
   setTooltip: (t: TooltipInfo | null) => void
 }
 
-function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
+function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
   const PLOT_H = 640
   const REF_W = 1200 // reference px width for label collision maths
 
@@ -359,16 +360,20 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
   }
 
   // ── Step 1a: pre-compute pre-whisper positions for locked clients ───────────
+  // Compute locked clients' positions from the FULL pre-whisper dataset so the
+  // result is never affected by which clients happen to be in the current
+  // post-whisper `plotted` list or its derived quadrant ranges.
   const preBase = useMemo(() => {
-    return plotted.filter(c => c.lockPostPosition).map(c => {
+    const preRanges = computeQuadrantRanges(allClients, 'pre')
+    return allClients.filter(c => c.lockPostPosition).map(c => {
       const ar = { out: c.out, off: c.off }
       const scoreForPos = overallScore(c, 'pre') ?? 50
       const qKey = `${ar.out}-${ar.off}`
-      const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
+      const qRange = preRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
       const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
       return { name: c.name, xPct: inBandX(ar.off as string, t), yPct: inBandY(ar.out as string, t) }
     })
-  }, [plotted, quadrantRanges])
+  }, [allClients])
 
   // ── Step 1: base positions from overall propensity within quadrant ─────────
   const base = plotted.map(c => {
@@ -741,6 +746,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
           <PlotArea
             plotRef={plotRef}
             canvasRef={canvasRef}
+            allClients={CM_DATA}
             plotted={plotted}
             whisperMode={whisperMode}
             quadrantRanges={quadrantRanges}
