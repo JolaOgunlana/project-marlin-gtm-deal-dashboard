@@ -492,8 +492,8 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
               >
                 {/* Inner filled circle */}
                 <div style={{
-                  width: diam - 8,
-                  height: diam - 8,
+                  width: diam - 4,
+                  height: diam - 4,
                   borderRadius: '50%',
                   background: bubbleBg,
                   flexShrink: 0,
