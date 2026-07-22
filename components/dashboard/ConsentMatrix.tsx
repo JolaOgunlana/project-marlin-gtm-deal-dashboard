@@ -237,7 +237,7 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
 // so the full interior of every quadrant is always used.
 // A fixed margin keeps bubbles off the dashed grid lines.
 const BAND_SIZE = 33.33
-const BAND_MARGIN = 4 // % of total axis to inset from each quadrant edge
+const BAND_MARGIN = 6 // % of total axis to inset from each quadrant edge — keeps largest bubble (52px) clear of borders and grid lines
 
 const BAND_LEFT: Record<string, number> = { Low: 0, Medium: 33.33, High: 66.67 }
 const BAND_TOP: Record<string, number>  = { High: 0, Medium: 33.33, Low: 66.67 }
@@ -341,8 +341,8 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
       score: overallScore(c, whisperMode),
       diam: revTierDiam(c.rev),
       isEMEA,
-      // NA = dark navy, EMEA = grey-blue (matches reference image)
-      bubbleBg: isEMEA ? '#6b7ab5' : '#1a1f4e',
+      // NA = dark navy, EMEA = dark grey
+      bubbleBg: isEMEA ? '#555b6e' : '#1a1f4e',
       stage: c.stage,
       xPct: inBandX(ar.off as string, t),
       yPct: inBandY(ar.out as string, t),
@@ -372,7 +372,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
 
     // Centre the fan: offset = (idx - (count-1)/2) * FAN_STEP_PCT
     const xOffset = count > 1 ? (idx - (count - 1) / 2) * FAN_STEP_PCT : 0
-    const xPct = Math.max(1, Math.min(99, b.xPct + xOffset))
+    const xPct = Math.max(4, Math.min(96, b.xPct + xOffset))
 
     return { ...b, xPct, labelAbove: true, labelOffsetPx: 0 }
   })
@@ -716,7 +716,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
             <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>North America</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#6b7ab5' }} />
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#555b6e' }} />
               <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>EMEA</span>
           </div>
         </div>
