@@ -1307,7 +1307,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                         {levers.map(lever => {
                           const rating = effectiveRating(c, lever)
                           const isDetailOpen = openDetail?.row === i && openDetail?.lever === lever
-                          const canExpand = hasDetail && !!(c.post?.[lever])
+                          const canExpand = hasDetail
                           return (
                             <td key={lever} style={{ padding: '9px 6px', borderBottom: '1px solid #eef0f6', textAlign: 'center', verticalAlign: 'middle' }}>
                               <RatingPill
@@ -1324,23 +1324,28 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                         </td>
                       </tr>
                       {/* Expandable detail row */}
-                      {openDetail?.row === i && hasDetail && c.post?.[openDetail.lever] && (
-                        <tr>
-                          <td colSpan={12} style={{ padding: 0, borderBottom: '1px solid #eef0f6' }}>
-                            <div style={{ padding: '18px 28px 20px', background: 'linear-gradient(180deg,#f7f8fc,#fbfbfe)' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 9 }}>
-                                <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e' }}>
-                                  {c.name} — {leverLabel[openDetail.lever]} Rationale
-                                </span>
-                                <RatingPill rating={c.post![openDetail.lever]!.rating} />
+                      {openDetail?.row === i && hasDetail && (() => {
+                        const postEntry = c.post?.[openDetail.lever]
+                        const rationaleText = postEntry?.rationale?.trim()
+                        return (
+                          <tr>
+                            <td colSpan={12} style={{ padding: 0, borderBottom: '1px solid #eef0f6' }}>
+                              <div style={{ padding: '18px 28px 20px', background: 'linear-gradient(180deg,#f7f8fc,#fbfbfe)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 9 }}>
+                                  <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e' }}>
+                                    {c.name} — {leverLabel[openDetail.lever]} Rationale
+                                  </span>
+                                  {postEntry && <RatingPill rating={postEntry.rating} />}
+                                </div>
+                                {rationaleText
+                                  ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{rationaleText}</p>
+                                  : <p style={{ fontSize: 13, color: 'rgba(26,31,78,0.38)', lineHeight: 1.7, maxWidth: 880, margin: 0, fontStyle: 'italic' }}>N/A</p>
+                                }
                               </div>
-                              <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880 }}>
-                                {c.post![openDetail.lever]!.rationale}
-                              </p>
-                            </div>
-                          </td>
-                        </tr>
-                      )}
+                            </td>
+                          </tr>
+                        )
+                      })()}
                     </React.Fragment>
                   )
                 })}
