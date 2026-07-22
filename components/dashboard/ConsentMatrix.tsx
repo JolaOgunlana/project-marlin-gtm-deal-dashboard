@@ -765,7 +765,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
 
         const rows: [string, React.ReactNode][] = [
           ['Region', <span key="r" style={{ color: '#fff', fontWeight: 700 }}>{regionLbl}</span>],
-          ['Stage',  <span key="s" style={{ color: stageLbl ? stageLbl[2] : '#fff', fontWeight: 700 }}>{stageLbl ? stageLbl[1] : c.stage}</span>],
+          ['Stage',  <span key="s" style={{ color: '#fff', fontWeight: 700 }}>{stageLbl ? stageLbl[1] : c.stage}</span>],
           ['Overall',<span key="o" style={{ color: score !== null ? ratingColor(scoreBand(score)) : 'rgba(255,255,255,0.4)', fontWeight: 700 }}>{score !== null ? `${Math.round(score)} · ${scoreBand(score)}` : '—'}</span>],
           ['Revenue',<span key="v" style={{ color: '#fff', fontWeight: 700 }}>{fmtRev(c.rev)}</span>],
           ['Outsourcing', <span key="ou" style={{ color: ratingColor(out), fontWeight: 700 }}>{out ?? '—'}</span>],
