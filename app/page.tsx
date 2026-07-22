@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', background: '#f4f5f9' }}>
       {page === 'dashboard'
-        ? <Dashboard onNavigate={() => setPage('consent')} />
-        : <ConsentMatrix onNavigateBack={() => setPage('dashboard')} />
+        ? <Dashboard page={page} onNavigate={setPage} />
+        : <ConsentMatrix page={page} onNavigate={setPage} />
       }
     </main>
   )
