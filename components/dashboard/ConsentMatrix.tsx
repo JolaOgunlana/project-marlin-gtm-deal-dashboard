@@ -136,9 +136,8 @@ const overallScore = (c: CMClient, mode: WhisperMode) => {
   const levers = mode === 'post' && c.post
     ? [c.post.out?.rating ?? c.out, c.post.off?.rating ?? c.off, c.post.dig?.rating ?? c.dig, c.post.price?.rating ?? c.price]
     : [c.out, c.off, c.dig, c.price]
-  const filled = levers.filter(Boolean)
-  if (!filled.length) return null
-  return filled.reduce((s, r) => s + ratingScore(r as Rating), 0) / filled.length
+  if (levers.some(r => !r)) return null
+  return levers.reduce((s, r) => s + ratingScore(r as Rating), 0) / levers.length
 }
 const scoreBand = (s: number | null): Rating => {
   if (s === null) return null
@@ -1070,7 +1069,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                 {/* Score → Band */}
                 <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Score → Band</div>
-                  {([['High','75 – 100'],['Medium','50 ��� 74'],['Low','under 50']] as const).map(([b, r], idx, arr) => (
+                  {([['High','75 – 100'],['Medium','50 ����� 74'],['Low','under 50']] as const).map(([b, r], idx, arr) => (
                     <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '10px 0', borderBottom: idx < arr.length - 1 ? '1px solid #eef0f6' : 'none', fontSize: 13.5 }}>
                       <span style={{ fontWeight: 700, color: '#1a1f4e', minWidth: 64 }}>{b}</span>
                       <span style={{ color: '#4a5060' }}>{r}</span>
