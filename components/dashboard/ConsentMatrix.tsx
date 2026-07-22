@@ -55,7 +55,7 @@ type WhisperMode = 'pre' | 'post'
 // `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
 const CM_DATA: CMClient[] = [
   { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
-    postNudgeX: -5, postNudgeY: -4,
+    preNudgeX: -5, postNudgeX: -5, postNudgeY: -4,
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
       off:{ rating:"Medium", rationale:'Offshore voice support is a clear "red light". It was stated that they cannot envisage a future where voice services would move offshore. Given the ongoing Nationwide/Virgin Money integration, any offshoring would be viewed as additional customer disruption. However, they are open to exploring offshoring for chat and operational activities.' },
@@ -144,7 +144,7 @@ const CM_DATA: CMClient[] = [
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
-// ── Helpers ─────────────────────��───────���────────────────�����─────────────────
+// ── Helpers ─────────────────────��───────���────────────────�����───��─────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -905,7 +905,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
   )
 }
 
-// ── Main component ────────────────────────────────────────────────�����─────���──
+// ── Main component ──────────────────────────────────────���─────────�����─────���──
 type Page = 'dashboard' | 'consent'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
@@ -1140,7 +1140,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           setStageFilter={setStageFilter}
         />
 
-        {/* ���─ Info note ── */}
+        {/* ����� Info note ── */}
         {/* ── Rationale accordion ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, marginBottom: 16, overflow: 'hidden' }}>
           <button onClick={() => setRationaleOpen(v => !v)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
