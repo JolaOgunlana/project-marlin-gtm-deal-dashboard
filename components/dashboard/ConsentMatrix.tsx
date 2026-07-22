@@ -683,10 +683,16 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
           }}>Outsourcing Consent Likelihood</span>
         </div>
 
-        {/* Y band labels */}
-        <div style={{ display: 'flex', flexDirection: 'column', width: 44, marginRight: 6, paddingTop: 4, paddingBottom: 4, flexShrink: 0 }}>
-          {(['HIGH','MEDIUM','LOW'] as const).map(l => (
-            <div key={l} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
+        {/* Y band labels — absolutely pinned to the centre of each band (33.33% each) */}
+        <div style={{ position: 'relative', width: 44, marginRight: 6, flexShrink: 0, height: 640 }}>
+          {(['HIGH','MEDIUM','LOW'] as const).map((l, i) => (
+            <div key={l} style={{
+              position: 'absolute',
+              top: `${i * 33.33 + 16.67}%`,
+              right: 0,
+              transform: 'translateY(-50%)',
+              display: 'flex', justifyContent: 'flex-end',
+            }}>
               <span style={{
                 fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
                 color: l === 'HIGH' ? '#1a6e1a' : l === 'MEDIUM' ? '#8a6a00' : '#a01020',
@@ -815,7 +821,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   )
 }
 
-// ── Main component ────────────────────────────────────────────────�����────────
+// ── Main component ────────────────────────────────────────────────�����─────���──
 export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('pre')
   const [dealFilter, setDealFilter] = useState<DealFilter>('total')
@@ -1149,7 +1155,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           </div>
         </div>
 
-        {/* ── Info note ── */}
+        {/* ���─ Info note ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 12, padding: '10px 14px', background: 'rgba(26,31,78,0.03)', border: '1px solid #e2e4ee', borderRadius: 8, fontSize: 12, lineHeight: 1.55, color: 'rgba(26,31,78,0.7)' }}>
           <span style={{ color: '#5b2d6e', fontSize: 13, flexShrink: 0 }}>ⓘ</span>
           <span><strong style={{ color: '#1a1f4e' }}>Overall Propensity Likelihood</strong> blends four consent levers — Outsourcing, Offshoring, Digitization and Price Maintain. <strong style={{ color: '#1a1f4e' }}>Low</strong> likelihood signals high consent risk; <strong style={{ color: '#1a1f4e' }}>High</strong> likelihood signals low consent risk. {whisperMode === 'post' && <strong style={{ color: '#1a1f4e' }}>Post-whisper ratings override pre-whisper where available. Click any rating pill to expand the supporting rationale.</strong>}</span>
