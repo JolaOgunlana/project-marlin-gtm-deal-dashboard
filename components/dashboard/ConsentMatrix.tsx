@@ -583,6 +583,8 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
 
   const filtered = useMemo(() => {
     return CM_DATA.filter(c => {
+      // In post-whisper mode only show clients that have whisper data
+      if (whisperMode === 'post' && !c.post) return false
       const d = dealFilter === 'total' || dealFilter === c.dealType
       const w = waveFilter === 'all' || String(c.wave) === waveFilter
       const r = regionFilter === 'all' || (regionFilter === 'NA' ? c.region === 'NA' : c.region.startsWith('EMEA'))
@@ -590,7 +592,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
       const q = !search || c.name.toLowerCase().includes(search.toLowerCase()) || c.id.toLowerCase().includes(search.toLowerCase())
       return d && w && r && s && q
     })
-  }, [dealFilter, waveFilter, regionFilter, stageFilter, search])
+  }, [whisperMode, dealFilter, waveFilter, regionFilter, stageFilter, search])
 
   const sorted = useMemo(() => {
     const ratingOrder: Record<string, number> = { High: 3, Medium: 2, Low: 1 }
@@ -871,7 +873,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         </div>
 
         {/* ── Heat-Map ── */}
-        <HeatMap allClients={CM_DATA} whisperMode={whisperMode} />
+        <HeatMap allClients={filtered} whisperMode={whisperMode} />
 
         {/* ── Filters ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '20px 24px', marginBottom: 20 }}>
