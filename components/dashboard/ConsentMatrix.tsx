@@ -232,31 +232,43 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
 
 // ── Heat-map constants ─────────────────────────────────────────────────────
 // Each band occupies exactly 1/3 of the axis (0–33.33%, 33.33–66.67%, 66.67–100%).
-// Within a band the overall propensity score (0–100) nudges the bubble:
-//   higher score → further right (X) and higher up (Y) within the band.
-// We leave 15% padding at each band edge so bubbles never sit on grid lines.
-const BAND_START: Record<string, number> = { Low: 0, Medium: 33.33, High: 66.67 }
+// Within a quadrant, clients are spread using their overall propensity score
+// normalised *relative to the min/max scores inside that same quadrant*,
+// so the full interior of every quadrant is always used.
+// A fixed margin keeps bubbles off the dashed grid lines.
 const BAND_SIZE = 33.33
-const BAND_PAD = 0.15 // fraction of band to leave as margin on each side
+const BAND_MARGIN = 4 // % of total axis to inset from each quadrant edge
 
-// Returns X% position (0=left, 100=right) for an offshoring band + score
-const bandXPct = (band: string, score: number | null): number => {
-  const start = BAND_START[band] ?? 33.33
-  const inner = BAND_SIZE * (1 - 2 * BAND_PAD)
-  // higher off score → further right within band
-  const norm = score !== null ? score / 100 : 0.5
-  return start + BAND_SIZE * BAND_PAD + inner * norm
+const BAND_LEFT: Record<string, number> = { Low: 0, Medium: 33.33, High: 66.67 }
+const BAND_TOP: Record<string, number>  = { High: 0, Medium: 33.33, Low: 66.67 }
+
+// Given a normalised value t ∈ [0,1], return % position within the band
+const inBandX = (band: string, t: number): number => {
+  const start = (BAND_LEFT[band] ?? 33.33) + BAND_MARGIN
+  return start + (BAND_SIZE - 2 * BAND_MARGIN) * t
+}
+const inBandY = (band: string, t: number): number => {
+  const start = (BAND_TOP[band] ?? 33.33) + BAND_MARGIN
+  // higher t → higher up → smaller Y%
+  return start + (BAND_SIZE - 2 * BAND_MARGIN) * (1 - t)
 }
 
-// Returns Y% position (0=top, 100=bottom) for an outsourcing band + score
-// High outsourcing = top (low Y%), so higher score → smaller Y%
-const bandYPct = (band: string, score: number | null): number => {
-  const bandTop: Record<string, number> = { High: 0, Medium: 33.33, Low: 66.67 }
-  const start = bandTop[band] ?? 33.33
-  const inner = BAND_SIZE * (1 - 2 * BAND_PAD)
-  // higher out score → higher up → lower Y%
-  const norm = score !== null ? score / 100 : 0.5
-  return start + BAND_SIZE * BAND_PAD + inner * (1 - norm)
+// Pre-compute per-quadrant score ranges so we can normalise within each quadrant
+type QuadrantKey = string // `${outBand}-${offBand}`
+const computeQuadrantRanges = (clients: CMClient[], mode: WhisperMode) => {
+  const ranges: Record<QuadrantKey, { min: number; max: number }> = {}
+  clients.forEach(c => {
+    const ar = mode === 'post' && c.post
+      ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
+      : { out: c.out, off: c.off }
+    if (!ar.out || !ar.off) return
+    const s = overallScore(c, mode)
+    if (s === null) return
+    const key: QuadrantKey = `${ar.out}-${ar.off}`
+    if (!ranges[key]) ranges[key] = { min: s, max: s }
+    else { ranges[key].min = Math.min(ranges[key].min, s); ranges[key].max = Math.max(ranges[key].max, s) }
+  })
+  return ranges
 }
 
 const STAGE_COLOR: Record<string, string> = {
@@ -292,6 +304,12 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   const [hmWave, setHmWave] = useState<WaveFilter>('all')
   const [hmRegion, setHmRegion] = useState<RegionFilter>('all')
   const [hmStage, setHmStage] = useState<StageFilter>('all')
+
+  // Pre-compute per-quadrant score ranges (used for intra-quadrant normalisation)
+  const quadrantRanges = useMemo(
+    () => computeQuadrantRanges(allClients, whisperMode),
+    [allClients, whisperMode]
+  )
 
   // Filter clients to the ones that have both out+off ratings for current mode
   const plotted = useMemo(() => {
@@ -460,9 +478,15 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
                 ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
                 : { out: c.out, off: c.off }
               const diam = revTierDiam(c.rev)
-              const score = overallScore(c, whisperMode)
-              const xPct = bandXPct(ar.off as string, score)
-              const yPct = bandYPct(ar.out as string, score)
+              const score = overallScore(c, whisperMode) ?? 50
+              // Normalise score within its quadrant's min–max range
+              const qKey: QuadrantKey = `${ar.out}-${ar.off}`
+              const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
+              const t = qRange.max > qRange.min
+                ? (score - qRange.min) / (qRange.max - qRange.min)
+                : 0.5 // single client in quadrant → centre
+              const xPct = inBandX(ar.off as string, t)
+              const yPct = inBandY(ar.out as string, t)
               const isEMEA = c.region.startsWith('EMEA')
               const bubbleBg = isEMEA ? '#9aa0c0' : '#1a1f4e'
               return (
