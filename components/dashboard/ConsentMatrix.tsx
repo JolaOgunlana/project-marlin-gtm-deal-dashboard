@@ -289,9 +289,185 @@ const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >=
 
 
 
-interface HeatMapProps {
-  allClients: CMClient[]
+// ── PlotArea: renders gradient canvas + grid + bubbles with collision-free labels ──
+const LABEL_H = 14   // px height of each label line
+const LABEL_CHAR_W = 6 // approximate px per character at font-size 10.5
+
+interface PlotAreaProps {
+  plotRef: React.RefObject<HTMLDivElement>
+  canvasRef: React.RefObject<HTMLCanvasElement>
+  plotted: CMClient[]
   whisperMode: WhisperMode
+  quadrantRanges: Record<string, { min: number; max: number }>
+  setTooltip: (t: { x: number; y: number; name: string; out: Rating; off: Rating; score: number | null } | null) => void
+}
+
+function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
+  const PLOT_H = 640 // px — tall enough for 63 pre-whisper bubbles
+
+  // Convert % → approximate px for collision checks (use fixed reference width)
+  const REF_W = 1000
+
+  type BubbleInfo = {
+    c: CMClient
+    xPct: number
+    yPct: number
+    diam: number
+    score: number | null
+    ar: { out: Rating; off: Rating }
+    isEMEA: boolean
+    bubbleBg: string
+    labelAbove: boolean  // true = label above bubble, false = below
+    labelOffsetX: number // extra horizontal nudge to avoid overlap (px)
+  }
+
+  const bubbles: BubbleInfo[] = plotted.map(c => {
+    const ar = whisperMode === 'post' && c.post
+      ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
+      : { out: c.out, off: c.off }
+    const diam = revTierDiam(c.rev)
+    const score = overallScore(c, whisperMode) ?? 50
+    const qKey = `${ar.out}-${ar.off}`
+    const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
+    const t = qRange.max > qRange.min ? (score - qRange.min) / (qRange.max - qRange.min) : 0.5
+    const xPct = inBandX(ar.off as string, t)
+    const yPct = inBandY(ar.out as string, t)
+    const isEMEA = c.region.startsWith('EMEA')
+    return {
+      c, xPct, yPct, diam, score: overallScore(c, whisperMode), ar,
+      isEMEA, bubbleBg: isEMEA ? '#9aa0c0' : '#1a1f4e',
+      labelAbove: true, labelOffsetX: 0,
+    }
+  })
+
+  // Simple collision resolution for labels:
+  // For each bubble, check if its label rect overlaps any prior label rect.
+  // If it does, flip to below; if still overlaps, add a horizontal nudge.
+  type LabelRect = { cx: number; top: number; bottom: number; left: number; right: number }
+  const usedRects: LabelRect[] = []
+
+  const resolved = bubbles.map(b => {
+    const cx = (b.xPct / 100) * REF_W
+    const cy = (b.yPct / 100) * PLOT_H
+    const labelW = Math.min(b.c.name.length * LABEL_CHAR_W, 120)
+    const halfW = labelW / 2
+    const gap = 4
+
+    const rectAbove = { cx, top: cy - b.diam / 2 - gap - LABEL_H, bottom: cy - b.diam / 2 - gap, left: cx - halfW, right: cx + halfW }
+    const rectBelow = { cx, top: cy + b.diam / 2 + gap, bottom: cy + b.diam / 2 + gap + LABEL_H, left: cx - halfW, right: cx + halfW }
+
+    const overlaps = (a: LabelRect, bx: LabelRect) =>
+      a.left < bx.right && a.right > bx.left && a.top < bx.bottom && a.bottom > bx.top
+
+    const aboveOverlaps = usedRects.some(r => overlaps(r, rectAbove))
+    const belowOverlaps = usedRects.some(r => overlaps(r, rectBelow))
+
+    let chosen = rectAbove
+    let labelAbove = true
+    let labelOffsetX = 0
+
+    if (aboveOverlaps && !belowOverlaps) {
+      chosen = rectBelow; labelAbove = false
+    } else if (aboveOverlaps && belowOverlaps) {
+      // Both overlap — nudge horizontally by half the width + small gap
+      const nudge = halfW + 6
+      const rectNudged = { ...rectAbove, left: rectAbove.left + nudge, right: rectAbove.right + nudge, cx: cx + nudge }
+      chosen = rectNudged; labelOffsetX = nudge
+    }
+
+    // Clamp to chart boundaries
+    if (chosen.top < 0) { chosen = { ...chosen, top: 0, bottom: LABEL_H }; labelAbove = false }
+    if (chosen.bottom > PLOT_H) { chosen = { ...chosen, top: PLOT_H - LABEL_H, bottom: PLOT_H }; labelAbove = true }
+
+    usedRects.push(chosen)
+    return { ...b, labelAbove, labelOffsetX }
+  })
+
+  return (
+    <>
+      <div
+        ref={plotRef}
+        style={{ position: 'relative', height: PLOT_H, borderRadius: 8, overflow: 'hidden' }}
+      >
+        {/* Canvas gradient */}
+        <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', borderRadius: 8, display: 'block' }} />
+
+        {/* Dashed grid lines */}
+        {[33.33, 66.67].map(p => (
+          <React.Fragment key={`g${p}`}>
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${p}%`, borderLeft: '1px dashed rgba(120,130,160,0.5)', zIndex: 1, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', left: 0, right: 0, top: `${p}%`, borderTop: '1px dashed rgba(120,130,160,0.5)', zIndex: 1, pointerEvents: 'none' }} />
+          </React.Fragment>
+        ))}
+
+        {/* Bubbles + collision-resolved name labels */}
+        {resolved.map((b, i) => {
+          const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, labelAbove, labelOffsetX } = b
+          const labelGap = diam / 2 + 5
+          return (
+            <React.Fragment key={i}>
+              {/* Label — absolutely positioned relative to plot, independent of bubble */}
+              <div style={{
+                position: 'absolute',
+                left: `calc(${xPct}% + ${labelOffsetX}px)`,
+                top: labelAbove
+                  ? `calc(${yPct}% - ${labelGap + LABEL_H}px)`
+                  : `calc(${yPct}% + ${labelGap}px)`,
+                transform: 'translateX(-50%)',
+                fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
+                whiteSpace: 'nowrap',
+                textShadow: '0 1px 5px rgba(255,255,255,0.95), 0 1px 5px rgba(255,255,255,0.95)',
+                zIndex: 5,
+                pointerEvents: 'none',
+                maxWidth: 130,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                lineHeight: `${LABEL_H}px`,
+              }}>
+                {c.name}
+              </div>
+
+              {/* Bubble */}
+              <div
+                onMouseEnter={e => {
+                  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+                  setTooltip({ x: rect.left + diam / 2, y: rect.top, name: c.name, out: ar.out, off: ar.off, score })
+                }}
+                onMouseLeave={() => setTooltip(null)}
+                style={{
+                  position: 'absolute',
+                  left: `${xPct}%`,
+                  top: `${yPct}%`,
+                  transform: 'translate(-50%, -50%)',
+                  width: diam, height: diam, borderRadius: '50%',
+                  background: bubbleBg,
+                  border: `3px solid ${isEMEA ? '#c9ccdb' : '#fff'}`,
+                  boxShadow: '0 3px 12px rgba(0,0,0,0.22)',
+                  cursor: 'default',
+                  zIndex: 4,
+                }}
+              />
+            </React.Fragment>
+          )
+        })}
+      </div>
+
+      {/* X band labels */}
+      <div style={{ display: 'flex', marginTop: 6 }}>
+        {(['LOW','MEDIUM','HIGH'] as const).map(l => (
+          <div key={l} style={{ flex: 1, textAlign: 'center' }}>
+            <span style={{
+              fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
+              color: l === 'HIGH' ? '#1a6e1a' : l === 'LOW' ? '#a01020' : '#8a6a00',
+            }}>{l}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 8, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.55)' }}>
+        Offshoring Consent Likelihood
+      </div>
+    </>
+  )
 }
 
 function HeatMap({ allClients, whisperMode }: HeatMapProps) {
@@ -457,95 +633,14 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
 
         {/* Plot canvas area */}
         <div style={{ flex: 1, minWidth: 0, position: 'relative' }}>
-          <div
-            ref={plotRef}
-            style={{ position: 'relative', height: 480, borderRadius: 8, overflow: 'visible' }}
-          >
-            {/* Canvas gradient */}
-            <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', borderRadius: 8, display: 'block' }} />
-
-            {/* Dashed grid lines */}
-            {[33.33, 66.67].map(p => (
-              <React.Fragment key={`g${p}`}>
-                <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${p}%`, borderLeft: '1px dashed rgba(120,130,160,0.45)', zIndex: 1, pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', left: 0, right: 0, top: `${p}%`, borderTop: '1px dashed rgba(120,130,160,0.45)', zIndex: 1, pointerEvents: 'none' }} />
-              </React.Fragment>
-            ))}
-
-            {/* Bubbles + name labels */}
-            {plotted.map((c, i) => {
-              const ar = whisperMode === 'post' && c.post
-                ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
-                : { out: c.out, off: c.off }
-              const diam = revTierDiam(c.rev)
-              const score = overallScore(c, whisperMode) ?? 50
-              // Normalise score within its quadrant's min–max range
-              const qKey: QuadrantKey = `${ar.out}-${ar.off}`
-              const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
-              const t = qRange.max > qRange.min
-                ? (score - qRange.min) / (qRange.max - qRange.min)
-                : 0.5 // single client in quadrant → centre
-              const xPct = inBandX(ar.off as string, t)
-              const yPct = inBandY(ar.out as string, t)
-              const isEMEA = c.region.startsWith('EMEA')
-              const bubbleBg = isEMEA ? '#9aa0c0' : '#1a1f4e'
-              return (
-                <div
-                  key={i}
-                  style={{
-                    position: 'absolute',
-                    left: `${xPct}%`,
-                    top: `${yPct}%`,
-                    transform: 'translate(-50%, -50%)',
-                    zIndex: 4,
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-                  }}
-                >
-                  {/* Client name above */}
-                  <div style={{
-                    fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
-                    whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(255,255,255,0.9)',
-                    marginBottom: 2, textAlign: 'center',
-                    maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis',
-                  }}>
-                    {c.name}
-                  </div>
-                  {/* Bubble */}
-                  <div
-                    onMouseEnter={e => {
-                      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
-                      setTooltip({ x: rect.left + diam / 2, y: rect.top, name: c.name, out: ar.out, off: ar.off, score })
-                    }}
-                    onMouseLeave={() => setTooltip(null)}
-                    style={{
-                      width: diam, height: diam, borderRadius: '50%',
-                      background: bubbleBg,
-                      border: `3px solid ${isEMEA ? '#c9ccdb' : '#fff'}`,
-                      boxShadow: '0 3px 12px rgba(0,0,0,0.22)',
-                      cursor: 'default',
-                      flexShrink: 0,
-                    }}
-                  />
-                </div>
-              )
-            })}
-          </div>
-
-          {/* X band labels inside chart area — LOW / MEDIUM / HIGH */}
-          <div style={{ display: 'flex', marginTop: 6 }}>
-            {(['LOW','MEDIUM','HIGH'] as const).map((l, i) => (
-              <div key={l} style={{ flex: 1, textAlign: 'center' }}>
-                <span style={{
-                  fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
-                  color: l === 'HIGH' ? '#1a6e1a' : l === 'LOW' ? '#a01020' : '#8a6a00',
-                }}>{l}</span>
-              </div>
-            ))}
-          </div>
-          {/* X-axis main label */}
-          <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 20, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.55)' }}>
-            Offshoring Consent Likelihood
-          </div>
+          <PlotArea
+            plotRef={plotRef}
+            canvasRef={canvasRef}
+            plotted={plotted}
+            whisperMode={whisperMode}
+            quadrantRanges={quadrantRanges}
+            setTooltip={setTooltip}
+          />
         </div>
       </div>
 
