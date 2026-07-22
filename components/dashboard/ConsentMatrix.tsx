@@ -36,7 +36,7 @@ interface CMClient {
   lockPostPosition?: boolean
 }
 
-type SortKey = 'id' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
+type SortKey = 'rev' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
 type SortDir = 'asc' | 'desc'
 type DealFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
@@ -879,7 +879,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
   const [stageFilter, setStageFilter] = useState<StageFilter>('all')
   const [search, setSearch] = useState('')
-  const [sortKey, setSortKey] = useState<SortKey>('rev' as SortKey)
+  const [sortKey, setSortKey] = useState<SortKey>('rev')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
   const [openDetail, setOpenDetail] = useState<{ row: number; lever: 'out' | 'off' | 'dig' | 'price' } | null>(null)
   const [rationaleOpen, setRationaleOpen] = useState(false)
@@ -908,8 +908,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
     const getRatingVal = (r: Rating) => r ? (ratingOrder[r] ?? 0) : 0
     return [...filtered].sort((a, b) => {
       let av: number | string = 0, bv: number | string = 0
-      if (sortKey === 'id') { av = a.id; bv = b.id }
-      else if (sortKey === 'name') { av = a.name; bv = b.name }
+      if (sortKey === 'name') { av = a.name; bv = b.name }
       else if (sortKey === 'deal') { av = a.dealType; bv = b.dealType }
       else if (sortKey === 'region') { av = a.region; bv = b.region }
       else if (sortKey === 'wave') { av = a.wave; bv = b.wave }
@@ -1235,7 +1234,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               </colgroup>
               <thead>
                 <tr>
-                  <th onClick={() => handleSort('id')} style={{ ...thStyle, textAlign: 'left' }}>Client ID{sortArrow('id')}</th>
+                  <th style={{ ...thStyle, textAlign: 'left' }}>Oppt. ID</th>
                   <th onClick={() => handleSort('name')} style={{ ...thStyle, textAlign: 'left' }}>Client Name{sortArrow('name')}</th>
                   <th onClick={() => handleSort('deal')} style={thStyle}>Deal Type{sortArrow('deal')}</th>
                   <th onClick={() => handleSort('region')} style={thStyle}>Region{sortArrow('region')}</th>
