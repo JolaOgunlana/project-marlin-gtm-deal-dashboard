@@ -438,11 +438,10 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
         {resolved.map((b, i) => {
           const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, stage, labelAbove, labelOffsetPx } = b
           const labelGap = diam / 2 + 4
-          // Stage 1 → light-blue outer ring (box-shadow halo), EMEA → lighter border
-          const borderColor = isEMEA ? '#a0aacf' : 'rgba(255,255,255,0.85)'
-          const boxShadow = stage === 1
-            ? `0 0 0 4px rgba(122,168,255,0.55), 0 3px 12px rgba(0,0,0,0.22)`
-            : `0 3px 12px rgba(0,0,0,0.22)`
+          // Inner border: white for NA, light for EMEA — keeps bubble fill clean
+          const innerBorder = isEMEA ? '#a0aacf' : 'rgba(255,255,255,0.9)'
+          // Outer ring: solid stage color, no fade
+          const stageRingColor = STAGE_COLOR[String(stage)] ?? '#c9ccdb'
           return (
             <React.Fragment key={i}>
               {/* Label */}
@@ -480,8 +479,10 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
                   transform: 'translate(-50%, -50%)',
                   width: diam, height: diam, borderRadius: '50%',
                   background: bubbleBg,
-                  border: `2.5px solid ${borderColor}`,
-                  boxShadow,
+                  border: `2px solid ${innerBorder}`,
+                  outline: `2px solid ${stageRingColor}`,
+                  outlineOffset: '1px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
                   cursor: 'default',
                   zIndex: 4,
                 }}
@@ -690,7 +691,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Stage</span>
           {STAGE_LABELS.map(([, label, col]) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: col, border: '1px solid rgba(0,0,0,0.08)', flexShrink: 0 }} />
+              <div style={{ width: 11, height: 11, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
               <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
             </div>
           ))}
