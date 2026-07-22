@@ -522,7 +522,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
         {(['LOW','MEDIUM','HIGH'] as const).map(l => (
           <div key={l} style={{ flex: 1, textAlign: 'center' }}>
             <span style={{
-              fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
+              fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
               color: l === 'HIGH' ? '#1a6e1a' : l === 'LOW' ? '#a01020' : '#8a6a00',
             }}>{l}</span>
           </div>
@@ -684,11 +684,11 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
         </div>
 
         {/* Y band labels */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', width: 40, marginRight: 6, paddingTop: 4, paddingBottom: 4, flexShrink: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: 44, marginRight: 6, paddingTop: 4, paddingBottom: 4, flexShrink: 0 }}>
           {(['HIGH','MEDIUM','LOW'] as const).map(l => (
             <div key={l} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
               <span style={{
-                fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
+                fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
                 color: l === 'HIGH' ? '#1a6e1a' : l === 'MEDIUM' ? '#8a6a00' : '#a01020',
                 writingMode: 'vertical-rl', transform: 'rotate(180deg)',
               }}>{l}</span>
@@ -815,7 +815,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   )
 }
 
-// ── Main component ────────────────────────────────────────────────���────────
+// ── Main component ────────────────────────────────────────────────�����────────
 export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('pre')
   const [dealFilter, setDealFilter] = useState<DealFilter>('total')
