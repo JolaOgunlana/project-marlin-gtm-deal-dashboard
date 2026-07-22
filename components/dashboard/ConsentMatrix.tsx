@@ -1070,7 +1070,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                 {/* Score → Band */}
                 <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Score → Band</div>
-                  {([['High','75 – 100'],['Medium','50 – 74'],['Low','under 50']] as const).map(([b, r], idx, arr) => (
+                  {([['High','75 – 100'],['Medium','50 ��� 74'],['Low','under 50']] as const).map(([b, r], idx, arr) => (
                     <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '10px 0', borderBottom: idx < arr.length - 1 ? '1px solid #eef0f6' : 'none', fontSize: 13.5 }}>
                       <span style={{ fontWeight: 700, color: '#1a1f4e', minWidth: 64 }}>{b}</span>
                       <span style={{ color: '#4a5060' }}>{r}</span>
@@ -1292,13 +1292,13 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                                 rating={rating}
                                 onClick={canExpand ? () => toggleDetail(i, lever) : undefined}
                                 active={isDetailOpen}
-                                noSignals={whisperMode === 'pre'}
+                                noSignals={!rating}
                               />
                             </td>
                           )
                         })}
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', verticalAlign: 'middle', borderLeft: '3px solid #9ca3b5', background: 'rgba(26,31,78,0.015)' }}>
-                          <OverallScore score={score} noSignals={whisperMode === 'pre'} />
+                          <OverallScore score={score} noSignals={score === null} />
                         </td>
                       </tr>
                       {/* Expandable detail row */}
