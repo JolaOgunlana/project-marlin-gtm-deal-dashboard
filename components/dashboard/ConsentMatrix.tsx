@@ -528,7 +528,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
           </div>
         ))}
       </div>
-      <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 8, fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.78)' }}>
+      <div style={{ textAlign: 'center', marginTop: 12, marginBottom: 8, fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.78)' }}>
         Offshoring Consent Likelihood
       </div>
     </>
