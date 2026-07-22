@@ -873,7 +873,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 type Page = 'dashboard' | 'consent'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
-  const [whisperMode, setWhisperMode] = useState<WhisperMode>('pre')
+  const [whisperMode, setWhisperMode] = useState<WhisperMode>('post')
   const [dealFilter, setDealFilter] = useState<DealFilter>('total')
   const [waveFilter, setWaveFilter] = useState<WaveFilter>('all')
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
@@ -1091,7 +1091,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           </div>
         </div>
 
-        {/* ── Heat-Map with Filters ── */}
+        {/* ─��� Heat-Map with Filters ── */}
         <HeatMap 
           allClients={filtered} 
           whisperMode={whisperMode}
