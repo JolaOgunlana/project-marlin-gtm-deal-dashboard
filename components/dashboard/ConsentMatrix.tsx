@@ -1109,6 +1109,28 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           )}
         </div>
 
+        {/* ── Heat-Map Header with Filters ── */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 24, marginBottom: 20 }}>
+          <h3 style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', margin: 0, whiteSpace: 'nowrap' }}>Consent Propensity Heat-Map</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, flex: 1 }}>
+            {[
+              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter as (v: string) => void },
+              { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter as (v: string) => void },
+              { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter as (v: string) => void },
+              { label: 'Stage', btns: [['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter as (v: string) => void },
+            ].map(row => (
+              <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                  {row.btns.map(([val, lbl]) => (
+                    <FilterBtn key={val} active={row.state === val} onClick={() => row.set(val)}>{lbl}</FilterBtn>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ── Heat-Map ── */}
         <HeatMap allClients={filtered} whisperMode={whisperMode} />
 
