@@ -24,11 +24,14 @@ interface CMClient {
   dig: Rating
   price: Rating
   post?: {
-    out?: PostLever
-    off?: PostLever
-    dig?: PostLever
-    price?: PostLever
+    out?:   { rating: Rating; rationale: string }
+    off?:   { rating: Rating; rationale: string }
+    dig?:   { rating: Rating; rationale: string }
+    price?: { rating: Rating; rationale: string }
   }
+  // Visual-only nudge in percentage points applied only in post-whisper view
+  postNudgeX?: number
+  postNudgeY?: number
 }
 
 type SortKey = 'id' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
@@ -45,6 +48,7 @@ type WhisperMode = 'pre' | 'post'
 // `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
 const CM_DATA: CMClient[] = [
   { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
+    postNudgeX: 4, postNudgeY: -4,
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
       off:{ rating:"Medium", rationale:'Offshore voice support is a clear "red light". It was stated that they cannot envisage a future where voice services would move offshore. Given the ongoing Nationwide/Virgin Money integration, any offshoring would be viewed as additional customer disruption. However, they are open to exploring offshoring for chat and operational activities.' },
@@ -368,8 +372,8 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
       // NA = dark navy, EMEA = dark grey
       bubbleBg: isEMEA ? '#555b6e' : '#1a1f4e',
       stage: c.stage,
-      xPct: inBandX(ar.off as string, t),
-      yPct: inBandY(ar.out as string, t),
+      xPct: inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : 0),
+      yPct: inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : 0),
     }
   })
 
