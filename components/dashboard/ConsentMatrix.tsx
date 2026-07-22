@@ -1112,27 +1112,6 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         {/* ── Heat-Map ── */}
         <HeatMap allClients={filtered} whisperMode={whisperMode} />
 
-        {/* ── Filters ── */}
-        <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '20px 24px', marginBottom: 20 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {[
-              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention'],['new','New Deal']], state: dealFilter, set: setDealFilter as (v: string) => void },
-              { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter as (v: string) => void },
-              { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter as (v: string) => void },
-              { label: 'Stage', btns: [['all','All'],['1','1 · New Opp.'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter as (v: string) => void },
-            ].map(row => (
-              <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)', minWidth: 80, flexShrink: 0 }}>{row.label}</span>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {row.btns.map(([val, lbl]) => (
-                    <FilterBtn key={val} active={row.state === val} onClick={() => row.set(val)}>{lbl}</FilterBtn>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* ���─ Info note ── */}
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 12, padding: '10px 14px', background: 'rgba(26,31,78,0.03)', border: '1px solid #e2e4ee', borderRadius: 8, fontSize: 12, lineHeight: 1.55, color: 'rgba(26,31,78,0.7)' }}>
           <span style={{ color: '#5b2d6e', fontSize: 13, flexShrink: 0 }}>ⓘ</span>
