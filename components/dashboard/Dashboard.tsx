@@ -11,7 +11,7 @@ type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 type WhisperFilter = 'all' | 'completed'
 
-export function Dashboard() {
+export function Dashboard({ onNavigate }: { onNavigate: () => void }) {
   const [clientFilter, setClientFilter] = useState<ClientFilter>('total')
   const [waveFilter, setWaveFilter] = useState<WaveFilter>('all')
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
@@ -65,6 +65,24 @@ export function Dashboard() {
             <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 4, marginBottom: 1 }}>Next Update</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>July 22nd 2026 · 18:00 EST</div>
           </div>
+          {/* Next page nav button */}
+          <button
+            onClick={onNavigate}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              marginTop: 6,
+              padding: '10px 22px',
+              background: '#7ed321', color: '#1a1f4e',
+              border: 'none', borderRadius: 8,
+              fontSize: 13, fontWeight: 800, letterSpacing: '0.03em',
+              cursor: 'pointer', fontFamily: 'inherit',
+              boxShadow: '0 4px 14px rgba(126,211,33,0.4)',
+              transition: 'background 0.15s',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Consent Likelihood Matrix →
+          </button>
         </div>
       </div>
 
