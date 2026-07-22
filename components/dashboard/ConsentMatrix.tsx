@@ -34,6 +34,8 @@ interface CMClient {
   postNudgeY?: number
   // Lock this client to its pre-whisper position in the post-whisper heatmap
   lockPostPosition?: boolean
+  // Lock this client to its post-whisper position in the pre-whisper heatmap
+  lockPrePosition?: boolean
 }
 
 type SortKey = 'rev' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
@@ -121,7 +123,7 @@ const CM_DATA: CMClient[] = [
   { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Valley National BK", id:"", rev:84000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPostPosition:true,
+  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true,
     post:{
       out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
       off:{ rating:"Medium", rationale:"Offshoring not applicable." },
@@ -376,6 +378,27 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
     })
   }, [allClients])
 
+  // Compute locked clients' positions from the FULL post-whisper dataset so the
+  // pre-whisper view can pin a client to its post-whisper coordinates.
+  const postBase = useMemo(() => {
+    const postRanges = computeQuadrantRanges(allClients, 'post')
+    return allClients.filter(c => c.lockPrePosition && c.post).map(c => {
+      const ar = {
+        out: (c.post?.out?.rating ?? c.out) as Rating,
+        off: (c.post?.off?.rating ?? c.off) as Rating,
+      }
+      const scoreForPos = overallScore(c, 'post') ?? 50
+      const qKey = `${ar.out}-${ar.off}`
+      const qRange = postRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
+      const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
+      return {
+        name: c.name,
+        xPct: inBandX(ar.off as string, t) + (c.postNudgeX ?? 0),
+        yPct: inBandY(ar.out as string, t) + (c.postNudgeY ?? 0),
+      }
+    })
+  }, [allClients])
+
   // ── Step 1: base positions from overall propensity within quadrant ─────────
   const base = plotted.map(c => {
     const ar = whisperMode === 'post' && c.post
@@ -386,9 +409,13 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
     const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
     const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
     const isEMEA = c.region.startsWith('EMEA')
-    const locked = whisperMode === 'post' && c.lockPostPosition
+    const lockedPost = whisperMode === 'post' && c.lockPostPosition
       ? preBase.find(p => p.name === c.name)
       : null
+    const lockedPre = whisperMode === 'pre' && c.lockPrePosition
+      ? postBase.find(p => p.name === c.name)
+      : null
+    const locked = lockedPost ?? lockedPre ?? null
     return {
       c, ar,
       score: overallScore(c, whisperMode),
