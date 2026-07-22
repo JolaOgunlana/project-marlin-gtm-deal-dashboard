@@ -569,7 +569,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
       {/* ── Content ── */}
       <div style={{ padding: '0 28px 48px' }}>
         {/* Description */}
-        <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, maxWidth: 820 }}>
+        <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, width: '100%' }}>
           A simplified view for comparing clients — this dashboard shows propensity ratings across the four consent levers (Outsourcing, Offshoring, Digitization and Price Maintain) and an overall blended propensity score. Data combines FIS/TIS client intelligence for pre-whisper ratings with Executive/CSM feedback for post-whisper ratings. Colour bands flag where consent risk concentrates to help inform client strategy.
         </p>
 
