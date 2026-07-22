@@ -164,8 +164,22 @@ const regionColor = (r: string) => {
 }
 
 // ── Sub-components ─────────────────────────────────────────────────────────
-function RatingPill({ rating, onClick, active }: { rating: Rating; onClick?: () => void; active?: boolean }) {
-  if (!rating) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
+function NotEnoughSignals() {
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center',
+      padding: '5px 9px', borderRadius: 7,
+      background: '#f0f1f5', color: 'rgba(26,31,78,0.45)',
+      fontSize: 10.5, fontStyle: 'italic', fontWeight: 500,
+      whiteSpace: 'nowrap', border: '1.5px solid transparent',
+    }}>
+      Not enough signals
+    </span>
+  )
+}
+
+function RatingPill({ rating, onClick, active, noSignals }: { rating: Rating; onClick?: () => void; active?: boolean; noSignals?: boolean }) {
+  if (!rating) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const styles: Record<string, { bg: string; color: string; dot: string }> = {
     High: { bg: '#d8f3d8', color: '#1a6e1a', dot: '#2e9e2e' },
     Medium: { bg: '#fdf1c9', color: '#8a6a00', dot: '#e8a800' },
@@ -196,8 +210,8 @@ function RatingPill({ rating, onClick, active }: { rating: Rating; onClick?: () 
   )
 }
 
-function OverallScore({ score }: { score: number | null }) {
-  if (score === null) return <span style={{ color: 'rgba(26,31,78,0.35)', fontStyle: 'italic', fontSize: 11 }}>—</span>
+function OverallScore({ score, noSignals }: { score: number | null; noSignals?: boolean }) {
+  if (score === null) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.35)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const band = scoreBand(score)
   const barColor = band === 'High' ? '#2e9e2e' : band === 'Medium' ? '#e8a800' : '#d0021b'
   const badgeBg = band === 'High' ? '#d8f3d8' : band === 'Medium' ? '#fdf1c9' : '#fde0e0'
@@ -388,7 +402,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
     return { ...b, xPct, labelAbove: true, labelOffsetPx: 0 }
   })
 
-  // ── Step 3: label collision resolution ────────────────────────────────────
+  // ── Step 3: label collision resolution ─────────────────────────��──────────
   // Try 6 candidate positions per label (above, below, right, left, top-right, top-left).
   // Place in the first non-overlapping slot; fall back to least-overlap option.
   type LabelRect = { left: number; right: number; top: number; bottom: number; labelAbove: boolean; labelOffsetPx: number }
@@ -1278,12 +1292,13 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                                 rating={rating}
                                 onClick={canExpand ? () => toggleDetail(i, lever) : undefined}
                                 active={isDetailOpen}
+                                noSignals={whisperMode === 'pre'}
                               />
                             </td>
                           )
                         })}
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', verticalAlign: 'middle', borderLeft: '3px solid #9ca3b5', background: 'rgba(26,31,78,0.015)' }}>
-                          <OverallScore score={score} />
+                          <OverallScore score={score} noSignals={whisperMode === 'pre'} />
                         </td>
                       </tr>
                       {/* Expandable detail row */}
