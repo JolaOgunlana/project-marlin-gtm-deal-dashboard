@@ -299,13 +299,20 @@ const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >=
 const LABEL_H = 14   // px height of each label line
 const LABEL_CHAR_W = 6 // approximate px per character at font-size 10.5
 
+interface TooltipInfo {
+  x: number
+  y: number
+  client: CMClient
+  whisperMode: WhisperMode
+}
+
 interface PlotAreaProps {
   plotRef: React.RefObject<HTMLDivElement>
   canvasRef: React.RefObject<HTMLCanvasElement>
   plotted: CMClient[]
   whisperMode: WhisperMode
   quadrantRanges: Record<string, { min: number; max: number }>
-  setTooltip: (t: { x: number; y: number; name: string; out: Rating; off: Rating; score: number | null } | null) => void
+  setTooltip: (t: TooltipInfo | null) => void
 }
 
 function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
@@ -449,7 +456,13 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
           return (
             <React.Fragment key={i}>
               {/* Label */}
-              <div style={{
+              <div
+                onMouseEnter={e => {
+                  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+                  setTooltip({ x: rect.right + 8, y: rect.top, client: c, whisperMode })
+                }}
+                onMouseLeave={() => setTooltip(null)}
+                style={{
                 position: 'absolute',
                 left: `calc(${xPct}% + ${labelOffsetPx > 0 ? labelGap : labelOffsetPx < 0 ? -labelGap : 0}px)`,
                 top: labelAbove
@@ -460,7 +473,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
                 whiteSpace: 'nowrap',
                 textShadow: '0 1px 4px rgba(255,255,255,0.98), 0 0 8px rgba(255,255,255,0.98)',
                 zIndex: 5,
-                pointerEvents: 'none',
+                cursor: 'default',
                 maxWidth: 160,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -473,7 +486,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
               <div
                 onMouseEnter={e => {
                   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
-                  setTooltip({ x: rect.left + diam / 2, y: rect.top, name: c.name, out: ar.out, off: ar.off, score })
+                  setTooltip({ x: rect.right + 8, y: rect.top, client: c, whisperMode })
                 }}
                 onMouseLeave={() => setTooltip(null)}
                 style={{
@@ -525,7 +538,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
 function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const plotRef = useRef<HTMLDivElement>(null)
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; name: string; out: Rating; off: Rating; score: number | null } | null>(null)
+  const [tooltip, setTooltip] = useState<TooltipInfo | null>(null)
 
   // Own filter state inside the heatmap card
   const [hmDeal, setHmDeal] = useState<DealFilter>('total')
@@ -733,12 +746,71 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
       </div>
 
       {/* Tooltip */}
-      {tooltip && (
-        <div style={{ position: 'fixed', top: tooltip.y - 8, left: tooltip.x, transform: 'translate(-50%, -100%)', zIndex: 9999, background: '#1a1f4e', color: '#fff', borderRadius: 8, padding: '9px 14px', fontSize: 12, pointerEvents: 'none', boxShadow: '0 4px 18px rgba(0,0,0,0.28)', whiteSpace: 'nowrap' }}>
-          <div style={{ fontWeight: 800, marginBottom: 4 }}>{tooltip.name}</div>
-          <div style={{ opacity: 0.75, fontSize: 11 }}>Out: {tooltip.out} · Off: {tooltip.off} · Score: {tooltip.score !== null ? Math.round(tooltip.score) : '—'}</div>
-        </div>
-      )}
+      {tooltip && (() => {
+        const c = tooltip.client
+        const mode = tooltip.whisperMode
+        const out  = mode === 'post' && c.post?.out  ? (c.post.out.rating  ?? c.out)  : c.out
+        const off  = mode === 'post' && c.post?.off  ? (c.post.off.rating  ?? c.off)  : c.off
+        const dig  = mode === 'post' && c.post?.dig  ? (c.post.dig.rating  ?? c.dig)  : c.dig
+        const price= mode === 'post' && c.post?.price? (c.post.price.rating?? c.price): c.price
+        const score = overallScore(c, mode)
+        const stageLbl = STAGE_LABELS.find(([s]) => s === String(c.stage))
+        const regionLbl = c.region === 'NA' ? 'North America' : c.region.startsWith('EMEA') ? 'EMEA' : c.region
+        const ratingColor = (r: Rating) => r === 'High' ? '#6ee76e' : r === 'Medium' ? '#fde87a' : r === 'Low' ? '#ff9999' : 'rgba(255,255,255,0.4)'
+
+        // Position: prefer right of cursor, flip left if too close to edge
+        const left = typeof window !== 'undefined' && tooltip.x + 220 > window.innerWidth
+          ? tooltip.x - 228
+          : tooltip.x
+
+        const rows: [string, React.ReactNode][] = [
+          ['Region', <span key="r" style={{ color: '#fff', fontWeight: 700 }}>{regionLbl}</span>],
+          ['Stage',  <span key="s" style={{ color: stageLbl ? stageLbl[2] : '#fff', fontWeight: 700 }}>{stageLbl ? stageLbl[1] : c.stage}</span>],
+          ['Overall',<span key="o" style={{ color: score !== null ? ratingColor(scoreBand(score)) : 'rgba(255,255,255,0.4)', fontWeight: 700 }}>{score !== null ? `${Math.round(score)} · ${scoreBand(score)}` : '—'}</span>],
+          ['Revenue',<span key="v" style={{ color: '#fff', fontWeight: 700 }}>{fmtRev(c.rev)}</span>],
+          ['Outsourcing', <span key="ou" style={{ color: ratingColor(out), fontWeight: 700 }}>{out ?? '—'}</span>],
+          ['Offshoring',  <span key="of" style={{ color: ratingColor(off), fontWeight: 700 }}>{off ?? '—'}</span>],
+          ['Digitization',<span key="d"  style={{ color: ratingColor(dig), fontWeight: 700 }}>{dig ?? '—'}</span>],
+          ['Price',       <span key="p"  style={{ color: ratingColor(price), fontWeight: 700 }}>{price ?? '—'}</span>],
+        ]
+
+        return (
+          <div style={{
+            position: 'fixed',
+            top: Math.max(8, tooltip.y),
+            left,
+            zIndex: 9999,
+            background: '#1a1f4e',
+            color: 'rgba(255,255,255,0.65)',
+            borderRadius: 10,
+            padding: '14px 18px',
+            fontSize: 12.5,
+            pointerEvents: 'none',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.38)',
+            minWidth: 210,
+            maxWidth: 260,
+          }}>
+            {/* Header */}
+            <div style={{
+              fontWeight: 800, fontSize: 14, color: '#fff',
+              marginBottom: 10, lineHeight: 1.3,
+              borderBottom: '1px solid rgba(255,255,255,0.12)',
+              paddingBottom: 8,
+            }}>
+              {c.name}
+            </div>
+            {/* Rows */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+              {rows.map(([label, val]) => (
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
+                  <span style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 400, whiteSpace: 'nowrap' }}>{label}</span>
+                  {val}
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }
