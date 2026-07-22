@@ -698,7 +698,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
               { label: 'Stage', btns: [['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
             ].map(row => (
               <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                   {row.btns.map(([val, lbl]) => (
                     <HmPill key={val} active={row.state === val} onClick={() => row.set(val as any)}>{lbl}</HmPill>
@@ -760,11 +760,11 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 
         {/* Left: Stage — spans all remaining space */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1, minWidth: 0 }}>
-          <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
+          <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
           {STAGE_LABELS.map(([, label, col]) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
               <div style={{ width: 11, height: 11, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
+              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
             </div>
           ))}
         </div>
@@ -774,7 +774,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 
           {/* Region row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)' }}>Region</span>
+            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)' }}>Region</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e', flexShrink: 0 }} />
               <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>North America</span>
@@ -787,7 +787,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 
           {/* Revenue Tier row — circles bottom-aligned with label beneath */}
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
-            <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginBottom: 4 }}>Revenue Tier</span>
+            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginBottom: 4 }}>Revenue Tier</span>
             {([[16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+']] as [number,string][]).map(([sz, label]) => (
               <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', flexShrink: 0 }} />
@@ -1035,7 +1035,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
 
           {/* Left: Propensity Rating toggle */}
           <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px' }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>
               Propensity Rating
             </div>
             <div style={{ display: 'flex', gap: 10, background: '#eef0f6', borderRadius: 11, padding: 5 }}>
@@ -1059,7 +1059,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                 </button>
               ))}
             </div>
-            <div style={{ fontSize: 11.5, color: 'rgba(26,31,78,0.42)', marginTop: 12, fontStyle: 'italic' }}>
+            <div style={{ fontSize: 13, color: 'rgba(26,31,78,0.42)', marginTop: 12, fontStyle: 'italic' }}>
               Filter comparison with Pre-Whisper and Post-Whisper Consent Likelihood
             </div>
           </div>
