@@ -637,37 +637,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
           <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
             Consent Propensity Heat-Map
           </div>
-          {/* Filter pills — stacked rows */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
-            {/* Opportunities row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Opportunities</span>
-              {([['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']] as const).map(([v,l]) => (
-                <HmPill key={v} active={hmDeal===v} onClick={() => setHmDeal(v)}>{l}</HmPill>
-              ))}
-            </div>
-            {/* Wave row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Wave</span>
-              {([['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']] as const).map(([v,l]) => (
-                <HmPill key={v} active={hmWave===v} onClick={() => setHmWave(v)}>{l}</HmPill>
-              ))}
-            </div>
-            {/* Region row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Region</span>
-              {([['all','All'],['NA','NA'],['EMEA','EMEA']] as const).map(([v,l]) => (
-                <HmPill key={v} active={hmRegion===v} onClick={() => setHmRegion(v)}>{l}</HmPill>
-              ))}
-            </div>
-            {/* Stage row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Stage</span>
-              {([['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']] as const).map(([v,l]) => (
-                <HmPill key={v} active={hmStage===v} onClick={() => setHmStage(v as StageFilter)}>{l}</HmPill>
-              ))}
-            </div>
-          </div>
+
         </div>
       </div>
 
