@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
+import { clients, type ClientRow } from '@/lib/data'
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type Rating = 'High' | 'Medium' | 'Low' | null
@@ -39,7 +40,26 @@ type StageFilter = 'all' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 type WhisperMode = 'pre' | 'post'
 
 // ── Data ──────────────────────────────────────────────────────────────────
-const CM_DATA: CMClient[] = [
+// Map ClientRow to CMClient, using shared clients data from GTM Dashboard
+const CM_DATA: CMClient[] = clients.map(row => ({
+  name: row.name,
+  id: row.id,
+  rev: row.tmsRevenue,
+  region: row.region,
+  dealType: row.clientType,
+  wave: parseInt(row.wave),
+  stage: parseInt(row.stage),
+  out: "Medium" as Rating,  // Default placeholder — from consent whisper data
+  off: "Low" as Rating,
+  dig: "High" as Rating,
+  price: "Low" as Rating,
+  post: row.salesCategory && row.salesCategory !== 'TBD' ? {
+    out: { rating: "High" as Rating, rationale: row.salesCategory },
+    off: { rating: "Medium" as Rating, rationale: row.salesCategory },
+    dig: { rating: "High" as Rating, rationale: row.salesCategory },
+    price: { rating: "High" as Rating, rationale: row.salesCategory }
+  } : undefined
+})).concat([
   { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
