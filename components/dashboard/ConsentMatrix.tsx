@@ -1194,9 +1194,9 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
               </colgroup>
               <thead>
                 <tr>
-                  <th onClick={() => handleSort('id')} style={{ ...thStyle, textAlign: 'left' }}>ID{sortArrow('id')}</th>
+                  <th onClick={() => handleSort('id')} style={{ ...thStyle, textAlign: 'left' }}>Client ID{sortArrow('id')}</th>
                   <th onClick={() => handleSort('name')} style={{ ...thStyle, textAlign: 'left' }}>Client Name{sortArrow('name')}</th>
-                  <th onClick={() => handleSort('deal')} style={thStyle}>Type{sortArrow('deal')}</th>
+                  <th onClick={() => handleSort('deal')} style={thStyle}>Deal Type{sortArrow('deal')}</th>
                   <th onClick={() => handleSort('region')} style={thStyle}>Region{sortArrow('region')}</th>
                   <th style={{ ...thStyle, textAlign: 'right' }}>TMS Revenue</th>
                   <th onClick={() => handleSort('wave')} style={thStyle}>Wave{sortArrow('wave')}</th>
@@ -1244,13 +1244,23 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
                           <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 7px', borderRadius: 5, fontSize: 10.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-                            {displayType}
+                            {gtm ? (gtm.clientType === 'existing' ? 'Existing' : 'New Deal') : (c.dealType === 'existing' ? 'Existing' : 'New Deal')}
                           </span>
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 8px', borderRadius: 999, fontSize: 10.5, fontWeight: 700, background: `${regionColor(displayRegion)}18`, color: regionColor(displayRegion), whiteSpace: 'nowrap' }}>
-                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: regionColor(displayRegion), flexShrink: 0 }} />
-                            {regionLabel(displayRegion)}
+                          {/* Match GTM Dashboard RegionBadge exactly */}
+                          <span style={{
+                            display: 'inline-block',
+                            padding: '2px 5px',
+                            borderRadius: 4,
+                            fontSize: 9,
+                            fontWeight: 700,
+                            letterSpacing: '0.02em',
+                            whiteSpace: 'nowrap',
+                            background: displayRegion.startsWith('EMEA') ? 'rgba(91,45,110,0.1)' : 'rgba(26,31,78,0.08)',
+                            color: displayRegion.startsWith('EMEA') ? '#5b2d6e' : '#1a1f4e',
+                          }}>
+                            {displayRegion}
                           </span>
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'right', fontVariantNumeric: 'tabular-nums', fontWeight: 800, fontSize: 12, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
