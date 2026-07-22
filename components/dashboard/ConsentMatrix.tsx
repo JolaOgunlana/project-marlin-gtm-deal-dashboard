@@ -564,9 +564,11 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
   const [hmStage, setHmStage] = useState<StageFilter>('all')
 
   // Pre-compute per-quadrant score ranges (used for intra-quadrant normalisation)
+  // Always compute ranges using pre-whisper ratings as the stable baseline so
+  // clients whose pre and post ratings are identical stay in the same position.
   const quadrantRanges = useMemo(
-    () => computeQuadrantRanges(allClients, whisperMode),
-    [allClients, whisperMode]
+    () => computeQuadrantRanges(allClients, 'pre'),
+    [allClients]
   )
 
   // Filter clients to the ones that have both out+off ratings for current mode
