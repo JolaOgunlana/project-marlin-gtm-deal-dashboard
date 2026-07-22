@@ -1254,12 +1254,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                           {displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontWeight: 600, fontSize: 12, color: '#1a1f4e', lineHeight: 1.3 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            {whisperMode === 'post' && c.post && (
-                              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#7ed321', flexShrink: 0, boxShadow: '0 0 4px #7ed32180' }} title="Whisper completed" />
-                            )}
-                            {c.name}
-                          </div>
+                          {c.name}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
                           <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 7px', borderRadius: 5, fontSize: 10.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
