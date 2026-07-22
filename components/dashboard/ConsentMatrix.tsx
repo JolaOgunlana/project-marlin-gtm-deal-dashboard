@@ -716,7 +716,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
       </div>
 
       {/* ── Legend row ── */}
-      <div style={{ padding: '12px 24px 16px', display: 'flex', alignItems: 'center', gap: 24 }}>
+      <div style={{ padding: '12px 24px 16px', display: 'flex', alignItems: 'flex-end', gap: 24 }}>
 
         {/* Left: Stage — spans all remaining space */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1, minWidth: 0 }}>
