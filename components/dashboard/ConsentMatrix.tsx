@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type Rating = 'High' | 'Medium' | 'Low' | null
@@ -104,6 +104,25 @@ const CM_DATA: CMClient[] = [
   { name:"The Bank Of Nova Scotia", id:"2280", rev:225000, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low" },
   { name:"IVR BOA", id:"", rev:160907, region:"EMEA-UK", dealType:"existing", wave:2, stage:1, out:"Medium", off:"Medium", dig:"Low", price:"Medium" },
   { name:"Navy Federal Credit Union", id:"", rev:151400, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Vancouver City Savings Credit", id:"", rev:132600, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Citibank", id:"1410", rev:106021, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"Medium", price:"Low" },
+  { name:"First Caribbean International Bank", id:"", rev:96000, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Valley National BK", id:"", rev:84000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"IVR RBS CLI", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High",
+    post:{
+      out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
+      off:{ rating:"Medium", rationale:"Offshoring not applicable." }
+    }},
+  { name:"Empire Innovation Group", id:"9018", rev:25200, region:"NA", dealType:"existing", wave:1, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"San Diego County Credit Union", id:"", rev:18780, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"MotivHealth", id:"9414", rev:10500, region:"NA", dealType:"existing", wave:1, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Commerce Bank Of Kansas City", id:"", rev:7800, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Pitney Bowes Credit Corp", id:"", rev:7620, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Acclaris, Inc.", id:"", rev:5400, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Wright Express Financial Serv", id:"", rev:3120, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -208,6 +227,205 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
     >
       {children}
     </button>
+  )
+}
+
+// ── Heat-map constants ─────────────────────────────────────────────────────
+const CM_Y_POS: Record<string, number> = { Low: 20, Medium: 50, High: 78 }
+const CM_X_POS: Record<string, number> = { Low: 16.666, Medium: 50, High: 83.333 }
+const STAGE_COLOR: Record<string, string> = { 0:'#c9ccdb', 1:'#7aa8ff', 2:'#06b6d4', 3:'#8b5cf6', 4:'#f59e0b', 5:'#14b8a6', 6:'#2e9e2e', 8:'#d0021b' }
+const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
+
+function heatColor(v: number): [number, number, number] {
+  v = Math.max(0, Math.min(1, v))
+  let r, g, b
+  if (v < 0.5) {
+    const t = v / 0.5
+    r = Math.round(55 + (255 - 55) * t); g = Math.round(150 + (225 - 150) * t); b = Math.round(50 + (60 - 50) * t)
+  } else {
+    const t = (v - 0.5) / 0.5
+    r = Math.round(255 + (232 - 255) * t); g = Math.round(225 + (95 - 225) * t); b = Math.round(60 + (80 - 60) * t)
+  }
+  return [r, g, b]
+}
+
+interface HeatMapProps {
+  clients: CMClient[]
+  whisperMode: WhisperMode
+}
+
+function HeatMap({ clients, whisperMode }: HeatMapProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const plotRef = useRef<HTMLDivElement>(null)
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; name: string; out: Rating; off: Rating; score: number | null } | null>(null)
+
+  // Paint the canvas background
+  const paintBackground = useCallback(() => {
+    const c = canvasRef.current
+    const plot = plotRef.current
+    if (!c || !plot) return
+    const W = plot.clientWidth || 900
+    const H = plot.clientHeight || 420
+    const RW = 160, RH = Math.max(60, Math.round(160 * H / W))
+    c.width = RW; c.height = RH
+    c.style.width = W + 'px'; c.style.height = H + 'px'
+    const ctx = c.getContext('2d')
+    if (!ctx) return
+    const img = ctx.createImageData(RW, RH)
+    for (let yy = 0; yy < RH; yy++) {
+      for (let xx = 0; xx < RW; xx++) {
+        const xN = xx / (RW - 1)
+        const yN = yy / (RH - 1)
+        let v = ((1 - xN) + yN) / 2
+        v += 0.05 * Math.sin(xN * 6.0 + yN * 2.0) + 0.04 * Math.cos(yN * 5.0 - xN * 1.5)
+        const [r, g, b] = heatColor(v)
+        const idx = (yy * RW + xx) * 4
+        img.data[idx] = r; img.data[idx + 1] = g; img.data[idx + 2] = b; img.data[idx + 3] = 255
+      }
+    }
+    ctx.putImageData(img, 0, 0)
+  }, [])
+
+  useEffect(() => {
+    paintBackground()
+    const obs = new ResizeObserver(() => paintBackground())
+    if (plotRef.current) obs.observe(plotRef.current)
+    return () => obs.disconnect()
+  }, [paintBackground])
+
+  // Only plot clients that have both out + off ratings
+  const plotted = clients.filter(c => {
+    const ar = whisperMode === 'post' && c.post
+      ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
+      : { out: c.out, off: c.off }
+    return ar.out && ar.off
+  })
+
+  return (
+    <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
+      {/* Header */}
+      <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #eef0f6' }}>
+        <div style={{ fontSize: 15, fontWeight: 800, color: '#1a1f4e' }}>Consent Propensity Heat-Map</div>
+        <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.5)', marginTop: 3 }}>
+          Outsourcing (Y-axis) vs. Offshoring (X-axis) · bubble size = TMS revenue · {plotted.length} client{plotted.length !== 1 ? 's' : ''} plotted
+        </div>
+      </div>
+
+      {/* Plot area */}
+      <div style={{ padding: '16px 24px 0', position: 'relative' }}>
+        {/* Y-axis label */}
+        <div style={{ position: 'absolute', left: 4, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap', transformOrigin: 'center center' }}>
+          Outsourcing Consent
+        </div>
+
+        <div ref={plotRef} style={{ position: 'relative', height: 420, marginLeft: 24, background: '#f4f5f9', borderRadius: 10, overflow: 'hidden', border: '1px solid #e2e4ee' }}>
+          {/* Canvas heatmap background */}
+          <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.82, borderRadius: 10 }} />
+
+          {/* Grid dividers */}
+          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+            {/* Vertical dividers at 33.3% and 66.6% */}
+            {[33.333, 66.666].map(p => (
+              <div key={p} style={{ position: 'absolute', top: 0, bottom: 0, left: `${p}%`, borderLeft: '1px solid rgba(255,255,255,0.35)', zIndex: 1 }} />
+            ))}
+            {/* Horizontal dividers at 33.3% and 66.6% from bottom */}
+            {[33.333, 66.666].map(p => (
+              <div key={p} style={{ position: 'absolute', left: 0, right: 0, bottom: `${p}%`, borderBottom: '1px solid rgba(255,255,255,0.35)', zIndex: 1 }} />
+            ))}
+            {/* X-axis tier labels */}
+            {(['Low', 'Medium', 'High'] as const).map((tier, i) => (
+              <div key={tier} style={{ position: 'absolute', bottom: 6, left: `${i * 33.333 + 16.666}%`, transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em', zIndex: 2, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
+                {tier}
+              </div>
+            ))}
+            {/* Y-axis tier labels */}
+            {(['High', 'Medium', 'Low'] as const).map((tier, i) => (
+              <div key={tier} style={{ position: 'absolute', left: 6, top: `${i * 33.333 + 11}%`, fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em', zIndex: 2, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
+                {tier}
+              </div>
+            ))}
+          </div>
+
+          {/* Bubbles */}
+          {plotted.map((c, i) => {
+            const ar = whisperMode === 'post' && c.post
+              ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
+              : { out: c.out, off: c.off }
+            const xPct = CM_X_POS[ar.off as string] ?? 50
+            const yPct = CM_Y_POS[ar.out as string] ?? 50
+            const diam = revTierDiam(c.rev)
+            const score = overallScore(c, whisperMode)
+            const stageCol = STAGE_COLOR[String(c.stage)] ?? '#c9ccdb'
+            return (
+              <div
+                key={i}
+                title={c.name}
+                onMouseEnter={e => setTooltip({ x: (e.currentTarget as HTMLElement).getBoundingClientRect().left + diam / 2, y: (e.currentTarget as HTMLElement).getBoundingClientRect().top - 8, name: c.name, out: ar.out as Rating, off: ar.off as Rating, score })}
+                onMouseLeave={() => setTooltip(null)}
+                style={{
+                  position: 'absolute',
+                  left: `calc(${xPct}% - ${diam / 2}px)`,
+                  bottom: `calc(${yPct}% - ${diam / 2}px)`,
+                  width: diam, height: diam, borderRadius: '50%',
+                  background: stageCol,
+                  border: '2px solid rgba(255,255,255,0.85)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.28)',
+                  zIndex: 3,
+                  cursor: 'default',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'transform 0.1s',
+                  fontSize: Math.max(7, diam * 0.22),
+                  fontWeight: 800,
+                  color: '#fff',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {diam >= 38 ? c.id || c.name.slice(0, 4) : ''}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* X-axis label */}
+        <div style={{ textAlign: 'center', marginTop: 6, marginLeft: 24, fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Offshoring Consent
+        </div>
+      </div>
+
+      {/* Legend */}
+      <div style={{ padding: '14px 24px 18px', display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', borderTop: '1px solid #eef0f6', marginTop: 14 }}>
+        {/* Stage legend */}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+          <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)', marginRight: 2 }}>Stage</span>
+          {([['1','New Opp.','#7aa8ff'],['2','Early Sales','#06b6d4'],['3','Mid Sales','#8b5cf6'],['4','Late Sales','#f59e0b'],['5','Contracting','#14b8a6'],['6','Executed','#2e9e2e'],['8','Disqualified','#d0021b']] as const).map(([k, label, col]) => (
+            <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: col }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.65)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
+        {/* Size legend */}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginLeft: 'auto' }}>
+          <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)' }}>Revenue tier</span>
+          {([['16px','< $1M'],['26px','$1M–5M'],['38px','$5M–10M'],['52px','$10M+']] as const).map(([sz, label]) => (
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#1a1f4e', border: '2px solid rgba(255,255,255,0.8)', boxShadow: '0 1px 4px rgba(0,0,0,0.2)', flexShrink: 0 }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.65)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Tooltip */}
+      {tooltip && (
+        <div style={{ position: 'fixed', top: tooltip.y, left: tooltip.x, transform: 'translate(-50%, -100%)', zIndex: 9999, background: '#1a1f4e', color: '#fff', borderRadius: 8, padding: '8px 12px', fontSize: 12, pointerEvents: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.3)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontWeight: 800, marginBottom: 3 }}>{tooltip.name}</div>
+          <div style={{ opacity: 0.75 }}>Out: {tooltip.out} · Off: {tooltip.off} · Score: {tooltip.score !== null ? Math.round(tooltip.score) : '—'}</div>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -383,11 +601,12 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         </div>
 
         {/* ── Summary Stats ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 16, marginBottom: 24 }}>
           {[
-            { label: 'Total Clients', value: filtered.length, sub: `${filtered.filter(c=>c.region==='NA').length} NA · ${filtered.filter(c=>c.region.startsWith('EMEA')).length} EMEA` },
-            { label: 'Whisper Completed', value: postClients.length, sub: `${Math.round(postClients.length/Math.max(filtered.length,1)*100)}% of filtered` },
+            { label: 'Total Clients', value: filtered.length, sub: `${filtered.filter(c=>c.region==='NA').length} NA · ${filtered.filter(c=>c.region.startsWith('EMEA')).length} EMEA`, color: undefined, bg: undefined },
+            { label: 'Whisper Completed', value: postClients.length, sub: `${Math.round(postClients.length/Math.max(filtered.length,1)*100)}% of filtered`, color: undefined, bg: undefined },
             { label: 'High Propensity', value: highOverall, sub: 'Overall score ≥ 75', color: '#1a6e1a', bg: '#d8f3d8' },
+            { label: 'Medium Propensity', value: medOverall, sub: 'Overall score 50–74', color: '#8a6a00', bg: '#fdf1c9' },
             { label: 'Low Propensity', value: lowOverall, sub: 'Overall score < 50', color: '#a01020', bg: '#fde0e0' },
           ].map(stat => (
             <div key={stat.label} style={{ background: stat.bg ?? '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '18px 20px' }}>
@@ -489,6 +708,9 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           )}
         </div>
 
+        {/* ── Heat-Map ── */}
+        <HeatMap clients={filtered} whisperMode={whisperMode} />
+
         {/* ── Filters ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '20px 24px', marginBottom: 20 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -574,9 +796,8 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                   const levers: Array<'out' | 'off' | 'dig' | 'price'> = ['out', 'off', 'dig', 'price']
                   const hasDetail = whisperMode === 'post' && c.post
                   return (
-                    <>
+                    <React.Fragment key={`${c.name}-${i}`}>
                       <tr
-                        key={`${c.name}-${i}`}
                         style={{ background: i % 2 === 1 ? '#fafbfe' : '#fff', transition: 'background 0.1s' }}
                       >
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.7)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
@@ -626,7 +847,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                       </tr>
                       {/* Expandable detail row */}
                       {openDetail?.row === i && hasDetail && c.post?.[openDetail.lever] && (
-                        <tr key={`detail-${i}`}>
+                        <tr>
                           <td colSpan={12} style={{ padding: 0, borderBottom: '1px solid #eef0f6' }}>
                             <div style={{ padding: '18px 28px 20px', background: 'linear-gradient(180deg,#f7f8fc,#fbfbfe)' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 9 }}>
@@ -642,7 +863,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                           </td>
                         </tr>
                       )}
-                    </>
+                    </React.Fragment>
                   )
                 })}
               </tbody>
