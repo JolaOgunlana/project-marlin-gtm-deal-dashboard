@@ -1039,7 +1039,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               Propensity Rating
             </div>
             <div style={{ display: 'flex', gap: 10, background: '#eef0f6', borderRadius: 11, padding: 5 }}>
-              {(['post', 'pre'] as WhisperMode[]).map(m => (
+              {(['pre', 'post'] as WhisperMode[]).map(m => (
                 <button
                   key={m}
                   onClick={() => setWhisperMode(m)}
@@ -1060,7 +1060,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               ))}
             </div>
             <div style={{ fontSize: 11.5, color: 'rgba(26,31,78,0.42)', marginTop: 12, fontStyle: 'italic' }}>
-              Filter comparison with Post-Whisper and Pre-Whisper Consent Likelihood
+              Filter comparison with Pre-Whisper and Post-Whisper Consent Likelihood
             </div>
           </div>
 
