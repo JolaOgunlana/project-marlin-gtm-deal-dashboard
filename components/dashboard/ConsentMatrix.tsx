@@ -143,9 +143,9 @@ const CM_DATA: CMClient[] = clients.map(row => ({
   { name:"Acclaris, Inc.", id:"", rev:5400, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Wright Express Financial Serv", id:"", rev:3120, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-]
+])
 
-// ── Helpers ────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────���─────────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -1190,7 +1190,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           )}
         </div>
 
-        {/* ── Table ── */}
+        {/* ─��� Table ── */}
         <div style={{ background: '#fff', borderRadius: 14, border: '1px solid #e2e4ee', overflow: 'hidden', boxShadow: '0 2px 16px rgba(26,31,78,0.05)' }}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, tableLayout: 'fixed', minWidth: 900 }}>
