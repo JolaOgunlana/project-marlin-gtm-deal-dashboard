@@ -637,31 +637,35 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, marginBottom: 16, overflow: 'hidden' }}>
           <button
             onClick={() => setRationaleOpen(v => !v)}
-            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '15px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
           >
-            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 22, borderRadius: '50%', background: '#5b2d6e', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>ⓘ</span>
-            <span style={{ fontSize: 13.5, fontWeight: 700, color: '#1a1f4e', flex: 1 }}>How the Overall Propensity Score is calculated</span>
-            <span style={{ color: '#9aa0b8', fontSize: 12, transition: 'transform 0.2s', transform: rationaleOpen ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>▾</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%', background: '#5b2d6e', color: '#fff', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>i</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#1a1f4e', flex: 1 }}>How the Overall Propensity Score is calculated</span>
+            <span style={{ color: '#9aa0b8', fontSize: 18, fontWeight: 300, lineHeight: 1 }}>{rationaleOpen ? '×' : '+'}</span>
           </button>
           {rationaleOpen && (
-            <div style={{ padding: '4px 20px 22px', borderTop: '1px solid #eef0f6' }}>
-              <p style={{ fontSize: 13, color: '#4a5060', lineHeight: 1.65, margin: '16px 0 18px' }}>
-                Each client is scored on four categories — Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.
+            <div style={{ padding: '0 22px 26px', borderTop: '1px solid #eef0f6' }}>
+              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>
+                Each client is scored on four categories— Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.
               </p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '16px 18px', background: '#fbfbfd' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 12 }}>Rating → Points</div>
-                  {[['High','100%'],['Medium','75%'],['Low','50%']].map(([r,p])=>(
-                    <div key={r} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f0f1f7', fontSize: 12.5, color: '#1a1f4e', fontWeight: 600 }}>
-                      <span>{r}</span><span>{p}</span>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                {/* Rating → Points */}
+                <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Rating → Points</div>
+                  {([['High','100%'],['Medium','75%'],['Low','50%']] as const).map(([r, p], idx, arr) => (
+                    <div key={r} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: idx < arr.length - 1 ? '1px solid #eef0f6' : 'none', fontSize: 13.5, color: '#1a1f4e' }}>
+                      <span style={{ fontWeight: 700 }}>{r}</span>
+                      <span style={{ fontWeight: 400, color: '#4a5060' }}>{p}</span>
                     </div>
                   ))}
                 </div>
-                <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '16px 18px', background: '#fbfbfd' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 12 }}>Score → Band</div>
-                  {[['High','75 – 100'],['Medium','50 – 74'],['Low','under 50']].map(([b,r])=>(
-                    <div key={b} style={{ display: 'flex', gap: 9, padding: '8px 0', fontSize: 12.5, color: '#4a5060' }}>
-                      <span style={{ fontWeight: 800, color: '#1a1f4e' }}>{b}</span><span>{r}</span>
+                {/* Score → Band */}
+                <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Score → Band</div>
+                  {([['High','75 – 100'],['Medium','50 – 74'],['Low','under 50']] as const).map(([b, r], idx, arr) => (
+                    <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '10px 0', borderBottom: idx < arr.length - 1 ? '1px solid #eef0f6' : 'none', fontSize: 13.5 }}>
+                      <span style={{ fontWeight: 700, color: '#1a1f4e', minWidth: 64 }}>{b}</span>
+                      <span style={{ color: '#4a5060' }}>{r}</span>
                     </div>
                   ))}
                 </div>
@@ -674,48 +678,57 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, marginBottom: 24, overflow: 'hidden' }}>
           <button
             onClick={() => setCriteriaOpen(v => !v)}
-            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '15px 20px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}
           >
-            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 22, borderRadius: '50%', background: '#5b2d6e', color: '#fff', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>ⓘ</span>
-            <span style={{ fontSize: 13.5, fontWeight: 700, color: '#1a1f4e', flex: 1 }}>Category Rating Criteria (Post-Whisper)</span>
-            <span style={{ color: '#9aa0b8', fontSize: 12, transition: 'transform 0.2s', transform: criteriaOpen ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>▾</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%', background: '#5b2d6e', color: '#fff', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>i</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#1a1f4e', flex: 1 }}>Category Rating Criteria (Post-Whisper)</span>
+            <span style={{ color: '#9aa0b8', fontSize: 18, fontWeight: 300, lineHeight: 1 }}>{criteriaOpen ? '×' : '+'}</span>
           </button>
           {criteriaOpen && (
-            <div style={{ padding: '4px 20px 22px', borderTop: '1px solid #eef0f6' }}>
-              <p style={{ fontSize: 13, color: '#4a5060', lineHeight: 1.65, margin: '16px 0 18px' }}>
+            <div style={{ padding: '0 22px 26px', borderTop: '1px solid #eef0f6' }}>
+              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>
                 How each lever is rated after the whisper conversation, based on trigger phrases and signals in the client&apos;s comments.
               </p>
               <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', minWidth: 860, fontSize: 12 }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed', minWidth: 900, fontSize: 12.5 }}>
                   <thead>
-                    <tr>
-                      <th style={{ width: 78, fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e', padding: '0 12px 12px 0', textAlign: 'left' }}>Rating</th>
-                      {['Outsourcing','Offshoring','Digitization','Pricing'].map(h => (
-                        <th key={h} style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e', padding: '0 14px 12px', borderBottom: '1px solid #e2e4ee', textAlign: 'left' }}>{h}</th>
+                    <tr style={{ borderBottom: '2px solid #e2e4ee' }}>
+                      <th style={{ width: 90, fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', padding: '0 14px 14px 0', textAlign: 'left' }}>Rating</th>
+                      {(['Outsourcing','Offshoring','Digitization','Pricing'] as const).map(h => (
+                        <th key={h} style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', padding: '0 14px 14px', textAlign: 'left' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th style={{ padding: '14px 12px 14px 0', verticalAlign: 'middle', borderBottom: '1px solid #f0f1f7' }}><RatingPill rating="High" /></th>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Openness to further outsourcing, no objection to the model itself, and positive language toward the value proposition.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Openness across all service types with no named exclusions.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Clear enthusiasm for digital transformation with no stated hesitation.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Existing pricing model already aligns with the proposed structure.</td>
+                    {/* High */}
+                    <tr style={{ borderBottom: '1px solid #eef0f6' }}>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}>
+                        <span style={{ fontSize: 13.5, fontWeight: 800, color: '#1a6e1a' }}>High</span>
+                      </td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness to further outsourcing, no objection to the model itself, and positive language toward the value proposition. Regulatory mentions are framed as considerations to manage, not blockers.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness across all service types with no named exclusions.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Clear enthusiasm or readiness for digital transformation, including interest in modernizing processes or contact-centre capabilities, with no stated hesitation or conditions.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>The client&apos;s existing pricing model already aligns with the proposed pricing structure, and discount expectations are in line with what can be offered.</td>
                     </tr>
-                    <tr>
-                      <th style={{ padding: '14px 12px 14px 0', verticalAlign: 'middle', borderBottom: '1px solid #f0f1f7' }}><RatingPill rating="Medium" /></th>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Openness in principle, paired with an unresolved concern or condition.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Open to specific service types with an explicit exclusion in another area.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>General openness with conditions, timing concerns, or a phased approach preference.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55, borderBottom: '1px solid #f0f1f7' }}>Different pricing model described with no explicit resistance stated.</td>
+                    {/* Medium */}
+                    <tr style={{ borderBottom: '1px solid #eef0f6' }}>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}>
+                        <span style={{ fontSize: 13.5, fontWeight: 800, color: '#8a6a00' }}>Medium</span>
+                      </td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness in principle, paired with an unresolved concern or condition that hasn&apos;t been ruled out yet, including external factors such as timing not being right.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness to specific service types, paired with an explicit exclusion in another area, including external factors such as timing not being right.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>General openness to digital transformation, but with conditions, timing concerns, or a preference for a phased / cautious approach before committing, including external factors such as timing not being right.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>A different pricing model is described, with no explicit resistance stated, or discount expectations are somewhat above what can be offered but not stated as a blocker.</td>
                     </tr>
+                    {/* Low / No */}
                     <tr>
-                      <th style={{ padding: '14px 12px 14px 0', verticalAlign: 'middle' }}><RatingPill rating="Low" /></th>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55 }}>Explicit rejection language with no qualifier or path forward.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55 }}>Blanket rejection with no named area of openness.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55 }}>Reluctance or resistance to digital transformation.</td>
-                      <td style={{ padding: '14px', fontSize: 12, color: '#4a5060', lineHeight: 1.55 }}>Won&apos;t accept the pricing model or high discount expectations.</td>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}>
+                        <span style={{ fontSize: 13.5, fontWeight: 800, color: '#a01020' }}>Low / No</span>
+                      </td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Explicit rejection language with no qualifier or path forward.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Blanket rejection with no named area of openness.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Reluctance or resistance to digital transformation, preference to maintain current processes, or explicit concerns that outweigh interest in modernization.</td>
+                      <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Won&apos;t accept the pricing model, or high discount expectations that would not be accepted.</td>
                     </tr>
                   </tbody>
                 </table>
