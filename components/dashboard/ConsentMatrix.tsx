@@ -231,188 +231,321 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
 }
 
 // ── Heat-map constants ─────────────────────────────────────────────────────
-const CM_Y_POS: Record<string, number> = { Low: 20, Medium: 50, High: 78 }
-const CM_X_POS: Record<string, number> = { Low: 16.666, Medium: 50, High: 83.333 }
-const STAGE_COLOR: Record<string, string> = { 0:'#c9ccdb', 1:'#7aa8ff', 2:'#06b6d4', 3:'#8b5cf6', 4:'#f59e0b', 5:'#14b8a6', 6:'#2e9e2e', 8:'#d0021b' }
+// X = offshoring, Y = outsourcing. Each band occupies 1/3 of the axis.
+// Centre of each band: Low=16.67%, Medium=50%, High=83.33%
+const BAND_X: Record<string, number> = { Low: 16.67, Medium: 50, High: 83.33 }
+const BAND_Y: Record<string, number> = { High: 16.67, Medium: 50, Low: 83.33 } // top=low Y%, bottom=high Y%
+
+const STAGE_COLOR: Record<string, string> = {
+  0: '#c9ccdb', 1: '#1a1f4e', 2: '#7aa8ff', 3: '#8b5cf6',
+  4: '#f59e0b', 5: '#14b8a6', 6: '#2e9e2e', 8: '#d0021b',
+}
+const STAGE_LABELS: [string, string, string][] = [
+  ['0','0 · Not Started','#c9ccdb'],
+  ['1','1 · New Opportunity','#1a1f4e'],
+  ['2','2 · Early Sales','#7aa8ff'],
+  ['3','3 · Mid Sales','#8b5cf6'],
+  ['4','4 · Late Sales / Pricing','#f59e0b'],
+  ['5','5 · Contracting','#14b8a6'],
+  ['6','6 · Executed','#2e9e2e'],
+  ['8','8 · Disqualified','#d0021b'],
+]
 const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
 
-function heatColor(v: number): [number, number, number] {
-  v = Math.max(0, Math.min(1, v))
-  let r, g, b
-  if (v < 0.5) {
-    const t = v / 0.5
-    r = Math.round(55 + (255 - 55) * t); g = Math.round(150 + (225 - 150) * t); b = Math.round(50 + (60 - 50) * t)
-  } else {
-    const t = (v - 0.5) / 0.5
-    r = Math.round(255 + (232 - 255) * t); g = Math.round(225 + (95 - 225) * t); b = Math.round(60 + (80 - 60) * t)
+// Jitter seeds to separate overlapping bubbles slightly
+const JITTER: Record<string, [number, number]> = {}
+let _ji = 0
+const getJitter = (key: string) => {
+  if (!JITTER[key]) {
+    const angle = (_ji * 2.399) // golden angle
+    const r = Math.min(4, _ji * 0.4)
+    JITTER[key] = [Math.cos(angle) * r, Math.sin(angle) * r]
+    _ji++
   }
-  return [r, g, b]
+  return JITTER[key]
 }
 
 interface HeatMapProps {
-  clients: CMClient[]
+  allClients: CMClient[]
   whisperMode: WhisperMode
 }
 
-function HeatMap({ clients, whisperMode }: HeatMapProps) {
+function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const plotRef = useRef<HTMLDivElement>(null)
   const [tooltip, setTooltip] = useState<{ x: number; y: number; name: string; out: Rating; off: Rating; score: number | null } | null>(null)
 
-  // Paint the canvas background
-  const paintBackground = useCallback(() => {
-    const c = canvasRef.current
+  // Own filter state inside the heatmap card
+  const [hmDeal, setHmDeal] = useState<DealFilter>('total')
+  const [hmWave, setHmWave] = useState<WaveFilter>('all')
+  const [hmRegion, setHmRegion] = useState<RegionFilter>('all')
+  const [hmStage, setHmStage] = useState<StageFilter>('all')
+
+  // Filter clients to the ones that have both out+off ratings for current mode
+  const plotted = useMemo(() => {
+    return allClients.filter(c => {
+      const ar = whisperMode === 'post' && c.post
+        ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
+        : { out: c.out, off: c.off }
+      if (!ar.out || !ar.off) return false
+      if (hmDeal !== 'total' && c.dealType !== hmDeal) return false
+      if (hmWave !== 'all' && String(c.wave) !== hmWave) return false
+      if (hmRegion !== 'all' && (hmRegion === 'NA' ? c.region !== 'NA' : !c.region.startsWith('EMEA'))) return false
+      if (hmStage !== 'all' && String(c.stage) !== hmStage) return false
+      return true
+    })
+  }, [allClients, whisperMode, hmDeal, hmWave, hmRegion, hmStage])
+
+  // Canvas gradient background: red(bottom-left) → yellow(center) → green(top-right)
+  const paintBg = useCallback(() => {
+    const canvas = canvasRef.current
     const plot = plotRef.current
-    if (!c || !plot) return
+    if (!canvas || !plot) return
     const W = plot.clientWidth || 900
-    const H = plot.clientHeight || 420
-    const RW = 160, RH = Math.max(60, Math.round(160 * H / W))
-    c.width = RW; c.height = RH
-    c.style.width = W + 'px'; c.style.height = H + 'px'
-    const ctx = c.getContext('2d')
+    const H = plot.clientHeight || 480
+    canvas.width = 300; canvas.height = Math.round(300 * H / W)
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px'
+    const ctx = canvas.getContext('2d')
     if (!ctx) return
+    const RW = canvas.width, RH = canvas.height
     const img = ctx.createImageData(RW, RH)
     for (let yy = 0; yy < RH; yy++) {
       for (let xx = 0; xx < RW; xx++) {
+        // xN=0 left(low off), xN=1 right(high off)
+        // yN=0 top(high out), yN=1 bottom(low out)
         const xN = xx / (RW - 1)
         const yN = yy / (RH - 1)
-        let v = ((1 - xN) + yN) / 2
-        v += 0.05 * Math.sin(xN * 6.0 + yN * 2.0) + 0.04 * Math.cos(yN * 5.0 - xN * 1.5)
-        const [r, g, b] = heatColor(v)
+        // "goodness": high offshoring(x) + high outsourcing(1-y) → green
+        const goodness = (xN + (1 - yN)) / 2
+        let r, g, b
+        if (goodness < 0.35) {
+          // red zone
+          const t = goodness / 0.35
+          r = 230; g = Math.round(80 + 120 * t); b = Math.round(80 + 40 * t)
+        } else if (goodness < 0.6) {
+          // yellow zone
+          const t = (goodness - 0.35) / 0.25
+          r = Math.round(230 + 10 * t); g = Math.round(200 + 25 * t); b = Math.round(120 - 80 * t)
+        } else {
+          // green zone
+          const t = (goodness - 0.6) / 0.4
+          r = Math.round(240 - 110 * t); g = Math.round(225 - 15 * t); b = Math.round(40 + 30 * t)
+        }
         const idx = (yy * RW + xx) * 4
-        img.data[idx] = r; img.data[idx + 1] = g; img.data[idx + 2] = b; img.data[idx + 3] = 255
+        img.data[idx] = r; img.data[idx+1] = g; img.data[idx+2] = b; img.data[idx+3] = 255
       }
     }
     ctx.putImageData(img, 0, 0)
   }, [])
 
   useEffect(() => {
-    paintBackground()
-    const obs = new ResizeObserver(() => paintBackground())
+    paintBg()
+    const obs = new ResizeObserver(() => paintBg())
     if (plotRef.current) obs.observe(plotRef.current)
     return () => obs.disconnect()
-  }, [paintBackground])
+  }, [paintBg])
 
-  // Only plot clients that have both out + off ratings
-  const plotted = clients.filter(c => {
-    const ar = whisperMode === 'post' && c.post
-      ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
-      : { out: c.out, off: c.off }
-    return ar.out && ar.off
-  })
+  const HmPill = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
+    <button onClick={onClick} style={{
+      fontFamily: 'inherit', fontSize: 11.5, fontWeight: active ? 700 : 500,
+      padding: '5px 12px', borderRadius: 999,
+      border: `1px solid ${active ? '#1a1f4e' : '#d8dae8'}`,
+      background: active ? '#1a1f4e' : '#fff',
+      color: active ? '#fff' : 'rgba(26,31,78,0.65)',
+      cursor: 'pointer', whiteSpace: 'nowrap', lineHeight: 1,
+      transition: 'all 0.12s',
+    }}>{children}</button>
+  )
 
   return (
     <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
-      {/* Header */}
-      <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #eef0f6' }}>
-        <div style={{ fontSize: 15, fontWeight: 800, color: '#1a1f4e' }}>Consent Propensity Heat-Map</div>
-        <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.5)', marginTop: 3 }}>
-          Outsourcing (Y-axis) vs. Offshoring (X-axis) · bubble size = TMS revenue · {plotted.length} client{plotted.length !== 1 ? 's' : ''} plotted
-        </div>
-      </div>
 
-      {/* Plot area */}
-      <div style={{ padding: '16px 24px 0', position: 'relative' }}>
-        {/* Y-axis label */}
-        <div style={{ position: 'absolute', left: 4, top: '50%', transform: 'translateY(-50%) rotate(-90deg)', fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap', transformOrigin: 'center center' }}>
-          Outsourcing Consent
-        </div>
-
-        <div ref={plotRef} style={{ position: 'relative', height: 420, marginLeft: 24, background: '#f4f5f9', borderRadius: 10, overflow: 'hidden', border: '1px solid #e2e4ee' }}>
-          {/* Canvas heatmap background */}
-          <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.82, borderRadius: 10 }} />
-
-          {/* Grid dividers */}
-          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-            {/* Vertical dividers at 33.3% and 66.6% */}
-            {[33.333, 66.666].map(p => (
-              <div key={p} style={{ position: 'absolute', top: 0, bottom: 0, left: `${p}%`, borderLeft: '1px solid rgba(255,255,255,0.35)', zIndex: 1 }} />
-            ))}
-            {/* Horizontal dividers at 33.3% and 66.6% from bottom */}
-            {[33.333, 66.666].map(p => (
-              <div key={p} style={{ position: 'absolute', left: 0, right: 0, bottom: `${p}%`, borderBottom: '1px solid rgba(255,255,255,0.35)', zIndex: 1 }} />
-            ))}
-            {/* X-axis tier labels */}
-            {(['Low', 'Medium', 'High'] as const).map((tier, i) => (
-              <div key={tier} style={{ position: 'absolute', bottom: 6, left: `${i * 33.333 + 16.666}%`, transform: 'translateX(-50%)', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em', zIndex: 2, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
-                {tier}
-              </div>
-            ))}
-            {/* Y-axis tier labels */}
-            {(['High', 'Medium', 'Low'] as const).map((tier, i) => (
-              <div key={tier} style={{ position: 'absolute', left: 6, top: `${i * 33.333 + 11}%`, fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em', zIndex: 2, textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
-                {tier}
-              </div>
-            ))}
+      {/* ── Header row: title left, filters right ── */}
+      <div style={{ padding: '18px 24px 16px', borderBottom: '1px solid #eef0f6' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
+            Consent Propensity Heat-Map
           </div>
-
-          {/* Bubbles */}
-          {plotted.map((c, i) => {
-            const ar = whisperMode === 'post' && c.post
-              ? { out: c.post.out?.rating ?? c.out, off: c.post.off?.rating ?? c.off }
-              : { out: c.out, off: c.off }
-            const xPct = CM_X_POS[ar.off as string] ?? 50
-            const yPct = CM_Y_POS[ar.out as string] ?? 50
-            const diam = revTierDiam(c.rev)
-            const score = overallScore(c, whisperMode)
-            const stageCol = STAGE_COLOR[String(c.stage)] ?? '#c9ccdb'
-            return (
-              <div
-                key={i}
-                title={c.name}
-                onMouseEnter={e => setTooltip({ x: (e.currentTarget as HTMLElement).getBoundingClientRect().left + diam / 2, y: (e.currentTarget as HTMLElement).getBoundingClientRect().top - 8, name: c.name, out: ar.out as Rating, off: ar.off as Rating, score })}
-                onMouseLeave={() => setTooltip(null)}
-                style={{
-                  position: 'absolute',
-                  left: `calc(${xPct}% - ${diam / 2}px)`,
-                  bottom: `calc(${yPct}% - ${diam / 2}px)`,
-                  width: diam, height: diam, borderRadius: '50%',
-                  background: stageCol,
-                  border: '2px solid rgba(255,255,255,0.85)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.28)',
-                  zIndex: 3,
-                  cursor: 'default',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'transform 0.1s',
-                  fontSize: Math.max(7, diam * 0.22),
-                  fontWeight: 800,
-                  color: '#fff',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {diam >= 38 ? c.id || c.name.slice(0, 4) : ''}
-              </div>
-            )
-          })}
-        </div>
-
-        {/* X-axis label */}
-        <div style={{ textAlign: 'center', marginTop: 6, marginLeft: 24, fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          Offshoring Consent
+          {/* Filter pills — stacked rows */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
+            {/* Opportunities row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Opportunities</span>
+              {([['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']] as const).map(([v,l]) => (
+                <HmPill key={v} active={hmDeal===v} onClick={() => setHmDeal(v)}>{l}</HmPill>
+              ))}
+            </div>
+            {/* Wave row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Wave</span>
+              {([['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']] as const).map(([v,l]) => (
+                <HmPill key={v} active={hmWave===v} onClick={() => setHmWave(v)}>{l}</HmPill>
+              ))}
+            </div>
+            {/* Region row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Region</span>
+              {([['all','All'],['NA','NA'],['EMEA','EMEA']] as const).map(([v,l]) => (
+                <HmPill key={v} active={hmRegion===v} onClick={() => setHmRegion(v)}>{l}</HmPill>
+              ))}
+            </div>
+            {/* Stage row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', marginRight: 2 }}>Stage</span>
+              {([['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']] as const).map(([v,l]) => (
+                <HmPill key={v} active={hmStage===v} onClick={() => setHmStage(v as StageFilter)}>{l}</HmPill>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Legend */}
-      <div style={{ padding: '14px 24px 18px', display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center', borderTop: '1px solid #eef0f6', marginTop: 14 }}>
-        {/* Stage legend */}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
-          <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)', marginRight: 2 }}>Stage</span>
-          {([['1','New Opp.','#7aa8ff'],['2','Early Sales','#06b6d4'],['3','Mid Sales','#8b5cf6'],['4','Late Sales','#f59e0b'],['5','Contracting','#14b8a6'],['6','Executed','#2e9e2e'],['8','Disqualified','#d0021b']] as const).map(([k, label, col]) => (
-            <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: col }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.65)' }}>{label}</span>
+      {/* ── Main plot layout ── */}
+      <div style={{ display: 'flex', padding: '20px 24px 0' }}>
+        {/* Y-axis label (rotated) */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
+          <span style={{
+            fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+            color: 'rgba(26,31,78,0.55)', whiteSpace: 'nowrap',
+            transform: 'rotate(-90deg)', transformOrigin: 'center center',
+            display: 'block',
+          }}>Outsourcing Consent Likelihood</span>
+        </div>
+
+        {/* Y band labels */}
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', width: 40, marginRight: 6, paddingTop: 4, paddingBottom: 4, flexShrink: 0 }}>
+          {(['HIGH','MEDIUM','LOW'] as const).map(l => (
+            <div key={l} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
+              <span style={{
+                fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
+                color: l === 'HIGH' ? '#1a6e1a' : l === 'MEDIUM' ? '#8a6a00' : '#a01020',
+                writingMode: 'vertical-rl', transform: 'rotate(180deg)',
+              }}>{l}</span>
             </div>
           ))}
         </div>
-        {/* Size legend */}
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginLeft: 'auto' }}>
-          <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)' }}>Revenue tier</span>
-          {([['16px','< $1M'],['26px','$1M–5M'],['38px','$5M–10M'],['52px','$10M+']] as const).map(([sz, label]) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#1a1f4e', border: '2px solid rgba(255,255,255,0.8)', boxShadow: '0 1px 4px rgba(0,0,0,0.2)', flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.65)' }}>{label}</span>
+
+        {/* Plot canvas area */}
+        <div style={{ flex: 1, minWidth: 0, position: 'relative' }}>
+          <div
+            ref={plotRef}
+            style={{ position: 'relative', height: 480, borderRadius: 8, overflow: 'visible' }}
+          >
+            {/* Canvas gradient */}
+            <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', borderRadius: 8, display: 'block' }} />
+
+            {/* Dashed grid lines */}
+            {[33.33, 66.67].map(p => (
+              <React.Fragment key={`g${p}`}>
+                <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${p}%`, borderLeft: '1px dashed rgba(120,130,160,0.45)', zIndex: 1, pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', left: 0, right: 0, top: `${p}%`, borderTop: '1px dashed rgba(120,130,160,0.45)', zIndex: 1, pointerEvents: 'none' }} />
+              </React.Fragment>
+            ))}
+
+            {/* Bubbles + name labels */}
+            {plotted.map((c, i) => {
+              const ar = whisperMode === 'post' && c.post
+                ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
+                : { out: c.out, off: c.off }
+              const xPct = BAND_X[ar.off as string] ?? 50
+              const yPct = BAND_Y[ar.out as string] ?? 50
+              const diam = revTierDiam(c.rev)
+              const score = overallScore(c, whisperMode)
+              const isEMEA = c.region.startsWith('EMEA')
+              const bubbleBg = isEMEA ? '#9aa0c0' : '#1a1f4e'
+              const jKey = `${c.name}-${ar.out}-${ar.off}`
+              const [jx, jy] = getJitter(jKey)
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    left: `calc(${xPct}% + ${jx}px)`,
+                    top: `calc(${yPct}% + ${jy}px)`,
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 4,
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                  }}
+                >
+                  {/* Client name above */}
+                  <div style={{
+                    fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
+                    whiteSpace: 'nowrap', textShadow: '0 1px 4px rgba(255,255,255,0.9)',
+                    marginBottom: 2, textAlign: 'center',
+                    maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis',
+                  }}>
+                    {c.name}
+                  </div>
+                  {/* Bubble */}
+                  <div
+                    onMouseEnter={e => {
+                      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+                      setTooltip({ x: rect.left + diam / 2, y: rect.top, name: c.name, out: ar.out, off: ar.off, score })
+                    }}
+                    onMouseLeave={() => setTooltip(null)}
+                    style={{
+                      width: diam, height: diam, borderRadius: '50%',
+                      background: bubbleBg,
+                      border: `3px solid ${isEMEA ? '#c9ccdb' : '#fff'}`,
+                      boxShadow: '0 3px 12px rgba(0,0,0,0.22)',
+                      cursor: 'default',
+                      flexShrink: 0,
+                    }}
+                  />
+                </div>
+              )
+            })}
+          </div>
+
+          {/* X band labels inside chart area — LOW / MEDIUM / HIGH */}
+          <div style={{ display: 'flex', marginTop: 6 }}>
+            {(['LOW','MEDIUM','HIGH'] as const).map((l, i) => (
+              <div key={l} style={{ flex: 1, textAlign: 'center' }}>
+                <span style={{
+                  fontSize: 9, fontWeight: 800, letterSpacing: '0.12em',
+                  color: l === 'HIGH' ? '#1a6e1a' : l === 'LOW' ? '#a01020' : '#8a6a00',
+                }}>{l}</span>
+              </div>
+            ))}
+          </div>
+          {/* X-axis main label */}
+          <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 20, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.55)' }}>
+            Offshoring Consent Likelihood
+          </div>
+        </div>
+      </div>
+
+      {/* ── Legend row ── */}
+      <div style={{ padding: '14px 24px 18px', borderTop: '1px solid #eef0f6', display: 'flex', alignItems: 'center', gap: 0, flexWrap: 'wrap' }}>
+        {/* Stage */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Stage</span>
+          {STAGE_LABELS.map(([, label, col]) => (
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: col, border: '1px solid rgba(0,0,0,0.08)', flexShrink: 0 }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
+        {/* Region */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 24, marginRight: 24 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Region</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e' }} />
+            <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>North America</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#9aa0c0' }} />
+            <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>EMEA</span>
+          </div>
+        </div>
+        {/* Revenue Tier */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Revenue Tier</span>
+          {([16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+'] as [number,string][]).map(([sz, label]) => (
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', border: '2px solid rgba(255,255,255,0.7)', boxShadow: '0 1px 4px rgba(0,0,0,0.15)', flexShrink: 0 }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
             </div>
           ))}
         </div>
@@ -420,9 +553,9 @@ function HeatMap({ clients, whisperMode }: HeatMapProps) {
 
       {/* Tooltip */}
       {tooltip && (
-        <div style={{ position: 'fixed', top: tooltip.y, left: tooltip.x, transform: 'translate(-50%, -100%)', zIndex: 9999, background: '#1a1f4e', color: '#fff', borderRadius: 8, padding: '8px 12px', fontSize: 12, pointerEvents: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.3)', whiteSpace: 'nowrap' }}>
-          <div style={{ fontWeight: 800, marginBottom: 3 }}>{tooltip.name}</div>
-          <div style={{ opacity: 0.75 }}>Out: {tooltip.out} · Off: {tooltip.off} · Score: {tooltip.score !== null ? Math.round(tooltip.score) : '—'}</div>
+        <div style={{ position: 'fixed', top: tooltip.y - 8, left: tooltip.x, transform: 'translate(-50%, -100%)', zIndex: 9999, background: '#1a1f4e', color: '#fff', borderRadius: 8, padding: '9px 14px', fontSize: 12, pointerEvents: 'none', boxShadow: '0 4px 18px rgba(0,0,0,0.28)', whiteSpace: 'nowrap' }}>
+          <div style={{ fontWeight: 800, marginBottom: 4 }}>{tooltip.name}</div>
+          <div style={{ opacity: 0.75, fontSize: 11 }}>Out: {tooltip.out} · Off: {tooltip.off} · Score: {tooltip.score !== null ? Math.round(tooltip.score) : '—'}</div>
         </div>
       )}
     </div>
@@ -738,7 +871,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
         </div>
 
         {/* ── Heat-Map ── */}
-        <HeatMap clients={filtered} whisperMode={whisperMode} />
+        <HeatMap allClients={CM_DATA} whisperMode={whisperMode} />
 
         {/* ── Filters ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '20px 24px', marginBottom: 20 }}>
