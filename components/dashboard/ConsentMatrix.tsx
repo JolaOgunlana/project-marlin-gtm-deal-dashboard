@@ -360,7 +360,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
 
   // ── Step 1a: pre-compute pre-whisper positions for locked clients ───────────
   const preBase = useMemo(() => {
-    return allClients.filter(c => c.lockPostPosition).map(c => {
+    return plotted.filter(c => c.lockPostPosition).map(c => {
       const ar = { out: c.out, off: c.off }
       const scoreForPos = overallScore(c, 'pre') ?? 50
       const qKey = `${ar.out}-${ar.off}`
@@ -368,7 +368,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
       const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
       return { name: c.name, xPct: inBandX(ar.off as string, t), yPct: inBandY(ar.out as string, t) }
     })
-  }, [allClients, quadrantRanges])
+  }, [plotted, quadrantRanges])
 
   // ── Step 1: base positions from overall propensity within quadrant ─────────
   const base = plotted.map(c => {
