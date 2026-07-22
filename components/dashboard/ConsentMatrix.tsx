@@ -304,21 +304,24 @@ interface PlotAreaProps {
 
 function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, setTooltip }: PlotAreaProps) {
   const PLOT_H = 640
-  const REF_W = 1200 // reference px width for collision maths
+  const REF_W = 1200 // reference px width for label collision maths
 
-  // ── Step 1: compute raw (t-based) centre for each client ──────────────────
-  type RawBubble = {
+  type BubbleData = {
     c: CMClient
     ar: { out: Rating; off: Rating }
     score: number | null
     diam: number
     isEMEA: boolean
-    // % positions before tie-breaking
+    bubbleBg: string
+    stage: number
     xPct: number
     yPct: number
+    labelAbove: boolean
+    labelOffsetPx: number
   }
 
-  const raw: RawBubble[] = plotted.map(c => {
+  // ── Step 1: base positions from overall propensity within quadrant ─────────
+  const base = plotted.map(c => {
     const ar = whisperMode === 'post' && c.post
       ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
       : { out: c.out, off: c.off }
@@ -326,44 +329,46 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
     const qKey = `${ar.out}-${ar.off}`
     const qRange = quadrantRanges[qKey] ?? { min: score, max: score }
     const t = qRange.max > qRange.min ? (score - qRange.min) / (qRange.max - qRange.min) : 0.5
+    const isEMEA = c.region.startsWith('EMEA')
     return {
-      c, ar, score: overallScore(c, whisperMode), diam: revTierDiam(c.rev),
-      isEMEA: c.region.startsWith('EMEA'),
+      c, ar,
+      score: overallScore(c, whisperMode),
+      diam: revTierDiam(c.rev),
+      isEMEA,
+      // NA = dark navy, EMEA = grey-blue (matches reference image)
+      bubbleBg: isEMEA ? '#6b7ab5' : '#1a1f4e',
+      stage: c.stage,
       xPct: inBandX(ar.off as string, t),
       yPct: inBandY(ar.out as string, t),
     }
   })
 
-  // ── Step 2: spiral tie-breaking for bubbles that share the same position ──
-  // Group by rounded (xPct, yPct) to detect stacks, then spiral them apart.
-  const posKey = (x: number, y: number) => `${Math.round(x * 10)},${Math.round(y * 10)}`
-  const seen: Record<string, number> = {} // key → count of bubbles already placed there
+  // ── Step 2: horizontal fanning for ties ────────────────────────────────────
+  // Clients sharing the exact same (out, off, score) fan out horizontally
+  // so they sit side-by-side rather than stacking. Y stays identical so they
+  // remain visually "at the same level" — exactly like the reference image.
+  const tieKey = (b: typeof base[0]) =>
+    `${b.ar.out}-${b.ar.off}-${Math.round((b.score ?? 50) * 2) / 2}`
 
-  type FinalBubble = RawBubble & { xPct: number; yPct: number; labelAbove: boolean; labelOffsetPx: number }
+  // Count group sizes first
+  const groupCount: Record<string, number> = {}
+  base.forEach(b => { const k = tieKey(b); groupCount[k] = (groupCount[k] ?? 0) + 1 })
 
-  const SPIRAL_STEP_PCT = 2.2 // % of chart per spiral step
-  const GOLDEN_ANGLE = 2.39996 // radians — spreads points evenly
+  // Assign horizontal index within each group
+  const groupIdx: Record<string, number> = {}
+  const FAN_STEP_PCT = 2.8 // % horizontal spacing between tie buddies
 
-  const final: FinalBubble[] = raw.map(b => {
-    const key = posKey(b.xPct, b.yPct)
-    const idx = seen[key] ?? 0
-    seen[key] = idx + 1
+  const final: BubbleData[] = base.map(b => {
+    const k = tieKey(b)
+    const idx = groupIdx[k] ?? 0
+    groupIdx[k] = idx + 1
+    const count = groupCount[k]
 
-    let xPct = b.xPct
-    let yPct = b.yPct
+    // Centre the fan: offset = (idx - (count-1)/2) * FAN_STEP_PCT
+    const xOffset = count > 1 ? (idx - (count - 1) / 2) * FAN_STEP_PCT : 0
+    const xPct = Math.max(1, Math.min(99, b.xPct + xOffset))
 
-    if (idx > 0) {
-      // Spiral: radius grows with index, angle uses golden angle for even spread
-      const r = SPIRAL_STEP_PCT * Math.sqrt(idx)
-      const angle = idx * GOLDEN_ANGLE
-      xPct = b.xPct + r * Math.cos(angle)
-      yPct = b.yPct + r * Math.sin(angle)
-      // Clamp inside the chart (leave 1% margin)
-      xPct = Math.max(1, Math.min(99, xPct))
-      yPct = Math.max(1, Math.min(99, yPct))
-    }
-
-    return { ...b, xPct, yPct, labelAbove: true, labelOffsetPx: 0 }
+    return { ...b, xPct, labelAbove: true, labelOffsetPx: 0 }
   })
 
   // ── Step 3: label collision resolution ────────────────────────────────────
@@ -431,20 +436,23 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
 
         {/* Bubbles + collision-resolved name labels */}
         {resolved.map((b, i) => {
-          const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, labelAbove, labelOffsetPx } = b
-          // Convert reference-px offset back to chart-relative px for CSS calc()
-          const labelShiftPx = labelOffsetPx // already in ref-px; used as a directional hint
+          const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, stage, labelAbove, labelOffsetPx } = b
           const labelGap = diam / 2 + 4
+          // Stage 1 → light-blue outer ring (box-shadow halo), EMEA → lighter border
+          const borderColor = isEMEA ? '#a0aacf' : 'rgba(255,255,255,0.85)'
+          const boxShadow = stage === 1
+            ? `0 0 0 4px rgba(122,168,255,0.55), 0 3px 12px rgba(0,0,0,0.22)`
+            : `0 3px 12px rgba(0,0,0,0.22)`
           return (
             <React.Fragment key={i}>
               {/* Label */}
               <div style={{
                 position: 'absolute',
-                left: `calc(${xPct}% + ${labelShiftPx > 0 ? labelGap : labelShiftPx < 0 ? -labelGap : 0}px)`,
+                left: `calc(${xPct}% + ${labelOffsetPx > 0 ? labelGap : labelOffsetPx < 0 ? -labelGap : 0}px)`,
                 top: labelAbove
                   ? `calc(${yPct}% - ${labelGap + LABEL_H}px)`
                   : `calc(${yPct}% + ${labelGap}px)`,
-                transform: labelShiftPx === 0 ? 'translateX(-50%)' : labelShiftPx > 0 ? 'translateX(0)' : 'translateX(-100%)',
+                transform: labelOffsetPx === 0 ? 'translateX(-50%)' : labelOffsetPx > 0 ? 'translateX(0)' : 'translateX(-100%)',
                 fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
                 whiteSpace: 'nowrap',
                 textShadow: '0 1px 4px rgba(255,255,255,0.98), 0 0 8px rgba(255,255,255,0.98)',
@@ -472,8 +480,8 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
                   transform: 'translate(-50%, -50%)',
                   width: diam, height: diam, borderRadius: '50%',
                   background: bubbleBg,
-                  border: `3px solid ${isEMEA ? '#c9ccdb' : '#fff'}`,
-                  boxShadow: '0 3px 12px rgba(0,0,0,0.22)',
+                  border: `2.5px solid ${borderColor}`,
+                  boxShadow,
                   cursor: 'default',
                   zIndex: 4,
                 }}
@@ -695,8 +703,8 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
             <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>North America</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#9aa0c0' }} />
-            <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>EMEA</span>
+            <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#6b7ab5' }} />
+              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>EMEA</span>
           </div>
         </div>
         {/* Revenue Tier */}
