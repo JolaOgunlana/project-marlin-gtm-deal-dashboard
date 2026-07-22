@@ -528,7 +528,7 @@ function PlotArea({ plotRef, canvasRef, plotted, whisperMode, quadrantRanges, se
           </div>
         ))}
       </div>
-      <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 8, fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.55)' }}>
+      <div style={{ textAlign: 'center', marginTop: 4, marginBottom: 8, fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.78)' }}>
         Offshoring Consent Likelihood
       </div>
     </>
@@ -676,8 +676,8 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
         {/* Y-axis label (rotated) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
           <span style={{
-            fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
-            color: 'rgba(26,31,78,0.55)', whiteSpace: 'nowrap',
+            fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', textTransform: 'uppercase',
+            color: 'rgba(26,31,78,0.78)', whiteSpace: 'nowrap',
             transform: 'rotate(-90deg)', transformOrigin: 'center center',
             display: 'block',
           }}>Outsourcing Consent Likelihood</span>
@@ -815,7 +815,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
   )
 }
 
-// ── Main component ─────────────────────────────────────────────────────────
+// ── Main component ────────────────────────────────────────────────���────────
 export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('pre')
   const [dealFilter, setDealFilter] = useState<DealFilter>('total')
