@@ -1217,7 +1217,7 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                   <th onClick={() => handleSort('name')} style={{ ...thStyle, textAlign: 'left' }}>Client Name{sortArrow('name')}</th>
                   <th onClick={() => handleSort('deal')} style={thStyle}>Deal Type{sortArrow('deal')}</th>
                   <th onClick={() => handleSort('region')} style={thStyle}>Region{sortArrow('region')}</th>
-                  <th style={{ ...thStyle, textAlign: 'right' }}>TMS Revenue</th>
+                  <th style={{ ...thStyle, textAlign: 'right' }}>TMS Total Revenue</th>
                   <th onClick={() => handleSort('wave')} style={thStyle}>Wave{sortArrow('wave')}</th>
                   <th onClick={() => handleSort('stage')} style={thStyle}>Stage{sortArrow('stage')}</th>
                   <th onClick={() => handleSort('out')} style={thStyle}>Outsourcing{sortArrow('out')}</th>
