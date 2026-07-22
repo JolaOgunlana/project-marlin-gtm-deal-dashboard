@@ -777,11 +777,11 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)' }}>Region</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e', flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>North America</span>
+              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>North America</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#555b6e', flexShrink: 0 }} />
-              <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>EMEA</span>
+              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>EMEA</span>
             </div>
           </div>
 
@@ -791,7 +791,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             {([[16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+']] as [number,string][]).map(([sz, label]) => (
               <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', flexShrink: 0 }} />
-                <span style={{ fontSize: 9.5, color: 'rgba(26,31,78,0.5)', whiteSpace: 'nowrap' }}>{label}</span>
+                <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.5)', whiteSpace: 'nowrap' }}>{label}</span>
               </div>
             ))}
           </div>
