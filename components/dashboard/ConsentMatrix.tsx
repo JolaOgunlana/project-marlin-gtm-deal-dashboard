@@ -204,11 +204,11 @@ function OverallScore({ score }: { score: number | null }) {
   const badgeColor = band === 'High' ? '#1a6e1a' : band === 'Medium' ? '#8a6a00' : '#a01020'
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 13px', borderRadius: 8, background: badgeBg, color: badgeColor, fontSize: 12.5, fontWeight: 800 }}>
+      <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, padding: '6px 13px', borderRadius: 8, background: badgeBg, color: badgeColor, fontSize: 12.5, fontWeight: 800, minWidth: 90 }}>
         {Math.round(score)}
         <span style={{ fontSize: 10, fontWeight: 600, opacity: 0.7 }}>{band}</span>
       </span>
-      <div style={{ width: 66, height: 7, background: '#e8eaf2', borderRadius: 99, overflow: 'hidden' }}>
+      <div style={{ width: 90, height: 7, background: '#e8eaf2', borderRadius: 99, overflow: 'hidden' }}>
         <div style={{ height: '100%', width: `${score}%`, background: barColor, borderRadius: 99, transition: 'width 0.4s ease' }} />
       </div>
     </div>
