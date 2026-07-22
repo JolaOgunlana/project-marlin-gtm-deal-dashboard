@@ -1147,17 +1147,27 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           <span><strong style={{ color: '#1a1f4e' }}>Overall Propensity Likelihood</strong> blends four consent levers — Outsourcing, Offshoring, Digitization and Price Maintain. <strong style={{ color: '#1a1f4e' }}>Low</strong> likelihood signals high consent risk; <strong style={{ color: '#1a1f4e' }}>High</strong> likelihood signals low consent risk. {whisperMode === 'post' && <strong style={{ color: '#1a1f4e' }}>Post-whisper ratings override pre-whisper where available. Click any rating pill to expand the supporting rationale.</strong>}</span>
         </div>
 
-        {/* ── Search ── */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff', border: '1px solid #e2e4ee', borderRadius: 8, padding: '8px 12px', marginBottom: 16, maxWidth: 340 }}>
-          <span style={{ color: 'rgba(26,31,78,0.4)', fontSize: 15 }}>⌕</span>
-          <input
-            type="text"
-            placeholder="Search client…"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            style={{ border: 'none', outline: 'none', fontFamily: 'inherit', fontSize: 13, color: '#1a1f4e', width: '100%', background: 'transparent' }}
-          />
-          {search && <button onClick={() => setSearch('')} style={{ background: 'none', border: 'none', color: 'rgba(26,31,78,0.4)', cursor: 'pointer', fontSize: 14, padding: 0, lineHeight: 1 }}>✕</button>}
+        {/* ── Search + Info Hint ── */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff', border: '1px solid #e2e4ee', borderRadius: 8, padding: '8px 12px', maxWidth: 340 }}>
+            <span style={{ color: 'rgba(26,31,78,0.4)', fontSize: 15 }}>⌕</span>
+            <input
+              type="text"
+              placeholder="Search client…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{ border: 'none', outline: 'none', fontFamily: 'inherit', fontSize: 13, color: '#1a1f4e', width: '100%', background: 'transparent' }}
+            />
+            {search && <button onClick={() => setSearch('')} style={{ background: 'none', border: 'none', color: 'rgba(26,31,78,0.4)', cursor: 'pointer', fontSize: 14, padding: 0, lineHeight: 1 }}>✕</button>}
+          </div>
+          
+          {/* Info hint — only in post-whisper view */}
+          {whisperMode === 'post' && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', background: 'rgba(91,45,110,0.06)', border: '1px solid rgba(91,45,110,0.15)', borderRadius: 6, fontSize: 12, color: '#5b2d6e', fontWeight: 500, whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 14 }}>ⓘ</span>
+              <span>Click any category rating to see the supporting detail.</span>
+            </div>
+          )}
         </div>
 
         {/* ── Table ── */}
