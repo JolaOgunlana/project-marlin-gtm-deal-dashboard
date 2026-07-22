@@ -272,18 +272,24 @@ const computeQuadrantRanges = (clients: CMClient[], mode: WhisperMode) => {
 }
 
 const STAGE_COLOR: Record<string, string> = {
-  0: '#c9ccdb', 1: '#1a1f4e', 2: '#7aa8ff', 3: '#8b5cf6',
-  4: '#f59e0b', 5: '#14b8a6', 6: '#2e9e2e', 8: '#d0021b',
+  0: '#c9ccdb',   // grey
+  1: '#4f8ef7',   // cornflower blue
+  2: '#06b6d4',   // cyan
+  3: '#8b5cf6',   // purple
+  4: '#f59e0b',   // amber
+  5: '#14b8a6',   // teal
+  6: '#22c55e',   // green
+  8: '#ef4444',   // red
 }
 const STAGE_LABELS: [string, string, string][] = [
   ['0','0 · Not Started','#c9ccdb'],
-  ['1','1 · New Opportunity','#1a1f4e'],
-  ['2','2 · Early Sales','#7aa8ff'],
+  ['1','1 · New Opportunity','#4f8ef7'],
+  ['2','2 · Early Sales','#06b6d4'],
   ['3','3 · Mid Sales','#8b5cf6'],
   ['4','4 · Late Sales / Pricing','#f59e0b'],
   ['5','5 · Contracting','#14b8a6'],
-  ['6','6 · Executed','#2e9e2e'],
-  ['8','8 · Disqualified','#d0021b'],
+  ['6','6 · Executed','#22c55e'],
+  ['8','8 · Disqualified','#ef4444'],
 ]
 const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
 
