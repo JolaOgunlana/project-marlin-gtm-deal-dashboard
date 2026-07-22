@@ -493,6 +493,8 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
   const highOverall = filtered.filter(c => (overallScore(c, whisperMode) ?? 0) >= 75).length
   const medOverall = filtered.filter(c => { const s = overallScore(c, whisperMode); return s !== null && s >= 50 && s < 75 }).length
   const lowOverall = filtered.filter(c => { const s = overallScore(c, whisperMode); return s !== null && s < 50 }).length
+  const scoredClients = filtered.map(c => overallScore(c, whisperMode)).filter((s): s is number => s !== null)
+  const avgPropensity = scoredClients.length > 0 ? Math.round(scoredClients.reduce((a, b) => a + b, 0) / scoredClients.length) : null
 
   const toggleDetail = (row: number, lever: 'out' | 'off' | 'dig' | 'price') => {
     if (openDetail?.row === row && openDetail?.lever === lever) setOpenDetail(null)
@@ -571,50 +573,64 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
           A simplified view for comparing clients — this dashboard shows propensity ratings across the four consent levers (Outsourcing, Offshoring, Digitization and Price Maintain) and an overall blended propensity score. Data combines FIS/TIS client intelligence for pre-whisper ratings with Executive/CSM feedback for post-whisper ratings. Colour bands flag where consent risk concentrates to help inform client strategy.
         </p>
 
-        {/* ── Whisper Mode Toggle ── */}
-        <div style={{ marginBottom: 24, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.5)' }}>Whisper Status</span>
-            <span style={{ fontSize: 11, color: 'rgba(26,31,78,0.5)', lineHeight: 1.4 }}>Switch between pre and post-whisper ratings</span>
-          </div>
-          <div style={{ display: 'flex', gap: 8, background: '#e7e9f1', borderRadius: 13, padding: 6 }}>
-            {(['pre', 'post'] as WhisperMode[]).map(m => (
-              <button
-                key={m}
-                onClick={() => setWhisperMode(m)}
-                style={{
-                  fontFamily: 'inherit', fontSize: 16, fontWeight: 800,
-                  padding: '14px 24px', borderRadius: 9,
-                  border: `1px solid ${whisperMode === m ? '#1a1f4e' : '#d3d7e3'}`,
-                  background: whisperMode === m ? '#1a1f4e' : '#fff',
-                  color: whisperMode === m ? '#fff' : '#1a1f4e',
-                  cursor: 'pointer', whiteSpace: 'nowrap',
-                  boxShadow: whisperMode === m ? '0 6px 18px rgba(26,31,78,0.32)' : '0 3px 8px rgba(26,31,78,0.16)',
-                  transition: 'all 0.12s',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {m === 'pre' ? 'Pre-Whisper' : 'Post-Whisper'}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* ── Top row: Toggle card + Total Clients + Avg Propensity ── */}
+        <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr 1fr', gap: 16, marginBottom: 24 }}>
 
-        {/* ── Summary Stats ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 16, marginBottom: 24 }}>
-          {[
-            { label: 'Total Clients', value: filtered.length, sub: `${filtered.filter(c=>c.region==='NA').length} NA · ${filtered.filter(c=>c.region.startsWith('EMEA')).length} EMEA`, color: undefined, bg: undefined },
-            { label: 'Whisper Completed', value: postClients.length, sub: `${Math.round(postClients.length/Math.max(filtered.length,1)*100)}% of filtered`, color: undefined, bg: undefined },
-            { label: 'High Propensity', value: highOverall, sub: 'Overall score ≥ 75', color: '#1a6e1a', bg: '#d8f3d8' },
-            { label: 'Medium Propensity', value: medOverall, sub: 'Overall score 50–74', color: '#8a6a00', bg: '#fdf1c9' },
-            { label: 'Low Propensity', value: lowOverall, sub: 'Overall score < 50', color: '#a01020', bg: '#fde0e0' },
-          ].map(stat => (
-            <div key={stat.label} style={{ background: stat.bg ?? '#fff', border: '1px solid #e2e4ee', borderRadius: 12, padding: '18px 20px' }}>
-              <div style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: stat.color ?? 'rgba(26,31,78,0.45)', marginBottom: 8 }}>{stat.label}</div>
-              <div style={{ fontSize: 38, fontWeight: 900, color: stat.color ?? '#1a1f4e', lineHeight: 1 }}>{stat.value}</div>
-              <div style={{ fontSize: 11.5, color: stat.color ?? 'rgba(26,31,78,0.5)', marginTop: 6 }}>{stat.sub}</div>
+          {/* Left: Propensity Rating toggle */}
+          <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>
+              Propensity Rating
             </div>
-          ))}
+            <div style={{ display: 'flex', gap: 10, background: '#eef0f6', borderRadius: 11, padding: 5 }}>
+              {(['post', 'pre'] as WhisperMode[]).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setWhisperMode(m)}
+                  style={{
+                    flex: 1,
+                    fontFamily: 'inherit', fontSize: 17, fontWeight: 800,
+                    padding: '14px 20px', borderRadius: 8,
+                    border: `1.5px solid ${whisperMode === m ? '#1a1f4e' : '#d8dae8'}`,
+                    background: whisperMode === m ? '#1a1f4e' : '#fff',
+                    color: whisperMode === m ? '#fff' : '#1a1f4e',
+                    cursor: 'pointer', whiteSpace: 'nowrap',
+                    boxShadow: whisperMode === m ? '0 4px 14px rgba(26,31,78,0.28)' : 'none',
+                    transition: 'all 0.12s',
+                  }}
+                >
+                  {m === 'post' ? 'Post-whisper' : 'Pre-whisper'}
+                </button>
+              ))}
+            </div>
+            <div style={{ fontSize: 11.5, color: 'rgba(26,31,78,0.42)', marginTop: 12, fontStyle: 'italic' }}>
+              Filter comparison with Post-Whisper and Pre-Whisper Consent Likelihood
+            </div>
+          </div>
+
+          {/* Middle: Total Clients */}
+          <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 12 }}>
+              Total Clients
+            </div>
+            <div style={{ fontSize: 56, fontWeight: 900, color: '#1a1f4e', lineHeight: 1 }}>
+              {whisperMode === 'post' ? postClients.length : filtered.length}
+            </div>
+          </div>
+
+          {/* Right: Avg. Propensity */}
+          <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 12 }}>
+              Avg. Propensity
+            </div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+              <span style={{ fontSize: 56, fontWeight: 900, color: '#1a1f4e', lineHeight: 1 }}>
+                {avgPropensity ?? '—'}
+              </span>
+              {avgPropensity !== null && (
+                <span style={{ fontSize: 20, fontWeight: 600, color: 'rgba(26,31,78,0.45)' }}>/100</span>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* ── Rationale accordion ── */}
