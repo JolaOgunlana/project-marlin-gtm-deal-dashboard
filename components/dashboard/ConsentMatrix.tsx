@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
-import { clients, type ClientRow } from '@/lib/data'
+import { clients } from '@/lib/data'
 
 // ── Types ──────────────────────────────────────────────────────────────────
 type Rating = 'High' | 'Medium' | 'Low' | null
@@ -40,26 +40,10 @@ type StageFilter = 'all' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 type WhisperMode = 'pre' | 'post'
 
 // ── Data ──────────────────────────────────────────────────────────────────
-// Map ClientRow to CMClient, using shared clients data from GTM Dashboard
-const CM_DATA: CMClient[] = clients.map(row => ({
-  name: row.name,
-  id: row.id,
-  rev: row.tmsRevenue,
-  region: row.region,
-  dealType: row.clientType,
-  wave: parseInt(row.wave),
-  stage: parseInt(row.stage),
-  out: "Medium" as Rating,  // Default placeholder — from consent whisper data
-  off: "Low" as Rating,
-  dig: "High" as Rating,
-  price: "Low" as Rating,
-  post: row.salesCategory && row.salesCategory !== 'TBD' ? {
-    out: { rating: "High" as Rating, rationale: row.salesCategory },
-    off: { rating: "Medium" as Rating, rationale: row.salesCategory },
-    dig: { rating: "High" as Rating, rationale: row.salesCategory },
-    price: { rating: "High" as Rating, rationale: row.salesCategory }
-  } : undefined
-})).concat([
+// CM_DATA contains consent-specific data. For the table, Client ID, Region,
+// TMS Revenue, Wave and Stage are enriched at render time from the shared
+// `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
+const CM_DATA: CMClient[] = [
   { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
@@ -143,7 +127,7 @@ const CM_DATA: CMClient[] = clients.map(row => ({
   { name:"Acclaris, Inc.", id:"", rev:5400, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Wright Express Financial Serv", id:"", rev:3120, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-])
+]
 
 // ── Helpers ──────────────────────────────────────────────���─────────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
@@ -1234,13 +1218,21 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                   const score = overallScore(c, whisperMode)
                   const levers: Array<'out' | 'off' | 'dig' | 'price'> = ['out', 'off', 'dig', 'price']
                   const hasDetail = whisperMode === 'post' && c.post
+                  // Enrich with GTM dashboard data — Client ID, Region, TMS Revenue, Wave, Stage
+                  const gtm = clients.find(r => r.name.toLowerCase() === c.name.toLowerCase())
+                  const displayId     = gtm?.id       || c.id
+                  const displayRegion = gtm?.region   || c.region
+                  const displayRev    = gtm ? gtm.tmsRevenue : c.rev
+                  const displayWave   = gtm?.wave     || String(c.wave)
+                  const displayStage  = gtm?.stage    || String(c.stage)
+                  const displayType   = gtm?.clientType === 'new' ? 'New Deal' : 'Retention'
                   return (
                     <React.Fragment key={`${c.name}-${i}`}>
                       <tr
                         style={{ background: i % 2 === 1 ? '#fafbfe' : '#fff', transition: 'background 0.1s' }}
                       >
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.7)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-                          {c.id || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>—</span>}
+                          {displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontWeight: 600, fontSize: 12, color: '#1a1f4e', lineHeight: 1.3 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -1252,20 +1244,20 @@ export function ConsentMatrix({ onNavigateBack }: { onNavigateBack: () => void }
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
                           <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 7px', borderRadius: 5, fontSize: 10.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-                            {c.dealType === 'existing' ? 'Retention' : 'New Deal'}
+                            {displayType}
                           </span>
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 8px', borderRadius: 999, fontSize: 10.5, fontWeight: 700, background: `${regionColor(c.region)}18`, color: regionColor(c.region), whiteSpace: 'nowrap' }}>
-                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: regionColor(c.region), flexShrink: 0 }} />
-                            {regionLabel(c.region)}
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 8px', borderRadius: 999, fontSize: 10.5, fontWeight: 700, background: `${regionColor(displayRegion)}18`, color: regionColor(displayRegion), whiteSpace: 'nowrap' }}>
+                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: regionColor(displayRegion), flexShrink: 0 }} />
+                            {regionLabel(displayRegion)}
                           </span>
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'right', fontVariantNumeric: 'tabular-nums', fontWeight: 800, fontSize: 12, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-                          {fmtRev(c.rev)}
+                          {fmtRev(displayRev)}
                         </td>
-                        <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 700, fontSize: 12, color: '#1a1f4e' }}>{c.wave}</td>
-                        <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 600, fontSize: 11, color: '#1a1f4e', whiteSpace: 'nowrap' }}>{c.stage}</td>
+                        <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 700, fontSize: 12, color: '#1a1f4e' }}>{displayWave}</td>
+                        <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 600, fontSize: 11, color: '#1a1f4e', whiteSpace: 'nowrap' }}>{displayStage}</td>
                         {levers.map(lever => {
                           const rating = effectiveRating(c, lever)
                           const isDetailOpen = openDetail?.row === i && openDetail?.lever === lever
