@@ -542,7 +542,7 @@ function HeatMap({ allClients, whisperMode }: HeatMapProps) {
         {/* Revenue Tier */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>Revenue Tier</span>
-          {([16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+'] as [number,string][]).map(([sz, label]) => (
+          {([[16,'< $1M'],[26,'$1M–5M'],[38,'$5M–10M'],[52,'$10M+']] as [number,string][]).map(([sz, label]) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <div style={{ width: sz, height: sz, borderRadius: '50%', background: '#c9ccdb', border: '2px solid rgba(255,255,255,0.7)', boxShadow: '0 1px 4px rgba(0,0,0,0.15)', flexShrink: 0 }} />
               <span style={{ fontSize: 10.5, color: 'rgba(26,31,78,0.6)' }}>{label}</span>
