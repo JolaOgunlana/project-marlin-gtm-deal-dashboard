@@ -35,6 +35,10 @@ interface CMClient {
   // Visual-only nudge in percentage points applied only in post-whisper view
   postNudgeX?: number
   postNudgeY?: number
+  // Override the out/off rating used ONLY for heatmap quadrant positioning in post-whisper
+  // (table continues to use post.out/off.rating)
+  postPlotOut?: Rating
+  postPlotOff?: Rating
   // Lock this client to its pre-whisper position in the post-whisper heatmap
   lockPostPosition?: boolean
   // Lock this client to its post-whisper position in the pre-whisper heatmap
@@ -64,7 +68,7 @@ const CM_DATA: CMClient[] = [
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:17352102, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Fifth Third Bank", id:"5685", rev:14062039, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
-    preNudgeY: 13.335, postNudgeX: -23, postNudgeY: -4,
+    preNudgeY: 13.335, postNudgeX: -23, postNudgeY: -4, postPlotOff: "High",
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
       off:{ rating:"Medium", rationale:"His initial and largest concern is the low-cost location component. He advised this will more than likely present some legal challenges as well as business ops challenges. Through the operational lens, he is concerned about degradation of voice services specifically, with little to no concern on offshoring any and all back-office/non-voice work." },
@@ -409,7 +413,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
   // ── Step 1: base positions from overall propensity within quadrant ─────────
   const base = plotted.map(c => {
     const ar = whisperMode === 'post' && c.post
-      ? { out: (c.post.out?.rating ?? c.out) as Rating, off: (c.post.off?.rating ?? c.off) as Rating }
+      ? { out: (c.postPlotOut ?? c.post.out?.rating ?? c.out) as Rating, off: (c.postPlotOff ?? c.post.off?.rating ?? c.off) as Rating }
       : { out: c.out, off: c.off }
     const scoreForPos = overallScore(c, whisperMode) ?? 50
     const qKey = `${ar.out}-${ar.off}`
@@ -905,7 +909,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
   )
 }
 
-// ── Main component ──────────────────────────������────�����─���───���─────────�����─────���──
+// ── Main component ────────────────────────��─������────�����─���───���─────────�����─────���──
 type Page = 'dashboard' | 'consent'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
