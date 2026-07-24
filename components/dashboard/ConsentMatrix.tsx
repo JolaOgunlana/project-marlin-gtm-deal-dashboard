@@ -690,7 +690,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
         } else {
           // green zone (top-right) — stronger green, still fades from yellow
           const t = (goodness - 0.6) / 0.4
-          r = Math.round(250 - 80 * t); g = Math.round(245 - 5 * t); b = Math.round(130 + 30 * t)
+          r = Math.round(250 - 115 * t); g = Math.round(245 + 5 * t); b = Math.round(130 + 20 * t)
         }
         const idx = (yy * RW + xx) * 4
         img.data[idx] = r; img.data[idx+1] = g; img.data[idx+2] = b; img.data[idx+3] = 255
