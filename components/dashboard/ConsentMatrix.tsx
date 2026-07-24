@@ -683,14 +683,14 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
           // pastel coral-pink zone (bottom-left)
           const t = goodness / 0.35
           r = Math.round(250 - 5 * t); g = Math.round(185 + 55 * t); b = Math.round(170 + 20 * t)
-        } else if (goodness < 0.6) {
-          // pastel yellow zone (center)
-          const t = (goodness - 0.35) / 0.25
+        } else if (goodness < 0.55) {
+          // pastel yellow zone (center) — compressed so green starts sooner
+          const t = (goodness - 0.35) / 0.20
           r = Math.round(245 + 5 * t); g = Math.round(240 + 5 * t); b = Math.round(190 - 60 * t)
         } else {
-          // pastel sage-green zone (top-right)
-          const t = (goodness - 0.6) / 0.4
-          r = Math.round(250 - 40 * t); g = Math.round(245 - 15 * t); b = Math.round(130 + 50 * t)
+          // vivid sage-green zone (top-right) — starts greener, ends deeper green
+          const t = (goodness - 0.55) / 0.45
+          r = Math.round(210 - 50 * t); g = Math.round(235 - 10 * t); b = Math.round(140 - 30 * t)
         }
         const idx = (yy * RW + xx) * 4
         img.data[idx] = r; img.data[idx+1] = g; img.data[idx+2] = b; img.data[idx+3] = 255
