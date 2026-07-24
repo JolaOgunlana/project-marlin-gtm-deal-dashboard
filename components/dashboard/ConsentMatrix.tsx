@@ -996,7 +996,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
   }
 
   return (
-    <div style={{ fontFamily: "var(--font-roobert), 'Plus Jakarta Sans', system-ui, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       {/* ── Page Header — matching page 1 style ── */}
       <div style={{
         background: '#1a1f4e', marginBottom: 26,

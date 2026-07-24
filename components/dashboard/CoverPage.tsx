@@ -30,10 +30,10 @@ export function NavBanner({ page, onNavigate, title }: {
       {/* Top row */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 24 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ fontSize: 46, fontWeight: 300, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+          <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05, fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
             {title}
           </div>
-          <span style={{ fontSize: 17, fontWeight: 400, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
             Internal Use Only
           </span>
         </div>
@@ -160,7 +160,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
   ]
 
   return (
-    <div style={{ fontFamily: "var(--font-roobert), 'Plus Jakarta Sans', system-ui, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin Sales Playbook" />
 
       <div style={{ padding: '0 32px 56px' }}>
