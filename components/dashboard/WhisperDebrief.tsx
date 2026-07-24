@@ -467,22 +467,23 @@ function TechCapabilities() {
 
 function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | null; onClearHighlight: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const didScrollRef = useRef(false)
 
   useEffect(() => {
     if (!highlightId) return
-    didScrollRef.current = false
 
-    // After the smooth scroll finishes (~600ms), start listening for user interactions
+    // Wait for the programmatic scrollIntoView to finish before attaching
+    // listeners — otherwise the scroll animation itself would clear immediately.
     const listenTimer = setTimeout(() => {
-      const clear = () => {
-        if (didScrollRef.current) return
-        onClearHighlight()
-      }
+      const clear = () => onClearHighlight()
       window.addEventListener('scroll', clear, { once: true, passive: true })
       window.addEventListener('click', clear, { once: true })
       window.addEventListener('keydown', clear, { once: true })
-    }, 650)
+      return () => {
+        window.removeEventListener('scroll', clear)
+        window.removeEventListener('click', clear)
+        window.removeEventListener('keydown', clear)
+      }
+    }, 800)
 
     return () => clearTimeout(listenTimer)
   }, [highlightId, onClearHighlight])
