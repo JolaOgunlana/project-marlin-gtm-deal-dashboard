@@ -17,11 +17,21 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  function handleFaqLink(id: string) {
+    setFaqHighlight(id)
+    setPage('faq')
+    setTimeout(() => {
+      const el = document.getElementById(id)
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 80)
+  }
+
   return (
     <main style={{ minHeight: '100vh', background: '#f4f5f9' }}>
       {page === 'cover'     && <CoverPage page={page} onNavigate={navigate} />}
-      {page === 'debrief'   && <WhisperDebriefPage page={page} onNavigate={navigate} />}
-      {page === 'faq'       && <FaqPage page={page} onNavigate={navigate} highlightId={faqHighlight} />}
+      {page === 'debrief'   && <WhisperDebriefPage page={page} onNavigate={navigate} onFaqLink={handleFaqLink} />}
+      {page === 'faq'       && <FaqPage page={page} onNavigate={navigate} highlightId={faqHighlight} onClearHighlight={() => setFaqHighlight(null)} />}
       {page === 'dashboard' && <Dashboard page={page} onNavigate={navigate} />}
       {page === 'consent'   && <ConsentMatrix page={page} onNavigate={navigate} />}
     </main>

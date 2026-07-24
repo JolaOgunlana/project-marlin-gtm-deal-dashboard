@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { NavBanner } from './CoverPage'
 
 type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent'
@@ -465,9 +465,30 @@ function TechCapabilities() {
   )
 }
 
-function FaqSection({ highlightId }: { highlightId: string | null }) {
+function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | null; onClearHighlight: () => void }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const didScrollRef = useRef(false)
+
+  useEffect(() => {
+    if (!highlightId) return
+    didScrollRef.current = false
+
+    // After the smooth scroll finishes (~600ms), start listening for user interactions
+    const listenTimer = setTimeout(() => {
+      const clear = () => {
+        if (didScrollRef.current) return
+        onClearHighlight()
+      }
+      window.addEventListener('scroll', clear, { once: true, passive: true })
+      window.addEventListener('click', clear, { once: true })
+      window.addEventListener('keydown', clear, { once: true })
+    }, 650)
+
+    return () => clearTimeout(listenTimer)
+  }, [highlightId, onClearHighlight])
+
   return (
-    <div>
+    <div ref={containerRef}>
       <div style={{ background: '#fff', border: BORDER, borderRadius: 12, overflow: 'hidden', marginTop: 14 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' as const }}>
           <colgroup>
@@ -492,7 +513,12 @@ function FaqSection({ highlightId }: { highlightId: string | null }) {
                 <tr
                   key={row.id}
                   id={row.id}
-                  style={{ background: highlightId === row.id ? 'rgba(91,45,110,0.08)' : undefined, transition: 'background 0.5s' }}
+                  style={{
+                    background: highlightId === row.id ? 'rgba(139,92,246,0.12)' : undefined,
+                    transition: highlightId === row.id ? 'none' : 'background 0.4s ease',
+                    outline: highlightId === row.id ? '2px solid rgba(139,92,246,0.30)' : undefined,
+                    outlineOffset: '-2px',
+                  }}
                 >
                   {ri === 0 && (
                     <td
@@ -532,20 +558,7 @@ function FaqSection({ highlightId }: { highlightId: string | null }) {
 }
 
 // ── Exported page wrappers ────────────────────────────────────────────────────
-export function WhisperDebriefPage({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
-  const [highlightId, setHighlightId] = useState<string | null>(null)
-
-  function handleFaqLink(id: string) {
-    onNavigate('faq')
-    setTimeout(() => {
-      const el = document.getElementById(id)
-      if (!el) return
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      setHighlightId(id)
-      setTimeout(() => setHighlightId(null), 2000)
-    }, 100)
-  }
-
+export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Whisper Conversation Debrief" />
@@ -553,18 +566,18 @@ export function WhisperDebriefPage({ page, onNavigate }: { page: Page; onNavigat
         <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6, maxWidth: 920 }}>
           This page captures what we learned from client whisper conversations and what still needs to be addressed across the four levers: Outsourcing, Offshoring, Digitization and Price Maintain. The table below shows each client&apos;s position on every lever at a glance. Click a client to see their Learnings and Points to Address. Each point links to the FAQ / Objection Handling page, where you&apos;ll find a ready response to use in your next conversation.
         </p>
-        <DebriefSection onFaqLink={handleFaqLink} />
+        <DebriefSection onFaqLink={onFaqLink} />
       </div>
     </div>
   )
 }
 
-export function FaqPage({ page, onNavigate, highlightId }: { page: Page; onNavigate: (p: Page) => void; highlightId?: string | null }) {
+export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { page: Page; onNavigate: (p: Page) => void; highlightId?: string | null; onClearHighlight?: () => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="FAQ / Objection Handling" />
       <div style={{ padding: '0 32px 56px' }}>
-        <FaqSection highlightId={highlightId ?? null} />
+        <FaqSection highlightId={highlightId ?? null} onClearHighlight={onClearHighlight ?? (() => {})} />
       </div>
     </div>
   )
