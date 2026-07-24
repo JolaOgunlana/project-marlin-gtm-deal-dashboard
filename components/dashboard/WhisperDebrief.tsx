@@ -560,7 +560,7 @@ function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | n
 // ── Exported page wrappers ────────────────────────────────────────────────────
 export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   return (
-    <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-roobert), 'Plus Jakarta Sans', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Whisper Conversation Debrief" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6, maxWidth: 920 }}>
@@ -574,7 +574,7 @@ export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page
 
 export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { page: Page; onNavigate: (p: Page) => void; highlightId?: string | null; onClearHighlight?: () => void }) {
   return (
-    <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-roobert), 'Plus Jakarta Sans', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="FAQ / Objection Handling" />
       <div style={{ padding: '0 32px 56px' }}>
         <FaqSection highlightId={highlightId ?? null} onClearHighlight={onClearHighlight ?? (() => {})} />

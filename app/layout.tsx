@@ -1,29 +1,15 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, Source_Sans_3, Playfair_Display, DM_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({
+// Roobert is FIS's brand font (commercial). Plus Jakarta Sans is the closest
+// geometric neo-grotesque available on Google Fonts — same Light/Regular/Medium
+// weight split used in the FIS typography hierarchy.
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const sourceSans3 = Source_Sans_3({
-  subsets: ['latin'],
-  variable: '--font-source-sans',
-  display: 'swap',
-})
-
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-roobert',
+  weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
 })
 
@@ -64,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`bg-[#f4f5f9] ${inter.variable} ${sourceSans3.variable} ${playfairDisplay.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`bg-[#f4f5f9] ${plusJakartaSans.variable}`}>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

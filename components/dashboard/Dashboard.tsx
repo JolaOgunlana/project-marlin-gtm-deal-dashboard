@@ -21,7 +21,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
   const [whisperFilter, setWhisperFilter] = useState<WhisperFilter>('all')
 
   return (
-    <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
+    <div className="db-wrap" style={{ fontFamily: "var(--font-roobert), 'Plus Jakarta Sans', system-ui, sans-serif" }}>
       {/* Navy banner — full bleed, no radius */}
       <div style={{
         background: '#1a1f4e',
@@ -35,10 +35,10 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 24 }}>
           {/* Left: title + internal tag */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05, fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
+            <div style={{ fontSize: 46, fontWeight: 300, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
               Deal Dashboard
             </div>
-            <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
+            <span style={{ fontSize: 17, fontWeight: 400, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               Internal Use Only
             </span>
           </div>
