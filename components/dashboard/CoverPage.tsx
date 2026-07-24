@@ -167,9 +167,8 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
 
         {/* Overview card */}
         <div style={{ background: s.white, border: s.border, borderRadius: 12, padding: '28px 32px', marginBottom: 24 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, paddingBottom: 14, borderBottom: s.border }}>
-            <div style={{ width: 5, height: 20, background: s.accent, borderRadius: 3 }} />
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: s.ink }}>Overview</div>
+          <div style={{ marginBottom: 20, paddingBottom: 14, borderBottom: s.border }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: s.ink, letterSpacing: '-0.01em' }}>Overview</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {overviewRows.map((row, i) => (
