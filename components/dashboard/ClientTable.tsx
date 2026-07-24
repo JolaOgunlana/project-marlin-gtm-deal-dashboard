@@ -66,9 +66,9 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
 
   return (
     <div>
-      {/* Title + search bar — outside the table card */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, gap: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      {/* Title + search bar + note — outside the table card */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 12, gap: 16 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Client Status</div>
           {/* Search bar */}
           <div style={{ position: 'relative' }}>
