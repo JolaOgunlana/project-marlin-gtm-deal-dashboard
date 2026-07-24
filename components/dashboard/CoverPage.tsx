@@ -195,7 +195,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: step.color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17, fontWeight: 700, flexShrink: 0 }}>
                     {step.num}
                   </div>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: s.ink, lineHeight: 1 }}>{step.title}</div>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: s.ink, lineHeight: 1, letterSpacing: '-0.01em' }}>{step.title}</div>
                 </div>
                 <div style={{ fontSize: 14, color: s.ink, lineHeight: 1.55, marginBottom: 20, minHeight: 72 }}>{step.desc}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
