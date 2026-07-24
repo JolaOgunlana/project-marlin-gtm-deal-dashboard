@@ -10,26 +10,27 @@ const INK = '#1a1f4e'
 const ACCENT = '#5b2d6e'
 const BORDER = '1px solid #e5e7eb'
 const MUTED = 'rgba(26,31,78,0.55)'
+const LINK_COL = '#5b2d6e'
 
-const HIGH_BG = 'rgba(46,158,46,0.12)'; const HIGH_COL = '#2e9e2e'
-const MED_BG  = 'rgba(184,134,11,0.16)'; const MED_COL  = '#b8860b'
-const LOW_BG  = 'rgba(192,57,43,0.12)';  const LOW_COL  = '#c0392b'
-
-function RatingCell({ r }: { r: 'High' | 'Med' | 'Low' | 'N/A' }) {
-  const map: Record<string, { bg: string; col: string }> = {
-    High: { bg: HIGH_BG, col: HIGH_COL },
-    Med:  { bg: MED_BG,  col: MED_COL  },
-    Low:  { bg: LOW_BG,  col: LOW_COL  },
-    'N/A': { bg: 'rgba(26,31,78,0.045)', col: 'rgba(26,31,78,0.3)' },
+function RatingCell({ r }: { r: 'High' | 'Medium' | 'Low' }) {
+  const styles: Record<string, { bg: string; color: string; dot: string }> = {
+    High:   { bg: '#d8f3d8', color: '#1a6e1a', dot: '#2e9e2e' },
+    Medium: { bg: '#fdf1c9', color: '#8a6a00', dot: '#e8a800' },
+    Low:    { bg: '#fde0e0', color: '#a01020', dot: '#d0021b' },
   }
-  const style = map[r] ?? map['N/A']
+  const s = styles[r]
   return (
     <span style={{
-      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      minWidth: 56, padding: '4px 9px', borderRadius: 7,
-      fontSize: 10, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase',
-      background: style.bg, color: style.col,
-    }}>{r}</span>
+      display: 'inline-flex', alignItems: 'center', gap: 5,
+      padding: '5px 9px', borderRadius: 7,
+      background: s.bg, color: s.color,
+      fontSize: 10.5, fontWeight: 700, letterSpacing: '0.02em',
+      textTransform: 'uppercase', whiteSpace: 'nowrap',
+      border: '1.5px solid transparent',
+    }}>
+      <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
+      {r}
+    </span>
   )
 }
 
@@ -43,7 +44,7 @@ type LeverRow = {
 type ClientRecord = {
   name: string
   meta: string
-  ratings: { out: 'High' | 'Med' | 'Low'; off: 'High' | 'Med' | 'Low'; dig: 'High' | 'Med' | 'Low'; price: 'High' | 'Med' | 'Low' }
+  ratings: { out: 'High' | 'Medium' | 'Low'; off: 'High' | 'Medium' | 'Low'; dig: 'High' | 'Medium' | 'Low'; price: 'High' | 'Medium' | 'Low' }
   pointsCount: number
   levers: LeverRow[]
 }
@@ -51,7 +52,7 @@ type ClientRecord = {
 const CLIENTS: ClientRecord[] = [
   {
     name: 'Virgin Money', meta: 'EMEA · UK · $27.15M',
-    ratings: { out: 'High', off: 'Med', dig: 'High', price: 'High' },
+    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'High' },
     pointsCount: 4,
     levers: [
       {
@@ -84,7 +85,7 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'Fifth Third Bank', meta: 'North America · $14.06M',
-    ratings: { out: 'High', off: 'Med', dig: 'High', price: 'Med' },
+    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'Medium' },
     pointsCount: 6,
     levers: [
       {
@@ -120,7 +121,7 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'UMB', meta: 'North America · $10.32M',
-    ratings: { out: 'Med', off: 'High', dig: 'Med', price: 'Low' },
+    ratings: { out: 'Medium', off: 'High', dig: 'Medium', price: 'Low' },
     pointsCount: 2,
     levers: [
       {
@@ -151,7 +152,7 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'NatWest', meta: 'EMEA · UK · $25.2K',
-    ratings: { out: 'Med', off: 'Med', dig: 'Med', price: 'High' },
+    ratings: { out: 'Medium', off: 'Medium', dig: 'Medium', price: 'High' },
     pointsCount: 3,
     levers: [
       {
