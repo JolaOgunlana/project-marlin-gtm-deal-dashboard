@@ -63,7 +63,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
   return (
     <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>
       <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#1a1f4e' }}>Client Status</div>
+        <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Client Status</div>
         <div style={{ fontSize: 13, color: 'rgba(26,31,78,0.45)', whiteSpace: 'nowrap' }}>{noteText}</div>
       </div>
       <div style={{ overflowX: 'auto' }}>
