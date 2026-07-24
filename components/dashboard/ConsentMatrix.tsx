@@ -910,7 +910,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 }
 
 // ── Main component ────────────────────────��─������────�����─���───���─────────�����─────���──
-type Page = 'dashboard' | 'consent'
+type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('post')
@@ -1007,7 +1007,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 24 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
-              Consent Likelihood Matrix
+              Client Consent Matrix
             </div>
             <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               Internal Use Only
@@ -1036,8 +1036,11 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
         {/* Bottom: page tabs flush to banner bottom-left */}
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {([
+            { id: 'cover',     label: 'Cover Page' },
+            { id: 'debrief',   label: 'Whisper Conversation Debrief' },
+            { id: 'faq',       label: 'FAQ / Objection Handling' },
             { id: 'dashboard', label: 'GTM Deal Dashboard' },
-            { id: 'consent',   label: 'Consent Likelihood Matrix' },
+            { id: 'consent',   label: 'Client Consent Matrix' },
           ] as { id: Page; label: string }[]).map(tab => (
             <button
               key={tab.id}
