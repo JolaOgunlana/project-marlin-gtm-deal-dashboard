@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { clients, formatRevM, type ClientRow } from '@/lib/data'
 
 type ClientFilter = 'total' | 'existing' | 'new'
@@ -41,6 +41,8 @@ function RegionBadge({ region }: { region: string }) {
 }
 
 export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter }: ClientTableProps) {
+  const [search, setSearch] = useState('')
+
   const filtered = useMemo(() => {
     return clients.filter((row) => {
       const cMatch = clientFilter === 'total' || clientFilter === row.clientType
@@ -49,9 +51,11 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
       const sMatch = stageFilter === 'all' || stageFilter === row.stage
       const isCompleted = row.salesCategory.trim() !== '' && row.salesCategory.trim() !== 'TBD'
       const wMatch2 = whisperFilter === 'all' || (whisperFilter === 'completed' && isCompleted)
-      return cMatch && wMatch && rMatch && sMatch && wMatch2
+      const q = search.trim().toLowerCase()
+      const sSearch = !q || row.name.toLowerCase().includes(q) || row.region.toLowerCase().includes(q) || row.salesCategory.toLowerCase().includes(q)
+      return cMatch && wMatch && rMatch && sMatch && wMatch2 && sSearch
     })
-  }, [clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter])
+  }, [clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter, search])
 
   const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
@@ -61,11 +65,35 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
   const noteText = `${filtered.length} shown · ${cl} · ${wv} · ${rg} · ${st} · ${wp}`
 
   return (
-    <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>
-      <div style={{ padding: '18px 24px 14px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
-        <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Client Status</div>
-        <div style={{ fontSize: 13, color: 'rgba(26,31,78,0.45)', whiteSpace: 'nowrap' }}>{noteText}</div>
+    <div>
+      {/* Title + search bar — outside the table card */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12, gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Client Status</div>
+          {/* Search bar */}
+          <div style={{ position: 'relative' }}>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ position: 'absolute', left: 9, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+              <circle cx="6.5" cy="6.5" r="5" stroke="rgba(26,31,78,0.4)" strokeWidth="1.5" />
+              <path d="M10 10L14 14" stroke="rgba(26,31,78,0.4)" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search clients..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{
+                paddingLeft: 30, paddingRight: 10, paddingTop: 6, paddingBottom: 6,
+                fontSize: 12, border: '1px solid #e2e4ee', borderRadius: 8,
+                outline: 'none', width: 200, color: '#1a1f4e',
+                background: '#fff', fontFamily: 'inherit',
+              }}
+            />
+          </div>
+        </div>
+        <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', whiteSpace: 'nowrap' }}>{noteText}</div>
       </div>
+
+      <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>
       <div style={{ overflowX: 'auto' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <colgroup>
@@ -86,9 +114,14 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
             <col style={{ width: '28%' }} /> {/* Whisper Outcome — intentionally wide */}
           </colgroup>
           <thead>
-            <tr style={{ background: '#f7f8fc' }}>
+            <tr>
               {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Total Revenue', 'Wave', 'TCV', 'TCV Currency', 'Stage', 'Probability (%)', 'Risk', 'Next Step', 'Disqualified Reason', 'Opportunity Owner', 'Whisper Outcome'].map((h) => (
-                <th key={h} style={{ padding: '8px 7px', textAlign: 'left', fontSize: 9, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', color: '#1a1f4e', borderBottom: '1px solid #e2e4ee', whiteSpace: 'normal', lineHeight: 1.2, verticalAlign: 'bottom', wordBreak: 'break-word' }}>
+                <th key={h} style={{
+                  padding: '10px 7px', textAlign: 'left', fontSize: 9, fontWeight: 700,
+                  letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff',
+                  background: '#1a1f4e', whiteSpace: 'normal', lineHeight: 1.2,
+                  verticalAlign: 'bottom', wordBreak: 'break-word',
+                }}>
                   {h}
                 </th>
               ))}
@@ -138,6 +171,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   )
 }
