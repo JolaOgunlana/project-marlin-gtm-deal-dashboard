@@ -517,8 +517,6 @@ function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | n
                   style={{
                     background: highlightId === row.id ? 'rgba(139,92,246,0.12)' : undefined,
                     transition: highlightId === row.id ? 'none' : 'background 0.4s ease',
-                    outline: highlightId === row.id ? '2px solid rgba(139,92,246,0.30)' : undefined,
-                    outlineOffset: '-2px',
                   }}
                 >
                   {ri === 0 && (
