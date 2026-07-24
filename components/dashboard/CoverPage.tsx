@@ -14,7 +14,7 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'cover',     label: 'Cover Page' },
     { id: 'debrief',   label: 'Whisper Conversation Debrief' },
     { id: 'faq',       label: 'FAQ / Objection Handling' },
-    { id: 'dashboard', label: 'GTM Deal Dashboard' },
+    { id: 'dashboard', label: 'Deal Dashboard' },
     { id: 'consent',   label: 'Client Consent Matrix' },
   ]
 
@@ -153,7 +153,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       desc: 'Compare client consent at a glance across the four levers, with a blended score and colour-coded risk bands to guide prioritization and account strategy.',
       color: '#3a6e00',
       links: [
-        { label: 'GTM Deal Dashboard', page: 'dashboard' },
+        { label: 'Deal Dashboard', page: 'dashboard' },
         { label: 'Client Consent Matrix', page: 'consent' },
       ],
     },

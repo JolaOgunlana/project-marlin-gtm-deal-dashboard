@@ -29,7 +29,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: 'Deal Dashboard',
-  description: 'Internal GTM Deal Dashboard for Project Marlin — INTERNAL USE ONLY',
+  description: 'Internal Deal Dashboard — INTERNAL USE ONLY',
   generator: 'v0.app',
   icons: {
     icon: [

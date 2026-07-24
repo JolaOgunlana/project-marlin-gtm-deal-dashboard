@@ -1039,7 +1039,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             { id: 'cover',     label: 'Cover Page' },
             { id: 'debrief',   label: 'Whisper Conversation Debrief' },
             { id: 'faq',       label: 'FAQ / Objection Handling' },
-            { id: 'dashboard', label: 'GTM Deal Dashboard' },
+            { id: 'dashboard', label: 'Deal Dashboard' },
             { id: 'consent',   label: 'Client Consent Matrix' },
           ] as { id: Page; label: string }[]).map(tab => (
             <button
