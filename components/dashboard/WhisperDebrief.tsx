@@ -563,7 +563,7 @@ export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Whisper Conversation Debrief" />
       <div style={{ padding: '0 32px 56px' }}>
-        <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6, maxWidth: 920 }}>
+        <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6 }}>
           This page captures what we learned from client whisper conversations and what still needs to be addressed across the four levers: Outsourcing, Offshoring, Digitization and Price Maintain. The table below shows each client&apos;s position on every lever at a glance. Click a client to see their Learnings and Points to Address. Each point links to the FAQ / Objection Handling page, where you&apos;ll find a ready response to use in your next conversation.
         </p>
         <DebriefSection onFaqLink={onFaqLink} />
