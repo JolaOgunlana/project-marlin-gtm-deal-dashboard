@@ -99,6 +99,10 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
 
       {/* Content area with original padding */}
       <div style={{ padding: '0 28px 48px' }}>
+        {/* Description */}
+        <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, maxWidth: 960 }}>
+          This dashboard provides a real-time view of the TMS consent programme pipeline, tracking deal progression and whisper engagement status across the full client portfolio. It surfaces revenue at stake, stage distribution, and whisper completion rates for both Revenue Retention and New Deal Opportunities. Opportunity data is sourced from Salesforce and enriched with whisper outcomes logged by the account team. Use it to identify where deals are stalling, prioritise outreach, and monitor progress against the <strong>$60M ACV</strong> consent target.
+        </p>
       {/* KPI — Revenue Retention Opportunities */}
       <KpiSection
         variant="existing"

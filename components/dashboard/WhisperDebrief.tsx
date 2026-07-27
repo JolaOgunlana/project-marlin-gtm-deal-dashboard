@@ -577,6 +577,9 @@ export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { p
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="FAQ / Objection Handling" />
       <div style={{ padding: '0 32px 56px' }}>
+        <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, maxWidth: 960 }}>
+          This guide equips the account team with ready-to-use responses for the objections and questions most commonly raised during whisper conversations. It is organised by lever — Outsourcing, Offshoring, Digitization, and Price Maintain — so you can navigate directly to the relevant concern. Each row pairs the client&apos;s point of resistance with a concise, FIS-approved response drawn from programme talking points and commercial precedent. Use it alongside the Whisper Conversation Debrief, where each unresolved point links directly to the corresponding response here.
+        </p>
         <FaqSection highlightId={highlightId ?? null} onClearHighlight={onClearHighlight ?? (() => {})} />
       </div>
     </div>
