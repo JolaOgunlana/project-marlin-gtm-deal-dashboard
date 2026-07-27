@@ -103,7 +103,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
     },
     {
       key: 'Purpose',
-      val: <>Secure client consent across the TMS portfolio so FIS can transition contact center operations to its BPO partner — reaching the program&apos;s <strong>$25M ACV</strong> consent target.</>,
+      val: <>Secure client consent across the TMS portfolio so FIS can transition contact center operations to its BPO partner — reaching the program&apos;s <strong>$60M ACV consent target</strong> (of which $25M ACV by Oct 2026).</>,
     },
     {
       key: "Who It's For",
