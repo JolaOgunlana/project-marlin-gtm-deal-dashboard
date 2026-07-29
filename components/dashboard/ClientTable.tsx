@@ -95,32 +95,32 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
 
       <div style={{ background: 'white', borderRadius: 12, border: '1px solid #e2e4ee', overflow: 'hidden' }}>
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'auto' }}>
           <colgroup>
-            <col style={{ width: '4%' }} />  {/* Oppt. ID */}
-            <col style={{ width: '10%' }} /> {/* Client Name */}
-            <col style={{ width: '5%' }} />  {/* Deal Type */}
-            <col style={{ width: '5%' }} />  {/* Region */}
-            <col style={{ width: '6%' }} />  {/* TMS Total Revenue */}
-            <col style={{ width: '3%' }} />  {/* Wave */}
-            <col style={{ width: '4%' }} />  {/* TCV */}
-            <col style={{ width: '4%' }} />  {/* TCV Currency */}
-            <col style={{ width: '4%' }} />  {/* Stage */}
-            <col style={{ width: '5%' }} />  {/* Probability */}
-            <col style={{ width: '4%' }} />  {/* Risk */}
-            <col style={{ width: '6%' }} />  {/* Next Step */}
-            <col style={{ width: '6%' }} />  {/* Disqualified Reason */}
-            <col style={{ width: '6%' }} />  {/* Opportunity Owner */}
-            <col style={{ width: '28%' }} /> {/* Whisper Outcome — intentionally wide */}
+            <col style={{ minWidth: 60 }} />   {/* Oppt. ID */}
+            <col style={{ minWidth: 130 }} />  {/* Client Name */}
+            <col style={{ minWidth: 72 }} />   {/* Deal Type */}
+            <col style={{ minWidth: 68 }} />   {/* Region */}
+            <col style={{ minWidth: 100 }} />  {/* TMS Total Revenue */}
+            <col style={{ minWidth: 54 }} />   {/* Wave */}
+            <col style={{ minWidth: 54 }} />   {/* TCV */}
+            <col style={{ minWidth: 80 }} />   {/* TCV Currency */}
+            <col style={{ minWidth: 54 }} />   {/* Stage */}
+            <col style={{ minWidth: 88 }} />   {/* Probability (%) */}
+            <col style={{ minWidth: 54 }} />   {/* Risk */}
+            <col style={{ minWidth: 80 }} />   {/* Next Step */}
+            <col style={{ minWidth: 110 }} />  {/* Disqualified Reason */}
+            <col style={{ minWidth: 110 }} />  {/* Opportunity Owner */}
+            <col style={{ width: '30%' }} />   {/* Whisper Outcome — intentionally wide */}
           </colgroup>
           <thead>
             <tr>
               {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Total Revenue', 'Wave', 'TCV', 'TCV Currency', 'Stage', 'Probability (%)', 'Risk', 'Next Step', 'Disqualified Reason', 'Opportunity Owner', 'Whisper Outcome'].map((h) => (
                 <th key={h} style={{
-                  padding: '10px 7px', textAlign: 'left', fontSize: 9, fontWeight: 700,
-                  letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fff',
-                  background: '#1a1f4e', whiteSpace: 'normal', lineHeight: 1.2,
-                  verticalAlign: 'bottom', wordBreak: 'break-word',
+                  padding: '10px 8px', textAlign: 'left', fontSize: 9, fontWeight: 700,
+                  letterSpacing: '0.08em', textTransform: 'uppercase', color: '#fff',
+                  background: '#1a1f4e', whiteSpace: 'nowrap', lineHeight: 1.2,
+                  verticalAlign: 'bottom',
                 }}>
                   {h}
                 </th>
