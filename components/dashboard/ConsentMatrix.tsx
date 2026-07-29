@@ -799,12 +799,12 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
       <div style={{ padding: '12px 24px 16px', display: 'flex', alignItems: 'flex-end', gap: 24 }}>
 
         {/* Left: Stage — spans all remaining space */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', flex: 1, minWidth: 0 }}>
-          <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'nowrap', flex: 1, minWidth: 0, overflowX: 'auto' }}>
+          <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
           {STAGE_LABELS.map(([, label, col]) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
-              <div style={{ width: 11, height: 11, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
-              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
+            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+              <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
             </div>
           ))}
         </div>
