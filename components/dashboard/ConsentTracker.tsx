@@ -62,11 +62,9 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing rated High, offshoring High, digitization High. Strong cross-lever receptivity.', date: '15 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client open to outsourcing?', answer: 'High. Open to outsourcing with no significant resistance raised.' },
-          { status: 'y', question: 'Is the client open to offshoring?', answer: 'High. No concern raised on offshore delivery model.' },
-          { status: 'y', question: 'Is the client open to digitization?', answer: 'High. Receptive to technology-led transformation.' },
-          { status: 'q', question: 'Is pricing acceptable?', answer: 'Low signal. No pricing discussion held yet — awaiting formal pitch.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing, offshoring, and digitization all rated High.', date: '15 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Strong cross-lever receptivity with no resistance raised.' },
+          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Formal pitch confirmed; scheduling in progress.' },
         ],
       },
       {
@@ -102,11 +100,9 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper with John — outsourcing High, digitization High, offshoring Medium, price Medium.', date: '8 Jun 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client open to outsourcing?', answer: 'High. Sees logic in outsourcing to address scalability and technology gaps.' },
-          { status: 'q', question: 'Is the client open to offshoring?', answer: 'Medium. Voice offshoring flagged as a concern; legal and ops challenges anticipated.' },
-          { status: 'y', question: 'Is the client open to digitization?', answer: 'High. Comfortable injecting technology into front-end processes; wants proof points first.' },
-          { status: 'q', question: 'Is pricing acceptable?', answer: 'Medium. Understands price-neutral structure; no pricing pushback but no clear endorsement.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing High, digitization High, offshoring Medium, price Medium.', date: '8 Jun 2026', link: 'debrief' },
+          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Sees logic in outsourcing for scalability; voice offshoring raised as a constraint.' },
+          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Follow-up meeting scheduled; internal sponsors committed.' },
         ],
       },
       {
@@ -142,19 +138,16 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'done',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Two whisper conversations held — outsourcing High, offshoring High confirmed across both.', date: '22 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client open to outsourcing?', answer: 'High. Very positive on Genpact; sees value in the operating model. Involved in multiple outsourcing reviews.' },
-          { status: 'y', question: 'Is the client open to offshoring?', answer: 'High. Offshore confirmed for voice (Philippines) and back-office (India).' },
-          { status: 'q', question: 'Is the client open to digitization?', answer: 'Medium. Technology Modernization identified as primary near-term opportunity.' },
-          { status: 'q', question: 'Is pricing acceptable?', answer: 'Low. Challenged current economics — expects pricing to resurface in formal discussions.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Two conversations held — outsourcing High, offshoring High confirmed across both.', date: '22 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Very positive on Genpact; involved in multiple outsourcing reviews across the business.' },
+          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Formal pitch requested; targeting late August or early September.' },
         ],
       },
       {
         step: 'alignment',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Has a formal pitch session been requested?', answer: 'Yes. Formal pitch requested targeting late August or early September.' },
-          { status: 'q', question: 'Has the client requested pricing or commercial detail?', answer: 'Partially. Benchmarked pricing against market rates; no formal proposal reviewed yet.' },
+          { status: 'q', question: 'Has the client requested pricing or commercial detail?', answer: 'Partially. Pricing benchmarked against market rates; formal proposal not yet reviewed.' },
           { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
           { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed — formal pitch not yet delivered.' },
         ],
@@ -183,11 +176,9 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper with Ailsa — outsourcing Medium, offshoring Medium, price High flagged.', date: '28 May 2026', link: 'debrief' },
-          { status: 'q', question: 'Is the client open to outsourcing?', answer: 'Medium. Not allergic to a new provider but raised potential to bring IVR back in-house.' },
-          { status: 'q', question: 'Is the client open to offshoring?', answer: 'Medium. Offshoring not directly applicable to current IVR scope.' },
-          { status: 'q', question: 'Is the client open to digitization?', answer: 'Medium. No strong signal raised; relies on current IVR reliability.' },
-          { status: 'n', question: 'Is pricing acceptable?', answer: 'High concern. Pricing flagged as a key risk; no resolution yet.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing Medium, offshoring Medium; pricing flagged as a key concern.', date: '28 May 2026', link: 'debrief' },
+          { status: 'q', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Partially. Not allergic to a new provider but raised possibility of bringing IVR back in-house.' },
+          { status: 'q', question: 'Has the client agreed to receive further information?', answer: 'Partially. Engaged but no formal follow-up committed; pricing risk must be addressed first.' },
         ],
       },
       {
