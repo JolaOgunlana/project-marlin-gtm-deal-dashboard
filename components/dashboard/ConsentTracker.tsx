@@ -205,9 +205,28 @@ const CLIENTS: TrackerClient[] = [
 
 // ── Summary stats ─────────────────────────────────────────────────────────────
 const STATS = [
-  { label: 'Exploration', count: 4, color: INK, countColor: GRAY },
-  { label: 'Alignment',   count: 0, color: INK, countColor: AMBER },
-  { label: 'Consent',     count: 0, color: INK, countColor: GREEN,  sub: '$0M in revenue represented' },
+  {
+    label: 'Exploration',
+    count: 4,
+    countColor: GRAY,
+    definition: 'Client is aware of the transition and open to receiving more information.',
+    sfStages: 'SF Stages 1–2 · New Opportunity / Early Sales',
+  },
+  {
+    label: 'Alignment',
+    count: 0,
+    countColor: AMBER,
+    definition: 'Client has engaged with the commercial and operational model and is evaluating a formal proposal.',
+    sfStages: 'SF Stages 3–4 · Mid Sales / Late Sales',
+  },
+  {
+    label: 'Consent',
+    count: 0,
+    countColor: GREEN,
+    definition: 'Client has agreed to the transition and amendment discussions are underway or complete.',
+    sfStages: 'SF Stages 5–6 · Contracting / Executed',
+    sub: '$0M in revenue represented',
+  },
 ]
 
 // ── Sub-components ──────────────────────────────────────��──────────────────────
@@ -438,10 +457,23 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             <div key={s.label} style={{
               background: '#fff', borderRadius: 14, padding: '22px 24px 20px',
               border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
+              display: 'flex', flexDirection: 'column', gap: 0,
             }}>
-              <div style={{ fontSize: 11.5, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 14 }}>{s.label}</div>
-              <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor || s.color, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
-              {s.sub && <div style={{ fontSize: 12.5, fontWeight: 700, color: MUTED_D, marginTop: 9 }}><span style={{ color: s.countColor || GREEN, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
+              {/* Label */}
+              <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 10 }}>{s.label}</div>
+              {/* Count */}
+              <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 14 }}>{s.count}</div>
+              {/* Divider */}
+              <div style={{ height: 1, background: '#e5e8ed', marginBottom: 14 }} />
+              {/* Definition */}
+              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 10 }}>{s.definition}</div>
+              {/* SF mapping */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 'auto' }}>
+                <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', background: 'rgba(26,31,78,0.07)', color: INK, borderRadius: 4, padding: '3px 7px', whiteSpace: 'nowrap' }}>
+                  {s.sfStages}
+                </span>
+              </div>
+              {s.sub && <div style={{ fontSize: 12, fontWeight: 700, color: MUTED_D, marginTop: 10 }}><span style={{ color: s.countColor, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
             </div>
           ))}
         </div>
