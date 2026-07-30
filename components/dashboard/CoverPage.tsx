@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent'
+type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 // ── Shared nav banner ─────────────────────────────────────────────────────────
 export function NavBanner({ page, onNavigate, title }: {
@@ -16,6 +16,7 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'faq',       label: 'FAQ / Objection Handling' },
     { id: 'dashboard', label: 'Deal Dashboard' },
     { id: 'consent',   label: 'Client Consent Matrix' },
+    { id: 'tracker',   label: 'Consent Tracker' },
   ]
 
   return (

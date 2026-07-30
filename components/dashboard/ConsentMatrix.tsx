@@ -910,7 +910,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 }
 
 // ── Main component ────────────────────────��─������────�����─���───���─────────�����─────���──
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent'
+  type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('post')
@@ -1041,6 +1041,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             { id: 'faq',       label: 'FAQ / Objection Handling' },
             { id: 'dashboard', label: 'Deal Dashboard' },
             { id: 'consent',   label: 'Client Consent Matrix' },
+            { id: 'tracker',   label: 'Consent Tracker' },
           ] as { id: Page; label: string }[]).map(tab => (
             <button
               key={tab.id}
