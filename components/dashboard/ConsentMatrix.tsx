@@ -1395,9 +1395,8 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                                 
                                 {/* Conversation 1 */}
                                 <div style={{ marginBottom: hasConv2 ? 18 : 0 }}>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                                  <div style={{ marginBottom: 8 }}>
                                     <span style={{ fontSize: 10, fontWeight: 800, color: '#5b2d6e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>1) Conversation 1</span>
-                                    {conv1Entry && <RatingPill rating={conv1Entry.rating} />}
                                   </div>
                                   {conv1Entry?.rationale?.trim()
                                     ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{conv1Entry.rationale}</p>
@@ -1408,9 +1407,8 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                                 {/* Conversation 2 — if it exists */}
                                 {hasConv2 && (
                                   <div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                                    <div style={{ marginBottom: 8 }}>
                                       <span style={{ fontSize: 10, fontWeight: 800, color: '#5b2d6e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>2) Conversation 2</span>
-                                      {conv2Entry && <RatingPill rating={conv2Entry.rating} />}
                                     </div>
                                     {conv2Entry.rationale?.trim()
                                       ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{conv2Entry.rationale}</p>
