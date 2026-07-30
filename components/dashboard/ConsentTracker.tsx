@@ -177,7 +177,7 @@ const CLIENTS: TrackerClient[] = [
         status: 'active',
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested compliance certifications, SLAs, and governance documentation.', link: 'faq' },
+          { status: 'q', question: 'Did the client request additional information?', answer: 'No request yet', link: 'faq' },
           { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Not Assessed Yet' },
         ],
       },
