@@ -460,44 +460,90 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           This page tracks client progression through three stages — Exploration, Alignment, and Consent — aligned with your existing Salesforce funnel. It shows the specific evidence and criteria recorded at each stage that confirms a client is ready to move forward. The stages map directly to your sales process and how your team currently works, with clear decision gates at each step. Click any client to view the evidence collected during each stage and understand exactly what it takes to move them to the next phase.
         </p>
 
-        {/* ── Stat cards ────────────────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, marginBottom: 24 }}>
-          {STATS.map(s => (
-            <div key={s.label} style={{
-              background: '#fff', borderRadius: 14, padding: '20px',
-              border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
-              display: 'flex', flexDirection: 'column',
+        {/* ── Chevron stage cards ───────────────────────────────────── */}
+        {(() => {
+          // The chevron point protrudes this many px to the right
+          const POINT = 28
+          // Overlap between cards so point nests into next notch
+          const OVERLAP = POINT
+
+          return (
+            <div style={{
+              display: 'flex', alignItems: 'stretch',
+              marginBottom: 24,
+              // Let the shadow from each card show above siblings
+              isolation: 'isolate',
             }}>
-              {/* Stage label at top */}
-              <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 16 }}>{s.label}</div>
-              
-              {/* Split layout: Revenue (left) | Clients (right) */}
-              <div style={{ display: 'flex', marginBottom: 16, flex: 1 }}>
-                {/* Left: Revenue */}
-                <div style={{ flex: 1, paddingRight: 16, borderRight: '1px solid #e5e8ed' }}>
-                  <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Revenue</div>
-                  <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.revenue}</div>
-                  <div style={{ fontSize: 11, color: MUTED_D }}>{s.revenueLabel}</div>
-                </div>
-                
-                {/* Right: Clients */}
-                <div style={{ flex: 1, paddingLeft: 16 }}>
-                  <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Clients</div>
-                  <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.count}</div>
-                  <div style={{ fontSize: 11, color: MUTED_D }}>{s.region}</div>
-                </div>
-              </div>
-              
-              {/* Definition */}
-              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 12, paddingBottom: 12, borderBottom: '1px solid #e5e8ed' }}>{s.definition}</div>
-              
-              {/* SF mapping */}
-              <div style={{ fontSize: 11, color: MUTED_D, marginTop: 'auto', fontWeight: 500 }}>
-                {s.sfStages}
-              </div>
+              {STATS.map((s, i) => {
+                const isFirst = i === 0
+                const isLast  = i === STATS.length - 1
+                const totalCards = STATS.length
+
+                // clip-path vertices (% of width × height):
+                // First card:  flat-left, point-right
+                // Middle card: notch-left, point-right
+                // Last card:   notch-left, flat-right
+                let clipPath: string
+                if (isFirst) {
+                  clipPath = `polygon(0% 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, 0% 100%)`
+                } else if (isLast) {
+                  clipPath = `polygon(${POINT}px 0%, 100% 0%, 100% 100%, ${POINT}px 100%, 0% 50%)`
+                } else {
+                  clipPath = `polygon(${POINT}px 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, ${POINT}px 100%, 0% 50%)`
+                }
+
+                // Padding: add extra on the side that has a notch/point so content isn't clipped
+                const paddingLeft  = isFirst ? 20 : POINT + 20
+                const paddingRight = isLast  ? 20 : POINT + 20
+
+                return (
+                  <div
+                    key={s.label}
+                    style={{
+                      flex: 1,
+                      // Pull each card left to overlap/interlock with the previous point
+                      marginLeft: i === 0 ? 0 : -OVERLAP,
+                      // Stack so earlier cards render on top (first = highest)
+                      zIndex: totalCards - i,
+                      clipPath,
+                      background: '#fff',
+                      // Outer stroke via box-shadow (border won't respect clip-path)
+                      boxShadow: '0 1px 4px rgba(20,31,56,.10)',
+                      padding: `20px ${paddingRight}px 20px ${paddingLeft}px`,
+                      display: 'flex', flexDirection: 'column',
+                      minHeight: 180,
+                    }}
+                  >
+                    {/* Stage label */}
+                    <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 16 }}>{s.label}</div>
+
+                    {/* Split: Revenue (left) | Clients (right) */}
+                    <div style={{ display: 'flex', marginBottom: 16, flex: 1 }}>
+                      {/* Revenue */}
+                      <div style={{ flex: 1, paddingRight: 12, borderRight: '1px solid #e5e8ed' }}>
+                        <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Revenue</div>
+                        <div style={{ fontSize: 40, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.revenue}</div>
+                        <div style={{ fontSize: 11, color: MUTED_D }}>{s.revenueLabel}</div>
+                      </div>
+                      {/* Clients */}
+                      <div style={{ flex: 1, paddingLeft: 12 }}>
+                        <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Clients</div>
+                        <div style={{ fontSize: 40, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.count}</div>
+                        <div style={{ fontSize: 11, color: MUTED_D }}>{s.region}</div>
+                      </div>
+                    </div>
+
+                    {/* Definition */}
+                    <div style={{ fontSize: 11.5, color: MUTED_D, lineHeight: 1.55, marginBottom: 10 }}>{s.definition}</div>
+
+                    {/* SF mapping */}
+                    <div style={{ fontSize: 10.5, color: MUTED, fontWeight: 500, marginTop: 'auto' }}>{s.sfStages}</div>
+                  </div>
+                )
+              })}
             </div>
-          ))}
-        </div>
+          )
+        })()}
 
         {/* ── Search bar ────────────────────────────────────────────── */}
         <div style={{ marginBottom: 16 }}>
