@@ -29,6 +29,12 @@ interface CMClient {
     dig?:   { rating: Rating; rationale: string }
     price?: { rating: Rating; rationale: string }
   }
+  conv2?: {
+    out?:   { rating: Rating; rationale: string }
+    off?:   { rating: Rating; rationale: string }
+    dig?:   { rating: Rating; rationale: string }
+    price?: { rating: Rating; rationale: string }
+  }
   // Visual-only nudge in percentage points applied only in pre-whisper view
   preNudgeX?: number
   preNudgeY?: number
@@ -927,7 +933,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('rev')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
-  const [openDetail, setOpenDetail] = useState<{ row: number; lever: 'out' | 'off' | 'dig' | 'price' } | null>(null)
+  const [openDetail, setOpenDetail] = useState<{ row: number; lever: 'out' | 'off' | 'dig' | 'price'; conv: 1 | 2 } | null>(null)
   const [rationaleOpen, setRationaleOpen] = useState(false)
   const [criteriaOpen, setCriteriaOpen] = useState(false)
 
@@ -985,9 +991,9 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
   const scoredClients = filtered.map(c => overallScore(c, whisperMode)).filter((s): s is number => s !== null)
   const avgPropensity = scoredClients.length > 0 ? Math.round(scoredClients.reduce((a, b) => a + b, 0) / scoredClients.length) : null
 
-  const toggleDetail = (row: number, lever: 'out' | 'off' | 'dig' | 'price') => {
-    if (openDetail?.row === row && openDetail?.lever === lever) setOpenDetail(null)
-    else setOpenDetail({ row, lever })
+  const toggleDetail = (row: number, lever: 'out' | 'off' | 'dig' | 'price', conv: 1 | 2 = 1) => {
+    if (openDetail?.row === row && openDetail?.lever === lever && openDetail?.conv === conv) setOpenDetail(null)
+    else setOpenDetail({ row, lever, conv })
   }
 
   const leverLabel: Record<string, string> = { out: 'Outsourcing', off: 'Offshoring', dig: 'Digitization', price: 'Price Maintain' }
@@ -1374,17 +1380,55 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                       </tr>
                       {/* Expandable detail row */}
                       {openDetail?.row === i && hasDetail && (() => {
-                        const postEntry = c.post?.[openDetail.lever]
+                        const convData = openDetail.conv === 1 ? c.post : c.conv2
+                        const postEntry = convData?.[openDetail.lever]
                         const rationaleText = postEntry?.rationale?.trim()
+                        const hasConv2 = c.conv2 && (c.conv2.out || c.conv2.off || c.conv2.dig || c.conv2.price)
                         return (
                           <tr>
                             <td colSpan={12} style={{ padding: 0, borderBottom: '1px solid #eef0f6' }}>
                               <div style={{ padding: '18px 28px 20px', background: 'linear-gradient(180deg,#f7f8fc,#fbfbfe)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 9 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
                                   <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e' }}>
                                     {c.name} — {leverLabel[openDetail.lever]} Rationale
                                   </span>
                                   {postEntry && <RatingPill rating={postEntry.rating} />}
+                                  {hasConv2 && (
+                                    <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+                                      <button
+                                        onClick={() => setOpenDetail({ row: i, lever: openDetail.lever, conv: 1 })}
+                                        style={{
+                                          padding: '5px 12px',
+                                          background: openDetail.conv === 1 ? '#5b2d6e' : 'transparent',
+                                          color: openDetail.conv === 1 ? '#fff' : '#5b2d6e',
+                                          border: '1px solid #5b2d6e',
+                                          borderRadius: 4,
+                                          fontSize: 11,
+                                          fontWeight: 700,
+                                          cursor: 'pointer',
+                                          fontFamily: 'inherit',
+                                        }}
+                                      >
+                                        Conv 1
+                                      </button>
+                                      <button
+                                        onClick={() => setOpenDetail({ row: i, lever: openDetail.lever, conv: 2 })}
+                                        style={{
+                                          padding: '5px 12px',
+                                          background: openDetail.conv === 2 ? '#5b2d6e' : 'transparent',
+                                          color: openDetail.conv === 2 ? '#fff' : '#5b2d6e',
+                                          border: '1px solid #5b2d6e',
+                                          borderRadius: 4,
+                                          fontSize: 11,
+                                          fontWeight: 700,
+                                          cursor: 'pointer',
+                                          fontFamily: 'inherit',
+                                        }}
+                                      >
+                                        Conv 2
+                                      </button>
+                                    </div>
+                                  )}
                                 </div>
                                 {rationaleText
                                   ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{rationaleText}</p>
