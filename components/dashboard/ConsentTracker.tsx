@@ -498,63 +498,6 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           ))}
         </div>
 
-        {/* ── Journey band ──────────────────────────────────────────── */}
-        <div style={{
-          display: 'flex', alignItems: 'stretch', gap: 0, marginBottom: 22,
-          background: '#fff', border: BORDER, borderRadius: 12,
-          padding: 6, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
-        }}>
-          {[
-            { num: '1', title: 'Exploration', map: 'Salesforce Stage 1–2 · New Opportunity / Early Sales', numBg: GRAY },
-            { num: '2', title: 'Alignment',   map: 'Salesforce Stage 3–4 · Late Sales / Pricing',          numBg: AMBER },
-            { num: '3', title: 'Consent',     map: 'Salesforce Stage 5 · Contracting',                     numBg: GREEN },
-          ].reduce<React.ReactNode[]>((acc, step, i) => {
-            if (i > 0) acc.push(
-              <div key={`arrow-${i}`} style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, color: GRAY, fontSize: 20 }}>→</div>
-            )
-            acc.push(
-              <div key={step.title} style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 14, padding: '15px 18px', borderRadius: 9 }}>
-                <span style={{ width: 30, height: 30, borderRadius: '50%', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#fff', background: step.numBg }}>{step.num}</span>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: INK }}>{step.title}</div>
-                  <div style={{ fontSize: 10.5, color: MUTED_D, marginTop: 2, letterSpacing: '0.02em' }}>
-                    {step.map.replace(/Stage \S+/, m => '')}
-                    <strong style={{ color: INK }}>{step.map.match(/Stage \S+[^·]*/)?.[0]?.trim()}</strong>
-                    {step.map.includes('·') ? ' · ' + step.map.split('·').slice(1).join('·').trim() : ''}
-                  </div>
-                </div>
-              </div>
-            )
-            return acc
-          }, [])}
-        </div>
-
-        {/* ── Explainer cards ────────────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, marginBottom: 22 }}>
-          {[
-            { step: 'Exploration', tag: 'Whisper',    color: GRAY,  desc: <>The client is <strong>willing to engage, learn more, and evaluate</strong> the opportunity. Senior-to-senior whisper conversations open the door before any formal pitch — the client is listening, not yet committing.</>, crumb: 'Stage 1–2 · New Opportunity / Early Sales' },
-            { step: 'Alignment',   tag: 'Pitch',      color: AMBER, desc: <>The client <strong>wants the specifics</strong> — asking for pricing, commercial detail, and implementation plans, and willing to review a proposal. Interest has become intent to evaluate seriously.</>, crumb: 'Stage 3–4 · Late Sales / Pricing' },
-            { step: 'Consent',     tag: 'Post-Pitch', color: GREEN, desc: <>The client <strong>has decided to move forward</strong> and begins execution — amendment discussions, redlines, and internal legal / risk / procurement. The conversation has crossed from evaluation into execution.</>, crumb: 'Stage 5 · Contracting' },
-          ].map(c => (
-            <div key={c.step} style={{
-              background: '#fff', border: BORDER, borderRadius: 11,
-              padding: '16px 18px 17px', position: 'relative', overflow: 'hidden',
-            }}>
-              <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 4, background: c.color, borderRadius: '11px 0 0 11px' }} />
-              <div style={{ marginLeft: 4 }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <span style={{ fontSize: 14.5, fontWeight: 800, color: INK }}>{c.step}</span>
-                  <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', color: MUTED }}>{c.tag}</span>
-                </div>
-                <p style={{ fontSize: 12.5, lineHeight: 1.5, color: MUTED_D, margin: '0 0 10px' }}>{c.desc}</p>
-                <div style={{ fontSize: 10.5, color: MUTED, borderTop: '1px dashed #e5e8ed', paddingTop: 9, lineHeight: 1.4 }}>
-                  Maps to Salesforce <strong style={{ color: INK }}>{c.crumb}</strong>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* ── Search bar ────────────────────────────────────────────── */}
         <div style={{ marginBottom: 16 }}>
           <div style={{ position: 'relative', display: 'inline-block' }}>
