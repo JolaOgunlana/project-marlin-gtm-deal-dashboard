@@ -10,7 +10,7 @@ const INK   = '#1a1f4e'
 const MUTED = 'rgba(26,31,78,0.50)'
 const MUTED_D = 'rgba(26,31,78,0.65)'
 const BORDER = '1px solid #e5e8ed'
-const GREEN  = '#2E7D46'
+const GREEN  = '#22c55e'  // Matches executed section in Dashboard
 const GREEN_BG = '#DFF3E4'
 const AMBER  = '#B7860B'
 const AMBER_BG = '#FBF0D0'
@@ -205,10 +205,9 @@ const CLIENTS: TrackerClient[] = [
 
 // ── Summary stats ─────────────────────────────────────────────────────────────
 const STATS = [
-  { label: 'Exploration', count: 4, color: GRAY },
-  { label: 'Alignment',   count: 0, color: AMBER },
-  { label: 'Consent',     count: 0, color: GREEN,  sub: '$0M in revenue represented' },
-  { label: 'Total Clients', count: 4, color: INK },
+  { label: 'Exploration', count: 4, color: INK, countColor: INK },
+  { label: 'Alignment',   count: 0, color: INK, countColor: INK },
+  { label: 'Consent',     count: 0, color: INK, countColor: GREEN,  sub: '$0M in revenue represented' },
 ]
 
 // ── Sub-components ──────────────────────────────────────��──────────────────────
@@ -440,8 +439,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
             }}>
               <div style={{ fontSize: 11.5, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 14 }}>{s.label}</div>
-              <div style={{ fontSize: 44, fontWeight: 800, color: s.color, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
-              {s.sub && <div style={{ fontSize: 12.5, fontWeight: 700, color: MUTED_D, marginTop: 9 }}><span style={{ color: GREEN, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
+              <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor || s.color, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
+              {s.sub && <div style={{ fontSize: 12.5, fontWeight: 700, color: MUTED_D, marginTop: 9 }}><span style={{ color: s.countColor || GREEN, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
             </div>
           ))}
         </div>
