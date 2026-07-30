@@ -501,44 +501,48 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             )
           })}
 
-          {/* SVG chevron dividers drawn on top — one between each pair of cards */}
+          {/* Chevron dividers: absolutely positioned between each column */}
           {STATS.slice(0, -1).map((_, i) => {
-            // Each section is 1/3 of width; divider sits at the right edge of section i
             const pct = ((i + 1) / STATS.length) * 100
-            const W = 32   // total width of the chevron arrow graphic
-            const STROKE = 2
+            const TIP = 18  // half-width of the arrow tip on each side
             return (
-              <svg
+              <div
                 key={i}
                 style={{
                   position: 'absolute',
-                  // Centre the SVG over the boundary between columns
-                  left: `calc(${pct}% - ${W / 2}px)`,
+                  left: `calc(${pct}% - ${TIP}px)`,
                   top: 0,
                   bottom: 0,
-                  width: W,
-                  height: '100%',
+                  width: TIP * 2,
                   zIndex: 10,
-                  overflow: 'visible',
                   pointerEvents: 'none',
+                  display: 'flex',
+                  alignItems: 'stretch',
                 }}
-                preserveAspectRatio="none"
               >
-                {/* White fill chevron (hides the underlying content seam) */}
-                <polygon
-                  points={`0,0 ${W / 2},50% ${W},0 ${W},0 ${W / 2},50% ${W},100% 0,100%`}
-                  fill="white"
-                />
-                {/* Chevron arrow strokes */}
-                <polyline
-                  points={`0,0 ${W / 2 + 1},50% 0,100%`}
-                  fill="none"
-                  stroke="#e5e8ed"
-                  strokeWidth={STROKE}
-                  strokeLinejoin="round"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
+                <svg
+                  width={TIP * 2}
+                  height="100%"
+                  viewBox={`0 0 ${TIP * 2} 100`}
+                  preserveAspectRatio="none"
+                  style={{ display: 'block', overflow: 'visible' }}
+                >
+                  {/* White fill to blank out the column seam behind the arrow */}
+                  <polygon
+                    points={`0,0 ${TIP * 2},0 ${TIP * 2},100 0,100`}
+                    fill="white"
+                  />
+                  {/* Two lines forming the > chevron: top-left → mid-right → bottom-left */}
+                  <polyline
+                    points={`2,0 ${TIP * 2 - 2},50 2,100`}
+                    fill="none"
+                    stroke="#c8cdd6"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </svg>
+              </div>
             )
           })}
         </div>
