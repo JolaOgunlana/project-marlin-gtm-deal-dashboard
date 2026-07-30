@@ -429,7 +429,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* Page description */}
         <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          Blake&apos;s three steps — Exploration, Alignment, Consent — mapped onto our existing Salesforce funnel. Nothing changes in how the sales team already works; these are simply the criteria that must be true to move a client from one step to the next. Click a client to reveal the evidence recorded at each step.
+          This page tracks client progression through three stages — Exploration, Alignment, and Consent — aligned with your existing Salesforce funnel. It shows the specific evidence and criteria recorded at each stage that confirms a client is ready to move forward. The stages map directly to your sales process and how your team currently works, with clear decision gates at each step. Click any client to view the evidence collected during each stage and understand exactly what it takes to move them to the next phase.
         </p>
 
         {/* ── Stat cards ────────────────────────────────────────────── */}
