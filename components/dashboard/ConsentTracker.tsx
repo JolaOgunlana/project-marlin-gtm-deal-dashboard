@@ -461,19 +461,19 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             }}>
               {/* Label */}
               <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 10 }}>{s.label}</div>
-              {/* Count */}
-              <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 14 }}>{s.count}</div>
-              {/* Divider */}
-              <div style={{ height: 1, background: '#e5e8ed', marginBottom: 14 }} />
+              {/* Count + Revenue (top right) */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+                <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
+                {s.sub && <div style={{ fontSize: 11, fontWeight: 700, color: MUTED_D, textAlign: 'right' }}><span style={{ color: s.countColor, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span><br/>{s.sub.split(' in ')[1]}</div>}
+              </div>
               {/* Definition */}
-              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 10 }}>{s.definition}</div>
+              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 12 }}>{s.definition}</div>
               {/* SF mapping */}
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 'auto' }}>
                 <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', background: 'rgba(26,31,78,0.07)', color: INK, borderRadius: 4, padding: '3px 7px', whiteSpace: 'nowrap' }}>
                   {s.sfStages}
                 </span>
               </div>
-              {s.sub && <div style={{ fontSize: 12, fontWeight: 700, color: MUTED_D, marginTop: 10 }}><span style={{ color: s.countColor, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
             </div>
           ))}
         </div>
