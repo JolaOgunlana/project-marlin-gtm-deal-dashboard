@@ -494,7 +494,10 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 {/* Revenue label */}
                 <div style={{ fontSize: 11, color: MUTED, marginBottom: 14 }}>{s.revenueLabel}</div>
                 {/* Client count — same style as revenue but smaller */}
-                <div style={{ fontSize: 28, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>{s.count} clients</div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>
+                  {s.count}
+                  <span style={{ fontSize: 12, fontWeight: 600, color: MUTED, marginLeft: 6 }}>clients</span>
+                </div>
                 {/* Region breakdown */}
                 <div style={{ fontSize: 11, color: MUTED, marginBottom: 16 }}>{s.region}</div>
                 {/* Definition */}
