@@ -536,8 +536,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <polyline
                     points={`2,0 ${TIP * 2 - 2},50 2,100`}
                     fill="none"
-                    stroke="#c8cdd6"
-                    strokeWidth="1.5"
+                    stroke="#dde0e6"
+                    strokeWidth="1"
                     strokeLinejoin="round"
                     vectorEffect="non-scaling-stroke"
                   />
