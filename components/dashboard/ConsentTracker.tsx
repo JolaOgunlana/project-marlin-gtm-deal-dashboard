@@ -348,23 +348,6 @@ function EvidenceRows({ rows, onLink }: { rows: EvidenceRow[]; onLink: (target: 
                 <span><span style={{ fontWeight: 700, color: MUTED_D, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: 9.5 }}>Date</span> {r.date}</span>
               </div>
             )}
-            {r.link && (
-              <button
-                onClick={e => { e.stopPropagation(); onLink(r.link!) }}
-                style={{
-                  marginTop: 7, display: 'inline-flex', alignItems: 'center', gap: 6,
-                  padding: '5px 11px 5px 9px',
-                  background: 'rgba(26,31,78,0.06)', border: '1px solid rgba(26,31,78,0.12)',
-                  borderRadius: 20, fontSize: 11, fontWeight: 700, color: INK,
-                  cursor: 'pointer', fontFamily: 'inherit',
-                  transition: 'background 0.12s',
-                }}
-              >
-                <span style={{ fontSize: 12 }}>→</span>
-                {r.link === 'debrief' ? 'Whisper Conversation Debrief' : 'FAQ / Objection Handling'}
-                <span style={{ fontSize: 9, opacity: 0.6 }}>▸</span>
-              </button>
-            )}
           </div>
         </div>
       ))}
@@ -432,6 +415,24 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
                   />
                 </div>
               ))}
+            </div>
+            {/* Whisper Debrief button at bottom */}
+            <div style={{ marginTop: 18, paddingTop: 16, borderTop: BORDER, display: 'flex', justifyContent: 'flex-start' }}>
+              <button
+                onClick={e => { e.stopPropagation(); onLink('debrief') }}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  padding: '8px 14px',
+                  background: 'rgba(26,31,78,0.06)', border: '1px solid rgba(26,31,78,0.12)',
+                  borderRadius: 20, fontSize: 12, fontWeight: 700, color: INK,
+                  cursor: 'pointer', fontFamily: 'inherit',
+                  transition: 'background 0.12s',
+                }}
+              >
+                <span style={{ fontSize: 13 }}>→</span>
+                Whisper Conversation Debrief
+                <span style={{ fontSize: 10, opacity: 0.6 }}>▸</span>
+              </button>
             </div>
           </div>
         </div>
