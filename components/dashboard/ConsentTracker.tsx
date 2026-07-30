@@ -432,7 +432,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </p>
 
         {/* ── Stat cards ────────────────────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, marginBottom: 24 }}>
           {STATS.map(s => (
             <div key={s.label} style={{
               background: '#fff', borderRadius: 14, padding: '22px 24px 20px',
