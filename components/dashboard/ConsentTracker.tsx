@@ -460,84 +460,88 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           This page tracks client progression through three stages — Exploration, Alignment, and Consent — aligned with your existing Salesforce funnel. It shows the specific evidence and criteria recorded at each stage that confirms a client is ready to move forward. The stages map directly to your sales process and how your team currently works, with clear decision gates at each step. Click any client to view the evidence collected during each stage and understand exactly what it takes to move them to the next phase.
         </p>
 
-        {/* ── Chevron stage cards ───────────────────────────────────── */}
-        {(() => {
-          const POINT   = 44   // arrow tip depth in px
-          const BORDER  = 4    // white border thickness in px
-          const OVERLAP = POINT
+        {/* ── Single-box chevron stepper ───────────────────────────── */}
+        <div style={{
+          position: 'relative',
+          display: 'flex',
+          background: '#fff',
+          border: BORDER,
+          borderRadius: 14,
+          boxShadow: '0 1px 4px rgba(20,31,56,.08)',
+          marginBottom: 28,
+          overflow: 'hidden',
+          minHeight: 220,
+        }}>
+          {STATS.map((s, i) => {
+            const isLast = i === STATS.length - 1
+            return (
+              <div key={s.label} style={{
+                flex: 1,
+                padding: '24px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                // Right border is the chevron divider gap — we paint it via the SVG below
+                borderRight: isLast ? 'none' : 'none',
+                position: 'relative',
+                zIndex: 1,
+              }}>
+                {/* Stage label */}
+                <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
+                {/* SF mapping */}
+                <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 18 }}>{s.sfStages}</div>
+                {/* Large revenue */}
+                <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 6 }}>{s.revenue}</div>
+                {/* Metrics line */}
+                <div style={{ fontSize: 11.5, color: MUTED_D, marginBottom: 16 }}>
+                  {s.revenueLabel} · {s.count} clients ({s.region})
+                </div>
+                {/* Definition */}
+                <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
+              </div>
+            )
+          })}
 
-          // Generates a clip-path polygon for a chevron card
-          const makeClip = (p: number, first: boolean, last: boolean) => {
-            if (first) return `polygon(0% 0%, calc(100% - ${p}px) 0%, 100% 50%, calc(100% - ${p}px) 100%, 0% 100%)`
-            if (last)  return `polygon(${p}px 0%, 100% 0%, 100% 100%, ${p}px 100%, 0% 50%)`
-            return `polygon(${p}px 0%, calc(100% - ${p}px) 0%, 100% 50%, calc(100% - ${p}px) 100%, ${p}px 100%, 0% 50%)`
-          }
-
-          return (
-            <div style={{ display: 'flex', alignItems: 'stretch', marginBottom: 28, isolation: 'isolate' }}>
-              {STATS.map((s, i) => {
-                const isFirst = i === 0
-                const isLast  = i === STATS.length - 1
-                const total   = STATS.length
-
-                // Outer border layer uses a slightly expanded clip (border thickness bigger)
-                const outerClip  = makeClip(POINT,          isFirst, isLast)
-                // Inner white card sits BORDER px inset on all sides
-                const innerClip  = makeClip(POINT - BORDER, isFirst, isLast)
-
-                const pl = isFirst ? 24 : POINT + 20
-                const pr = isLast  ? 24 : POINT + 12
-
-                return (
-                  // Outer wrapper: carries the border color via background, clips to chevron shape
-                  <div key={s.label} style={{
-                    flex: 1,
-                    position: 'relative',
-                    marginLeft: i === 0 ? 0 : -OVERLAP,
-                    zIndex: total - i,
-                    clipPath: outerClip,
-                    // Light border color — uses the stage's colour at low opacity
-                    background: `rgba(${
-                      s.countColor === GRAY  ? '138,147,162' :
-                      s.countColor === AMBER ? '183,134,11'  :
-                                               '45,122,15'
-                    }, 0.25)`,
-                    padding: `${BORDER}px`,
-                  }}>
-                    {/* Inner card: white fill, inset chevron shape */}
-                    <div style={{
-                      clipPath: innerClip,
-                      background: '#fff',
-                      padding: `${22 - BORDER}px ${pr}px ${22 - BORDER}px ${pl}px`,
-                      display: 'flex', flexDirection: 'column', gap: 0,
-                      minHeight: 200,
-                      // Expand slightly to fill the padded outer wrapper
-                      margin: `-${BORDER}px`,
-                      width: `calc(100% + ${BORDER * 2}px)`,
-                      height: `calc(100% + ${BORDER * 2}px)`,
-                      boxSizing: 'border-box',
-                    }}>
-                      {/* Stage label + SF mapping */}
-                      <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
-                      <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 16 }}>{s.sfStages}</div>
-
-                      {/* Large revenue figure */}
-                      <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 6 }}>{s.revenue}</div>
-
-                      {/* Compact metrics line */}
-                      <div style={{ fontSize: 11.5, color: MUTED_D, marginBottom: 16 }}>
-                        {s.revenueLabel} · {s.count} clients ({s.region})
-                      </div>
-
-                      {/* Definition */}
-                      <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })()}
+          {/* SVG chevron dividers drawn on top — one between each pair of cards */}
+          {STATS.slice(0, -1).map((_, i) => {
+            // Each section is 1/3 of width; divider sits at the right edge of section i
+            const pct = ((i + 1) / STATS.length) * 100
+            const W = 32   // total width of the chevron arrow graphic
+            const STROKE = 2
+            return (
+              <svg
+                key={i}
+                style={{
+                  position: 'absolute',
+                  // Centre the SVG over the boundary between columns
+                  left: `calc(${pct}% - ${W / 2}px)`,
+                  top: 0,
+                  bottom: 0,
+                  width: W,
+                  height: '100%',
+                  zIndex: 10,
+                  overflow: 'visible',
+                  pointerEvents: 'none',
+                }}
+                preserveAspectRatio="none"
+              >
+                {/* White fill chevron (hides the underlying content seam) */}
+                <polygon
+                  points={`0,0 ${W / 2},50% ${W},0 ${W},0 ${W / 2},50% ${W},100% 0,100%`}
+                  fill="white"
+                />
+                {/* Chevron arrow strokes */}
+                <polyline
+                  points={`0,0 ${W / 2 + 1},50% 0,100%`}
+                  fill="none"
+                  stroke="#e5e8ed"
+                  strokeWidth={STROKE}
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+            )
+          })}
+        </div>
 
         {/* ── Search bar ────────────────────────────────────────────── */}
         <div style={{ marginBottom: 16 }}>
