@@ -63,8 +63,8 @@ const CLIENTS: TrackerClient[] = [
         status: 'active',
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing, offshoring, and digitization all rated High.', date: '15 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Strong cross-lever receptivity with no resistance raised.' },
-          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Formal pitch confirmed; scheduling in progress.' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Receptive to all levers; no additional materials formally requested yet.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Formal pitch confirmed; scheduling in progress.' },
         ],
       },
       {
@@ -101,8 +101,8 @@ const CLIENTS: TrackerClient[] = [
         status: 'active',
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing High, digitization High, offshoring Medium, price Medium.', date: '8 Jun 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Sees logic in outsourcing for scalability; voice offshoring raised as a constraint.' },
-          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Follow-up meeting scheduled; internal sponsors committed.' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested case studies on digital transformation and geographic delivery capabilities.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Follow-up meeting scheduled; internal sponsors committed.' },
         ],
       },
       {
@@ -138,16 +138,16 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'done',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Two conversations held — outsourcing High, offshoring High confirmed across both.', date: '22 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Yes. Very positive on Genpact; involved in multiple outsourcing reviews across the business.' },
-          { status: 'y', question: 'Has the client agreed to receive further information?', answer: 'Yes. Formal pitch requested; targeting late August or early September.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Two whisper conversations held — outsourcing High, offshoring High confirmed across both.', date: '22 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested offshore capability details and delivery location options for voice and back-office.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Formal pitch requested; targeting late August or early September.' },
         ],
       },
       {
         step: 'alignment',
         status: 'active',
         evidence: [
-          { status: 'q', question: 'Has the client requested pricing or commercial detail?', answer: 'Partially. Pricing benchmarked against market rates; formal proposal not yet reviewed.' },
+          { status: 'q', question: 'Has the client requested pricing or commercial detail?', answer: 'Partially. Pricing benchmarked against market rates; challenged current economics — expects topic to resurface.' },
           { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
           { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed — formal pitch not yet delivered.' },
         ],
@@ -177,8 +177,8 @@ const CLIENTS: TrackerClient[] = [
         status: 'active',
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing Medium, offshoring Medium; pricing flagged as a key concern.', date: '28 May 2026', link: 'debrief' },
-          { status: 'q', question: 'Is the client aware of and receptive to the outsourcing model?', answer: 'Partially. Not allergic to a new provider but raised possibility of bringing IVR back in-house.' },
-          { status: 'q', question: 'Has the client agreed to receive further information?', answer: 'Partially. Engaged but no formal follow-up committed; pricing risk must be addressed first.' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested compliance certifications, SLAs, and governance documentation.', link: 'faq' },
+          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Partially. Engaged but no formal follow-up committed; in-sourcing risk and pricing must be addressed first.' },
         ],
       },
       {
