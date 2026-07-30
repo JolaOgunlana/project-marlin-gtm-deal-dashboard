@@ -62,9 +62,9 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing, offshoring, and digitization all rated High.', date: '15 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Receptive to all levers; no additional materials formally requested yet.', link: 'faq' },
-          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Formal pitch confirmed; scheduling in progress.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing High, digitization High, offshoring Medium (offshore voice a red light), price High (TCO aligned).', date: '15 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Open to further outsourcing; concerns around PRA regulation and offshore voice flagged.', link: 'faq' },
+          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Partially. Receptive but integration disruption risks present; no formal follow-up confirmed yet.' },
         ],
       },
       {
