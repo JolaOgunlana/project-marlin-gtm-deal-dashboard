@@ -417,7 +417,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
               ))}
             </div>
             {/* Whisper Debrief button at bottom */}
-            <div style={{ marginTop: 18, paddingTop: 16, borderTop: BORDER, display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-start' }}>
               <button
                 onClick={e => { e.stopPropagation(); onLink('debrief') }}
                 style={{
