@@ -469,10 +469,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               {/* Definition */}
               <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 12 }}>{s.definition}</div>
               {/* SF mapping */}
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 'auto' }}>
-                <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', background: 'rgba(26,31,78,0.07)', color: INK, borderRadius: 4, padding: '3px 7px', whiteSpace: 'nowrap' }}>
-                  {s.sfStages}
-                </span>
+              <div style={{ fontSize: 11, color: MUTED_D, marginTop: 'auto', fontWeight: 500 }}>
+                {s.sfStages}
               </div>
             </div>
           ))}
