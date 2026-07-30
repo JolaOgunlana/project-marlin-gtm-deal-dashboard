@@ -64,7 +64,7 @@ const CLIENTS: TrackerClient[] = [
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '15 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Open to further outsourcing; concerns around PRA regulation and offshore voice flagged.', link: 'faq' },
-          { status: 'q', question: 'Has the client remained engaged in the process? -', answer: 'No formal follow-up confirmed yet.' },
+          { status: 'q', question: ' -', answer: 'No formal follow-up confirmed yet.' },
         ],
       },
       {
@@ -178,7 +178,7 @@ const CLIENTS: TrackerClient[] = [
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested compliance certifications, SLAs, and governance documentation.', link: 'faq' },
-          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Partially. Engaged but no formal follow-up committed; in-sourcing risk and pricing must be addressed first.' },
+          { status: 'q', question: ' -', answer: 'Not Assessed Yet' },
         ],
       },
       {
