@@ -462,8 +462,16 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* ── Chevron stage cards ───────────────────────────────────── */}
         {(() => {
-          const POINT   = 40   // how far the arrow tip protrudes
+          const POINT   = 44   // arrow tip depth in px
+          const BORDER  = 4    // white border thickness in px
           const OVERLAP = POINT
+
+          // Generates a clip-path polygon for a chevron card
+          const makeClip = (p: number, first: boolean, last: boolean) => {
+            if (first) return `polygon(0% 0%, calc(100% - ${p}px) 0%, 100% 50%, calc(100% - ${p}px) 100%, 0% 100%)`
+            if (last)  return `polygon(${p}px 0%, 100% 0%, 100% 100%, ${p}px 100%, 0% 50%)`
+            return `polygon(${p}px 0%, calc(100% - ${p}px) 0%, 100% 50%, calc(100% - ${p}px) 100%, ${p}px 100%, 0% 50%)`
+          }
 
           return (
             <div style={{ display: 'flex', alignItems: 'stretch', marginBottom: 28, isolation: 'isolate' }}>
@@ -472,44 +480,58 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 const isLast  = i === STATS.length - 1
                 const total   = STATS.length
 
-                let clipPath: string
-                if (isFirst) {
-                  clipPath = `polygon(0% 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, 0% 100%)`
-                } else if (isLast) {
-                  clipPath = `polygon(${POINT}px 0%, 100% 0%, 100% 100%, ${POINT}px 100%, 0% 50%)`
-                } else {
-                  clipPath = `polygon(${POINT}px 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, ${POINT}px 100%, 0% 50%)`
-                }
+                // Outer border layer uses a slightly expanded clip (border thickness bigger)
+                const outerClip  = makeClip(POINT,          isFirst, isLast)
+                // Inner white card sits BORDER px inset on all sides
+                const innerClip  = makeClip(POINT - BORDER, isFirst, isLast)
 
-                const pl = isFirst ? 24 : POINT + 24
-                const pr = isLast  ? 24 : POINT + 16
+                const pl = isFirst ? 24 : POINT + 20
+                const pr = isLast  ? 24 : POINT + 12
 
                 return (
+                  // Outer wrapper: carries the border color via background, clips to chevron shape
                   <div key={s.label} style={{
                     flex: 1,
+                    position: 'relative',
                     marginLeft: i === 0 ? 0 : -OVERLAP,
                     zIndex: total - i,
-                    clipPath,
-                    background: '#fff',
-                    boxShadow: '2px 0 6px rgba(20,31,56,.10), -1px 0 0 rgba(20,31,56,.06)',
-                    padding: `22px ${pr}px 22px ${pl}px`,
-                    display: 'flex', flexDirection: 'column', gap: 0,
-                    minHeight: 200,
+                    clipPath: outerClip,
+                    // Light border color — uses the stage's colour at low opacity
+                    background: `rgba(${
+                      s.countColor === GRAY  ? '138,147,162' :
+                      s.countColor === AMBER ? '183,134,11'  :
+                                               '45,122,15'
+                    }, 0.25)`,
+                    padding: `${BORDER}px`,
                   }}>
-                    {/* Stage label + SF mapping */}
-                    <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
-                    <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 16 }}>{s.sfStages}</div>
+                    {/* Inner card: white fill, inset chevron shape */}
+                    <div style={{
+                      clipPath: innerClip,
+                      background: '#fff',
+                      padding: `${22 - BORDER}px ${pr}px ${22 - BORDER}px ${pl}px`,
+                      display: 'flex', flexDirection: 'column', gap: 0,
+                      minHeight: 200,
+                      // Expand slightly to fill the padded outer wrapper
+                      margin: `-${BORDER}px`,
+                      width: `calc(100% + ${BORDER * 2}px)`,
+                      height: `calc(100% + ${BORDER * 2}px)`,
+                      boxSizing: 'border-box',
+                    }}>
+                      {/* Stage label + SF mapping */}
+                      <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
+                      <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 16 }}>{s.sfStages}</div>
 
-                    {/* Large revenue figure */}
-                    <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 6 }}>{s.revenue}</div>
+                      {/* Large revenue figure */}
+                      <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 6 }}>{s.revenue}</div>
 
-                    {/* Compact metrics line */}
-                    <div style={{ fontSize: 11.5, color: MUTED_D, marginBottom: 16 }}>
-                      {s.revenueLabel} · {s.count} clients ({s.region})
+                      {/* Compact metrics line */}
+                      <div style={{ fontSize: 11.5, color: MUTED_D, marginBottom: 16 }}>
+                        {s.revenueLabel} · {s.count} clients ({s.region})
+                      </div>
+
+                      {/* Definition */}
+                      <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
                     </div>
-
-                    {/* Definition */}
-                    <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
                   </div>
                 )
               })}
