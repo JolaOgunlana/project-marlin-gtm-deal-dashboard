@@ -991,9 +991,9 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
   const scoredClients = filtered.map(c => overallScore(c, whisperMode)).filter((s): s is number => s !== null)
   const avgPropensity = scoredClients.length > 0 ? Math.round(scoredClients.reduce((a, b) => a + b, 0) / scoredClients.length) : null
 
-  const toggleDetail = (row: number, lever: 'out' | 'off' | 'dig' | 'price', conv: 1 | 2 = 1) => {
-    if (openDetail?.row === row && openDetail?.lever === lever && openDetail?.conv === conv) setOpenDetail(null)
-    else setOpenDetail({ row, lever, conv })
+  const toggleDetail = (row: number, lever: 'out' | 'off' | 'dig' | 'price') => {
+    if (openDetail?.row === row && openDetail?.lever === lever) setOpenDetail(null)
+    else setOpenDetail({ row, lever, conv: 1 })
   }
 
   const leverLabel: Record<string, string> = { out: 'Outsourcing', off: 'Offshoring', dig: 'Digitization', price: 'Price Maintain' }
@@ -1310,19 +1310,10 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                 {sorted.length === 0 && (
                   <tr><td colSpan={12} style={{ padding: '32px 24px', textAlign: 'center', color: 'rgba(26,31,78,0.5)', fontSize: 13 }}>No clients match the current filters.</td></tr>
                 )}
-                {sorted.flatMap((c, i) => {
-                  const hasConv2 = c.conv2 && (c.conv2.out || c.conv2.off || c.conv2.dig || c.conv2.price)
-                  // Return both the main row and (if conv2 exists) a second row for conv2
-                  return [
-                    { client: c, convNum: 1 as const, rowKey: `${c.name}-${i}-conv1`, idx: i },
-                    ...(hasConv2 ? [{ client: c, convNum: 2 as const, rowKey: `${c.name}-${i}-conv2`, idx: i }] : [])
-                  ]
-                }).map(({ client: c, convNum, rowKey, idx }) => {
+                {sorted.map((c, i) => {
                   const score = overallScore(c, whisperMode)
                   const levers: Array<'out' | 'off' | 'dig' | 'price'> = ['out', 'off', 'dig', 'price']
-                  // Conv 1: use post data; Conv 2: use conv2 data
-                  const convData = convNum === 1 ? c.post : c.conv2
-                  const hasDetail = whisperMode === 'post' && convData
+                  const hasDetail = whisperMode === 'post' && (c.post || c.conv2)
                   // Enrich with GTM dashboard data — Client ID, Region, TMS Revenue, Wave, Stage
                   const gtm = clients.find(r => r.name.toLowerCase() === c.name.toLowerCase())
                   const displayId     = gtm?.id       || c.id
@@ -1332,15 +1323,15 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                   const displayStage  = gtm?.stage    || String(c.stage)
                   const displayType   = gtm?.clientType === 'new' ? 'New Deal' : 'Retention'
                   return (
-                    <React.Fragment key={rowKey}>
+                    <React.Fragment key={`${c.name}-${i}`}>
                       <tr
-                        style={{ background: convNum === 2 ? 'rgba(91,45,110,0.03)' : (idx % 2 === 1 ? '#fafbfe' : '#fff'), transition: 'background 0.1s', borderTop: convNum === 2 ? '2px solid #e2e4ee' : 'none' }}
+                        style={{ background: i % 2 === 1 ? '#fafbfe' : '#fff', transition: 'background 0.1s' }}
                       >
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.7)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-                          {convNum === 2 ? <span style={{ opacity: 0.4 }}>2</span> : displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
+                          {displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontWeight: 600, fontSize: 12, color: '#1a1f4e', lineHeight: 1.3 }}>
-                          {convNum === 2 ? <span style={{ opacity: 0.6 }}>{c.name}</span> : c.name}
+                          {c.name}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
                           <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 7px', borderRadius: 5, fontSize: 10.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
@@ -1369,15 +1360,14 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 700, fontSize: 12, color: '#1a1f4e' }}>{displayWave}</td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 600, fontSize: 11, color: '#1a1f4e', whiteSpace: 'nowrap' }}>{displayStage}</td>
                         {levers.map(lever => {
-                          // For conv2 rows, use the rationale rating from conv2; otherwise use the default
-                          const rating = convNum === 2 ? convData?.[lever]?.rating : effectiveRating(c, lever)
-                          const isDetailOpen = openDetail?.row === idx && openDetail?.lever === lever && openDetail?.conv === convNum
+                          const rating = effectiveRating(c, lever)
+                          const isDetailOpen = openDetail?.row === i && openDetail?.lever === lever
                           const canExpand = hasDetail
                           return (
                             <td key={lever} style={{ padding: '9px 6px', borderBottom: '1px solid #eef0f6', textAlign: 'center', verticalAlign: 'middle' }}>
                               <RatingPill
                                 rating={rating}
-                                onClick={canExpand ? () => toggleDetail(idx, lever, convNum) : undefined}
+                                onClick={canExpand ? () => toggleDetail(i, lever) : undefined}
                                 active={isDetailOpen}
                                 noSignals={!rating}
                               />
@@ -1388,61 +1378,46 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                           <OverallScore score={score} noSignals={score === null} />
                         </td>
                       </tr>
-                      {/* Expandable detail row */}
-                      {openDetail?.row === idx && openDetail?.conv === convNum && hasDetail && (() => {
-                        const postEntry = convData?.[openDetail.lever]
-                        const rationaleText = postEntry?.rationale?.trim()
-                        const hasConv2 = c.conv2 && (c.conv2.out || c.conv2.off || c.conv2.dig || c.conv2.price)
+                      {/* Expandable detail row — show both conv1 and conv2 */}
+                      {openDetail?.row === i && hasDetail && (() => {
+                        const conv1Entry = c.post?.[openDetail.lever]
+                        const conv2Entry = c.conv2?.[openDetail.lever]
+                        const hasConv2 = conv2Entry?.rationale
                         return (
                           <tr>
                             <td colSpan={12} style={{ padding: 0, borderBottom: '1px solid #eef0f6' }}>
                               <div style={{ padding: '18px 28px 20px', background: 'linear-gradient(180deg,#f7f8fc,#fbfbfe)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                                   <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5b2d6e' }}>
                                     {c.name} — {leverLabel[openDetail.lever]} Rationale
                                   </span>
-                                  {postEntry && <RatingPill rating={postEntry.rating} />}
-                                  {hasConv2 && (
-                                    <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
-                                      <button
-                                        onClick={() => setOpenDetail({ row: idx, lever: openDetail.lever, conv: 1 })}
-                                        style={{
-                                          padding: '5px 12px',
-                                          background: openDetail.conv === 1 ? '#5b2d6e' : 'transparent',
-                                          color: openDetail.conv === 1 ? '#fff' : '#5b2d6e',
-                                          border: '1px solid #5b2d6e',
-                                          borderRadius: 4,
-                                          fontSize: 11,
-                                          fontWeight: 700,
-                                          cursor: 'pointer',
-                                          fontFamily: 'inherit',
-                                        }}
-                                      >
-                                        Conv 1
-                                      </button>
-                                      <button
-                                        onClick={() => setOpenDetail({ row: idx, lever: openDetail.lever, conv: 2 })}
-                                        style={{
-                                          padding: '5px 12px',
-                                          background: openDetail.conv === 2 ? '#5b2d6e' : 'transparent',
-                                          color: openDetail.conv === 2 ? '#fff' : '#5b2d6e',
-                                          border: '1px solid #5b2d6e',
-                                          borderRadius: 4,
-                                          fontSize: 11,
-                                          fontWeight: 700,
-                                          cursor: 'pointer',
-                                          fontFamily: 'inherit',
-                                        }}
-                                      >
-                                        Conv 2
-                                      </button>
-                                    </div>
-                                  )}
                                 </div>
-                                {rationaleText
-                                  ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{rationaleText}</p>
-                                  : <p style={{ fontSize: 13, color: 'rgba(26,31,78,0.38)', lineHeight: 1.7, maxWidth: 880, margin: 0, fontStyle: 'italic' }}>N/A</p>
-                                }
+                                
+                                {/* Conversation 1 */}
+                                <div style={{ marginBottom: hasConv2 ? 18 : 0 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                                    <span style={{ fontSize: 10, fontWeight: 800, color: '#5b2d6e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>1) Conversation 1</span>
+                                    {conv1Entry && <RatingPill rating={conv1Entry.rating} />}
+                                  </div>
+                                  {conv1Entry?.rationale?.trim()
+                                    ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{conv1Entry.rationale}</p>
+                                    : <p style={{ fontSize: 13, color: 'rgba(26,31,78,0.38)', lineHeight: 1.7, maxWidth: 880, margin: 0, fontStyle: 'italic' }}>N/A</p>
+                                  }
+                                </div>
+
+                                {/* Conversation 2 — if it exists */}
+                                {hasConv2 && (
+                                  <div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                                      <span style={{ fontSize: 10, fontWeight: 800, color: '#5b2d6e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>2) Conversation 2</span>
+                                      {conv2Entry && <RatingPill rating={conv2Entry.rating} />}
+                                    </div>
+                                    {conv2Entry.rationale?.trim()
+                                      ? <p style={{ fontSize: 13, color: '#3a4056', lineHeight: 1.7, maxWidth: 880, margin: 0 }}>{conv2Entry.rationale}</p>
+                                      : <p style={{ fontSize: 13, color: 'rgba(26,31,78,0.38)', lineHeight: 1.7, maxWidth: 880, margin: 0, fontStyle: 'italic' }}>N/A</p>
+                                    }
+                                  </div>
+                                )}
                               </div>
                             </td>
                           </tr>
