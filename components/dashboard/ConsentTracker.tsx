@@ -163,17 +163,55 @@ const CLIENTS: TrackerClient[] = [
       },
     ],
   },
+  {
+    id: 'nw',
+    name: 'NatWest',
+    region: 'EMEA-UK',
+    revenue: '$25.2M',
+    wave: 1,
+    currentStep: 'exploration',
+    sfStage: 'Stage 1 · Early Engagement',
+    stages: [
+      {
+        step: 'exploration',
+        status: 'active',
+        evidence: [
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper with IVR leadership — reassured on IVR reliability and receptive to a new provider model pending proper governance and approvals.', date: '28 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested detailed compliance certifications, SLAs, and governance documentation for approval process.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Assigned internal steering committee and scheduled follow-up technical review.' },
+        ],
+      },
+      {
+        step: 'alignment',
+        status: 'pending',
+        evidence: [
+          { status: 'n', question: 'Has the client requested pricing or commercial detail?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed.' },
+        ],
+      },
+      {
+        step: 'consent',
+        status: 'pending',
+        evidence: [
+          { status: 'n', question: 'Is the client willing to begin amendment discussions?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Have redlines or contract negotiations started?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Has internal risk, legal, or procurement review been initiated?', answer: 'Not yet assessed.' },
+        ],
+      },
+    ],
+  },
 ]
 
 // ── Summary stats ─────────────────────────────────────────────────────────────
 const STATS = [
-  { label: 'Exploration', count: 3, color: GRAY },
+  { label: 'Exploration', count: 4, color: GRAY },
   { label: 'Alignment',   count: 0, color: AMBER },
   { label: 'Consent',     count: 0, color: GREEN,  sub: '$0M in revenue represented' },
-  { label: 'Total Clients', count: 3, color: INK },
+  { label: 'Total Clients', count: 4, color: INK },
 ]
 
-// ── Sub-components ─────────────────────────────────────────────────────────────
+// ── Sub-components ──────────────────────────────────────��──────────────────────
 function TickIcon({ status }: { status: 'y' | 'q' | 'n' }) {
   const map = {
     y: { bg: GREEN_BG,  color: GREEN, label: '✓' },
