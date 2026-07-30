@@ -209,6 +209,9 @@ const STATS = [
     label: 'Exploration',
     count: 4,
     countColor: GRAY,
+    revenue: '$76.8M',
+    revenueLabel: 'ACV at risk',
+    region: '3 NA · 1 EMEA-UK',
     definition: 'Client is aware of the transition and open to receiving more information.',
     sfStages: 'Salesforce Stages 1–2 · New Opportunity / Early Sales',
   },
@@ -216,6 +219,9 @@ const STATS = [
     label: 'Alignment',
     count: 0,
     countColor: AMBER,
+    revenue: '$0M',
+    revenueLabel: 'ACV at risk',
+    region: '0 NA · 0 EMEA',
     definition: 'Client has engaged with the commercial and operational model and is evaluating a formal proposal.',
     sfStages: 'Salesforce Stages 3–4 · Mid Sales / Late Sales',
   },
@@ -223,9 +229,11 @@ const STATS = [
     label: 'Consent',
     count: 0,
     countColor: GREEN,
+    revenue: '$0M',
+    revenueLabel: 'ACV consented',
+    region: '0 NA · 0 EMEA',
     definition: 'Client has agreed to the transition and amendment discussions are underway or complete.',
     sfStages: 'Salesforce Stages 5–6 · Contracting / Executed',
-    sub: '$0M in revenue represented',
   },
 ]
 
@@ -455,19 +463,33 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, marginBottom: 24 }}>
           {STATS.map(s => (
             <div key={s.label} style={{
-              background: '#fff', borderRadius: 14, padding: '22px 24px 20px',
+              background: '#fff', borderRadius: 14, padding: '20px',
               border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
-              display: 'flex', flexDirection: 'column', gap: 0,
+              display: 'flex', flexDirection: 'column',
             }}>
-              {/* Label */}
-              <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 10 }}>{s.label}</div>
-              {/* Count + Revenue (top right) */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-                <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
-                {s.sub && <div style={{ fontSize: 11, fontWeight: 700, color: MUTED_D, textAlign: 'right' }}><span style={{ color: s.countColor, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span><br/>{s.sub.split(' in ')[1]}</div>}
+              {/* Stage label at top */}
+              <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 16 }}>{s.label}</div>
+              
+              {/* Split layout: Revenue (left) | Clients (right) */}
+              <div style={{ display: 'flex', marginBottom: 16, flex: 1 }}>
+                {/* Left: Revenue */}
+                <div style={{ flex: 1, paddingRight: 16, borderRight: '1px solid #e5e8ed' }}>
+                  <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Revenue</div>
+                  <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.revenue}</div>
+                  <div style={{ fontSize: 11, color: MUTED_D }}>{s.revenueLabel}</div>
+                </div>
+                
+                {/* Right: Clients */}
+                <div style={{ flex: 1, paddingLeft: 16 }}>
+                  <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Clients</div>
+                  <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.count}</div>
+                  <div style={{ fontSize: 11, color: MUTED_D }}>{s.region}</div>
+                </div>
               </div>
+              
               {/* Definition */}
-              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 12 }}>{s.definition}</div>
+              <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.55, marginBottom: 12, paddingBottom: 12, borderBottom: '1px solid #e5e8ed' }}>{s.definition}</div>
+              
               {/* SF mapping */}
               <div style={{ fontSize: 11, color: MUTED_D, marginTop: 'auto', fontWeight: 500 }}>
                 {s.sfStages}
