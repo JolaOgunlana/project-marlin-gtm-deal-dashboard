@@ -1310,10 +1310,19 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                 {sorted.length === 0 && (
                   <tr><td colSpan={12} style={{ padding: '32px 24px', textAlign: 'center', color: 'rgba(26,31,78,0.5)', fontSize: 13 }}>No clients match the current filters.</td></tr>
                 )}
-                {sorted.map((c, i) => {
+                {sorted.flatMap((c, i) => {
+                  const hasConv2 = c.conv2 && (c.conv2.out || c.conv2.off || c.conv2.dig || c.conv2.price)
+                  // Return both the main row and (if conv2 exists) a second row for conv2
+                  return [
+                    { client: c, convNum: 1 as const, rowKey: `${c.name}-${i}-conv1`, idx: i },
+                    ...(hasConv2 ? [{ client: c, convNum: 2 as const, rowKey: `${c.name}-${i}-conv2`, idx: i }] : [])
+                  ]
+                }).map(({ client: c, convNum, rowKey, idx }) => {
                   const score = overallScore(c, whisperMode)
                   const levers: Array<'out' | 'off' | 'dig' | 'price'> = ['out', 'off', 'dig', 'price']
-                  const hasDetail = whisperMode === 'post' && c.post
+                  // Conv 1: use post data; Conv 2: use conv2 data
+                  const convData = convNum === 1 ? c.post : c.conv2
+                  const hasDetail = whisperMode === 'post' && convData
                   // Enrich with GTM dashboard data — Client ID, Region, TMS Revenue, Wave, Stage
                   const gtm = clients.find(r => r.name.toLowerCase() === c.name.toLowerCase())
                   const displayId     = gtm?.id       || c.id
@@ -1323,15 +1332,15 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                   const displayStage  = gtm?.stage    || String(c.stage)
                   const displayType   = gtm?.clientType === 'new' ? 'New Deal' : 'Retention'
                   return (
-                    <React.Fragment key={`${c.name}-${i}`}>
+                    <React.Fragment key={rowKey}>
                       <tr
-                        style={{ background: i % 2 === 1 ? '#fafbfe' : '#fff', transition: 'background 0.1s' }}
+                        style={{ background: convNum === 2 ? 'rgba(91,45,110,0.03)' : (idx % 2 === 1 ? '#fafbfe' : '#fff'), transition: 'background 0.1s', borderTop: convNum === 2 ? '2px solid #e2e4ee' : 'none' }}
                       >
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.7)', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
-                          {displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
+                          {convNum === 2 ? <span style={{ opacity: 0.4 }}>2</span> : displayId || <span style={{ fontStyle: 'italic', opacity: 0.4 }}>TBD</span>}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', fontWeight: 600, fontSize: 12, color: '#1a1f4e', lineHeight: 1.3 }}>
-                          {c.name}
+                          {convNum === 2 ? <span style={{ opacity: 0.6 }}>{c.name}</span> : c.name}
                         </td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center' }}>
                           <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 7px', borderRadius: 5, fontSize: 10.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
@@ -1360,14 +1369,15 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 700, fontSize: 12, color: '#1a1f4e' }}>{displayWave}</td>
                         <td style={{ padding: '9px 8px', borderBottom: '1px solid #eef0f6', textAlign: 'center', fontWeight: 600, fontSize: 11, color: '#1a1f4e', whiteSpace: 'nowrap' }}>{displayStage}</td>
                         {levers.map(lever => {
-                          const rating = effectiveRating(c, lever)
-                          const isDetailOpen = openDetail?.row === i && openDetail?.lever === lever
+                          // For conv2 rows, use the rationale rating from conv2; otherwise use the default
+                          const rating = convNum === 2 ? convData?.[lever]?.rating : effectiveRating(c, lever)
+                          const isDetailOpen = openDetail?.row === idx && openDetail?.lever === lever && openDetail?.conv === convNum
                           const canExpand = hasDetail
                           return (
                             <td key={lever} style={{ padding: '9px 6px', borderBottom: '1px solid #eef0f6', textAlign: 'center', verticalAlign: 'middle' }}>
                               <RatingPill
                                 rating={rating}
-                                onClick={canExpand ? () => toggleDetail(i, lever) : undefined}
+                                onClick={canExpand ? () => toggleDetail(idx, lever, convNum) : undefined}
                                 active={isDetailOpen}
                                 noSignals={!rating}
                               />
@@ -1379,8 +1389,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                         </td>
                       </tr>
                       {/* Expandable detail row */}
-                      {openDetail?.row === i && hasDetail && (() => {
-                        const convData = openDetail.conv === 1 ? c.post : c.conv2
+                      {openDetail?.row === idx && openDetail?.conv === convNum && hasDetail && (() => {
                         const postEntry = convData?.[openDetail.lever]
                         const rationaleText = postEntry?.rationale?.trim()
                         const hasConv2 = c.conv2 && (c.conv2.out || c.conv2.off || c.conv2.dig || c.conv2.price)
@@ -1396,7 +1405,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                                   {hasConv2 && (
                                     <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
                                       <button
-                                        onClick={() => setOpenDetail({ row: i, lever: openDetail.lever, conv: 1 })}
+                                        onClick={() => setOpenDetail({ row: idx, lever: openDetail.lever, conv: 1 })}
                                         style={{
                                           padding: '5px 12px',
                                           background: openDetail.conv === 1 ? '#5b2d6e' : 'transparent',
@@ -1412,7 +1421,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                                         Conv 1
                                       </button>
                                       <button
-                                        onClick={() => setOpenDetail({ row: i, lever: openDetail.lever, conv: 2 })}
+                                        onClick={() => setOpenDetail({ row: idx, lever: openDetail.lever, conv: 2 })}
                                         style={{
                                           padding: '5px 12px',
                                           background: openDetail.conv === 2 ? '#5b2d6e' : 'transparent',
