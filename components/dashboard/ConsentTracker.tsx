@@ -462,27 +462,16 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* ── Chevron stage cards ───────────────────────────────────── */}
         {(() => {
-          // The chevron point protrudes this many px to the right
-          const POINT = 28
-          // Overlap between cards so point nests into next notch
+          const POINT   = 40   // how far the arrow tip protrudes
           const OVERLAP = POINT
 
           return (
-            <div style={{
-              display: 'flex', alignItems: 'stretch',
-              marginBottom: 24,
-              // Let the shadow from each card show above siblings
-              isolation: 'isolate',
-            }}>
+            <div style={{ display: 'flex', alignItems: 'stretch', marginBottom: 28, isolation: 'isolate' }}>
               {STATS.map((s, i) => {
                 const isFirst = i === 0
                 const isLast  = i === STATS.length - 1
-                const totalCards = STATS.length
+                const total   = STATS.length
 
-                // clip-path vertices (% of width × height):
-                // First card:  flat-left, point-right
-                // Middle card: notch-left, point-right
-                // Last card:   notch-left, flat-right
                 let clipPath: string
                 if (isFirst) {
                   clipPath = `polygon(0% 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, 0% 100%)`
@@ -492,52 +481,35 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   clipPath = `polygon(${POINT}px 0%, calc(100% - ${POINT}px) 0%, 100% 50%, calc(100% - ${POINT}px) 100%, ${POINT}px 100%, 0% 50%)`
                 }
 
-                // Padding: add extra on the side that has a notch/point so content isn't clipped
-                const paddingLeft  = isFirst ? 20 : POINT + 20
-                const paddingRight = isLast  ? 20 : POINT + 20
+                const pl = isFirst ? 24 : POINT + 24
+                const pr = isLast  ? 24 : POINT + 16
 
                 return (
-                  <div
-                    key={s.label}
-                    style={{
-                      flex: 1,
-                      // Pull each card left to overlap/interlock with the previous point
-                      marginLeft: i === 0 ? 0 : -OVERLAP,
-                      // Stack so earlier cards render on top (first = highest)
-                      zIndex: totalCards - i,
-                      clipPath,
-                      background: '#fff',
-                      // Outer stroke via box-shadow (border won't respect clip-path)
-                      boxShadow: '0 1px 4px rgba(20,31,56,.10)',
-                      padding: `20px ${paddingRight}px 20px ${paddingLeft}px`,
-                      display: 'flex', flexDirection: 'column',
-                      minHeight: 180,
-                    }}
-                  >
-                    {/* Stage label */}
-                    <div style={{ fontSize: 10.5, letterSpacing: '0.09em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 16 }}>{s.label}</div>
+                  <div key={s.label} style={{
+                    flex: 1,
+                    marginLeft: i === 0 ? 0 : -OVERLAP,
+                    zIndex: total - i,
+                    clipPath,
+                    background: '#fff',
+                    boxShadow: '2px 0 6px rgba(20,31,56,.10), -1px 0 0 rgba(20,31,56,.06)',
+                    padding: `22px ${pr}px 22px ${pl}px`,
+                    display: 'flex', flexDirection: 'column', gap: 0,
+                    minHeight: 200,
+                  }}>
+                    {/* Stage label + SF mapping */}
+                    <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
+                    <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 16 }}>{s.sfStages}</div>
 
-                    {/* Split: Revenue (left) | Clients (right) */}
-                    <div style={{ display: 'flex', marginBottom: 16, flex: 1 }}>
-                      {/* Revenue */}
-                      <div style={{ flex: 1, paddingRight: 12, borderRight: '1px solid #e5e8ed' }}>
-                        <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Revenue</div>
-                        <div style={{ fontSize: 40, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.revenue}</div>
-                        <div style={{ fontSize: 11, color: MUTED_D }}>{s.revenueLabel}</div>
-                      </div>
-                      {/* Clients */}
-                      <div style={{ flex: 1, paddingLeft: 12 }}>
-                        <div style={{ fontSize: 9, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 8 }}>Total Clients</div>
-                        <div style={{ fontSize: 40, fontWeight: 800, color: s.countColor, letterSpacing: '-0.01em', lineHeight: 1, marginBottom: 4 }}>{s.count}</div>
-                        <div style={{ fontSize: 11, color: MUTED_D }}>{s.region}</div>
-                      </div>
+                    {/* Large revenue figure */}
+                    <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 6 }}>{s.revenue}</div>
+
+                    {/* Compact metrics line */}
+                    <div style={{ fontSize: 11.5, color: MUTED_D, marginBottom: 16 }}>
+                      {s.revenueLabel} · {s.count} clients ({s.region})
                     </div>
 
                     {/* Definition */}
-                    <div style={{ fontSize: 11.5, color: MUTED_D, lineHeight: 1.55, marginBottom: 10 }}>{s.definition}</div>
-
-                    {/* SF mapping */}
-                    <div style={{ fontSize: 10.5, color: MUTED, fontWeight: 500, marginTop: 'auto' }}>{s.sfStages}</div>
+                    <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
                   </div>
                 )
               })}
