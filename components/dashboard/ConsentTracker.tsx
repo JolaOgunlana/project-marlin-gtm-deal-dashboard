@@ -64,7 +64,7 @@ const CLIENTS: TrackerClient[] = [
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '15 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Open to further outsourcing; concerns around PRA regulation and offshore voice flagged.', link: 'faq' },
-          { status: 'q', question: ' -', answer: 'No formal follow-up confirmed yet.' },
+          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'No formal follow-up confirmed yet.' },
         ],
       },
       {
@@ -178,7 +178,7 @@ const CLIENTS: TrackerClient[] = [
         evidence: [
           { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested compliance certifications, SLAs, and governance documentation.', link: 'faq' },
-          { status: 'q', question: ' -', answer: 'Not Assessed Yet' },
+          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Not Assessed Yet' },
         ],
       },
       {
@@ -549,7 +549,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           })}
         </div>
 
-        {/* ── Search bar ────────────────────────────────────────────── */}
+        {/* ── Search bar ─────────────────────────────────────────────��� */}
         <div style={{ marginBottom: 16 }}>
           <div style={{ position: 'relative', display: 'inline-block' }}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
