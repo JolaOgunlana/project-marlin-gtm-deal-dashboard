@@ -62,9 +62,9 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing High, digitization High, offshoring Medium (offshore voice a red light), price High (TCO aligned).', date: '15 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '15 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Open to further outsourcing; concerns around PRA regulation and offshore voice flagged.', link: 'faq' },
-          { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Partially. Receptive but integration disruption risks present; no formal follow-up confirmed yet.' },
+          { status: 'q', question: 'Has the client remained engaged in the process? -', answer: 'No formal follow-up confirmed yet.' },
         ],
       },
       {
@@ -100,7 +100,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing High, digitization High, offshoring Medium, price Medium.', date: '8 Jun 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '8 Jun 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested case studies on digital transformation and geographic delivery capabilities.', link: 'faq' },
           { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Follow-up meeting scheduled; internal sponsors committed.' },
         ],
@@ -138,7 +138,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'done',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Two whisper conversations held — outsourcing High, offshoring High confirmed across both.', date: '22 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '22 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested offshore capability details and delivery location options for voice and back-office.', link: 'faq' },
           { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Formal pitch requested; targeting late August or early September.' },
         ],
@@ -176,7 +176,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held — outsourcing Medium, offshoring Medium; pricing flagged as a key concern.', date: '28 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'debrief' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested compliance certifications, SLAs, and governance documentation.', link: 'faq' },
           { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Partially. Engaged but no formal follow-up committed; in-sourcing risk and pricing must be addressed first.' },
         ],
