@@ -391,10 +391,6 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
         {/* Current stage */}
         <div>
           <CurrentStagePill step={client.currentStep} />
-          <div style={{ fontSize: 10.5, color: MUTED, marginTop: 4, lineHeight: 1.4 }}>
-            <div>Salesforce</div>
-            <div style={{ fontWeight: 700, color: MUTED_D }}>{client.sfStage}</div>
-          </div>
         </div>
 
         {/* Chevron */}
