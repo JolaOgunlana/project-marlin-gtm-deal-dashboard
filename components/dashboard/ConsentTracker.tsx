@@ -47,88 +47,51 @@ interface TrackerClient {
 }
 
 // ── Data ───────────────────────────────────────────────────────────────────────
+// Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
-    id: 'db',
-    name: 'Deutsche Bank',
-    region: 'EMEA',
-    revenue: '$17.2M',
+    id: 'vm',
+    name: 'Virgin Money',
+    region: 'EMEA-UK',
+    revenue: '$27.2M',
     wave: 1,
-    currentStep: 'alignment',
-    sfStage: 'Stage 4 · Late Sales / Pricing',
+    currentStep: 'exploration',
+    sfStage: 'Stage 1 · Early Engagement',
     stages: [
       {
         step: 'exploration',
-        status: 'done',
+        status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Senior-to-senior whisper held with the Head of Card Services, who confirmed the account is open to evaluating the new model and agreed to a follow-up pitch.', date: '19 May 2026', link: 'debrief' },
-          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested our compliance certifications and a full list of global service locations, and asked us to send them ahead of the formal pitch.', link: 'faq' },
-          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Nominated an internal champion to coordinate next steps and proactively scheduled the pitch session — momentum is coming from their side.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held with Head of Operations — positive reception to outsourcing model.', date: '15 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested details on our BPO partner capabilities and pricing models.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Confirmed interest in a formal pitch and provided internal stakeholder list.' },
         ],
       },
       {
         step: 'alignment',
-        status: 'active',
+        status: 'pending',
         evidence: [
-          { status: 'y', question: 'Has the client requested pricing or commercial detail?', answer: 'Yes. Following the pitch, the client asked for the full pricing model with margin transparency and a breakdown of fees by service line — a clear move from interest into serious evaluation.' },
-          { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed — no request for phasing, cutover, or migration detail has been logged. To be captured at the next pitch-debrief.' },
-          { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed — client has not yet committed to reviewing a draft proposal or amendment. This is the key item that signals readiness to move into Consent.' },
+          { status: 'n', question: 'Has the client requested pricing or commercial detail?', answer: 'Not yet assessed — awaiting formal pitch before commercial discussion.' },
+          { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed.' },
         ],
       },
       {
         step: 'consent',
         status: 'pending',
         evidence: [
-          { status: 'n', question: 'Is the client willing to begin amendment discussions?', answer: 'Not yet assessed — Consent criteria are only evaluated once the client is confirmed in Alignment. Amendment discussions have not been opened.' },
-          { status: 'n', question: 'Have redlines or contract negotiations started?', answer: 'Not yet assessed — no draft has been exchanged, so there are no redlines in progress with the client\'s legal team.' },
-          { status: 'n', question: 'Has internal risk, legal, or procurement review been initiated?', answer: 'Not yet assessed — the client has not yet engaged their internal risk, legal, or procurement functions, which is the strongest signal a client has truly consented and moved into execution.' },
+          { status: 'n', question: 'Is the client willing to begin amendment discussions?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Have redlines or contract negotiations started?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Has internal risk, legal, or procurement review been initiated?', answer: 'Not yet assessed.' },
         ],
       },
     ],
   },
   {
-    id: 'wb',
-    name: 'Wells Fargo',
+    id: 'ft',
+    name: 'Fifth Third Bank',
     region: 'NA',
-    revenue: '$22.5M',
-    wave: 1,
-    currentStep: 'consent',
-    sfStage: 'Stage 5 · Contracting',
-    stages: [
-      {
-        step: 'exploration',
-        status: 'done',
-        evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Senior-to-senior whisper held with EVP of Operations. Client confirmed openness to evaluating the transition model.', date: '12 Apr 2026', link: 'debrief' },
-          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested SLA benchmarks and offshore delivery track record ahead of the pitch.', link: 'faq' },
-          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Assigned a dedicated workstream lead and joined all scheduled follow-up calls.' },
-        ],
-      },
-      {
-        step: 'alignment',
-        status: 'done',
-        evidence: [
-          { status: 'y', question: 'Has the client requested pricing or commercial detail?', answer: 'Yes. Full commercial model reviewed with CFO and procurement in a dedicated pricing session.' },
-          { status: 'y', question: 'Has the client requested implementation specifics?', answer: 'Yes. Detailed phasing plan and cutover schedule presented and acknowledged.' },
-          { status: 'y', question: 'Is the client willing to review a proposal and amendment?', answer: 'Yes. Draft proposal reviewed and internal legal notified to expect a redline.' },
-        ],
-      },
-      {
-        step: 'consent',
-        status: 'active',
-        evidence: [
-          { status: 'y', question: 'Is the client willing to begin amendment discussions?', answer: 'Yes. Amendment kickoff call completed with in-house counsel and FIS legal.' },
-          { status: 'q', question: 'Have redlines or contract negotiations started?', answer: 'In progress — first redline returned by client legal on 14 Jul 2026. FIS legal reviewing.', date: '14 Jul 2026' },
-          { status: 'n', question: 'Has internal risk, legal, or procurement review been initiated?', answer: 'Not yet confirmed — risk committee review is scheduled for next week pending legal sign-off.' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'citi',
-    name: 'Citibank',
-    region: 'NA',
-    revenue: '$14.8M',
+    revenue: '$14.1M',
     wave: 1,
     currentStep: 'exploration',
     sfStage: 'Stage 2 · Early Sales',
@@ -137,16 +100,54 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Initial whisper held with SVP Operations. Client expressed cautious interest and asked for a structured follow-up.', date: '3 Jun 2026', link: 'debrief' },
-          { status: 'q', question: 'Did the client request additional information?', answer: 'In progress — client requested a capability overview deck. Document being prepared by solutions team.' },
-          { status: 'n', question: 'Has the client remained engaged in the process?', answer: 'Not yet confirmed — follow-up meeting not yet scheduled. Outreach pending from account team.' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper with EVP Operations — receptive to digitization and selective outsourcing, voice offshoring is a constraint.', date: '8 Jun 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested case studies on digital transformation and geographic delivery capabilities.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Scheduled follow-up meeting and committed internal sponsors.' },
         ],
       },
       {
         step: 'alignment',
         status: 'pending',
         evidence: [
-          { status: 'n', question: 'Has the client requested pricing or commercial detail?', answer: 'Not yet assessed — client is still in Exploration. Pricing conversation cannot begin until Alignment criteria are met.' },
+          { status: 'n', question: 'Has the client requested pricing or commercial detail?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed.' },
+        ],
+      },
+      {
+        step: 'consent',
+        status: 'pending',
+        evidence: [
+          { status: 'n', question: 'Is the client willing to begin amendment discussions?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Have redlines or contract negotiations started?', answer: 'Not yet assessed.' },
+          { status: 'n', question: 'Has internal risk, legal, or procurement review been initiated?', answer: 'Not yet assessed.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'umb',
+    name: 'UMB',
+    region: 'NA',
+    revenue: '$10.3M',
+    wave: 1,
+    currentStep: 'exploration',
+    sfStage: 'Stage 1 · Early Engagement',
+    stages: [
+      {
+        step: 'exploration',
+        status: 'active',
+        evidence: [
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper with SVP Operations — receptive to broader operating model alignment, focused on offshore delivery.', date: '22 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested offshore capability details and delivery location options for voice and back-office.', link: 'faq' },
+          { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Assigned internal project lead and agreed to formal capability review.' },
+        ],
+      },
+      {
+        step: 'alignment',
+        status: 'pending',
+        evidence: [
+          { status: 'n', question: 'Has the client requested pricing or commercial detail?', answer: 'Not yet assessed.' },
           { status: 'n', question: 'Has the client requested implementation specifics?', answer: 'Not yet assessed.' },
           { status: 'n', question: 'Is the client willing to review a proposal and amendment?', answer: 'Not yet assessed.' },
         ],
@@ -166,10 +167,10 @@ const CLIENTS: TrackerClient[] = [
 
 // ── Summary stats ─────────────────────────────────────────────────────────────
 const STATS = [
-  { label: 'Exploration', count: 28, color: GRAY },
-  { label: 'Alignment',   count: 22, color: AMBER },
-  { label: 'Consent',     count: 13, color: GREEN,  sub: '$40M in revenue represented' },
-  { label: 'Total Clients', count: 63, color: INK },
+  { label: 'Exploration', count: 3, color: GRAY },
+  { label: 'Alignment',   count: 0, color: AMBER },
+  { label: 'Consent',     count: 0, color: GREEN,  sub: '$0M in revenue represented' },
+  { label: 'Total Clients', count: 3, color: INK },
 ]
 
 // ── Sub-components ─────────────────────────────────────────────────────────────
