@@ -489,15 +489,18 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
                 {/* SF mapping */}
                 <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 18 }}>{s.sfStages}</div>
-                {/* Large revenue */}
-                <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>{s.revenue}</div>
+                {/* Revenue and client count stacked */}
+                <div style={{ marginBottom: 2 }}>
+                  {/* Large revenue */}
+                  <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.revenue}</div>
+                  {/* Client count aligned to revenue digits (after $) */}
+                  <div style={{ fontSize: 28, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, paddingLeft: '1.2em' }}>
+                    {s.count}
+                    <span style={{ fontSize: 12, fontWeight: 600, color: MUTED, marginLeft: 6 }}>clients</span>
+                  </div>
+                </div>
                 {/* Revenue label */}
                 <div style={{ fontSize: 11, color: MUTED, marginBottom: 14 }}>{s.revenueLabel}</div>
-                {/* Client count — same style as revenue but smaller */}
-                <div style={{ fontSize: 28, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>
-                  {s.count}
-                  <span style={{ fontSize: 12, fontWeight: 600, color: MUTED, marginLeft: 6 }}>clients</span>
-                </div>
                 {/* Region breakdown */}
                 <div style={{ fontSize: 11, color: MUTED, marginBottom: 16 }}>{s.region}</div>
                 {/* Definition */}
