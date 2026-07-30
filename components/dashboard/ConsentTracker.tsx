@@ -439,14 +439,11 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)',
             }}>
               <div style={{ fontSize: 11.5, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, color: MUTED, marginBottom: 14 }}>{s.label}</div>
-              <div style={{ fontSize: 44, fontWeight: 800, color: s.countColor || s.color, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
+              <div style={{ fontSize: 56, fontWeight: 800, color: s.countColor || s.color, letterSpacing: '-0.01em', lineHeight: 1 }}>{s.count}</div>
               {s.sub && <div style={{ fontSize: 12.5, fontWeight: 700, color: MUTED_D, marginTop: 9 }}><span style={{ color: s.countColor || GREEN, fontWeight: 800 }}>{s.sub.split(' in ')[0]}</span>{' in ' + s.sub.split(' in ')[1]}</div>}
             </div>
           ))}
         </div>
-        <p style={{ fontSize: 11, color: MUTED, fontStyle: 'italic', marginBottom: 22, marginTop: -12 }}>
-          Counts shown are illustrative, for layout only — to be replaced with live figures once the Salesforce feed is mapped.
-        </p>
 
         {/* ── Journey band ──────────────────────────────────────────── */}
         <div style={{
