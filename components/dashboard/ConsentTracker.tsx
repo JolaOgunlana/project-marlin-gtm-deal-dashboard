@@ -205,8 +205,8 @@ const CLIENTS: TrackerClient[] = [
 
 // ── Summary stats ─────────────────────────────────────────────────────────────
 const STATS = [
-  { label: 'Exploration', count: 4, color: INK, countColor: INK },
-  { label: 'Alignment',   count: 0, color: INK, countColor: INK },
+  { label: 'Exploration', count: 4, color: INK, countColor: GRAY },
+  { label: 'Alignment',   count: 0, color: INK, countColor: AMBER },
   { label: 'Consent',     count: 0, color: INK, countColor: GREEN,  sub: '$0M in revenue represented' },
 ]
 
