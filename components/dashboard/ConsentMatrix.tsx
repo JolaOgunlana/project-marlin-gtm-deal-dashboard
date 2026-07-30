@@ -85,9 +85,10 @@ const CM_DATA: CMClient[] = [
   { name:"UMB", id:"9463", rev:10320970, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Low", dig:"Medium", price:"Low",
     preNudgeX: -2.665,
     post:{
-      out:{ rating:"Medium", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
+      out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
       off:{ rating:"High", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." }
     },
+    postPlotOut: "High",
     conv2:{
       out:{ rating:"High", rationale:"1) Recently involved in several outsourcing reviews across the business. 2) Currently exploring opportunities with Infosys in other areas. 3) Very positive on Genpact selection and believes they have the capability and credibility to deliver. 4) Strong receptivity to outsourcing discussion demonstrated." },
       off:{ rating:"Medium", rationale:"1) Exploring offshore model opportunities. 2) Some level of offshore implementation being considered. 3) Technology Modernization identified as most likely near-term opportunity. 4) Potential to expand offshore scope from initial engagement." },
