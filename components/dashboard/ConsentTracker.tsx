@@ -340,7 +340,6 @@ function EvidenceRows({ rows, onLink }: { rows: EvidenceRow[]; onLink: (target: 
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: 12, fontWeight: 700, color: r.status === 'n' ? MUTED : INK, lineHeight: 1.35 }}>{r.question}</div>
             <div style={{ fontSize: 12, color: r.status === 'n' ? MUTED : 'rgba(26,31,78,0.75)', lineHeight: 1.5, marginTop: 4, fontStyle: r.status === 'n' ? 'italic' : 'normal' }}>
-              {r.status !== 'n' && <span style={{ fontWeight: 700, color: GREEN, marginRight: 4 }}>Yes.</span>}
               {r.answer}
             </div>
             {r.date && (
