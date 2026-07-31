@@ -342,11 +342,6 @@ function EvidenceRows({ rows, onLink }: { rows: EvidenceRow[]; onLink: (target: 
             <div style={{ fontSize: 12, color: r.status === 'n' ? MUTED : 'rgba(26,31,78,0.75)', lineHeight: 1.5, marginTop: 4, fontStyle: r.status === 'n' ? 'italic' : 'normal' }}>
               {r.answer}
             </div>
-            {r.date && (
-              <div style={{ fontSize: 10.5, color: MUTED, marginTop: 5, display: 'flex', gap: 12 }}>
-                <span><span style={{ fontWeight: 700, color: MUTED_D, textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: 9.5 }}>Date</span> {r.date}</span>
-              </div>
-            )}
           </div>
         </div>
       ))}
