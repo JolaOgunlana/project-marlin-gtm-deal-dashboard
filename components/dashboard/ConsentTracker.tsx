@@ -462,7 +462,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* Page description */}
         <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          This page tracks client progression through three stages — Exploration, Alignment, and Consent — aligned with your existing Salesforce funnel. It shows the specific evidence and criteria recorded at each stage that confirms a client is ready to move forward. The stages map directly to your sales process and how your team currently works, with clear decision gates at each step. Click any client to view the evidence collected during each stage and understand exactly what it takes to move them to the next phase.
+          This page tracks client progression through three stages — Exploration (Stages 1–2), Alignment (Stages 3–4), and Consent (Stage 5) — mapped directly to your Salesforce funnel. Each stage has three specific evidence criteria that serve as decision gates: when all three are confirmed, the client moves to the next phase. Click any client to view the evidence collected and understand exactly what criteria have been met at each stage.
         </p>
 
         {/* ── Single-box chevron stepper ───────────────────────────── */}
