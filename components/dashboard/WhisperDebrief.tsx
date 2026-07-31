@@ -121,32 +121,35 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'UMB', meta: 'North America · $10.32M',
-    ratings: { out: 'Medium', off: 'High', dig: 'Medium', price: 'Low' },
-    pointsCount: 2,
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'Low' },
+    pointsCount: 5,
     levers: [
       {
         lever: 'Outsourcing',
-        learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.'],
+        learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'],
         points: [
           { label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' },
         ],
       },
       {
         lever: 'Offshoring',
-        learnings: ['Offshoring was a main focus of the conversation.', 'Accepted the offshoring split: voice from the Philippines, back-office from India.'],
+        learnings: ['Offshoring was a main focus of the conversation.', 'Accepted the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'],
         points: [
           { label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' },
         ],
       },
       {
         lever: 'Digitization',
-        learnings: [],
+        learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'],
         points: [{ plain: 'N/A' }],
       },
       {
         lever: 'Price Maintain',
-        learnings: [],
-        points: [{ plain: 'N/A' }],
+        learnings: ['Challenged concept of maintaining current economics while offshoring.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+          { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' },
+        ],
       },
     ],
   },
