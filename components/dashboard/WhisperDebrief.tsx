@@ -193,7 +193,7 @@ function DebriefSection({ onFaqLink }: { onFaqLink: (id: string) => void }) {
 
   return (
     <div>
-      <div style={{ fontSize: 22, fontWeight: 800, color: INK, letterSpacing: '-0.01em', marginBottom: 14 }}>Client Intelligence</div>
+      <div style={{ fontSize: 22, fontWeight: 800, color: INK, letterSpacing: '-0.01em', marginBottom: 14 }}>Whisper Intelligence</div>
 
       {/* Search */}
       <div style={{ marginBottom: 16, position: 'relative', maxWidth: 360 }}>
