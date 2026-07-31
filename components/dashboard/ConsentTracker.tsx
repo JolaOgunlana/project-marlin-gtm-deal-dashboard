@@ -207,33 +207,48 @@ const CLIENTS: TrackerClient[] = [
 const STATS = [
   {
     label: 'Exploration',
+    tag: 'WHISPER',
     count: 3,
     countColor: GRAY,
     revenue: '$41.3M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
-    definition: 'Client is aware of the transition, open to receiving more information, and actively engaged in early discussions.',
-    sfStages: 'Salesforce Stages 1–2 · New Opportunity / Early Sales',
+    descriptionParts: [
+      { text: 'The client is ', bold: false },
+      { text: 'willing to engage, learn more, and evaluate', bold: true },
+      { text: ' the opportunity. Senior-to-senior whisper conversations open the door before any formal pitch — the client is listening, not yet committing.', bold: false },
+    ],
+    sfStages: 'Stage 1–2 · New Opportunity / Early Sales',
   },
   {
     label: 'Alignment',
+    tag: 'PITCH',
     count: 1,
     countColor: AMBER,
     revenue: '$10.3M',
     revenueLabel: 'Annual contract value',
     region: '1 NA · 0 EMEA',
-    definition: 'Client has engaged with the commercial and operational model and is evaluating a formal proposal.',
-    sfStages: 'Salesforce Stages 3–4 · Mid Sales / Late Sales',
+    descriptionParts: [
+      { text: 'The client ', bold: false },
+      { text: 'wants the specifics', bold: true },
+      { text: ' — asking for pricing, commercial detail, and implementation plans, and willing to review a proposal. Interest has become intent to evaluate seriously.', bold: false },
+    ],
+    sfStages: 'Stage 3–4 · Late Sales / Pricing',
   },
   {
     label: 'Consent',
+    tag: 'POST-PITCH',
     count: 0,
     countColor: GREEN,
     revenue: '$0M',
     revenueLabel: 'Annual contract value consented',
     region: '0 NA · 0 EMEA',
-    definition: 'Client has agreed to the transition and amendment discussions are underway or complete.',
-    sfStages: 'Salesforce Stages 5–6 · Contracting / Executed',
+    descriptionParts: [
+      { text: 'The client ', bold: false },
+      { text: 'has decided to move forward', bold: true },
+      { text: ' and begins execution — amendment discussions, redlines, and internal legal / risk / procurement. The conversation has crossed from evaluation into execution.', bold: false },
+    ],
+    sfStages: 'Stage 5 · Contracting',
   },
 ]
 
@@ -467,26 +482,29 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             return (
               <div key={s.label} style={{
                 flex: 1,
-                padding: '24px 28px',
+                padding: '22px 26px',
                 display: 'flex',
                 flexDirection: 'column',
-                // Right border is the chevron divider gap — we paint it via the SVG below
-                borderRight: isLast ? 'none' : 'none',
                 position: 'relative',
                 zIndex: 1,
               }}>
-                {/* Stage label */}
-                <div style={{ fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600, color: s.countColor, marginBottom: 18, whiteSpace: 'nowrap' }}>{s.label}</div>
-                {/* Large revenue */}
-                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.revenue}</div>
-                {/* Revenue label */}
-                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>{s.revenueLabel}</div>
-                {/* Large client count */}
-                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.count}</div>
-                {/* Clients + region label */}
-                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 16 }}>clients · {s.region}</div>
-                {/* Definition */}
-                <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
+                {/* Header row: stage label + tag */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '-0.01em' }}>{s.label}</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.09em', color: 'rgba(26,31,78,0.38)', textTransform: 'uppercase' }}>{s.tag}</div>
+                </div>
+                {/* Rich description */}
+                <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.65, marginBottom: 18 }}>
+                  {s.descriptionParts.map((part, pi) => (
+                    part.bold
+                      ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
+                      : <span key={pi}>{part.text}</span>
+                  ))}
+                </div>
+                {/* SF mapping */}
+                <div style={{ fontSize: 11, color: MUTED, marginTop: 'auto' }}>
+                  Maps to Salesforce <strong style={{ color: MUTED_D, fontWeight: 700 }}>{s.sfStages}</strong>
+                </div>
               </div>
             )
           })}
