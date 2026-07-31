@@ -167,7 +167,7 @@ const CLIENTS: TrackerClient[] = [
     id: 'nw',
     name: 'NatWest',
     region: 'EMEA',
-    revenue: '$25.2M',
+    revenue: '$25,200K',
     wave: 1,
     currentStep: 'exploration',
     sfStage: 'Stage 1 · Early Engagement',
