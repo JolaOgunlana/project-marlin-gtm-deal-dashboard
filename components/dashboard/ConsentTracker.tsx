@@ -488,13 +488,21 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 position: 'relative',
                 zIndex: 1,
               }}>
-                {/* Header row: stage label + tag */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '-0.01em' }}>{s.label}</div>
+                {/* Header row: stage label (colored uppercase) + tag */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                  <div style={{ fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600, color: s.countColor, whiteSpace: 'nowrap' }}>{s.label}</div>
                   <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.09em', color: 'rgba(26,31,78,0.38)', textTransform: 'uppercase' }}>{s.tag}</div>
                 </div>
+                {/* Large revenue */}
+                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.revenue}</div>
+                {/* Revenue label */}
+                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>{s.revenueLabel}</div>
+                {/* Large client count */}
+                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.count}</div>
+                {/* Clients + region label */}
+                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 20 }}>clients · {s.region}</div>
                 {/* Rich description */}
-                <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.65, marginBottom: 18 }}>
+                <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14 }}>
                   {s.descriptionParts.map((part, pi) => (
                     part.bold
                       ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
