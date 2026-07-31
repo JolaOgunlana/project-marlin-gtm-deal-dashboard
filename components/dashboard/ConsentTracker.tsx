@@ -493,14 +493,16 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <div style={{ fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600, color: s.countColor, whiteSpace: 'nowrap' }}>{s.label}</div>
                   <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.09em', color: 'rgba(26,31,78,0.38)', textTransform: 'uppercase' }}>{s.tag}</div>
                 </div>
-                {/* Large revenue */}
-                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.revenue}</div>
-                {/* Revenue label */}
-                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>{s.revenueLabel}</div>
-                {/* Large client count */}
-                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.count}</div>
-                {/* Clients + region label */}
-                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 20 }}>clients · {s.region}</div>
+                {/* Revenue + client count side by side */}
+                <div style={{ display: 'flex', alignItems: 'flex-end', gap: 28, marginBottom: 7 }}>
+                  <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.revenue}</div>
+                  <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.count}</div>
+                </div>
+                {/* Labels side by side */}
+                <div style={{ display: 'flex', gap: 28, marginBottom: 20 }}>
+                  <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)' }}>{s.revenueLabel}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)' }}>clients · {s.region}</div>
+                </div>
                 {/* Rich description */}
                 <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14 }}>
                   {s.descriptionParts.map((part, pi) => (
