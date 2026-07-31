@@ -133,7 +133,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Offshoring',
-        learnings: ['Accepted the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'],
+        learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'],
         points: [
           { label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' },
         ],
