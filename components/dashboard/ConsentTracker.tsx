@@ -482,19 +482,17 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 zIndex: 1,
               }}>
                 {/* Stage label */}
-                <div style={{ fontSize: 11, letterSpacing: '0.10em', textTransform: 'uppercase', fontWeight: 800, color: s.countColor, marginBottom: 4 }}>{s.label}</div>
-                {/* SF mapping */}
-                <div style={{ fontSize: 11, color: MUTED, lineHeight: 1.4, marginBottom: 18 }}>{s.sfStages}</div>
+                <div style={{ fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600, color: s.countColor, marginBottom: 18, whiteSpace: 'nowrap' }}>{s.label}</div>
                 {/* Large revenue */}
-                <div style={{ fontSize: 46, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>{s.revenue}</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.revenue}</div>
                 {/* Revenue label */}
-                <div style={{ fontSize: 11, color: MUTED, marginBottom: 14 }}>{s.revenueLabel}</div>
-                {/* Large client count — smaller than revenue */}
-                <div style={{ fontSize: 32, fontWeight: 800, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>{s.count}</div>
+                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>{s.revenueLabel}</div>
+                {/* Large client count */}
+                <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.count}</div>
                 {/* Clients + region label */}
-                <div style={{ fontSize: 11, color: MUTED, marginBottom: 16 }}>clients · {s.region}</div>
+                <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', marginBottom: 16 }}>clients · {s.region}</div>
                 {/* Definition */}
-                <div style={{ fontSize: 12.5, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
+                <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.6, marginTop: 'auto' }}>{s.definition}</div>
               </div>
             )
           })}
