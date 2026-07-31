@@ -598,7 +598,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         <div style={{ marginTop: 18, background: '#fff', borderRadius: 12, padding: '16px 22px', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
           <div style={{ display: 'flex', gap: 26, flexWrap: 'wrap', alignItems: 'center' }}>
             {[
-              { status: 'y' as const, label: 'Evidence confirmed' },
+              { status: 'y' as const, label: 'Complete' },
               { status: 'q' as const, label: 'In progress' },
               { status: 'n' as const, label: 'Not yet assessed' },
             ].map(item => (
