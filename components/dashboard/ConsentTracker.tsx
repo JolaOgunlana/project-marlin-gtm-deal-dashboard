@@ -494,22 +494,23 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.09em', color: 'rgba(26,31,78,0.38)', textTransform: 'uppercase' }}>{s.tag}</div>
                 </div>
                 {/* Revenue + client count side by side with divider */}
-                <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 7, paddingBottom: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 0 }}>
-                    <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.revenue}</div>
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: 0, marginBottom: 20 }}>
+                  {/* Revenue column */}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 7 }}>{s.revenue}</div>
+                    <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)' }}>{s.revenueLabel}</div>
                   </div>
-                  <div style={{ height: 44, width: '1px', backgroundColor: 'rgba(26,31,78,0.12)', margin: '0 16px' }} />
-                  <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
-                    <div style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.count}</div>
+                  {/* Divider */}
+                  <div style={{ width: 1, backgroundColor: 'rgba(26,31,78,0.1)', margin: '0 20px', flexShrink: 0 }} />
+                  {/* Client count column */}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, marginBottom: 7 }}>
+                      <span style={{ fontSize: 40, fontWeight: 900, color: s.countColor, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.count}</span>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: 'rgba(26,31,78,0.45)' }}>clients</span>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)' }}>{s.region}</div>
                   </div>
                 </div>
-                {/* Labels side by side */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)' }}>{s.revenueLabel}</div>
-                  <div style={{ height: 1, width: '1px' }} />
-                  <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.45)', textAlign: 'right' }}>clients · {s.region}</div>
-                </div>
-                <div style={{ marginBottom: 20 }} />
                 {/* Rich description */}
                 <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14 }}>
                   {s.descriptionParts.map((part, pi) => (
