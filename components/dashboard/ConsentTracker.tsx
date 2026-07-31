@@ -209,7 +209,7 @@ const STATS = [
     label: 'Exploration',
     count: 3,
     countColor: GRAY,
-    revenue: '$66.5M',
+    revenue: '$41.3M',
     revenueLabel: 'ACV consented',
     region: '2 NA · 1 EMEA',
     definition: 'Client is aware of the transition and open to receiving more information.',
