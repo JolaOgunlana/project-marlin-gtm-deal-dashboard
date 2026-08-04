@@ -110,7 +110,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
           </colgroup>
           <thead>
             <tr>
-              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Stage', 'Next Step', 'Opp. Owner', 'Whisper Outcome'].map((h) => (
+              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Stage', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Outcome'].map((h) => (
                 <th key={h} style={{
                   padding: '9px 6px', textAlign: 'left', fontSize: 8.5, fontWeight: 700,
                   letterSpacing: '0.06em', textTransform: 'uppercase', color: '#fff',
