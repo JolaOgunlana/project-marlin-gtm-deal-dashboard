@@ -156,27 +156,35 @@ const CLIENTS: ClientRecord[] = [
   {
     name: 'President\'s Choice', meta: 'North America · $525.6K',
     ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
-    pointsCount: 0,
+    pointsCount: 4,
     levers: [
       {
         lever: 'Outsourcing',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
+        learnings: ['Open to the investment; interested in understanding what the different experiences/use cases would be, specifically for outbound fraud, which is the only service PCF uses with TMS today.'],
+        points: [
+          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
+        ],
       },
       {
         lever: 'Offshoring',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
+        learnings: ['Offshoring is not a concern for PCF; they do it today.', 'New owner EQ Bank is completely in-house, which is costly, so EQ is cautiously evaluating options within that area.', 'They keep a 15% population of agents that are Canadian.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
+          { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
+        ],
       },
       {
         lever: 'Digitization',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
+        learnings: ['What sets TMS apart is that the agents were located in Canada. This has always been beneficial, and would still be meaningful for PCF.', 'Within PCF\'s other servicing experience (likely NTT), customers will sometimes say "put me to an agent in Canada" so they keep a 15% population of agents that are Canadian.'],
+        points: [{ plain: 'N/A' }],
       },
       {
         lever: 'Price Maintain',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
+        learnings: ['Acknowledging the offshoring offsets the cost of technology investment, value for not changing the price would need to be discussed.', 'Unless FIS is able to add technology that really increases the experience for the specific service PCF uses (outbound fraud), then PCF would question why the price would not decrease.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+          { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
+        ],
       },
     ],
   },
