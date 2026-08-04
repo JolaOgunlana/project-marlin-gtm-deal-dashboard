@@ -154,6 +154,33 @@ const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    name: 'President\'s Choice', meta: 'North America · $525.6K',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
+    pointsCount: 0,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Digitization',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+    ],
+  },
+  {
     name: 'NatWest', meta: 'EMEA · UK · $25.2K',
     ratings: { out: 'Medium', off: 'Medium', dig: 'Medium', price: 'High' },
     pointsCount: 3,
@@ -181,33 +208,6 @@ const CLIENTS: ClientRecord[] = [
         lever: 'Price Maintain',
         learnings: ['Accepts no significant price change is likely.'],
         points: [{ plain: 'N/A' }],
-      },
-    ],
-  },
-  {
-    name: 'President\'s Choice', meta: 'North America · $525.6K',
-    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
-    pointsCount: 0,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
-      },
-      {
-        lever: 'Digitization',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: [],
-        points: [{ plain: 'TBD' }],
       },
     ],
   },
