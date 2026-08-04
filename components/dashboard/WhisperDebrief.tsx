@@ -184,6 +184,33 @@ const CLIENTS: ClientRecord[] = [
       },
     ],
   },
+  {
+    name: 'President\'s Choice', meta: 'North America · $525.6K',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
+    pointsCount: 0,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Digitization',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: [],
+        points: [{ plain: 'TBD' }],
+      },
+    ],
+  },
 ]
 
 function DebriefSection({ onFaqLink }: { onFaqLink: (id: string) => void }) {
@@ -562,7 +589,7 @@ function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | n
   )
 }
 
-// ── Exported page wrappers ──────────────���─────────────────────────────────────
+// ── Exported page wrappers ──────────────���──────────────���──────────────────────
 export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
