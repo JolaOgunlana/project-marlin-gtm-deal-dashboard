@@ -107,8 +107,8 @@ const CM_DATA: CMClient[] = [
   { name:"Arvest", id:"", rev:2036070, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:"Medium", price:"Low" },
   { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
     post:{
-      out:{ rating:"High", rationale:"No previous engagement with Genpact, however AIB is open to outsourcing and did not express any concerns. The potential enhanced technical capabilities would be welcomed. John doesn't have an existing relationship with TMS; however, TMS has a very strong relationship with the AIB Customer Engagement team and would be keen for this to remain in place." },
-      off:{ rating:"High", rationale:"No objections to offshore voice support." },
+      out:{ rating:"High", rationale:"They've had no previous engagement with Genpact, however are open to outsourcing and again did not express any concerns. The potential enhanced technical capabilities would be welcomed. John doesn't have an existing relationship with TMS so this wasn't discussed. However, TMS has a very strong relationship with the AIB Customer Engagement team and would be keen for this to remain in place." },
+      off:{ rating:"High", rationale:"There were no objections to offshore voice support." },
       dig:{ rating:"Medium", rationale:"N/A" },
       price:{ rating:"High", rationale:"AIB would be open to discuss a subscription-based pricing structure." }
     }
