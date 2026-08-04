@@ -121,7 +121,7 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'UMB', meta: 'North America · $10.32M',
-    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'Low' },
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'Medium' },
     pointsCount: 5,
     levers: [
       {
