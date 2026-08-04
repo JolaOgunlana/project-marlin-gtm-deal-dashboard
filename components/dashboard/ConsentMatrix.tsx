@@ -105,7 +105,14 @@ const CM_DATA: CMClient[] = [
   { name:"HSBC Technology & Services (USA)", id:"9368", rev:3083942, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
   { name:"First Hawaiian Bank", id:"", rev:2197457, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:null, price:null },
   { name:"Arvest", id:"", rev:2036070, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:"Medium", price:"Low" },
-  { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low" },
+  { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
+    post:{
+      out:{ rating:"High", rationale:"No previous engagement with Genpact, however AIB is open to outsourcing and did not express any concerns. The potential enhanced technical capabilities would be welcomed. John doesn't have an existing relationship with TMS; however, TMS has a very strong relationship with the AIB Customer Engagement team and would be keen for this to remain in place." },
+      off:{ rating:"High", rationale:"No objections to offshore voice support." },
+      dig:{ rating:"Medium", rationale:"N/A" },
+      price:{ rating:"High", rationale:"AIB would be open to discuss a subscription-based pricing structure." }
+    }
+  },
   { name:"Hancock-Whitney Bank", id:"", rev:1749293, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Simmons Bank", id:"0149+7805+7873", rev:1744800, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium" },
   { name:"First Bank Puerto Rico", id:"444", rev:1721272, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
