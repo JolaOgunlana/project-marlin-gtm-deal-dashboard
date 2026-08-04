@@ -167,7 +167,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Offshoring',
-        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.', 'Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
+        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'],
         points: [
           { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
           { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
@@ -175,7 +175,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Digitization',
-        learnings: [],
+        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
         points: [{ plain: 'N/A' }],
       },
       {
