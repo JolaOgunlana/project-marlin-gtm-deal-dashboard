@@ -125,10 +125,10 @@ const CM_DATA: CMClient[] = [
   { name:"ServisFirst", id:"7841", rev:555696, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"High" },
   { name:"President's Choice", id:"7607", rev:525550, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High",
     post:{
-      out:{ rating:"High", rationale:"TBD" },
-      off:{ rating:"High", rationale:"TBD" },
-      dig:{ rating:"High", rationale:"TBD" },
-      price:{ rating:"High", rationale:"TBD" }
+      out:{ rating:"High", rationale:"Will need to be mindful of fourth party element; governance and audit rights would be a discussion given cardholder data is in play." },
+      off:{ rating:"High", rationale:"Offshoring not a concern for PCF — they do it today. However, new owner EQ Bank is in-house (costly); EQ cautiously evaluating options. What sets TMS apart is Canadian agents, which remains meaningful. PCF's customers request Canadian agents, so they maintain ~15% Canadian population. Having agents in Canada as part of the model is strategically valuable." },
+      dig:{ rating:"High", rationale:"Open to technology investment. TMS has not had prevalent tech investment. PCF interested in understanding different experiences and use cases for outbound fraud (their only TMS service today). Tech could add value if we automate first part of call with option to press 1 for agent — potentially enabling more calls per day than agent-led only." },
+      price:{ rating:"High", rationale:"Offshoring offsets cost of technology investment. Value for no price change needs discussion. Unless FIS adds technology that increases experience for outbound fraud specifically, PCF would question why price wouldn't decrease. Example: automating call initiation + agent escalation (press 1) could increase call volume — that would be compelling value-add." }
     }},
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
