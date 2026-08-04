@@ -344,12 +344,13 @@ function DebriefSection({ onFaqLink }: { onFaqLink: (id: string) => void }) {
                                               onClick={e => { e.stopPropagation(); onFaqLink(p.id) }}
                                               style={{
                                                 background: 'none', border: 'none', padding: 0,
-                                                fontFamily: 'inherit', fontSize: 12.5, color: INK,
+                                                fontFamily: 'inherit', fontSize: 12.5, color: '#8b5cf6',
                                                 cursor: 'pointer', textAlign: 'left',
-                                                borderBottom: '1px dotted rgba(91,45,110,0.5)',
+                                                borderBottom: '1px dotted #8b5cf6',
                                                 lineHeight: 1.5,
+                                                fontWeight: 500,
                                               }}
-                                            >{p.label} <span style={{ fontSize: 10, color: ACCENT }}>→</span></button>
+                                            >{p.label} <span style={{ fontSize: 10, color: '#8b5cf6' }}>→</span></button>
                                           </div>
                                         )
                                     ))}
