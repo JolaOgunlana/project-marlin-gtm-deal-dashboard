@@ -154,6 +154,37 @@ const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    name: 'AIB', meta: 'EMEA · UK · $1.83M',
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'High' },
+    pointsCount: 2,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Open to outsourcing, with no concerns about Genpact.', 'Would welcome the enhanced technical capabilities.', 'Keen to keep the strong TMS–Customer Engagement relationship in place.'],
+        points: [
+          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
+        ],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['No objections to offshore voice support.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Digitization',
+        learnings: [],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Open to discussing subscription-based pricing.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+        ],
+      },
+    ],
+  },
+  {
     name: 'President\'s Choice', meta: 'North America · $525.6K',
     ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
     pointsCount: 4,
