@@ -175,7 +175,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Digitization',
-        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
+        learnings: [],
         points: [{ plain: 'N/A' }],
       },
       {
