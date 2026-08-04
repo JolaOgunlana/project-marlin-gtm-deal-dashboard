@@ -160,14 +160,14 @@ const CLIENTS: ClientRecord[] = [
     levers: [
       {
         lever: 'Outsourcing',
-        learnings: ['Open to the investment; interested in understanding what the different experiences/use cases would be, specifically for outbound fraud, which is the only service PCF uses with TMS today.'],
+        learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'],
         points: [
           { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
         ],
       },
       {
         lever: 'Offshoring',
-        learnings: ['Offshoring is not a concern for PCF; they do it today.', 'New owner EQ Bank is completely in-house, which is costly, so EQ is cautiously evaluating options within that area.', 'They keep a 15% population of agents that are Canadian.'],
+        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.', 'Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
         points: [
           { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
           { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
@@ -175,12 +175,12 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Digitization',
-        learnings: ['What sets TMS apart is that the agents were located in Canada. This has always been beneficial, and would still be meaningful for PCF.', 'Within PCF\'s other servicing experience (likely NTT), customers will sometimes say "put me to an agent in Canada" so they keep a 15% population of agents that are Canadian.'],
+        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
         points: [{ plain: 'N/A' }],
       },
       {
         lever: 'Price Maintain',
-        learnings: ['Acknowledging the offshoring offsets the cost of technology investment, value for not changing the price would need to be discussed.', 'Unless FIS is able to add technology that really increases the experience for the specific service PCF uses (outbound fraud), then PCF would question why the price would not decrease.'],
+        learnings: ['Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn\'t drop.', 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'],
         points: [
           { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
           { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
