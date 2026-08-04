@@ -73,7 +73,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Digitization',
-        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
+        learnings: ['Keen on digitization and automation, with leadership backing it.'],
         points: [{ plain: 'N/A' }],
       },
       {
@@ -213,8 +213,8 @@ const CLIENTS: ClientRecord[] = [
         points: [{ plain: 'N/A' }],
       },
       {
-        lever: 'Price Maintain',
-        learnings: ['Accepts no significant price change is likely.'],
+        lever: 'Digitization',
+        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
         points: [{ plain: 'N/A' }],
       },
     ],
