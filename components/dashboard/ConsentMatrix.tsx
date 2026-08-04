@@ -129,7 +129,10 @@ const CM_DATA: CMClient[] = [
       off:{ rating:"High", rationale:"Offshoring is not a concern for PCF, they do it today; although their new owner, EQ Bank, is completely in-house, which he mentioned is costly, so EQ is cautiously evaluating options within that area. What sets TMS apart is that the agents were located in Canada. This has always been beneficial, and would still be meaningful for PCF. Within PCF's other servicing experience with other providers (likely NTT), customers will sometimes say \"put me to an agent in Canada\" so they keep a 15% population of agents that are Canadian." },
       dig:{ rating:"High", rationale:"It makes sense that FIS and TMS are looking into investments, technology investment has not been prevalent with TMS. Open to the investment in technology, would be interested in understanding what the different experiences/use cases would be for outbound fraud, which is the only service PCF uses with TMS today." },
       price:{ rating:"High", rationale:"Acknowledging the offshoring offsets the cost of technology investment, value for not changing the price would need to be discussed. Unless FIS is able to add technology that really increases the experience for the specific service PCF uses (outbound fraud), then PCF would question why the price would not decrease. Example - If we can attempt more phone calls given the technology, then that would be \"cool\"; there are only so many agent-led calls that can be made in a day, which they have observed in the past with TMS. An example could be if the first part of the call is automation and then press 1 to talk to an agent if needed. Would still need to vet if we want to do this, but it's an example where tech could add value." }
-    }},
+    },
+    postNudgeX: 12,
+    postNudgeY: -10,
+  },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Texas Capital", id:"", rev:426600, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
@@ -1045,7 +1048,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             </div>
             <div style={{ textAlign: 'right', lineHeight: 1.65 }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 1 }}>Last Update</div>
-                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>July 29th 2026 · 18:00 EST</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>July 29th 2026 �� 18:00 EST</div>
                 <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 4, marginBottom: 1 }}>Next Update</div>
                 <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>Aug 5th 2026 · 18:00 EST</div>
             </div>
