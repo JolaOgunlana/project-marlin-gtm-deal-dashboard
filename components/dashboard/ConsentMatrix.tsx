@@ -65,7 +65,7 @@ type WhisperMode = 'pre' | 'post'
 // `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
 const CM_DATA: CMClient[] = [
   { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
-    postNudgeX: -5, postNudgeY: -4,
+    postNudgeX: -5, postNudgeY: -4, lockPostPosition: true,
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
       off:{ rating:"Medium", rationale:'Offshore voice support is a clear "red light". It was stated that they cannot envisage a future where voice services would move offshore. Given the ongoing Nationwide/Virgin Money integration, any offshoring would be viewed as additional customer disruption. However, they are open to exploring offshoring for chat and operational activities.' },
@@ -74,7 +74,7 @@ const CM_DATA: CMClient[] = [
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:17352102, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Fifth Third Bank", id:"5685", rev:14062039, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
-    preNudgeY: 13.335, postNudgeX: -23, postNudgeY: -4, postPlotOff: "High",
+    preNudgeY: 13.335, postNudgeX: -23, postNudgeY: -4, postPlotOff: "High", lockPostPosition: true,
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
       off:{ rating:"Medium", rationale:"His initial and largest concern is the low-cost location component. He advised this will more than likely present some legal challenges as well as business ops challenges. Through the operational lens, he is concerned about degradation of voice services specifically, with little to no concern on offshoring any and all back-office/non-voice work." },
@@ -83,7 +83,7 @@ const CM_DATA: CMClient[] = [
     }},
   { name:"Metro Bank", id:"METRO", rev:12444434, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low" },
   { name:"UMB", id:"9463", rev:10320970, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
-    preNudgeX: -2.665,
+    preNudgeX: -2.665, postNudgeX: 0, postNudgeY: 0, lockPostPosition: true,
     post:{
       out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
       off:{ rating:"High", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
@@ -114,6 +114,7 @@ const CM_DATA: CMClient[] = [
     },
     postNudgeX: -5,
     postNudgeY: -10,
+    lockPostPosition: true,
   },
   { name:"Hancock-Whitney Bank", id:"", rev:1749293, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Simmons Bank", id:"0149+7805+7873", rev:1744800, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
@@ -149,6 +150,7 @@ const CM_DATA: CMClient[] = [
     },
     postNudgeX: 12,
     postNudgeY: -10,
+    lockPostPosition: true,
   },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
@@ -414,14 +416,24 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
   // result is never affected by which clients happen to be in the current
   // post-whisper `plotted` list or its derived quadrant ranges.
   const preBase = useMemo(() => {
-    const preRanges = computeQuadrantRanges(allClients, 'pre')
+    // Build post-whisper ranges from the full post-whisper dataset so positions
+    // are stable regardless of how many post-whisper clients exist.
+    const postClients = allClients.filter(c => c.post)
+    const postRangesForLock = computeQuadrantRanges(postClients, 'post')
     return allClients.filter(c => c.lockPostPosition).map(c => {
-      const ar = { out: c.out, off: c.off }
-      const scoreForPos = overallScore(c, 'pre') ?? 50
+      const ar = {
+        out: (c.postPlotOut ?? c.post?.out?.rating ?? c.out) as Rating,
+        off: (c.postPlotOff ?? c.post?.off?.rating ?? c.off) as Rating,
+      }
+      const scoreForPos = overallScore(c, 'post') ?? 50
       const qKey = `${ar.out}-${ar.off}`
-      const qRange = preRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
+      const qRange = postRangesForLock[qKey] ?? { min: scoreForPos, max: scoreForPos }
       const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
-      return { name: c.name, xPct: inBandX(ar.off as string, t), yPct: inBandY(ar.out as string, t) }
+      return {
+        name: c.name,
+        xPct: inBandX(ar.off as string, t) + (c.postNudgeX ?? 0),
+        yPct: inBandY(ar.out as string, t) + (c.postNudgeY ?? 0),
+      }
     })
   }, [allClients])
 
