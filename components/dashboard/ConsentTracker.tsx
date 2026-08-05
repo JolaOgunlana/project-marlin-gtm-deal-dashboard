@@ -721,27 +721,27 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             </div>
             {/* Rows */}
             {[
-              { name: 'Virgin Money',                   acv: '$26.23M', out: 'High',   off: 'Med',         dig: 'High', price: 'High', score: 94,  status: 'Exploration' },
-              { name: 'Fifth Third Bank',               acv: '$13.56M', out: 'High',   off: 'Med',         dig: 'High', price: 'Med',  score: 88,  status: 'Exploration' },
-              { name: 'Metro Bank',                     acv: '$11.79M', out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'UMB',                            acv: '$9.91M',  out: 'High',   off: 'High',        dig: 'Med',  price: 'Med',  score: 88,  status: 'Alignment' },
-              { name: 'Lloyds',                         acv: '$9.10M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'UBS Financial Services Inc.',    acv: '$8.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'Centene Corporation',            acv: '$3.49M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'HSBC Technology & Services (USA)', acv: '$2.88M', out: null,   off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'AIB',                            acv: '$1.83M',  out: 'High',   off: 'High',        dig: 'Med',  price: 'High', score: 94,  status: 'Exploration' },
-              { name: 'Simmons Bank',                   acv: '$1.63M',  out: 'High',   off: 'High',        dig: 'High', price: 'Med',  score: 94,  status: 'Exploration' },
-              { name: 'First Bank Puerto Rico',         acv: '$1.61M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'Brim Financial',                 acv: '$1.06M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
-              { name: 'ServisFirst',                    acv: '$0.56M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: "President's Choice",             acv: '$0.47M',  out: 'High',   off: 'High',        dig: 'High', price: 'High', score: 100, status: 'Exploration' },
-              { name: 'Union Bank (MUFG)',               acv: '$0.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'Citizens Bank',                  acv: '$0.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'The Bank Of Nova Scotia',        acv: '$0.23M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'Citibank',                       acv: '$0.11M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'NatWest',                        acv: '$0.03M',  out: 'High',   off: 'High (n/a)',  dig: 'Med',  price: 'High', score: 94,  status: 'Exploration' },
-              { name: 'Empire Innovation Group',        acv: '$0.03M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
-              { name: 'MotivHealth',                    acv: '$0.01M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'Virgin Money',                   acv: '$26.2M', out: 'High',   off: 'Medium',            dig: 'High',   price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Fifth Third Bank',               acv: '$13.6M', out: 'High',   off: 'Medium',            dig: 'High',   price: 'Medium', score: 88,   status: 'Exploration' },
+              { name: 'Metro Bank',                     acv: '$11.8M', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'UMB',                            acv: '$9.9M',  out: 'High',   off: 'High',              dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
+              { name: 'Lloyds',                         acv: '$9.1M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'Centene Corporation',            acv: '$3.5M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', out: null,   off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'AIB',                            acv: '$1.8M',  out: 'High',   off: 'High',              dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Simmons Bank',                   acv: '$1.6M',  out: 'High',   off: 'High',              dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
+              { name: 'First Bank Puerto Rico',         acv: '$1.6M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'Brim Financial',                 acv: '$1.1M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'ServisFirst',                    acv: '$0.6M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: "President's Choice",             acv: '$0.5M',  out: 'High',   off: 'High',              dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
+              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'Citizens Bank',                  acv: '$0.3M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'Citibank',                       acv: '$0.1M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'NatWest',                        acv: '$0.0M',  out: 'High',   off: 'High (n/a)',        dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Empire Innovation Group',        acv: '$0.0M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'MotivHealth',                    acv: '$0.0M',  out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
             ].map((row, i) => {
               const isAlt = i % 2 === 1
               const ratingChip = (val: string | null) => {
@@ -766,7 +766,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               return (
                 <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center', background: isAlt ? '#fafbfc' : '#fff', borderBottom: BORDER }}>
                   <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
-                  <div style={{ color: MUTED_D }}>{row.acv}</div>
+                  <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
