@@ -51,6 +51,144 @@ type ClientRecord = {
 
 const CLIENTS: ClientRecord[] = [
   {
+    name: 'Virgin Money', meta: 'EMEA · UK · $27.15M',
+    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'High' },
+    pointsCount: 4,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'],
+        points: [
+          { label: 'Concern about additional "material outsourcing" layers under PRA regulation.', id: 'oh-oo-pra' },
+          { label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' },
+        ],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['Open to offshoring chat and back-office (non-voice) work.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' },
+          { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' },
+        ],
+      },
+      {
+        lever: 'Digitization',
+        learnings: ['Keen on digitization and automation, with leadership backing it.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Already use a total-cost model, so predictable subscription pricing fits.'],
+        points: [{ plain: 'N/A' }],
+      },
+    ],
+  },
+  {
+    name: 'Fifth Third Bank', meta: 'North America · $14.06M',
+    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'Medium' },
+    pointsCount: 6,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['The overall proposal landed well, with little pushback.', 'Sees how outsourcing helps with risk, scale, and technology gaps.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['Little to no concern about offshoring back-office / non-voice work.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' },
+          { label: 'How do we know this meets standards? (Compliance & Infosec)', id: 'oh-comp-standards' },
+          { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' },
+        ],
+      },
+      {
+        lever: 'Digitization',
+        learnings: ['Comfortable adding more technology to their systems and processes.'],
+        points: [
+          { label: 'Technology must be thoroughly proven end-to-end before moving forward (cited TCS implementation experience).', id: 'oh-tech-walkthroughs' },
+          { label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' },
+        ],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'UMB', meta: 'North America · $10.32M',
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'Medium' },
+    pointsCount: 5,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'],
+        points: [
+          { label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' },
+        ],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' },
+        ],
+      },
+      {
+        lever: 'Digitization',
+        learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Challenged concept of maintaining current economics while offshoring.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+          { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'President\'s Choice', meta: 'North America · $525.6K',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
+    pointsCount: 4,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'],
+        points: [
+          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
+        ],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
+          { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
+        ],
+      },
+      {
+        lever: 'Digitization',
+        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn\'t drop.', 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+          { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
+        ],
+      },
+    ],
+  },
+  {
     name: 'AIB', meta: 'EMEA · UK · $1.83M',
     ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'High' },
     pointsCount: 2,
@@ -109,42 +247,6 @@ const CLIENTS: ClientRecord[] = [
     ],
   },
   {
-    name: 'Fifth Third Bank', meta: 'North America · $14.06M',
-    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'Medium' },
-    pointsCount: 6,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: ['The overall proposal landed well, with little pushback.', 'Sees how outsourcing helps with risk, scale, and technology gaps.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: ['Little to no concern about offshoring back-office / non-voice work.'],
-        points: [
-          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' },
-          { label: 'How do we know this meets standards? (Compliance & Infosec)', id: 'oh-comp-standards' },
-          { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' },
-        ],
-      },
-      {
-        lever: 'Digitization',
-        learnings: ['Comfortable adding more technology to their systems and processes.'],
-        points: [
-          { label: 'Technology must be thoroughly proven end-to-end before moving forward (cited TCS implementation experience).', id: 'oh-tech-walkthroughs' },
-          { label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' },
-        ],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'],
-        points: [
-          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
-        ],
-      },
-    ],
-  },
-  {
     name: 'NatWest', meta: 'EMEA · UK · $25.2K',
     ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'High' },
     pointsCount: 3,
@@ -171,108 +273,6 @@ const CLIENTS: ClientRecord[] = [
       {
         lever: 'Price Maintain',
         learnings: [],
-        points: [{ plain: 'N/A' }],
-      },
-    ],
-  },
-  {
-    name: 'President\'s Choice', meta: 'North America · $525.6K',
-    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
-    pointsCount: 4,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'],
-        points: [
-          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
-        ],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'],
-        points: [
-          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
-          { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
-        ],
-      },
-      {
-        lever: 'Digitization',
-        learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: ['Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn\'t drop.', 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'],
-        points: [
-          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
-          { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'UMB', meta: 'North America · $10.32M',
-    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'Medium' },
-    pointsCount: 5,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'],
-        points: [
-          { label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' },
-        ],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'],
-        points: [
-          { label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' },
-        ],
-      },
-      {
-        lever: 'Digitization',
-        learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: ['Challenged concept of maintaining current economics while offshoring.'],
-        points: [
-          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
-          { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Virgin Money', meta: 'EMEA · UK · $27.15M',
-    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'High' },
-    pointsCount: 4,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'],
-        points: [
-          { label: 'Concern about additional "material outsourcing" layers under PRA regulation.', id: 'oh-oo-pra' },
-          { label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' },
-        ],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: ['Open to offshoring chat and back-office (non-voice) work.'],
-        points: [
-          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' },
-          { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' },
-        ],
-      },
-      {
-        lever: 'Digitization',
-        learnings: ['Keen on digitization and automation, with leadership backing it.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: ['Already use a total-cost model, so predictable subscription pricing fits.'],
         points: [{ plain: 'N/A' }],
       },
     ],
