@@ -115,7 +115,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"Medium", rationale:"N/A" },
       price:{ rating:"High", rationale:"AIB would be open to discuss a subscription-based pricing structure." }
     },
-    lockPostPosition: true, absPostX: 72, absPostY: 9,
+    lockPostPosition: true, absPostX: 78, absPostY: 22,
   },
   { name:"Hancock-Whitney Bank", id:"", rev:1749293, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Simmons Bank", id:"0149+7805+7873", rev:1744800, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
