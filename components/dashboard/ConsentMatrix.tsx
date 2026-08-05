@@ -125,7 +125,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"N/A" },
       price:{ rating:"Medium", rationale:"N/A" }
     },
-    lockPostPosition: true, absPostX: 84, absPostY: 22,
+    lockPostPosition: true, absPostX: 84, absPostY: 22, lockPrePosition: true, absPreX: 89, absPreY: 22,
   },
   { name:"First Bank Puerto Rico", id:"444", rev:1721272, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
   { name:"Capital One", id:"", rev:1590370, region:"NA", dealType:"existing", wave:2, stage:1, out:"Medium", off:null, dig:null, price:null },
