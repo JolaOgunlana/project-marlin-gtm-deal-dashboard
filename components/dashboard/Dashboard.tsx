@@ -109,7 +109,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         variant="existing"
         title="Revenue Retention Opportunities"
         totalRevLabel="Total Portfolio Revenue"
-        totalRevValue="$151.7M"
+        totalRevValue="$151.8M"
         totalRevSub="Current annual contract value"
         totalClients="64"
         totalClientsSub="53 NA  ·  11 EMEA"
