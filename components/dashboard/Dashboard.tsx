@@ -104,6 +104,24 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
           This dashboard gives a real-time view of the consent program pipeline, tracking deal progression and whisper engagement status across the full client portfolio. It shows revenue at stake, stage distribution, and whisper completion for both Revenue Retention and New Deal Opportunities. Opportunity data comes from Salesforce and is enriched with whisper outcomes logged by the account team. Use it to identify where deals are stalling, prioritize outreach, and monitor progress against the <strong>$60M ACV</strong> consent target, including the <strong>$25M ACV</strong> milestone by October 2026.
         </p>
+
+      {/* Pipeline Funnel */}
+      <PipelineFunnel
+        clientFilter={clientFilter}
+        waveFilter={waveFilter}
+        regionFilter={regionFilter}
+        stageFilter={stageFilter}
+        whisperFilter={whisperFilter}
+        onClientFilter={(v) => setClientFilter(v)}
+        onWaveFilter={(v) => setWaveFilter(v)}
+        onRegionFilter={(v) => setRegionFilter(v)}
+        onStageFilter={(v) => setStageFilter(v)}
+        onWhisperFilter={(v) => setWhisperFilter(v)}
+      />
+
+      {/* Client Table */}
+      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
+
       {/* KPI — Revenue Retention Opportunities */}
       <KpiSection
         variant="existing"
@@ -140,23 +158,6 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         won="$0"
         lost="$0"
       />
-
-      {/* Pipeline Funnel */}
-      <PipelineFunnel
-        clientFilter={clientFilter}
-        waveFilter={waveFilter}
-        regionFilter={regionFilter}
-        stageFilter={stageFilter}
-        whisperFilter={whisperFilter}
-        onClientFilter={(v) => setClientFilter(v)}
-        onWaveFilter={(v) => setWaveFilter(v)}
-        onRegionFilter={(v) => setRegionFilter(v)}
-        onStageFilter={(v) => setStageFilter(v)}
-        onWhisperFilter={(v) => setWhisperFilter(v)}
-      />
-
-      {/* Client Table */}
-      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
       </div>
     </div>
   )
