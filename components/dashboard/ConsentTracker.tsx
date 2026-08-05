@@ -581,11 +581,11 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             {[
               { val: 'ACV $', bold: true, muted: false },
               { val: '$93.5M', bold: true, muted: false },
-              { val: '64%', bold: false, muted: true },
+              { val: '64%', bold: false, muted: false },
               { val: '$18.7M', bold: true, muted: false },
-              { val: '13%', bold: false, muted: true },
+              { val: '13%', bold: false, muted: false },
               { val: '$33.0M', bold: true, muted: false },
-              { val: '23%', bold: false, muted: true },
+              { val: '23%', bold: false, muted: false },
               { val: '$145.2M', bold: true, muted: false },
             ].map((cell, i) => (
               <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
@@ -598,11 +598,11 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             {[
               { val: 'Clients #', bold: true, muted: false },
               { val: '21', bold: true, muted: false },
-              { val: '33%', bold: false, muted: true },
+              { val: '33%', bold: false, muted: false },
               { val: '27', bold: true, muted: false },
-              { val: '42%', bold: false, muted: true },
+              { val: '42%', bold: false, muted: false },
               { val: '16', bold: true, muted: false },
-              { val: '25%', bold: false, muted: true },
+              { val: '25%', bold: false, muted: false },
               { val: '64 Clients', bold: true, muted: false },
             ].map((cell, i) => (
               <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
@@ -644,13 +644,13 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             {[
               { val: 'ACV $', bold: true, muted: false },
               { val: '$53.7M', bold: true, muted: false },
-              { val: '57%', bold: false, muted: true },
+              { val: '57%', bold: false, muted: false },
               { val: '$25.3M', bold: true, muted: false },
-              { val: '27%', bold: false, muted: true },
+              { val: '27%', bold: false, muted: false },
               { val: '$9.4M', bold: true, muted: false },
-              { val: '10%', bold: false, muted: true },
+              { val: '10%', bold: false, muted: false },
               { val: '$5.1M', bold: true, muted: false },
-              { val: '6%', bold: false, muted: true },
+              { val: '6%', bold: false, muted: false },
               { val: '$93.5M', bold: true, muted: false },
             ].map((cell, i) => (
               <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
@@ -663,13 +663,13 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             {[
               { val: 'Clients #', bold: true, muted: false },
               { val: '7', bold: true, muted: false },
-              { val: '33%', bold: false, muted: true },
+              { val: '33%', bold: false, muted: false },
               { val: '4', bold: true, muted: false },
-              { val: '19%', bold: false, muted: true },
+              { val: '19%', bold: false, muted: false },
               { val: '2', bold: true, muted: false },
-              { val: '10%', bold: false, muted: true },
+              { val: '10%', bold: false, muted: false },
               { val: '8', bold: true, muted: false },
-              { val: '38%', bold: false, muted: true },
+              { val: '38%', bold: false, muted: false },
               { val: '21 Clients', bold: true, muted: false },
             ].map((cell, i) => (
               <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
