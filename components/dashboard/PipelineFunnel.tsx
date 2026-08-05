@@ -23,14 +23,14 @@ interface PipelineFunnelProps {
 }
 
 const STAGES = [
-  { key: 'hold', label: 'Not Started',       color: '#9ca3af', labelColor: '#6b7280',  num: 0,  suffix: ''   },
-  { key: '1',    label: 'New Opportunity',    color: '#1a1f4e', labelColor: '#1a1f4e',  num: 1,  suffix: ''   },
-  { key: '2',    label: 'Early Sales',        color: '#1a1f4e', labelColor: '#1a1f4e',  num: 2,  suffix: ''   },
-  { key: '3',    label: 'Mid Sales',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 3,  suffix: ''   },
-  { key: '4',    label: 'Late Sales / Pricing', color: '#1a1f4e', labelColor: '#1a1f4e', num: 4, suffix: ''   },
-  { key: '5',    label: 'Contracting',        color: '#1a1f4e', labelColor: '#1a1f4e',  num: 5,  suffix: ''   },
-  { key: '6',    label: 'Executed',           color: '#52b000', labelColor: '#52b000',  num: 6,  suffix: ' \u2713' },
-  { key: '8',    label: 'Disqualified',       color: '#d0021b', labelColor: '#d0021b',  num: 8,  suffix: ' \u2715' },
+  { key: 'hold', label: 'Not Started',         color: '#9ca3af', labelColor: '#6b7280',  num: 0, suffix: '',          desc: null },
+  { key: '1',    label: 'New Opportunity',      color: '#1a1f4e', labelColor: '#1a1f4e',  num: 1, suffix: '',          desc: 'Opportunity loaded and qualified for pursuit.' },
+  { key: '2',    label: 'Early Sales',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 2, suffix: '',          desc: 'Whisper conversation conducted with client.' },
+  { key: '3',    label: 'Mid Sales',            color: '#1a1f4e', labelColor: '#1a1f4e',  num: 3, suffix: '',          desc: 'First pitch delivered to client.' },
+  { key: '4',    label: 'Late Sales / Pricing', color: '#1a1f4e', labelColor: '#1a1f4e',  num: 4, suffix: '',          desc: 'Client has agreed to further meetings; pricing and commercial terms are under discussion.' },
+  { key: '5',    label: 'Contracting',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 5, suffix: '',          desc: 'Contract amendment submitted to legal; negotiations in progress, with commercial terms and pricing verbally agreed by client.' },
+  { key: '6',    label: 'Executed',             color: '#52b000', labelColor: '#52b000',  num: 6, suffix: ' \u2713',   desc: null },
+  { key: '8',    label: 'Disqualified',         color: '#d0021b', labelColor: '#d0021b',  num: 8, suffix: ' \u2715',   desc: null },
 ]
 
 function FilterTabGroup<T extends string>({
@@ -210,6 +210,21 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
               <div style={{ fontSize: 12, fontWeight: isActive ? 800 : 700, color: stage.labelColor, textAlign: 'center', lineHeight: 1.35 }}>
                 {stage.label}{stage.suffix}
               </div>
+              {/* Stage description */}
+              {stage.desc && (
+                <div style={{
+                  fontSize: 10.5,
+                  color: 'rgba(26,31,78,0.42)',
+                  textAlign: 'center',
+                  lineHeight: 1.5,
+                  fontStyle: 'italic',
+                  paddingTop: 4,
+                  borderTop: '1px solid rgba(26,31,78,0.08)',
+                  marginTop: 2,
+                }}>
+                  {stage.desc}
+                </div>
+              )}
             </button>
           )
         })}
