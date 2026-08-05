@@ -559,7 +559,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Program Coverage by Wave</span>
           </div>
           {/* Column headers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
               { label: 'Total', sub: null },
               { label: 'Wave 1', sub: 'Started' },
@@ -577,7 +577,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             ))}
           </div>
           {/* ACV row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
               { val: 'ACV $', bold: true, muted: false },
               { val: '$93.5M', bold: true, muted: false },
@@ -620,7 +620,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(26,31,78,0.42)' }}>21 Clients · 13 in Scope</span>
           </div>
           {/* Column headers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
               { label: 'Wave 1', sub: null },
               { label: 'Whisper Completed', sub: null },
@@ -640,7 +640,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             ))}
           </div>
           {/* ACV row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
               { val: 'ACV $', bold: true, muted: false },
               { val: '$53.7M', bold: true, muted: false },
@@ -659,7 +659,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             ))}
           </div>
           {/* Clients row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
               { val: 'Clients #', bold: true, muted: false },
               { val: '7', bold: true, muted: false },
