@@ -553,98 +553,148 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Program Coverage by Wave ──────────────────────────────── */}
-        <div style={{ marginTop: 32 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
-            Program Coverage by Wave
+        <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 28, overflow: 'hidden' }}>
+          {/* Title bar */}
+          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Program Coverage by Wave</span>
           </div>
-          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
-              <div>Total</div>
-              <div>Wave 1 – started</div>
-              <div>% of Total</div>
-              <div>Wave 2 – not started</div>
-              <div>% of Total</div>
-              <div>Wave 3 – not started</div>
-              <div>% of Total</div>
-              <div>Total Wave 1-3</div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fff', borderBottom: BORDER }}>
-              <div style={{ fontWeight: 700, color: INK }}>ACV $</div>
-              <div style={{ fontWeight: 700, color: INK }}>$93.5M</div>
-              <div style={{ color: MUTED }}>64%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$18.7M</div>
-              <div style={{ color: MUTED }}>13%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$33.0M</div>
-              <div style={{ color: MUTED }}>23%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$145.2M ACV</div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fafbfc' }}>
-              <div style={{ fontWeight: 700, color: INK }}>Clients #</div>
-              <div style={{ fontWeight: 700, color: INK }}>21</div>
-              <div style={{ color: MUTED }}>33%</div>
-              <div style={{ fontWeight: 700, color: INK }}>27</div>
-              <div style={{ color: MUTED }}>42%</div>
-              <div style={{ fontWeight: 700, color: INK }}>16</div>
-              <div style={{ color: MUTED }}>25%</div>
-              <div style={{ fontWeight: 700, color: INK }}>64 Clients</div>
-            </div>
+          {/* Column headers */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+            {[
+              { label: 'Total', sub: null },
+              { label: 'Wave 1', sub: 'Started' },
+              { label: '% of Total', sub: null },
+              { label: 'Wave 2', sub: 'Not started' },
+              { label: '% of Total', sub: null },
+              { label: 'Wave 3', sub: 'Not started' },
+              { label: '% of Total', sub: null },
+              { label: 'Total Wave 1–3', sub: null },
+            ].map((col, i) => (
+              <div key={i} style={{ padding: '10px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.42)', lineHeight: 1.3 }}>{col.label}</div>
+                {col.sub && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)', marginTop: 1 }}>{col.sub}</div>}
+              </div>
+            ))}
+          </div>
+          {/* ACV row */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+            {[
+              { val: 'ACV $', bold: true, muted: false },
+              { val: '$93.5M', bold: true, muted: false },
+              { val: '64%', bold: false, muted: true },
+              { val: '$18.7M', bold: true, muted: false },
+              { val: '13%', bold: false, muted: true },
+              { val: '$33.0M', bold: true, muted: false },
+              { val: '23%', bold: false, muted: true },
+              { val: '$145.2M ACV', bold: true, muted: false },
+            ].map((cell, i) => (
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
+                {cell.val}
+              </div>
+            ))}
+          </div>
+          {/* Clients row */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
+            {[
+              { val: 'Clients #', bold: true, muted: false },
+              { val: '21', bold: true, muted: false },
+              { val: '33%', bold: false, muted: true },
+              { val: '27', bold: true, muted: false },
+              { val: '42%', bold: false, muted: true },
+              { val: '16', bold: true, muted: false },
+              { val: '25%', bold: false, muted: true },
+              { val: '64 Clients', bold: true, muted: false },
+            ].map((cell, i) => (
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
+                {cell.val}
+              </div>
+            ))}
           </div>
         </div>
 
         {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
-        <div style={{ marginTop: 32 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
-            Wave 1 Whisper Completion Status&nbsp;&nbsp;<span style={{ fontWeight: 400, color: MUTED, textTransform: 'none', letterSpacing: 0 }}>21 Clients · 13 in Scope</span>
+        <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
+          {/* Title bar */}
+          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'baseline', gap: 10 }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Whisper Completion Status</span>
+            <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(26,31,78,0.42)' }}>21 Clients · 13 in Scope</span>
           </div>
-          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
-              <div>Wave 1</div>
-              <div>Whisper Completed</div>
-              <div>% Total</div>
-              <div>Whisper ETA 8/7</div>
-              <div>% Total</div>
-              <div>Whisper ETA 8/14</div>
-              <div>% Total</div>
-              <div>No Whisper Planned</div>
-              <div>% Total</div>
-              <div>Total Wave 1</div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fff', borderBottom: BORDER }}>
-              <div style={{ fontWeight: 700, color: INK }}>ACV $</div>
-              <div style={{ fontWeight: 700, color: INK }}>$53.7M</div>
-              <div style={{ color: MUTED }}>57%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$25.3M</div>
-              <div style={{ color: MUTED }}>27%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$9.4M</div>
-              <div style={{ color: MUTED }}>10%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$5.1M</div>
-              <div style={{ color: MUTED }}>6%</div>
-              <div style={{ fontWeight: 700, color: INK }}>$93.5M ACV</div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fafbfc', borderBottom: BORDER }}>
-              <div style={{ fontWeight: 700, color: INK }}>Clients #</div>
-              <div style={{ fontWeight: 700, color: INK }}>7</div>
-              <div style={{ color: MUTED }}>33%</div>
-              <div style={{ fontWeight: 700, color: INK }}>4</div>
-              <div style={{ color: MUTED }}>19%</div>
-              <div style={{ fontWeight: 700, color: INK }}>2</div>
-              <div style={{ color: MUTED }}>10%</div>
-              <div style={{ fontWeight: 700, color: INK }}>8</div>
-              <div style={{ color: MUTED }}>38%</div>
-              <div style={{ fontWeight: 700, color: INK }}>21 Clients</div>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 12, alignItems: 'start', background: '#fff' }}>
-              <div style={{ fontWeight: 700, color: INK }}>Client Names</div>
-              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Virgin Money, Fifth Third Bank, UMB, AIB, Simmons Bank, President&apos;s Choice, NatWest</div>
-              <div />
-              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Metro Bank, Lloyds, HSBC, First Bank Puerto Rico</div>
-              <div />
-              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>UBS, Brim Financial</div>
-              <div />
-              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Centene Corporation, ServisFirst, Union Bank, Citizens Bank, The Bank of Nova Scotia, Citibank, Empire Innovation Group, MotivHealth</div>
-              <div />
-              <div style={{ color: MUTED }}>–</div>
-            </div>
+          {/* Column headers */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+            {[
+              { label: 'Wave 1', sub: null },
+              { label: 'Whisper Completed', sub: null },
+              { label: '% Total', sub: null },
+              { label: 'Whisper ETA', sub: '8/7' },
+              { label: '% Total', sub: null },
+              { label: 'Whisper ETA', sub: '8/14' },
+              { label: '% Total', sub: null },
+              { label: 'No Whisper Planned', sub: null },
+              { label: '% Total', sub: null },
+              { label: 'Total Wave 1', sub: null },
+            ].map((col, i) => (
+              <div key={i} style={{ padding: '10px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.42)', lineHeight: 1.3 }}>{col.label}</div>
+                {col.sub && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)', marginTop: 1 }}>{col.sub}</div>}
+              </div>
+            ))}
+          </div>
+          {/* ACV row */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+            {[
+              { val: 'ACV $', bold: true, muted: false },
+              { val: '$53.7M', bold: true, muted: false },
+              { val: '57%', bold: false, muted: true },
+              { val: '$25.3M', bold: true, muted: false },
+              { val: '27%', bold: false, muted: true },
+              { val: '$9.4M', bold: true, muted: false },
+              { val: '10%', bold: false, muted: true },
+              { val: '$5.1M', bold: true, muted: false },
+              { val: '6%', bold: false, muted: true },
+              { val: '$93.5M ACV', bold: true, muted: false },
+            ].map((cell, i) => (
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
+                {cell.val}
+              </div>
+            ))}
+          </div>
+          {/* Clients row */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr', borderBottom: '1px solid #e2e4ee' }}>
+            {[
+              { val: 'Clients #', bold: true, muted: false },
+              { val: '7', bold: true, muted: false },
+              { val: '33%', bold: false, muted: true },
+              { val: '4', bold: true, muted: false },
+              { val: '19%', bold: false, muted: true },
+              { val: '2', bold: true, muted: false },
+              { val: '10%', bold: false, muted: true },
+              { val: '8', bold: true, muted: false },
+              { val: '38%', bold: false, muted: true },
+              { val: '21 Clients', bold: true, muted: false },
+            ].map((cell, i) => (
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
+                {cell.val}
+              </div>
+            ))}
+          </div>
+          {/* Client names row */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
+            {[
+              { val: 'Client Names', bold: true, muted: false },
+              { val: 'Virgin Money, Fifth Third Bank, UMB, AIB, Simmons Bank, President\'s Choice, NatWest', bold: false, muted: false },
+              { val: '', bold: false, muted: true },
+              { val: 'Metro Bank, Lloyds, HSBC, First Bank Puerto Rico', bold: false, muted: false },
+              { val: '', bold: false, muted: true },
+              { val: 'UBS, Brim Financial', bold: false, muted: false },
+              { val: '', bold: false, muted: true },
+              { val: 'Centene Corporation, ServisFirst, Union Bank, Citizens Bank, The Bank of Nova Scotia, Citibank, Empire Innovation Group, MotivHealth', bold: false, muted: false },
+              { val: '', bold: false, muted: true },
+              { val: '–', bold: false, muted: true },
+            ].map((cell, i) => (
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: 12, fontWeight: cell.bold ? 700 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : MUTED_D, lineHeight: 1.6 }}>
+                {cell.val}
+              </div>
+            ))}
           </div>
         </div>
 
