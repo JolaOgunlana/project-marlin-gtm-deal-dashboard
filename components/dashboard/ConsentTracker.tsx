@@ -494,14 +494,12 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* Four equal columns */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
             {STATS.map((s, i) => {
-              const isNotPursuing = s.label === 'Not Pursuing'
               return (
                 <div key={s.label} style={{
                   padding: '18px 22px 20px',
                   borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined,
                   display: 'flex',
                   flexDirection: 'column',
-                  background: isNotPursuing ? '#fff8f7' : undefined,
                 }}>
                   {/* Stage label + tag */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
