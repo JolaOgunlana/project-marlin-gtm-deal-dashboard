@@ -708,7 +708,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
               <span style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1 }}>21</span>
-              <span style={{ fontSize: 22, fontWeight: 800, color: '#2d7a0f', lineHeight: 1 }}>($93.5M)</span>
+              <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
             <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Wave 3 clients engaged</div>
           </div>
