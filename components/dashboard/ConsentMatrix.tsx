@@ -1063,12 +1063,12 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
         {/* Bottom: page tabs flush to banner bottom-left */}
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {([
-            { id: 'cover',     label: 'Cover Page' },
-            { id: 'debrief',   label: 'Whisper Conversation Debrief' },
-            { id: 'faq',       label: 'FAQ / Objection Handling' },
-            { id: 'dashboard', label: 'Deal Dashboard' },
-            { id: 'consent',   label: 'Client Consent Matrix' },
             { id: 'tracker',   label: 'Consent Tracker' },
+            { id: 'consent',   label: 'Client Consent Matrix' },
+            { id: 'dashboard', label: 'Deal Dashboard' },
+            { id: 'faq',       label: 'FAQ / Objection Handling' },
+            { id: 'debrief',   label: 'Whisper Conversation Debrief' },
+            { id: 'cover',     label: 'How to Use' },
           ] as { id: Page; label: string }[]).map(tab => (
             <button
               key={tab.id}

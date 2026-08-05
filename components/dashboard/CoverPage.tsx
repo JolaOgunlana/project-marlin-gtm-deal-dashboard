@@ -11,12 +11,12 @@ export function NavBanner({ page, onNavigate, title }: {
   title: string
 }) {
   const tabs: { id: Page; label: string }[] = [
-    { id: 'cover',     label: 'Cover Page' },
-    { id: 'debrief',   label: 'Whisper Conversation Debrief' },
-    { id: 'faq',       label: 'FAQ / Objection Handling' },
-    { id: 'dashboard', label: 'Deal Dashboard' },
-    { id: 'consent',   label: 'Client Consent Matrix' },
     { id: 'tracker',   label: 'Consent Tracker' },
+    { id: 'consent',   label: 'Client Consent Matrix' },
+    { id: 'dashboard', label: 'Deal Dashboard' },
+    { id: 'faq',       label: 'FAQ / Objection Handling' },
+    { id: 'debrief',   label: 'Whisper Conversation Debrief' },
+    { id: 'cover',     label: 'How to Use' },
   ]
 
   return (
