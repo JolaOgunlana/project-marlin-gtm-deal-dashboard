@@ -51,35 +51,33 @@ type ClientRecord = {
 
 const CLIENTS: ClientRecord[] = [
   {
-    name: 'Virgin Money', meta: 'EMEA · UK · $27.15M',
-    ratings: { out: 'High', off: 'Medium', dig: 'High', price: 'High' },
-    pointsCount: 4,
+    name: 'AIB', meta: 'EMEA · UK · $1.83M',
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'High' },
+    pointsCount: 2,
     levers: [
       {
         lever: 'Outsourcing',
-        learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'],
+        learnings: ['Open to outsourcing, with no concerns about Genpact.', 'Would welcome the enhanced technical capabilities.', 'Keen to keep the strong TMS–Customer Engagement relationship in place.'],
         points: [
-          { label: 'Concern about additional "material outsourcing" layers under PRA regulation.', id: 'oh-oo-pra' },
-          { label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' },
+          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
         ],
       },
       {
         lever: 'Offshoring',
-        learnings: ['Open to offshoring chat and back-office (non-voice) work.'],
-        points: [
-          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' },
-          { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' },
-        ],
+        learnings: ['No objections to offshore voice support.'],
+        points: [{ plain: 'N/A' }],
       },
       {
         lever: 'Digitization',
-        learnings: ['Keen on digitization and automation, with leadership backing it.'],
+        learnings: [],
         points: [{ plain: 'N/A' }],
       },
       {
         lever: 'Price Maintain',
-        learnings: ['Already use a total-cost model, so predictable subscription pricing fits.'],
-        points: [{ plain: 'N/A' }],
+        learnings: ['Open to discussing subscription-based pricing.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+        ],
       },
     ],
   },
@@ -244,8 +242,70 @@ const CLIENTS: ClientRecord[] = [
         points: [{ plain: 'N/A' }],
       },
       {
+        lever: 'Price Maintain',
+        learnings: [],
+        points: [{ plain: 'N/A' }],
+      },
+    ],
+  },
+  {
+    name: 'President\'s Choice', meta: 'North America · $525.6K',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
+    pointsCount: 4,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'],
+        points: [
+          { label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' },
+        ],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'],
+        points: [
+          { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' },
+          { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' },
+        ],
+      },
+      {
         lever: 'Digitization',
         learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: ['Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn\'t drop.', 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'],
+        points: [
+          { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
+          { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Simmons Bank', meta: 'North America · $1.74M',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'Medium' },
+    pointsCount: 0,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['There were no objections to offshore voice support.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Digitization',
+        learnings: [],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: [],
         points: [{ plain: 'N/A' }],
       },
     ],
