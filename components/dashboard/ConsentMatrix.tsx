@@ -150,7 +150,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"It makes sense that FIS and TMS are looking into investments, technology investment has not been prevalent with TMS. Open to the investment in technology, would be interested in understanding what the different experiences/use cases would be for outbound fraud, which is the only service PCF uses with TMS today." },
       price:{ rating:"High", rationale:"Acknowledging the offshoring offsets the cost of technology investment, value for not changing the price would need to be discussed. Unless FIS is able to add technology that really increases the experience for the specific service PCF uses (outbound fraud), then PCF would question why the price would not decrease. Example - If we can attempt more phone calls given the technology, then that would be \"cool\"; there are only so many agent-led calls that can be made in a day, which they have observed in the past with TMS. An example could be if the first part of the call is automation and then press 1 to talk to an agent if needed. Would still need to vet if we want to do this, but it's an example where tech could add value." }
     },
-    lockPostPosition: true, absPostX: 90, absPostY: 8,
+    lockPostPosition: true, absPostX: 90, absPostY: 8, lockPrePosition: true, absPreX: 90, absPreY: 25,
   },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
@@ -429,24 +429,11 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
   // We build a temporary full post-whisper base (mirroring what PlotArea would render
   // in post mode) so the position is pixel-perfect — same quadrant ranges, same fanning.
   const postBase = useMemo(() => {
-    const postClients = allClients.filter(c => c.post)
-    const postRanges = computeQuadrantRanges(postClients, 'post')
-    return allClients.filter(c => c.lockPrePosition && c.post).map(c => {
-      const ar = {
-        out: (c.post?.out?.rating ?? c.out) as Rating,
-        off: (c.post?.off?.rating ?? c.off) as Rating,
-      }
-      const scoreForPos = overallScore(c, 'post') ?? 50
-      const qKey = `${ar.out}-${ar.off}`
-      const qRange = postRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
-      const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
-      const result = {
-        name: c.name,
-        xPct: inBandX(ar.off as string, t) + (c.postNudgeX ?? 0),
-        yPct: inBandY(ar.out as string, t) + (c.postNudgeY ?? 0),
-      }
-      return result
-    })
+    return allClients.filter(c => c.lockPrePosition && c.post).map(c => ({
+      name: c.name,
+      xPct: c.absPreX ?? 50,
+      yPct: c.absPreY ?? 50,
+    }))
   }, [allClients])
 
   // ── Step 1: base positions from overall propensity within quadrant ─────────
