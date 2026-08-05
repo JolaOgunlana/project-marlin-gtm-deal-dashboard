@@ -236,12 +236,12 @@ const STATS = [
     sfStages: 'Stage 3–4 · Late Sales / Pricing',
   },
   {
-    label: 'Consent',
+    label: 'Committed',
     tag: 'POST-PITCH',
     count: 0,
     countColor: GREEN,
     revenue: '$0M',
-    revenueLabel: 'Annual contract value consented',
+    revenueLabel: 'Annual contract value committed',
     region: '0 NA · 0 EMEA',
     descriptionParts: [
       { text: 'The client ', bold: false },
@@ -249,6 +249,21 @@ const STATS = [
       { text: ' and begins execution — amendment discussions, redlines, and internal legal / risk / procurement. The conversation has crossed from evaluation into execution.', bold: false },
     ],
     sfStages: 'Stage 5 · Contracting',
+  },
+  {
+    label: 'Not Pursuing',
+    tag: 'CLOSED',
+    count: 0,
+    countColor: '#c0392b',
+    revenue: '$0M',
+    revenueLabel: 'Annual contract value',
+    region: '0 NA · 0 EMEA',
+    descriptionParts: [
+      { text: 'The client ', bold: false },
+      { text: 'has declined to proceed', bold: true },
+      { text: ' — either the client has formally rejected the proposal, or the opportunity has been disqualified. No further pursuit is planned at this time.', bold: false },
+    ],
+    sfStages: 'Stage 6 · Closed Lost',
   },
 ]
 
@@ -291,10 +306,12 @@ function Badge({ status }: { status: StepStatus }) {
 
 function CurrentStagePill({ step }: { step: TrackerClient['currentStep'] }) {
   const map: Record<string, { bg: string; color: string; label: string }> = {
-    exploration: { bg: GRAY_BG,  color: '#556070', label: 'Exploration' },
-    alignment:   { bg: AMBER_BG, color: AMBER,      label: 'Alignment' },
-    consent:     { bg: GREEN_BG, color: GREEN,       label: 'Consent' },
-    signed:      { bg: INK,      color: '#fff',      label: 'Signed' },
+    exploration:   { bg: GRAY_BG,    color: '#556070', label: 'Exploration' },
+    alignment:     { bg: AMBER_BG,   color: AMBER,      label: 'Alignment' },
+    consent:       { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
+    committed:     { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
+    'not-pursuing':{ bg: '#fad4ce',  color: '#c0392b',   label: 'Not Pursuing' },
+    signed:        { bg: INK,        color: '#fff',      label: 'Signed' },
   }
   const s = map[step]
   return (
@@ -310,7 +327,7 @@ function StepLabel({ step }: { step: ConsentStep }) {
   const map: Record<ConsentStep, string> = {
     exploration: 'Exploration',
     alignment:   'Alignment',
-    consent:     'Consent',
+    consent:     'Committed',
   }
   const sub: Record<ConsentStep, string> = {
     exploration: 'Whisper',
@@ -457,31 +474,29 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* Page description */}
         <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          This page tracks client progression through three stages — Exploration (Stages 1–2), Alignment (Stages 3–4), and Consent (Stage 5) — mapped directly to your Salesforce funnel. Each stage has three specific evidence criteria that serve as decision gates: when all three are confirmed, the client moves to the next phase. Click any client to view the evidence collected and understand exactly what criteria have been met at each stage.
+          This page tracks client progression through four stages — Exploration (Stages 1–2), Alignment (Stages 3–4), Committed (Stage 5), and Not Pursuing — mapped directly to your Salesforce funnel. Each stage has three specific evidence criteria that serve as decision gates: when all three are confirmed, the client moves to the next phase. Click any client to view the evidence collected and understand exactly what criteria have been met at each stage.
         </p>
 
         {/* ── Single-box chevron stepper ───────────────────────────── */}
         <div style={{
           position: 'relative',
           display: 'flex',
-          background: '#fff',
-          border: BORDER,
-          borderRadius: 14,
-          boxShadow: '0 1px 4px rgba(20,31,56,.08)',
+          gap: 12,
           marginBottom: 28,
-          overflow: 'hidden',
-          minHeight: 220,
         }}>
           {STATS.map((s, i) => {
             const isLast = i === STATS.length - 1
+            const isNotPursuing = s.label === 'Not Pursuing'
             return (
               <div key={s.label} style={{
                 flex: 1,
                 padding: '22px 26px',
                 display: 'flex',
                 flexDirection: 'column',
-                position: 'relative',
-                zIndex: 1,
+                background: isNotPursuing ? '#fff8f7' : '#fff',
+                border: isNotPursuing ? '1px solid #fad4ce' : BORDER,
+                borderRadius: 14,
+                boxShadow: '0 1px 4px rgba(20,31,56,.06)',
               }}>
                 {/* Header row: stage label (colored uppercase) + tag */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
@@ -504,50 +519,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             )
           })}
 
-          {/* Chevron dividers: absolutely positioned between each column */}
-          {STATS.slice(0, -1).map((_, i) => {
-            const pct = ((i + 1) / STATS.length) * 100
-            const TIP = 18  // half-width of the arrow tip on each side
-            return (
-              <div
-                key={i}
-                style={{
-                  position: 'absolute',
-                  left: `calc(${pct}% - ${TIP}px)`,
-                  top: 0,
-                  bottom: 0,
-                  width: TIP * 2,
-                  zIndex: 10,
-                  pointerEvents: 'none',
-                  display: 'flex',
-                  alignItems: 'stretch',
-                }}
-              >
-                <svg
-                  width={TIP * 2}
-                  height="100%"
-                  viewBox={`0 0 ${TIP * 2} 100`}
-                  preserveAspectRatio="none"
-                  style={{ display: 'block', overflow: 'visible' }}
-                >
-                  {/* White fill to blank out the column seam behind the arrow */}
-                  <polygon
-                    points={`0,0 ${TIP * 2},0 ${TIP * 2},100 0,100`}
-                    fill="white"
-                  />
-                  {/* Two lines forming the > chevron: top-left → mid-right → bottom-left */}
-                  <polyline
-                    points={`2,0 ${TIP * 2 - 2},50 2,100`}
-                    fill="none"
-                    stroke="#dde0e6"
-                    strokeWidth="1"
-                    strokeLinejoin="round"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                </svg>
-              </div>
-            )
-          })}
+
         </div>
 
         {/* ── Program Coverage by Wave ──────────────────────────────── */}
