@@ -568,6 +568,102 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           })}
         </div>
 
+        {/* ── Program Coverage by Wave ──────────────────────────────── */}
+        <div style={{ marginTop: 32 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
+            Program Coverage by Wave
+          </div>
+          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+              <div>Total</div>
+              <div>Wave 1 – started</div>
+              <div>% of Total</div>
+              <div>Wave 2 – not started</div>
+              <div>% of Total</div>
+              <div>Wave 3 – not started</div>
+              <div>% of Total</div>
+              <div>Total Wave 1-3</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fff', borderBottom: BORDER }}>
+              <div style={{ fontWeight: 700, color: INK }}>ACV $</div>
+              <div style={{ fontWeight: 700, color: INK }}>$93.5M</div>
+              <div style={{ color: MUTED }}>64%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$18.7M</div>
+              <div style={{ color: MUTED }}>13%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$33.0M</div>
+              <div style={{ color: MUTED }}>23%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$145.2M ACV</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1.3fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.3fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fafbfc' }}>
+              <div style={{ fontWeight: 700, color: INK }}>Clients #</div>
+              <div style={{ fontWeight: 700, color: INK }}>21</div>
+              <div style={{ color: MUTED }}>33%</div>
+              <div style={{ fontWeight: 700, color: INK }}>27</div>
+              <div style={{ color: MUTED }}>42%</div>
+              <div style={{ fontWeight: 700, color: INK }}>16</div>
+              <div style={{ color: MUTED }}>25%</div>
+              <div style={{ fontWeight: 700, color: INK }}>64 Clients</div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
+        <div style={{ marginTop: 32 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
+            Wave 1 Whisper Completion Status&nbsp;&nbsp;<span style={{ fontWeight: 400, color: MUTED, textTransform: 'none', letterSpacing: 0 }}>21 Clients · 13 in Scope</span>
+          </div>
+          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+              <div>Wave 1</div>
+              <div>Whisper Completed</div>
+              <div>% Total</div>
+              <div>Whisper ETA 8/7</div>
+              <div>% Total</div>
+              <div>Whisper ETA 8/14</div>
+              <div>% Total</div>
+              <div>No Whisper Planned</div>
+              <div>% Total</div>
+              <div>Total Wave 1</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fff', borderBottom: BORDER }}>
+              <div style={{ fontWeight: 700, color: INK }}>ACV $</div>
+              <div style={{ fontWeight: 700, color: INK }}>$53.7M</div>
+              <div style={{ color: MUTED }}>57%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$25.3M</div>
+              <div style={{ color: MUTED }}>27%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$9.4M</div>
+              <div style={{ color: MUTED }}>10%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$5.1M</div>
+              <div style={{ color: MUTED }}>6%</div>
+              <div style={{ fontWeight: 700, color: INK }}>$93.5M ACV</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 13, alignItems: 'center', background: '#fafbfc', borderBottom: BORDER }}>
+              <div style={{ fontWeight: 700, color: INK }}>Clients #</div>
+              <div style={{ fontWeight: 700, color: INK }}>7</div>
+              <div style={{ color: MUTED }}>33%</div>
+              <div style={{ fontWeight: 700, color: INK }}>4</div>
+              <div style={{ color: MUTED }}>19%</div>
+              <div style={{ fontWeight: 700, color: INK }}>2</div>
+              <div style={{ color: MUTED }}>10%</div>
+              <div style={{ fontWeight: 700, color: INK }}>8</div>
+              <div style={{ color: MUTED }}>38%</div>
+              <div style={{ fontWeight: 700, color: INK }}>21 Clients</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.4fr 0.7fr 1.2fr', padding: '13px 20px', gap: 8, fontSize: 12, alignItems: 'start', background: '#fff' }}>
+              <div style={{ fontWeight: 700, color: INK }}>Client Names</div>
+              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Virgin Money, Fifth Third Bank, UMB, AIB, Simmons Bank, President&apos;s Choice, NatWest</div>
+              <div />
+              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Metro Bank, Lloyds, HSBC, First Bank Puerto Rico</div>
+              <div />
+              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>UBS, Brim Financial</div>
+              <div />
+              <div style={{ color: MUTED_D, lineHeight: 1.6 }}>Centene Corporation, ServisFirst, Union Bank, Citizens Bank, The Bank of Nova Scotia, Citibank, Empire Innovation Group, MotivHealth</div>
+              <div />
+              <div style={{ color: MUTED }}>–</div>
+            </div>
+          </div>
+        </div>
+
         {/* ── Search bar ─────────────────────────────────────────────��� */}
 
 
