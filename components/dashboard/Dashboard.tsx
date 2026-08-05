@@ -105,8 +105,8 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
           This dashboard gives a real-time view of the consent program pipeline, tracking deal progression and whisper engagement status across the full client portfolio. It shows revenue at stake, stage distribution, and whisper completion for both Revenue Retention and New Deal Opportunities. Opportunity data comes from Salesforce and is enriched with whisper outcomes logged by the account team. Use it to identify where deals are stalling, prioritize outreach, and monitor progress against the <strong>$60M ACV</strong> consent target, including the <strong>$25M ACV</strong> milestone by October 2026.
         </p>
 
-        {/* Pipeline Funnel */}
-        <PipelineFunnel
+      {/* Pipeline Funnel */}
+      <PipelineFunnel
         clientFilter={clientFilter}
         waveFilter={waveFilter}
         regionFilter={regionFilter}
@@ -117,15 +117,15 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         onRegionFilter={(v) => setRegionFilter(v)}
         onStageFilter={(v) => setStageFilter(v)}
         onWhisperFilter={(v) => setWhisperFilter(v)}
-        />
+      />
 
-        {/* Client Table */}
-        <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
+      {/* Client Table */}
+      <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
 
-        {/* KPI sections — Revenue Retention & New Opportunities */}
-        <div style={{ marginTop: 48 }}>
-          {/* KPI — Revenue Retention Opportunities */}
-          <KpiSection
+      {/* KPI sections — Revenue Retention & New Opportunities */}
+      <div style={{ marginTop: 48 }}>
+      {/* KPI — Revenue Retention Opportunities */}
+      <KpiSection
         variant="existing"
         title="Revenue Retention Opportunities"
         totalRevLabel="Total Portfolio Revenue"
@@ -142,11 +142,11 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         won="$0"
         percentWon="0%"
         lost="$0"
-          percentLost="0%"
-          />
+        percentLost="0%"
+      />
 
-          {/* KPI — New Deal Opportunities — spaced below Revenue Retention */}
-          <KpiSection
+      {/* KPI — New Deal Opportunities — spaced below Revenue Retention */}
+      <KpiSection
         variant="new"
         title="New Deal Opportunities"
         totalRevLabel="Total Opportunity Revenue"
@@ -158,11 +158,9 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         disqualified="0"
         marginSecured="$0"
         won="$0"
-          lost="$0"
-          />
-        </div>
+        lost="$0"
+      />
       </div>
     </main>
-    </div>
   )
 }
