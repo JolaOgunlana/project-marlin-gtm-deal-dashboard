@@ -161,6 +161,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         lost="$0"
       />
       </div>
+      </div>
     </main>
   )
 }
