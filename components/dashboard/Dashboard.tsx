@@ -122,8 +122,6 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       {/* Client Table */}
       <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
 
-      {/* KPI sections — Revenue Retention & New Opportunities */}
-      <div style={{ marginTop: 48 }}>
       {/* KPI — Revenue Retention Opportunities */}
       <KpiSection
         variant="existing"
@@ -145,7 +143,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         percentLost="0%"
       />
 
-      {/* KPI — New Deal Opportunities — spaced below Revenue Retention */}
+      {/* KPI — New Deal Opportunities */}
       <KpiSection
         variant="new"
         title="New Deal Opportunities"
@@ -161,6 +159,6 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         lost="$0"
       />
       </div>
-    </main>
+    </div>
   )
 }
