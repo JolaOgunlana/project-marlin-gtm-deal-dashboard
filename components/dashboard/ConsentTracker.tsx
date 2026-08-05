@@ -569,27 +569,6 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Search bar ─────────────────────────────────────────────��� */}
-        <div style={{ marginBottom: 16 }}>
-          <div style={{ position: 'relative', display: 'inline-block' }}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
-              <circle cx="6.5" cy="6.5" r="5" stroke="rgba(26,31,78,0.35)" strokeWidth="1.5" />
-              <path d="M10 10L14 14" stroke="rgba(26,31,78,0.35)" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <input
-              type="text"
-              placeholder="Search client…"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{
-                paddingLeft: 32, paddingRight: 14, paddingTop: 10, paddingBottom: 10,
-                fontSize: 13, border: BORDER, borderRadius: 10,
-                outline: 'none', width: 320, color: INK,
-                background: '#fff', fontFamily: 'inherit',
-              }}
-            />
-          </div>
-        </div>
-
         {/* ── Legend ────────────────────────────────────────────────── */}
         <div style={{ marginTop: 18, background: '#fff', borderRadius: 12, padding: '16px 22px', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
           <div style={{ display: 'flex', gap: 26, flexWrap: 'wrap', alignItems: 'center' }}>
