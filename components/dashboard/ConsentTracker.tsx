@@ -712,7 +712,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV</div>
-              <div style={{ textAlign: 'center' }}>SF Stage</div>
+              <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
               <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
               <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
               <div style={{ textAlign: 'center' }}>Rating Digitization</div>
@@ -722,27 +722,27 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             </div>
             {/* Rows */}
             {[
-              { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '4', out: 'High',   off: 'Medium',            dig: 'High',   price: 'High',   score: 94,   status: 'Exploration' },
-              { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',            dig: 'High',   price: 'Medium', score: 88,   status: 'Exploration' },
-              { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '2', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'UMB',                            acv: '$9.9M',  sfStage: '4', out: 'High',   off: 'High',              dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
-              { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '2', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '2', out: 'High',   off: 'Medium',            dig: 'High',   price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '2', out: 'High',   off: 'Medium',            dig: 'High',   price: 'Medium', score: 88,   status: 'Exploration' },
+              { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',              dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
+              { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
               { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
               { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '2', out: null,   off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'AIB',                            acv: '$1.8M',  sfStage: '4', out: 'High',   off: 'High',              dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
-              { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '3', out: 'High',   off: 'High',              dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
-              { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '2', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '5', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '1', out: null,   off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'AIB',                            acv: '$1.8M',  sfStage: '2', out: 'High',   off: 'High',              dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '2', out: 'High',   off: 'High',              dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
+              { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
+              { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
               { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: "President's Choice",             acv: '$0.5M',  sfStage: '5', out: 'High',   off: 'High',              dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
+              { name: "President's Choice",             acv: '$0.5M',  sfStage: '1', out: 'High',   off: 'High',              dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
               { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '2', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
               { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'Citibank',                       acv: '$0.1M',  sfStage: '3', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'NatWest',                        acv: '$0.0M',  sfStage: '4', out: 'High',   off: 'High (n/a)',        dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+              { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'NatWest',                        acv: '$0.0M',  sfStage: '1', out: 'High',   off: 'High (n/a)',        dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
               { name: 'Empire Innovation Group',        acv: '$0.0M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '2', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
+              { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
             ].map((row, i) => {
               const isAlt = i % 2 === 1
               const ratingChip = (val: string | null) => {
