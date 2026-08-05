@@ -222,17 +222,22 @@ const CLIENTS: ClientRecord[] = [
   {
     name: 'Simmons Bank', meta: 'North America · $1.74M',
     ratings: { out: 'High', off: 'High', dig: 'High', price: 'Medium' },
-    pointsCount: 0,
+    pointsCount: 3,
     levers: [
       {
         lever: 'Outsourcing',
         learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'],
-        points: [{ plain: 'N/A' }],
+        points: [
+          { label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' },
+          { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-genpact-refuse' },
+        ],
       },
       {
         lever: 'Offshoring',
         learnings: ['Generally conservative when it comes to offshore support.'],
-        points: [{ plain: 'N/A' }],
+        points: [
+          { label: 'What are your key arguments why offshoring (even client facing voice) works?', id: 'oh-off-voice-works' },
+        ],
       },
       {
         lever: 'Digitization',
