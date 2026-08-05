@@ -704,7 +704,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
         {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
         <div style={{ padding: '14px 0', marginTop: 32, marginBottom: 14 }}>
-          <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Snapshot</span>
+          <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
           {/* Card 1: Wave 3 clients engaged */}
@@ -736,10 +736,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Wave 1 Client Detail Table ────────────────────────────── */}
-        <div style={{ marginTop: 32, marginBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
-            Wave 1 Client Detail
-          </div>
+        <div style={{ marginTop: 24, marginBottom: 0 }}>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
