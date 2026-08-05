@@ -705,33 +705,30 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 32, marginBottom: 28 }}>
           {/* Card 1: Wave 3 clients engaged */}
-          <div style={{ background: '#fff', padding: '20px', borderRadius: 10, border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 6 }}>
-              <span style={{ fontSize: 24, fontWeight: 900, color: INK }}>21</span>
-              <span style={{ fontSize: 16, fontWeight: 700, color: '#2d7a0f' }}>($93.5M)</span>
+          <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+              <span style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1 }}>21</span>
+              <span style={{ fontSize: 22, fontWeight: 800, color: '#2d7a0f', lineHeight: 1 }}>($93.5M)</span>
             </div>
-            <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.45)', lineHeight: 1.4 }}>Wave 3 clients<br />engaged</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Wave 3 clients engaged</div>
           </div>
 
           {/* Card 2: In Wave 1 whisper scope */}
-          <div style={{ background: '#fff', padding: '20px', borderRadius: 10, border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 6 }}>
-              <span style={{ fontSize: 24, fontWeight: 900, color: INK }}>13</span>
-              <span style={{ fontSize: 10, color: 'rgba(26,31,78,0.45)', fontWeight: 600 }}>in scope</span>
-            </div>
-            <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.45)', lineHeight: 1.4 }}>In Wave 1 whisper<br />scope (8 not planned)</div>
+          <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>13</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>In Wave 1 whisper scope (8 not planned)</div>
           </div>
 
           {/* Card 3: Of in-scope whisper ACV in Alignment */}
-          <div style={{ background: '#fff', padding: '20px', borderRadius: 10, border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ fontSize: 24, fontWeight: 900, color: INK, marginBottom: 6 }}>11%</div>
-            <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.45)', lineHeight: 1.4 }}>Of in-scope whisper ACV<br />in Alignment</div>
+          <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1, marginBottom: 8 }}>11%</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Of in-scope whisper ACV in Alignment</div>
           </div>
 
           {/* Card 4: Avg propensity score */}
-          <div style={{ background: '#fff', padding: '20px', borderRadius: 10, border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-            <div style={{ fontSize: 24, fontWeight: 900, color: INK, marginBottom: 6 }}>93</div>
-            <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.45)', lineHeight: 1.4 }}>Avg. propensity<br />score (in-scope)</div>
+          <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>93</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Avg. propensity score (in-scope)</div>
           </div>
         </div>
 
