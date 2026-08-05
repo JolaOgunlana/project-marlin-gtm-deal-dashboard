@@ -664,7 +664,78 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           </div>
         </div>
 
-        {/* ── Search bar ─────────────────────────────────────────────��� */}
+        {/* ── Wave 1 Client Detail Table ────────────────────────────── */}
+        <div style={{ marginTop: 32, marginBottom: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: INK, marginBottom: 10 }}>
+            Wave 1 Client Detail
+          </div>
+          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
+            {/* Header */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+              <div>Client Name</div>
+              <div>ACV $</div>
+              <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
+              <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
+              <div style={{ textAlign: 'center' }}>Rating Digitization</div>
+              <div style={{ textAlign: 'center' }}>Rating Price Maintain</div>
+              <div style={{ textAlign: 'center' }}>Overall Propensity Score</div>
+              <div style={{ textAlign: 'center' }}>Client Progress Status</div>
+            </div>
+            {/* Rows */}
+            {[
+              { name: 'Virgin Money',                   acv: '$26.23M', out: 'High',   off: 'Med',         dig: 'High', price: 'High', score: 94,  status: 'Exploration' },
+              { name: 'Fifth Third Bank',               acv: '$13.56M', out: 'High',   off: 'Med',         dig: 'High', price: 'Med',  score: 88,  status: 'Exploration' },
+              { name: 'Metro Bank',                     acv: '$11.79M', out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'UMB',                            acv: '$9.91M',  out: 'High',   off: 'High',        dig: 'Med',  price: 'Med',  score: 88,  status: 'Alignment' },
+              { name: 'Lloyds',                         acv: '$9.10M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'UBS Financial Services Inc.',    acv: '$8.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'Centene Corporation',            acv: '$3.49M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'HSBC Technology & Services (USA)', acv: '$2.88M', out: null,   off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'AIB',                            acv: '$1.83M',  out: 'High',   off: 'High',        dig: 'Med',  price: 'High', score: 94,  status: 'Exploration' },
+              { name: 'Simmons Bank',                   acv: '$1.63M',  out: 'High',   off: 'High',        dig: 'High', price: 'Med',  score: 94,  status: 'Exploration' },
+              { name: 'First Bank Puerto Rico',         acv: '$1.61M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'Brim Financial',                 acv: '$1.06M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'Exploration' },
+              { name: 'ServisFirst',                    acv: '$0.56M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: "President's Choice",             acv: '$0.47M',  out: 'High',   off: 'High',        dig: 'High', price: 'High', score: 100, status: 'Exploration' },
+              { name: 'Union Bank (MUFG)',               acv: '$0.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'Citizens Bank',                  acv: '$0.33M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'The Bank Of Nova Scotia',        acv: '$0.23M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'Citibank',                       acv: '$0.11M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'NatWest',                        acv: '$0.03M',  out: 'High',   off: 'High (n/a)',  dig: 'Med',  price: 'High', score: 94,  status: 'Exploration' },
+              { name: 'Empire Innovation Group',        acv: '$0.03M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+              { name: 'MotivHealth',                    acv: '$0.01M',  out: null,     off: null,          dig: null,   price: null,   score: null, status: 'No Whisper' },
+            ].map((row, i) => {
+              const isAlt = i % 2 === 1
+              const ratingChip = (val: string | null) => {
+                if (!val) return <span style={{ color: MUTED, fontSize: 16, lineHeight: 1 }}>—</span>
+                const isHigh = val.toLowerCase().startsWith('high')
+                const isMed  = val.toLowerCase().startsWith('med')
+                const bg  = isHigh ? GREEN_BG  : isMed ? AMBER_BG  : GRAY_BG
+                const col = isHigh ? GREEN      : isMed ? AMBER      : GRAY
+                return <span style={{ background: bg, color: col, fontWeight: 700, fontSize: 11, padding: '3px 10px', borderRadius: 20, display: 'inline-block' }}>{val}</span>
+              }
+              const statusChip = (s: string) => {
+                const col = s === 'Alignment' ? '#1a6fa8' : s === 'Exploration' ? AMBER : MUTED
+                const bg  = s === 'Alignment' ? '#dceefa' : s === 'Exploration' ? AMBER_BG : GRAY_BG
+                return <span style={{ background: bg, color: col, fontWeight: 700, fontSize: 11, padding: '3px 10px', borderRadius: 20, display: 'inline-block' }}>{s}</span>
+              }
+              return (
+                <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center', background: isAlt ? '#fafbfc' : '#fff', borderBottom: BORDER }}>
+                  <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
+                  <div style={{ color: MUTED_D }}>{row.acv}</div>
+                  <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
+                  <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
+                  <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
+                  <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
+                  <div style={{ textAlign: 'center', fontWeight: 700, color: INK }}>{row.score ?? <span style={{ color: MUTED, fontSize: 16 }}>—</span>}</div>
+                  <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* ── Search bar ────────────────────────────────────────────── */}
 
 
       </div>
