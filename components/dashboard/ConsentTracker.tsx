@@ -680,19 +680,25 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* Client names row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
-              { val: 'Client Names', bold: true, muted: false },
-              { val: 'Virgin Money, Fifth Third Bank, UMB, AIB, Simmons Bank, President\'s Choice, NatWest', bold: false, muted: false },
-              { val: '', bold: false, muted: true },
-              { val: 'Metro Bank, Lloyds, HSBC, First Bank Puerto Rico', bold: false, muted: false },
-              { val: '', bold: false, muted: true },
-              { val: 'UBS, Brim Financial', bold: false, muted: false },
-              { val: '', bold: false, muted: true },
-              { val: 'Centene Corporation, ServisFirst, Union Bank, Citizens Bank, The Bank of Nova Scotia, Citibank, Empire Innovation Group, MotivHealth', bold: false, muted: false },
-              { val: '', bold: false, muted: true },
-              { val: '–', bold: false, muted: true },
+              { names: null, bold: true },
+              { names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', 'President\'s Choice', 'NatWest'], bold: false },
+              { names: null, bold: false },
+              { names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'], bold: false },
+              { names: null, bold: false },
+              { names: ['UBS', 'Brim Financial'], bold: false },
+              { names: null, bold: false },
+              { names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'], bold: false },
+              { names: null, bold: false },
+              { names: null, bold: false },
             ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: 12, fontWeight: cell.bold ? 700 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : MUTED_D, lineHeight: 1.6 }}>
-                {cell.val}
+              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: 12, fontWeight: cell.bold ? 700 : 400, color: INK, lineHeight: 1.6 }}>
+                {i === 0 ? 'Client Names' : cell.names ? (
+                  <ul style={{ margin: 0, paddingLeft: 18, listStyle: 'disc' }}>
+                    {cell.names.map((name, ni) => (
+                      <li key={ni} style={{ marginBottom: 4, color: INK }}>{name}</li>
+                    ))}
+                  </ul>
+                ) : '–'}
               </div>
             ))}
           </div>
