@@ -46,7 +46,7 @@ export function NavBanner({ page, onNavigate, title }: {
           }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#7ed321', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #7ed32180' }} />
             <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
-              ACV Target $25M by October 1st 2026
+              ACV Target $25M by End of Year 2026
             </span>
           </div>
           <div style={{ textAlign: 'right', lineHeight: 1.65 }}>
@@ -104,7 +104,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
     },
     {
       key: 'Purpose',
-      val: <>Secure client consent across the TMS portfolio so FIS can transition contact center operations to its BPO partner — reaching the program&apos;s <strong>$60M ACV</strong> consent target (of which <strong>$25M ACV</strong> by Oct 2026).</>,
+      val: <>Secure client consent across the TMS portfolio so FIS can transition contact center operations to its BPO partner — reaching the program&apos;s <strong>$60M ACV</strong> consent target (of which <strong>$25M ACV</strong> by end of 2026).</>,
     },
     {
       key: "Who It's For",
