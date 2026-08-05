@@ -174,8 +174,8 @@ const CM_DATA: CMClient[] = [
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true, lockPostPosition:true, absPostX: 81, absPostY: 26,
     post:{
-      out:{ rating:"Medium", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
-      off:{ rating:"Medium", rationale:"Offshoring not applicable." },
+      out:{ rating:"High", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
+      off:{ rating:"High", rationale:"Offshoring not applicable." },
       dig:{ rating:"Medium", rationale:"" },
       price:{ rating:"High", rationale:"" }
     }},
