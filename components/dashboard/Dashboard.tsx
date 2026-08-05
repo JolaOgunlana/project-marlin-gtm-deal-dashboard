@@ -68,7 +68,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {([
             { id: 'tracker',   label: 'GTM Status' },
-            { id: 'consent',   label: 'Client Consent Matrix' },
+            { id: 'consent',   label: 'Consent Matrix' },
             { id: 'dashboard', label: 'Deal Dashboard' },
             { id: 'faq',       label: 'FAQ / Objection Handling' },
             { id: 'debrief',   label: 'Whisper Conversation Debrief' },

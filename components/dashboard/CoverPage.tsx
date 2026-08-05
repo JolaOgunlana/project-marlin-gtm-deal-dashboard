@@ -12,7 +12,7 @@ export function NavBanner({ page, onNavigate, title }: {
 }) {
   const tabs: { id: Page; label: string }[] = [
     { id: 'tracker',   label: 'GTM Status' },
-    { id: 'consent',   label: 'Client Consent Matrix' },
+    { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
     { id: 'faq',       label: 'FAQ / Objection Handling' },
     { id: 'debrief',   label: 'Whisper Conversation Debrief' },
