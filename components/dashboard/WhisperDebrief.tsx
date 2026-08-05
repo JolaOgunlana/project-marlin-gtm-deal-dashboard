@@ -231,7 +231,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Offshoring',
-        learnings: [],
+        learnings: ['Generally conservative when it comes to offshore support.'],
         points: [{ plain: 'N/A' }],
       },
       {
