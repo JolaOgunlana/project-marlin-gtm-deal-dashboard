@@ -703,7 +703,10 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 32, marginBottom: 28 }}>
+        <div style={{ padding: '14px 0', marginTop: 32, marginBottom: 14 }}>
+          <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Snapshot</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
           {/* Card 1: Wave 3 clients engaged */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
