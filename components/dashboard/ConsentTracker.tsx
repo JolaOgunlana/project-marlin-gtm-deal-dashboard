@@ -477,49 +477,79 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           This page tracks client progression through four stages — Exploration (Stages 1–2), Alignment (Stages 3–4), Committed (Stage 5), and Not Pursuing — mapped directly to your Salesforce funnel. Each stage has three specific evidence criteria that serve as decision gates: when all three are confirmed, the client moves to the next phase. Click any client to view the evidence collected and understand exactly what criteria have been met at each stage.
         </p>
 
-        {/* ── Single-box chevron stepper ───────────────────────────── */}
+        {/* ── Stage definition cards — KpiSection style ────────────── */}
         <div style={{
-          position: 'relative',
-          display: 'flex',
-          gap: 12,
+          background: 'white',
+          border: '1px solid #e2e4ee',
+          borderRadius: 12,
+          boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
           marginBottom: 28,
+          overflow: 'hidden',
         }}>
-          {STATS.map((s, i) => {
-            const isLast = i === STATS.length - 1
-            const isNotPursuing = s.label === 'Not Pursuing'
-            return (
-              <div key={s.label} style={{
-                flex: 1,
-                padding: '22px 26px',
-                display: 'flex',
-                flexDirection: 'column',
-                background: isNotPursuing ? '#fff8f7' : '#fff',
-                border: isNotPursuing ? '1px solid #fad4ce' : BORDER,
-                borderRadius: 14,
-                boxShadow: '0 1px 4px rgba(20,31,56,.06)',
-              }}>
-                {/* Header row: stage label (colored uppercase) + tag */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-                  <div style={{ fontSize: 13, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 600, color: s.countColor, whiteSpace: 'nowrap' }}>{s.label}</div>
-                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.09em', color: 'rgba(26,31,78,0.38)', textTransform: 'uppercase' }}>{s.tag}</div>
-                </div>
-                {/* Rich description */}
-                <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14 }}>
-                  {s.descriptionParts.map((part, pi) => (
-                    part.bold
-                      ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
-                      : <span key={pi}>{part.text}</span>
-                  ))}
-                </div>
-                {/* SF mapping */}
-                <div style={{ fontSize: 11, color: MUTED, marginTop: 'auto' }}>
-                  Maps to Salesforce <strong style={{ color: MUTED_D, fontWeight: 700 }}>{s.sfStages}</strong>
-                </div>
-              </div>
-            )
-          })}
+          {/* Section title bar */}
+          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Consent Stages</span>
+          </div>
 
-
+          {/* Four equal columns */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+            {STATS.map((s, i) => {
+              const isNotPursuing = s.label === 'Not Pursuing'
+              return (
+                <div key={s.label} style={{
+                  padding: '18px 22px 20px',
+                  borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: isNotPursuing ? '#fff8f7' : undefined,
+                }}>
+                  {/* Stage label + tag */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                    <div style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      letterSpacing: '0.07em',
+                      textTransform: 'uppercase',
+                      color: s.countColor,
+                    }}>{s.label}</div>
+                    <div style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: '0.09em',
+                      textTransform: 'uppercase',
+                      color: 'rgba(26,31,78,0.38)',
+                    }}>{s.tag}</div>
+                  </div>
+                  {/* Description */}
+                  <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14, flex: 1 }}>
+                    {s.descriptionParts.map((part, pi) => (
+                      part.bold
+                        ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
+                        : <span key={pi}>{part.text}</span>
+                    ))}
+                  </div>
+                  {/* SF mapping pill */}
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    fontSize: 10.5,
+                    fontWeight: 600,
+                    color: 'rgba(26,31,78,0.45)',
+                    background: 'rgba(26,31,78,0.05)',
+                    border: '1px solid rgba(26,31,78,0.10)',
+                    borderRadius: 6,
+                    padding: '4px 10px',
+                    alignSelf: 'flex-start',
+                    marginTop: 'auto',
+                    letterSpacing: '0.01em',
+                  }}>
+                    {s.sfStages}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         {/* ── Program Coverage by Wave ──────────────────────────────── */}
