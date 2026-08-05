@@ -577,7 +577,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* ACV row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
-              { val: 'ACV $', bold: true, muted: false },
+              { val: 'ACV', bold: true, muted: false },
               { val: '$93.5M', bold: true, muted: false },
               { val: '64%', bold: false, muted: false },
               { val: '$18.7M', bold: true, muted: false },
@@ -594,7 +594,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* Clients row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
-              { val: 'Clients #', bold: true, muted: false },
+              { val: 'Clients', bold: true, muted: false },
               { val: '21', bold: true, muted: false },
               { val: '33%', bold: false, muted: false },
               { val: '27', bold: true, muted: false },
@@ -640,7 +640,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* ACV row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
-              { val: 'ACV $', bold: true, muted: false },
+              { val: 'ACV', bold: true, muted: false },
               { val: '$53.7M', bold: true, muted: false },
               { val: '57%', bold: false, muted: false },
               { val: '$25.3M', bold: true, muted: false },
@@ -659,7 +659,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           {/* Clients row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
             {[
-              { val: 'Clients #', bold: true, muted: false },
+              { val: 'Clients', bold: true, muted: false },
               { val: '7', bold: true, muted: false },
               { val: '33%', bold: false, muted: false },
               { val: '4', bold: true, muted: false },
@@ -711,7 +711,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
-              <div>ACV $</div>
+              <div>ACV</div>
               <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
               <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
               <div style={{ textAlign: 'center' }}>Rating Digitization</div>
