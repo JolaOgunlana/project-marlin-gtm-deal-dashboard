@@ -745,12 +745,18 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
             ].map((row, i) => {
               const isAlt = i % 2 === 1
               const ratingChip = (val: string | null) => {
-                if (!val) return <span style={{ color: MUTED, fontSize: 16, lineHeight: 1 }}>—</span>
+                if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
                 const isHigh = val.toLowerCase().startsWith('high')
                 const isMed  = val.toLowerCase().startsWith('med')
-                const bg  = isHigh ? GREEN_BG  : isMed ? AMBER_BG  : GRAY_BG
-                const col = isHigh ? GREEN      : isMed ? AMBER      : GRAY
-                return <span style={{ background: bg, color: col, fontWeight: 700, fontSize: 11, padding: '3px 10px', borderRadius: 20, display: 'inline-block' }}>{val}</span>
+                const bg   = isHigh ? '#d8f3d8' : isMed ? '#fdf1c9' : '#fde0e0'
+                const col  = isHigh ? '#1a6e1a' : isMed ? '#8a6a00' : '#a01020'
+                const dot  = isHigh ? '#2e9e2e' : isMed ? '#e8a800' : '#d0021b'
+                return (
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '5px 9px', borderRadius: 7, background: bg, color: col, fontSize: 10.5, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', whiteSpace: 'nowrap', border: '1.5px solid transparent' }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: dot, flexShrink: 0 }} />
+                    {val}
+                  </span>
+                )
               }
               const statusChip = (s: string) => {
                 const col = s === 'Alignment' ? '#1a6fa8' : s === 'Exploration' ? AMBER : MUTED
@@ -765,7 +771,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
                   <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                  <div style={{ textAlign: 'center', fontWeight: 700, color: INK }}>{row.score ?? <span style={{ color: MUTED, fontSize: 16 }}>—</span>}</div>
+                  <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#2d7a0f' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
                   <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
                 </div>
               )
