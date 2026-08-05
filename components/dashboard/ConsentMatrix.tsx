@@ -85,8 +85,8 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
   { name:"Metro Bank", id:"METRO", rev:12444434, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low" },
-  { name:"UMB", id:"9463", rev:10320970, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
-    preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17,
+  { name:"UMB", id:"9463", rev:10320970, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low",
+    preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17, lockPrePosition: true, absPreX: 78, absPreY: 48,
     post:{
       out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
       off:{ rating:"High", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
@@ -761,7 +761,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
               { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
-              { label: 'Stage', btns: [['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
+              { label: 'Stage', btns: [['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 �� Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
             ].map(row => (
               <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                 <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
