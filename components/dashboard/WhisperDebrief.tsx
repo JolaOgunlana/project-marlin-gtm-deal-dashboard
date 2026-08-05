@@ -249,6 +249,33 @@ const CLIENTS: ClientRecord[] = [
     ],
   },
   {
+    name: 'Simmons Bank', meta: 'North America · $1.74M',
+    ratings: { out: 'High', off: 'High', dig: 'High', price: 'Medium' },
+    pointsCount: 0,
+    levers: [
+      {
+        lever: 'Outsourcing',
+        learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Offshoring',
+        learnings: ['There were no objections to offshore voice support.'],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Digitization',
+        learnings: [],
+        points: [{ plain: 'N/A' }],
+      },
+      {
+        lever: 'Price Maintain',
+        learnings: [],
+        points: [{ plain: 'N/A' }],
+      },
+    ],
+  },
+  {
     name: 'President\'s Choice', meta: 'North America · $525.6K',
     ratings: { out: 'High', off: 'High', dig: 'High', price: 'High' },
     pointsCount: 4,
@@ -280,33 +307,6 @@ const CLIENTS: ClientRecord[] = [
           { label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' },
           { label: 'If a client outsources, takes the technology but doesn\'t offshore, does the price change?', id: 'oh-pr-nooffshore' },
         ],
-      },
-    ],
-  },
-  {
-    name: 'Simmons Bank', meta: 'North America · $1.74M',
-    ratings: { out: 'High', off: 'High', dig: 'High', price: 'Medium' },
-    pointsCount: 0,
-    levers: [
-      {
-        lever: 'Outsourcing',
-        learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Offshoring',
-        learnings: ['There were no objections to offshore voice support.'],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Digitization',
-        learnings: [],
-        points: [{ plain: 'N/A' }],
-      },
-      {
-        lever: 'Price Maintain',
-        learnings: [],
-        points: [{ plain: 'N/A' }],
       },
     ],
   },
