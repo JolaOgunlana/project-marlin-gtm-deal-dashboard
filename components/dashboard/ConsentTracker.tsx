@@ -448,11 +448,6 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
-  const [search, setSearch] = useState('')
-
-  const filtered = CLIENTS.filter(c =>
-    !search.trim() || c.name.toLowerCase().includes(search.trim().toLowerCase())
-  )
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -593,33 +588,6 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               }}
             />
           </div>
-        </div>
-
-        {/* ── Table ─────────────────────────────────────────────────── */}
-        <div style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-          {/* Header */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: '2.1fr 1fr 1fr 1fr 1.6fr 40px',
-            background: INK, color: '#fff',
-            padding: '13px 22px', gap: 8,
-            fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center',
-          }}>
-            <div>Client</div>
-            <div style={{ textAlign: 'center' }}>Exploration</div>
-            <div style={{ textAlign: 'center' }}>Alignment</div>
-            <div style={{ textAlign: 'center' }}>Consent</div>
-            <div>Current Stage</div>
-            <div />
-          </div>
-
-          {/* Rows */}
-          {filtered.length === 0 ? (
-            <div style={{ padding: '32px 22px', textAlign: 'center', color: MUTED, fontSize: 13 }}>No clients match your search.</div>
-          ) : (
-            filtered.map(c => (
-              <ClientRow key={c.id} client={c} onLink={p => onNavigate(p)} />
-            ))
-          )}
         </div>
 
         {/* ── Legend ────────────────────────────────────────────────── */}
