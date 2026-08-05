@@ -231,7 +231,7 @@ const CLIENTS: ClientRecord[] = [
       },
       {
         lever: 'Offshoring',
-        learnings: ['There were no objections to offshore voice support.'],
+        learnings: [],
         points: [{ plain: 'N/A' }],
       },
       {
