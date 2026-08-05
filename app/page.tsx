@@ -10,7 +10,7 @@ import { ConsentTrackerPage } from '@/components/dashboard/ConsentTracker'
 export type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 export default function Home() {
-  const [page, setPage] = useState<Page>('cover')
+  const [page, setPage] = useState<Page>('tracker')
   const [faqHighlight, setFaqHighlight] = useState<string | null>(null)
 
   function navigate(p: Page) {
