@@ -569,24 +569,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Search bar ─────────────────────────────────────────────��� */}
-        {/* ── Legend ────────────────────────────────────────────────── */}
-        <div style={{ marginTop: 18, background: '#fff', borderRadius: 12, padding: '16px 22px', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
-          <div style={{ display: 'flex', gap: 26, flexWrap: 'wrap', alignItems: 'center' }}>
-            {[
-              { status: 'y' as const, label: 'Complete' },
-              { status: 'q' as const, label: 'In progress' },
-              { status: 'n' as const, label: 'Not yet assessed' },
-            ].map(item => (
-              <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5, color: MUTED_D }}>
-                <TickIcon status={item.status} />
-                {item.label}
-              </div>
-            ))}
-          </div>
-          <div style={{ fontSize: 11.5, color: MUTED_D, lineHeight: 1.55, marginTop: 12, paddingTop: 12, borderTop: '1px dashed #e5e8ed' }}>
-            <strong style={{ color: INK }}>How to read this:</strong> Each step lists the evidence a client must show to move to the next one. A client counts as <strong style={{ color: INK }}>Consent</strong> once every Consent-step item is confirmed. The three steps map to the existing Salesforce funnel — Stage 1–2 → Exploration, Stage 3–4 → Alignment, Stage 5 → Consent.
-          </div>
-        </div>
+
 
       </div>
     </div>
