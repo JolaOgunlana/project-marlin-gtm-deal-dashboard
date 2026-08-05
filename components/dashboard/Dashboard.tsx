@@ -25,14 +25,14 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       {/* Navy banner — full bleed, no radius */}
       <div style={{
         background: '#1a1f4e',
-        marginBottom: 26,
-        padding: '28px 32px 0',
+        marginBottom: 18,
+        padding: '18px 32px 0',
         display: 'flex',
         flexDirection: 'column',
         gap: 0,
       }}>
         {/* Top row: title left, meta right */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 24 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 14 }}>
           {/* Left: title + internal tag */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ fontSize: 46, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05, fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -81,7 +81,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
                 fontFamily: 'inherit',
                 fontSize: 13,
                 fontWeight: 600,
-                padding: '10px 22px',
+                padding: '6px 18px',
                 borderRadius: '8px 8px 0 0',
                 border: 'none',
                 background: page === tab.id ? '#fff' : 'rgba(255,255,255,0.10)',
