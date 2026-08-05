@@ -696,7 +696,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                       <li key={ni} style={{ marginBottom: 4, color: INK }}>{name}</li>
                     ))}
                   </ul>
-                ) : '–'}
+                ) : null}
               </div>
             ))}
           </div>
