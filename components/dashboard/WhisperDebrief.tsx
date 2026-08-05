@@ -221,7 +221,7 @@ const CLIENTS: ClientRecord[] = [
   },
   {
     name: 'NatWest', meta: 'EMEA · UK · $25.2K',
-    ratings: { out: 'Medium', off: 'Medium', dig: 'Medium', price: 'High' },
+    ratings: { out: 'High', off: 'High', dig: 'Medium', price: 'High' },
     pointsCount: 3,
     levers: [
       {
