@@ -675,7 +675,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
     })
   }, [allClients, whisperMode, hmDeal, hmWave, hmRegion, hmStage])
 
-  // Canvas gradient background: red(bottom-left) → yellow(center) → green(top-right)
+  // Canvas background: flat secondary grey (#E6E7E8)
   const paintBg = useCallback(() => {
     const canvas = canvasRef.current
     const plot = plotRef.current
@@ -690,26 +690,8 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
     const img = ctx.createImageData(RW, RH)
     for (let yy = 0; yy < RH; yy++) {
       for (let xx = 0; xx < RW; xx++) {
-        // xN=0 left(low off), xN=1 right(high off)
-        // yN=0 top(high out), yN=1 bottom(low out)
-        const xN = xx / (RW - 1)
-        const yN = yy / (RH - 1)
-        // "goodness": high offshoring(x) + high outsourcing(1-y) → green
-        const goodness = (xN + (1 - yN)) / 2
-        let r, g, b
-        if (goodness < 0.35) {
-          // pastel coral-pink zone (bottom-left)
-          const t = goodness / 0.35
-          r = Math.round(250 - 5 * t); g = Math.round(185 + 55 * t); b = Math.round(170 + 20 * t)
-        } else if (goodness < 0.6) {
-          // pastel yellow zone (center) — fades naturally into green
-          const t = (goodness - 0.35) / 0.25
-          r = Math.round(245 + 5 * t); g = Math.round(240 + 5 * t); b = Math.round(190 - 60 * t)
-        } else {
-          // green zone (top-right) — stronger green, still fades from yellow
-          const t = (goodness - 0.6) / 0.4
-          r = Math.round(250 - 115 * t); g = Math.round(245 + 5 * t); b = Math.round(130 + 20 * t)
-        }
+        // Flat secondary grey: #E6E7E8 = rgb(230, 231, 232)
+        const r = 230, g = 231, b = 232
         const idx = (yy * RW + xx) * 4
         img.data[idx] = r; img.data[idx+1] = g; img.data[idx+2] = b; img.data[idx+3] = 255
       }
@@ -1157,7 +1139,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           </button>
           {rationaleOpen && (
             <div style={{ padding: '0 22px 26px', borderTop: '1px solid #eef0f6' }}>
-              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>Each client is scored on four categories — Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.</p>
+              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>Each client is scored on four categories ��� Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Rating → Points</div>
