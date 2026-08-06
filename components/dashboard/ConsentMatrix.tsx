@@ -751,7 +751,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
         </div>
       </div>
 
-      {/* ── Main plot layout ── */}
+      {/* ─��� Main plot layout ── */}
       <div style={{ display: 'flex', padding: '20px 24px 0' }}>
         {/* Y-axis label (rotated) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
@@ -845,7 +845,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
           ['Region', <span key="r" style={{ color: '#fff', fontWeight: 700 }}>{regionLbl}</span>],
           ['Stage',  <span key="s" style={{ color: '#fff', fontWeight: 700 }}>{stageLbl ? stageLbl[1] : c.stage}</span>],
           ['Overall',<span key="o" style={{ color: score !== null ? ratingColor(scoreBand(score)) : 'rgba(255,255,255,0.4)', fontWeight: 700 }}>{score !== null ? `${Math.round(score)} · ${scoreBand(score)}` : '—'}</span>],
-          ['Revenue',<span key="v" style={{ color: '#fff', fontWeight: 700 }}>{fmtRev(c.rev)}</span>],
+          ['ACV',<span key="v" style={{ color: '#fff', fontWeight: 700 }}>{fmtRev(c.rev)}</span>],
           ['Outsourcing', <span key="ou" style={{ color: ratingColor(out), fontWeight: 700 }}>{out ?? '—'}</span>],
           ['Offshoring',  <span key="of" style={{ color: ratingColor(off), fontWeight: 700 }}>{off ?? '—'}</span>],
           ['Digitization',<span key="d"  style={{ color: ratingColor(dig), fontWeight: 700 }}>{dig ?? '—'}</span>],
