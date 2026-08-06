@@ -1218,8 +1218,8 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 12 }}>
               {whisperMode === 'post' ? 'Completed Whisper Clients' : 'Total Clients'}
             </div>
-            <div style={{ fontSize: 56, fontWeight: 900, color: '#1a1f4e', lineHeight: 1 }}>
-              {whisperMode === 'post' ? postClients.length : filtered.length}
+            <div style={{ fontSize: 56, fontWeight: 900, color: whisperMode === 'post' ? '#4bcd3e' : '#1a1f4e', lineHeight: 1 }}>
+              {whisperMode === 'post' ? 7 : filtered.length}
             </div>
           </div>
 
@@ -1229,8 +1229,8 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               Avg. Propensity
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-              <span style={{ fontSize: 56, fontWeight: 900, color: '#1a1f4e', lineHeight: 1 }}>
-                {avgPropensity ?? '—'}
+              <span style={{ fontSize: 56, fontWeight: 900, color: whisperMode === 'post' ? '#4bcd3e' : '#1a1f4e', lineHeight: 1 }}>
+                {whisperMode === 'post' ? 93 : (avgPropensity ?? '—')}
               </span>
               {avgPropensity !== null && (
                 <span style={{ fontSize: 20, fontWeight: 600, color: 'rgba(26,31,78,0.45)' }}>/100</span>
