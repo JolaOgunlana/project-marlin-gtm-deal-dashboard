@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Dashboard } from '@/components/dashboard/Dashboard'
 import { ConsentMatrix } from '@/components/dashboard/ConsentMatrix'
 import { CoverPage } from '@/components/dashboard/CoverPage'
+import { ConsentTrackerPage } from '@/components/dashboard/ConsentTracker'
 import { FaqPage } from '@/components/dashboard/WhisperDebrief'
 
 export type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
