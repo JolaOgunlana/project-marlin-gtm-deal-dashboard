@@ -216,7 +216,7 @@ const STATS = [
     descriptionParts: [
       { text: 'The client is ', bold: false },
       { text: 'willing to engage, learn more, and evaluate', bold: true },
-      { text: ' the opportunity. Senior-to-senior whisper conversations open the door before any formal pitch — the client is listening, not yet committing.', bold: false },
+      { text: ' the opportunity.', bold: false },
     ],
     sfStages: 'Stage 1–2 · New Opportunity / Early Sales',
   },
@@ -231,7 +231,7 @@ const STATS = [
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
-      { text: ' — asking for pricing, commercial detail, and implementation plans, and willing to review a proposal. Interest has become intent to evaluate seriously.', bold: false },
+      { text: ' — asking for pricing, commercial detail, and implementation plans, and willing to review a proposal.', bold: false },
     ],
     sfStages: 'Stage 3–4 · Late Sales / Pricing',
   },
@@ -246,7 +246,7 @@ const STATS = [
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'has decided to move forward', bold: true },
-      { text: ' and begins execution — amendment discussions, redlines, and internal legal / risk / procurement. The conversation has crossed from evaluation into execution.', bold: false },
+      { text: ' and begins execution — amendment discussions, redlines, and internal legal / risk / procurement.', bold: false },
     ],
     sfStages: 'Stage 5 · Contracting',
   },
@@ -261,7 +261,7 @@ const STATS = [
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'has declined to proceed', bold: true },
-      { text: ' — either the client has formally rejected the proposal, or the opportunity has been disqualified. No further pursuit is planned at this time.', bold: false },
+      { text: ' — either the client has formally rejected the proposal, or the opportunity has been disqualified.', bold: false },
     ],
     sfStages: 'Stage 8 · Disqualified',
   },
