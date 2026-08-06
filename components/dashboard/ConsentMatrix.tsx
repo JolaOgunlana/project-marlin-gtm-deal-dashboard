@@ -1052,7 +1052,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
       <div style={{ padding: '0 28px 48px' }}>
         {/* Description */}
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, width: '100%' }}>
-          Side-by-side propensity scores across Outsourcing, Offshoring, Digitization, and Price for every client. The Heat Map focuses on Offshoring and Outsourcing propensity. Blended scores and risk bands surface where consent is at risk and where to focus next.
+          Average propensity scores for all clients across four levers. The Heat Map compares Offshoring vs. Outsourcing. Risk bands show where consent is at risk.
         </p>
 
         {/* ── Top row: Toggle card + Total Clients + Avg Propensity ── */}
