@@ -524,7 +524,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
         {/* Page description */}
         <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          This page tracks client progression through four stages — Exploration (Stages 1–2), Alignment (Stages 3–4), Committed (Stage 5), and Not Pursuing — mapped directly to your Salesforce funnel. Each stage has three specific evidence criteria that serve as decision gates: when all three are confirmed, the client moves to the next phase. Click any client to view the evidence collected and understand exactly what criteria have been met at each stage.
+          Client-by-client progression through Exploration, Alignment, Committed, and Not Pursuing — each stage gated by three evidence criteria. Click any client to see what has been confirmed and what still needs to be addressed.
         </p>
 
         {/* ── Stage definition cards — KpiSection style ────────────── */}
