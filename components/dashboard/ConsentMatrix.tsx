@@ -3,6 +3,19 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { clients } from '@/lib/data'
 
+const EGGPLANT        = '#431C5B'
+const EGGPLANT_BORDER = '#d3b8dd'
+
+const rippleKeyframes = `
+@keyframes cm-ripple-ring {
+  0%   { transform: scale(0.4); opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cm-ripple-ring { animation: none !important; }
+}
+`
+
 // ── Types ──────────────────────────────────────────────────────────────────
 type Rating = 'High' | 'Medium' | 'Low' | null
 
@@ -707,51 +720,99 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
     return () => obs.disconnect()
   }, [paintBg])
 
-  const HmPill = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
-    <button onClick={onClick} style={{
-      fontFamily: 'inherit', fontSize: 13, fontWeight: 600,
-      padding: '6px 13px', borderRadius: 999,
-      border: '1px solid',
-      borderColor: active ? '#1a1f4e' : '#e2e4ee',
-      background: active ? '#1a1f4e' : 'transparent',
-      color: active ? '#fff' : 'rgba(26,31,78,0.45)',
-      cursor: 'pointer', whiteSpace: 'nowrap', lineHeight: 1,
-      transition: 'all 0.15s',
-    }}>{children}</button>
-  )
+  const [boxHovered, setBoxHovered] = useState(false)
+  const [hoveredPill, setHoveredPill] = useState<string | null>(null)
+
+  const HmPill = ({ active, onClick, children, id }: { active: boolean; onClick: () => void; children: React.ReactNode; id: string }) => {
+    const isHovered = hoveredPill === id
+    return (
+      <button
+        onClick={onClick}
+        onMouseEnter={() => setHoveredPill(id)}
+        onMouseLeave={() => setHoveredPill(null)}
+        style={{
+          fontFamily: 'inherit', fontSize: 13, fontWeight: 600,
+          padding: '6px 13px', borderRadius: 999,
+          border: '1.5px solid',
+          borderColor: active ? '#1a1f4e' : isHovered ? EGGPLANT : '#e2e4ee',
+          background: active ? '#1a1f4e' : 'transparent',
+          color: active ? '#fff' : isHovered ? EGGPLANT : 'rgba(26,31,78,0.45)',
+          cursor: 'pointer', whiteSpace: 'nowrap', lineHeight: 1,
+          transform: !active && isHovered ? 'translateY(-2px)' : 'none',
+          boxShadow: !active && isHovered ? `0 4px 10px rgba(67,28,91,0.18)` : 'none',
+          transition: 'all 0.18s ease',
+          outline: 'none',
+        }}
+      >{children}</button>
+    )
+  }
 
   return (
     <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
 
       {/* ── Header row: title left, filters right ── */}
+      <style>{rippleKeyframes}</style>
       <div style={{ padding: '18px 24px 16px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
-            Consent Propensity Heat-Map
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
+
+          {/* Left: title + caption */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
+              Consent Propensity Heat-Map
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+                Click any filter to refine the heat-map
+              </span>
+              <div style={{ position: 'relative', width: 22, height: 22, flexShrink: 0 }}>
+                {[0, 1.1].map((delay, i) => (
+                  <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', bottom: 2, left: 2, width: 12, height: 12, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                ))}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                  <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+                </svg>
+              </div>
+            </div>
           </div>
 
-          {/* Filters right-aligned, stacked vertically */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, flex: 1 }}>
+          {/* Right: hover-reveal filter cluster */}
+          <div
+            onMouseEnter={() => setBoxHovered(true)}
+            onMouseLeave={() => setBoxHovered(false)}
+            style={{
+              background: boxHovered ? 'rgba(242,235,245,0.55)' : 'transparent',
+              border: `1.5px solid ${boxHovered ? 'rgba(211,184,221,0.7)' : 'transparent'}`,
+              borderRadius: 16,
+              padding: '12px 16px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: 8,
+              boxShadow: boxHovered ? `0 4px 16px rgba(67,28,91,0.08)` : 'none',
+              transition: 'background 0.25s, border-color 0.25s, box-shadow 0.25s',
+            }}
+          >
             {[
               { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
-              { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 �� Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
+              { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
             ].map(row => (
-              <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                <span style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(26,31,78,0.45)', marginRight: 4, flexShrink: 0 }}>{row.label}</span>
+                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                   {row.btns.map(([val, lbl]) => (
-                    <HmPill key={val} active={row.state === val} onClick={() => row.set(val as any)}>{lbl}</HmPill>
+                    <HmPill key={val} id={`${row.label}-${val}`} active={row.state === val} onClick={() => row.set(val as any)}>{lbl}</HmPill>
                   ))}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </div>
 
-      {/* ─����� Main plot layout ── */}
+      {/* ─������� Main plot layout ── */}
       <div style={{ display: 'flex', padding: '20px 24px 0' }}>
         {/* Y-axis label (rotated) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
