@@ -403,57 +403,64 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
           Consent Stage
         </div>
 
-        {/* Phase bar row — same 7-column proportions as the funnel grid */}
-        <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
+        {/* Phase bar — exact same 7-col grid as funnel so segments snap to stage columns */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 10, alignItems: 'stretch' }}>
 
-          {/* ── Flowing track: Exploration (2) + Alignment (2) + Committed (1) ── */}
-          <div style={{ flex: 5, display: 'flex', minWidth: 0 }}>
-
-            {/* Exploration — flat-left / pointed-right */}
-            <ConsentPhaseChevron
-              label="Exploration"
-              step="01"
-              accent="#1a1f4e"
-              flex={2}
-              shape="first"
-            />
-
-            {/* Alignment — notched-left / pointed-right */}
-            <ConsentPhaseChevron
-              label="Alignment"
-              step="02"
-              accent="#0891b2"
-              flex={2}
-              shape="middle"
-            />
-
-            {/* Committed — notched-left / flat-right */}
-            <ConsentPhaseChevron
-              label="Committed"
-              step="03"
-              accent="#4bcd3e"
-              flex={1}
-              shape="last"
-            />
-          </div>
-
-          {/* ── Terminal stages — Executed ── */}
-          <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Exploration — cols 1-2 (stages 1 & 2) */}
+          <div style={{ gridColumn: '1 / 3', position: 'relative', zIndex: 3 }}>
             <div style={{
-              height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              height: 38,
+              background: 'rgba(26,31,78,0.09)',
+              clipPath: 'polygon(0% 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 0% 100%)',
+              borderRadius: '8px 0 0 8px',
+              display: 'flex', alignItems: 'center',
+              paddingLeft: 14, gap: 6,
             }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Executed</span>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#1a1f4e', opacity: 0.5 }}>01</span>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1a1f4e', whiteSpace: 'nowrap' }}>Exploration</span>
             </div>
           </div>
 
-          {/* ── Terminal stages — Disqualified ── */}
-          <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Alignment — cols 3-4 (stages 3 & 4) */}
+          <div style={{ gridColumn: '3 / 5', position: 'relative', zIndex: 2, marginLeft: -12 }}>
             <div style={{
-              height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              height: 38,
+              background: 'rgba(8,145,178,0.10)',
+              clipPath: 'polygon(0% 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 0% 100%, 12px 50%)',
+              display: 'flex', alignItems: 'center',
+              paddingLeft: 26, gap: 6,
             }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Disqualified</span>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#0891b2', opacity: 0.6 }}>02</span>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#0891b2', whiteSpace: 'nowrap' }}>Alignment</span>
+            </div>
+          </div>
+
+          {/* Committed — col 5 (stage 5) */}
+          <div style={{ gridColumn: '5 / 6', position: 'relative', zIndex: 1, marginLeft: -12 }}>
+            <div style={{
+              height: 38,
+              background: 'rgba(75,205,62,0.12)',
+              clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 12px 50%)',
+              borderRadius: '0 8px 8px 0',
+              display: 'flex', alignItems: 'center',
+              paddingLeft: 22, gap: 6,
+            }}>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', color: '#4bcd3e', opacity: 0.7 }}>03</span>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#4bcd3e', whiteSpace: 'nowrap' }}>Committed</span>
+            </div>
+          </div>
+
+          {/* Executed — col 6 */}
+          <div style={{ gridColumn: '6 / 7' }}>
+            <div style={{ height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Executed</span>
+            </div>
+          </div>
+
+          {/* Disqualified — col 7 */}
+          <div style={{ gridColumn: '7 / 8' }}>
+            <div style={{ height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Disqualified</span>
             </div>
           </div>
 
