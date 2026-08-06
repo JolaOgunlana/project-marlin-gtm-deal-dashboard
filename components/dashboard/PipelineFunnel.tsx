@@ -224,19 +224,22 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
   const maxRev = Math.max(1, ...STAGES.map((s) => stageCounts.rev[s.key]))
 
   return (
-    <div style={{ background: '#fff', border: '1px solid var(--border)', borderRadius: 12, padding: '28px 24px', marginBottom: 24, overflowX: 'auto' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 12 }}>
-        <div>
-          <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Pipeline by Opportunity Stage</div>
-          <div style={{ fontSize: 12, fontStyle: 'italic', color: 'rgba(26,31,78,0.42)', marginTop: 3 }}>Click any stage to filter opportunities</div>
+    <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
+      {/* Header row: title left, filters right */}
+      <div style={{ padding: '18px 24px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
+            Pipeline by Opportunity Stage
+          </div>
+          <FilterCluster
+            clientFilter={clientFilter} onClientFilter={onClientFilter}
+            waveFilter={waveFilter}     onWaveFilter={onWaveFilter}
+            regionFilter={regionFilter} onRegionFilter={onRegionFilter}
+            whisperFilter={whisperFilter} onWhisperFilter={onWhisperFilter}
+          />
         </div>
-        <FilterCluster
-          clientFilter={clientFilter} onClientFilter={onClientFilter}
-          waveFilter={waveFilter}     onWaveFilter={onWaveFilter}
-          regionFilter={regionFilter} onRegionFilter={onRegionFilter}
-          whisperFilter={whisperFilter} onWhisperFilter={onWhisperFilter}
-        />
       </div>
+      <div style={{ padding: '0 24px 24px', overflowX: 'auto' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 10, alignItems: 'stretch' }}>
         {STAGES.map((stage) => {
           const count = stageCounts.cnt[stage.key]
@@ -338,6 +341,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
           </div>
         ))}
       </div>
+      </div>{/* closes padding wrapper */}
     </div>
   )
 }
