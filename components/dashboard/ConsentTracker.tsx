@@ -218,7 +218,7 @@ const CLIENTS: TrackerClient[] = [
     revenue: '$25.2K',
     wave: 1,
     currentStep: 'exploration',
-    sfStage: 'Stage 1 · Early Engagement',
+    sfStage: 'Stage 2 · Early Sales',
     stages: [
       {
         step: 'exploration',
@@ -878,12 +878,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: "President's Choice",             acv: '$0.5M',  sfStage: '1', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
+                { name: "President's Choice",             acv: '$0.5M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
                 { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'NatWest',                        acv: '$0.0M',  sfStage: '1', out: 'High',   off: 'High (n/a)', dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+                { name: 'NatWest',                        acv: '$0.0M',  sfStage: '2', out: 'High',   off: 'High (n/a)', dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
                 { name: 'Empire Innovation Group',        acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
               ]

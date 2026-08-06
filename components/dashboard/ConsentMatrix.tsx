@@ -157,7 +157,7 @@ const CM_DATA: CMClient[] = [
   { name:"Jaja Finance", id:"", rev:1444530, region:"EMEA-UK", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:"Low", price:null },
   { name:"Regions Financial Corporation", id:"", rev:567870, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"Low", price:"Low" },
   { name:"ServisFirst", id:"7841", rev:555696, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"President's Choice", id:"7607", rev:469862, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High",
+  { name:"President's Choice", id:"7607", rev:469862, region:"NA", dealType:"existing", wave:1, stage:2, out:"High", off:"High", dig:"High", price:"High",
     post:{
       out:{ rating:"High", rationale:"Will also need to be mindful of the fourth party element, would still need to have the right governance around that oversight, audit rights would be a discussion given cardholder data would be in play." },
       off:{ rating:"High", rationale:"Offshoring is not a concern for PCF, they do it today; although their new owner, EQ Bank, is completely in-house, which he mentioned is costly, so EQ is cautiously evaluating options within that area. What sets TMS apart is that the agents were located in Canada. This has always been beneficial, and would still be meaningful for PCF. Within PCF's other servicing experience with other providers (likely NTT), customers will sometimes say \"put me to an agent in Canada\" so they keep a 15% population of agents that are Canadian." },
@@ -186,7 +186,7 @@ const CM_DATA: CMClient[] = [
   { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Valley National BK", id:"", rev:81938, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true, lockPostPosition:true, absPostX: 81, absPostY: 26,
+  { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true, lockPostPosition:true, absPostX: 81, absPostY: 26,
     post:{
       out:{ rating:"High", rationale:"Reassurance provided that the very reliable current IVR service will remain reliable. Not allergic to the idea of a new provider provided the appropriate checks and approvals are in place. However, as expected, Ailsa viewed this as a possible opportunity to take the final IVR back in house and terminate our service." },
       off:{ rating:"High", rationale:"Offshoring not applicable." },
