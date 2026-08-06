@@ -460,7 +460,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
       score: overallScore(c, whisperMode),
       diam: revTierDiam(c.rev),
       isEMEA,
-      bubbleBg: isEMEA ? '#555b6e' : '#1a1f4e',
+      bubbleBg: '#1a1f4e',
       stage: c.stage,
       xPct: locked ? locked.xPct : inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : (c.preNudgeX ?? 0)),
       yPct: locked ? locked.yPct : inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : (c.preNudgeY ?? 0)),
@@ -821,19 +821,6 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 
         {/* Right: Region (top) + Revenue Tier (bottom) stacked */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, flexShrink: 0 }}>
-
-          {/* Region row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)' }}>Region</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-              <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#1a1f4e', flexShrink: 0 }} />
-              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>North America</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-              <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#555b6e', flexShrink: 0 }} />
-              <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>EMEA</span>
-            </div>
-          </div>
 
           {/* Revenue Tier row — circles bottom-aligned with label beneath */}
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16 }}>
