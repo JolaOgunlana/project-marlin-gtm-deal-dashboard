@@ -1052,7 +1052,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
       <div style={{ padding: '0 28px 48px' }}>
         {/* Description */}
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, width: '100%' }}>
-          Average propensity scores for all clients across four levers. The Heat Map compares Offshoring vs. Outsourcing. Risk bands show where consent is at risk.
+          Average propensity scores for all clients across four levers: Outsourcing, Offshoring, Digitization, and Price. The Heat Map compares Offshoring vs. Outsourcing. Risk bands show where consent is at risk.
         </p>
 
         {/* ── Top row: Toggle card + Total Clients + Avg Propensity ── */}
