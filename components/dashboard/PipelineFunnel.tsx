@@ -234,14 +234,14 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
       <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginTop: 16 }}>
         <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(26,31,78,0.4)' }}>Consent Stage</span>
         {[
-          { color: '#1a1f4e', label: 'Exploration', stages: '1–2' },
-          { color: '#0891b2', label: 'Alignment',   stages: '3–4' },
-          { color: '#4bcd3e', label: 'Committed',   stages: '5–6' },
-          { color: '#B21A53', label: 'Disqualified', stages: '8'  },
-        ].map(({ color, label, stages }) => (
+          { color: '#1a1f4e', label: 'Exploration' },
+          { color: '#0891b2', label: 'Alignment' },
+          { color: '#4bcd3e', label: 'Committed' },
+          { color: '#B21A53', label: 'Disqualified' },
+        ].map(({ color, label }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 12, height: 12, borderRadius: 3, background: color, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.65)', fontWeight: 600 }}>{label} {stages}</span>
+            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.65)', fontWeight: 600 }}>{label}</span>
           </div>
         ))}
       </div>
