@@ -126,7 +126,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       <KpiSection
         variant="existing"
         title="Revenue Retention Opportunities"
-        totalRevLabel="Total Portfolio Revenue"
+        totalRevLabel="TOTAL PORTOLIO REVENUE"
         totalRevValue="$145.2M"
         totalRevSub="Current annual contract value"
         totalClients="64"
