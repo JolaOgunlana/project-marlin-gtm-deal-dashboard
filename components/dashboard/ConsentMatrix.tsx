@@ -360,7 +360,6 @@ const STAGE_COLOR: Record<string, string> = {
   8: '#ef4444',   // red
 }
 const STAGE_LABELS: [string, string, string][] = [
-  ['0','0 · Not Started','#c9ccdb'],
   ['1','1 · New Opportunity','#4f8ef7'],
   ['2','2 · Early Sales','#06b6d4'],
   ['3','3 · Mid Sales','#8b5cf6'],
@@ -754,7 +753,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
               { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
-              { label: 'Stage', btns: [['all','All'],['0','0 · Not Started'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 �� Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
+              { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 �� Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
             ].map(row => (
               <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                 <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', flexShrink: 0 }}>{row.label}</span>
