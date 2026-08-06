@@ -603,61 +603,78 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         {/* ── Program Coverage by Wave ──────────────────────────────── */}
         <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 28, overflow: 'hidden' }}>
           {/* Title bar */}
-          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Program Coverage by Wave</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Program coverage by wave</span>
+            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>64 clients · $145.2M total ACV</span>
           </div>
-          {/* Column headers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { label: 'Total', sub: null },
-              { label: 'Wave 1', sub: 'Started' },
-              { label: '% of Total', sub: null },
-              { label: 'Wave 2', sub: 'Not started' },
-              { label: '% of Total', sub: null },
-              { label: 'Wave 3', sub: 'Not started' },
-              { label: '% of Total', sub: null },
-              { label: 'Total Wave 1–3', sub: null },
-            ].map((col, i) => (
-              <div key={i} style={{ padding: '10px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.42)', lineHeight: 1.3 }}>{col.label}</div>
-                {col.sub && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)', marginTop: 1 }}>{col.sub}</div>}
+
+          {/* Grid: label col + 3 wave cols + total col */}
+          {(() => {
+            const WAVE1_BG = 'rgba(99,82,168,0.06)'
+            const cols = [
+              { label: 'Wave 1', status: 'STARTED',     statusColor: '#2d7a0f', statusBg: '#e6f4dc', acv: 93.5,  acvPct: 64,  clients: 21, clientsPct: 33 },
+              { label: 'Wave 2', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 18.7,  acvPct: 13,  clients: 27, clientsPct: 42 },
+              { label: 'Wave 3', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 33.0,  acvPct: 23,  clients: 16, clientsPct: 25 },
+            ]
+            const totalAcv = '$145.2M'
+            const totalClients = 64
+
+            const ProgressBar = ({ pct, color }: { pct: number; color: string }) => (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+                <div style={{ flex: 1, height: 6, background: 'rgba(26,31,78,0.10)', borderRadius: 99, overflow: 'hidden' }}>
+                  <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 99 }} />
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.55)', minWidth: 28 }}>{pct}%</span>
               </div>
-            ))}
-          </div>
-          {/* ACV row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { val: 'ACV', bold: true, muted: false },
-              { val: '$93.5M', bold: true, muted: false },
-              { val: '64%', bold: false, muted: false },
-              { val: '$18.7M', bold: true, muted: false },
-              { val: '13%', bold: false, muted: false },
-              { val: '$33.0M', bold: true, muted: false },
-              { val: '23%', bold: false, muted: false },
-              { val: '$145.2M', bold: true, muted: false },
-            ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
-                {cell.val}
+            )
+
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: '110px repeat(3, 1fr) 120px' }}>
+
+                {/* Header row */}
+                <div style={{ padding: '12px 18px', borderBottom: '1px solid #e2e4ee' }} />
+                {cols.map((c, i) => (
+                  <div key={i} style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined, textAlign: 'right' }}>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: INK, marginBottom: 6 }}>{c.label}</div>
+                    <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: c.statusColor, background: c.statusBg, borderRadius: 99, padding: '3px 9px' }}>{c.status}</span>
+                  </div>
+                ))}
+                <div style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', textAlign: 'right' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: INK, marginBottom: 6 }}>TOTAL</div>
+                  <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: INK, background: 'rgba(26,31,78,0.08)', borderRadius: 99, padding: '3px 9px' }}>WAVE 1–3</span>
+                </div>
+
+                {/* ACV row */}
+                <div style={{ padding: '18px 18px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center' }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>ACV</span>
+                </div>
+                {cols.map((c, i) => (
+                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined }}>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>${c.acv.toFixed(1)}M</div>
+                    <ProgressBar pct={c.acvPct} color={INK} />
+                  </div>
+                ))}
+                <div style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: INK }}>{totalAcv}</span>
+                </div>
+
+                {/* Clients row */}
+                <div style={{ padding: '18px 18px', display: 'flex', alignItems: 'center' }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>Clients</span>
+                </div>
+                {cols.map((c, i) => (
+                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined }}>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>{c.clients}</div>
+                    <ProgressBar pct={c.clientsPct} color={INK} />
+                  </div>
+                ))}
+                <div style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: INK }}>{totalClients}</span>
+                </div>
+
               </div>
-            ))}
-          </div>
-          {/* Clients row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { val: 'Clients', bold: true, muted: false },
-              { val: '21', bold: true, muted: false },
-              { val: '33%', bold: false, muted: false },
-              { val: '27', bold: true, muted: false },
-              { val: '42%', bold: false, muted: false },
-              { val: '16', bold: true, muted: false },
-              { val: '25%', bold: false, muted: false },
-              { val: '64 Clients', bold: true, muted: false },
-            ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
-                {cell.val}
-              </div>
-            ))}
-          </div>
+            )
+          })()}
         </div>
 
         {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
