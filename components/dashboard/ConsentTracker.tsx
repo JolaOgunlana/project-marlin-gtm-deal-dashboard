@@ -724,9 +724,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
               {/* Title bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+              <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
                 <span style={{ fontSize: 18, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
-                <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>21 clients · 13 in scope · $93.5M</span>
               </div>
 
               {/* Per-column top color bars */}
