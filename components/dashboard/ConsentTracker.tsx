@@ -609,7 +609,6 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
           {/* Grid: label col + 3 wave cols + total col */}
           {(() => {
-            const WAVE1_BG = 'rgba(99,82,168,0.06)'
             const cols = [
               { label: 'Wave 1', status: 'STARTED',     statusColor: '#2d7a0f', statusBg: '#e6f4dc', acv: 93.5,  acvPct: 64,  clients: 21, clientsPct: 33 },
               { label: 'Wave 2', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 18.7,  acvPct: 13,  clients: 27, clientsPct: 42 },
@@ -633,7 +632,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 {/* Header row */}
                 <div style={{ padding: '12px 18px', borderBottom: '1px solid #e2e4ee' }} />
                 {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined, textAlign: 'right' }}>
+                  <div key={i} style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', textAlign: 'right' }}>
                     <div style={{ fontSize: 14, fontWeight: 700, color: INK, marginBottom: 6 }}>{c.label}</div>
                     <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: c.statusColor, background: c.statusBg, borderRadius: 99, padding: '3px 9px' }}>{c.status}</span>
                   </div>
@@ -648,7 +647,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>ACV</span>
                 </div>
                 {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined }}>
+                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee' }}>
                     <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>${c.acv.toFixed(1)}M</div>
                     <ProgressBar pct={c.acvPct} color={INK} />
                   </div>
@@ -662,7 +661,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>Clients</span>
                 </div>
                 {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', background: i === 0 ? WAVE1_BG : undefined }}>
+                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee' }}>
                     <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>{c.clients}</div>
                     <ProgressBar pct={c.clientsPct} color={INK} />
                   </div>
@@ -880,7 +879,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           </div>
         </div>
 
-        {/* ── Search bar ─────────────────────��──────────────────────── */}
+        {/* ── Search bar ─────────────────────��───────────────────────�� */}
 
 
       </div>
