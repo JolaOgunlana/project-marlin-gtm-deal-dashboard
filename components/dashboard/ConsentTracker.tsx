@@ -257,7 +257,7 @@ const STATS = [
     label: 'Exploration',
     tag: 'WHISPER',
     count: 63,
-    countColor: '#1a2f4e',
+    countColor: INK,
     revenue: '$141.5M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
@@ -354,7 +354,7 @@ function Badge({ status }: { status: StepStatus }) {
 
 function CurrentStagePill({ step }: { step: TrackerClient['currentStep'] }) {
   const map: Record<string, { bg: string; color: string; label: string }> = {
-  exploration:   { bg: '#e8ecf5',  color: '#1a2f4e', label: 'Exploration' },
+  exploration:   { bg: '#e5e8ed',  color: INK, label: 'Exploration' },
   alignment:     { bg: '#cce9f7',  color: '#0891b2',  label: 'Alignment' },
     consent:       { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
     committed:     { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
@@ -610,7 +610,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
-{ label: 'Exploration', color: '#1a2f4e', acv: 141.5, clients: 63,  text: '$141.5M', empty: false },
+{ label: 'Exploration', color: INK, acv: 141.5, clients: 63,  text: '$141.5M', empty: false },
   { label: 'Alignment',   color: '#0891b2', acv: 10.3,  clients: 1,   text: '$10.3M',  empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
@@ -909,8 +909,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 )
               }
               const statusChip = (s: string) => {
-                const col = s === 'Alignment' ? '#0891b2' : s === 'Exploration' ? '#1a2f4e' : MUTED
-                const bg  = s === 'Alignment' ? '#cce9f7' : s === 'Exploration' ? '#e8ecf5' : GRAY_BG
+                const col = s === 'Alignment' ? '#0891b2' : s === 'Exploration' ? INK : MUTED
+                const bg  = s === 'Alignment' ? '#cce9f7' : s === 'Exploration' ? '#e5e8ed' : GRAY_BG
                 return <span style={{ background: bg, color: col, fontWeight: 700, fontSize: 11, padding: '3px 10px', borderRadius: 20, display: 'inline-block' }}>{s}</span>
               }
 
