@@ -518,6 +518,17 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                       color: 'rgba(26,31,78,0.38)',
                     }}>{s.tag}</div>
                   </div>
+                  {/* ACV + client count */}
+                  <div style={{ marginBottom: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
+                      <span style={{ fontSize: 28, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.revenue}</span>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontSize: 18, fontWeight: 900, color: INK, lineHeight: 1 }}>{s.count} <span style={{ fontSize: 12, fontWeight: 600, color: MUTED_D }}>clients</span></span>
+                        <span style={{ fontSize: 10, color: MUTED_D, marginTop: 2 }}>{s.region}</span>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 10, color: MUTED_D, marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.revenueLabel}</div>
+                  </div>
                   {/* Description */}
                   <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14, flex: 1 }}>
                     {s.descriptionParts.map((part, pi) => (
