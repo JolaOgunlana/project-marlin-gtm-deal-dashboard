@@ -109,18 +109,16 @@ function FilterCluster({
         onMouseEnter={() => setBoxHovered(true)}
         onMouseLeave={() => setBoxHovered(false)}
         style={{
-          background: EGGPLANT_SOFT,
-          border: `1.5px solid ${boxHovered ? EGGPLANT : EGGPLANT_BORDER}`,
+          background: boxHovered ? 'rgba(242,235,245,0.55)' : 'transparent',
+          border: `1.5px solid ${boxHovered ? 'rgba(211,184,221,0.7)' : 'transparent'}`,
           borderRadius: 16,
           padding: '12px 16px 14px',
           display: 'flex',
           flexDirection: 'column',
           gap: 8,
           alignItems: 'flex-end',
-          boxShadow: boxHovered
-            ? `0 4px 16px rgba(67,28,91,0.20)`
-            : `0 2px 8px rgba(67,28,91,0.10)`,
-          transition: 'border-color 0.3s, box-shadow 0.3s',
+          boxShadow: boxHovered ? `0 4px 16px rgba(67,28,91,0.08)` : 'none',
+          transition: 'background 0.25s, border-color 0.25s, box-shadow 0.25s',
         }}
       >
         {/* Caption row with ripple icon */}
