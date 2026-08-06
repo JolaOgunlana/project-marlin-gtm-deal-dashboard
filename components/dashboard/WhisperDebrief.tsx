@@ -681,7 +681,7 @@ export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { p
         <NavBanner page={page} onNavigate={onNavigate} title="Sales FAQ" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
-          This page gives the account team ready-to-use responses for the most common objections and questions. It&apos;s organized by lever, including Technology, Outsourcing and Offshoring, Compliance, Transition, Pricing, No Consent, and New Tech Capabilities, so you can go straight to the relevant concern. Each row pairs a client&apos;s point with a concise, FIS-approved response drawn from programme talking points. Every unresolved point links directly to its corresponding response here.
+          This page gives the account team ready-to-use responses for the most common objections and questions. It&apos;s organized by lever, including Technology, Outsourcing and Offshoring, Compliance, Transition, Pricing, No Consent, and New Tech Capabilities, so you can go straight to the relevant concern. Every unresolved point links directly to its corresponding response here.
         </p>
         <FaqSection highlightId={highlightId ?? null} onClearHighlight={onClearHighlight ?? (() => {})} />
       </div>
