@@ -551,9 +551,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
           {/* Where the ACV actually sits */}
           <div style={{ borderTop: '1px solid #e2e4ee', padding: '20px 22px 24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+            <div style={{ marginBottom: 18 }}>
               <span style={{ fontSize: 14, fontWeight: 700, color: INK }}>Where the ACV actually sits</span>
-              <span style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)' }}>Bar width ∝ annual contract value</span>
             </div>
 
             {/* Bars */}
