@@ -865,7 +865,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
-              <div>ACV</div>
+              <div>ACV Business Case</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
               <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
               <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
