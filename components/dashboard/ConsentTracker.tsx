@@ -750,17 +750,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail Accordion ────────────────────────── */}
-        <div style={{ marginTop: 24, border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
-
-          {/* Section header */}
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', background: INK }}>
-            <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
-          </div>
-
-          {/* Section body */}
-          {(
-            <div style={{ background: '#f8f9fc', borderTop: '1px solid #e2e4ee', padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {/* ── Wave 1 Client Detail ────────────────────────── */}
+            <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ─────────────────────────────── */}
         {(() => {
@@ -942,10 +933,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               })
             })()}
           </div>
-        </div>
-            </div>
-          )}
-        </div>
 
         {/* ── Search bar ─────────────────────��───────────────────────�� */}
 
