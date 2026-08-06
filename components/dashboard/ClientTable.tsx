@@ -154,8 +154,8 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
                   {(() => {
                     const s = row.progressStatus
-                    const color = s === 'Alignment' ? '#1a6fa8' : s === 'Exploration' ? '#B7860B' : '#556070'
-                    const bg    = s === 'Alignment' ? '#dceefa' : s === 'Exploration' ? '#FBF0D0' : '#f0f1f5'
+                    const color = s === 'Alignment' ? '#0891b2' : s === 'Exploration' ? '#1a1f4e' : s === 'Committed' ? '#4bcd3e' : s === 'Not Pursuing' ? '#B21A53' : '#556070'
+                    const bg    = s === 'Alignment' ? '#cce9f7' : s === 'Exploration' ? '#e5e8ed' : s === 'Committed' ? '#e9fbe6' : s === 'Not Pursuing' ? '#fce8ef' : '#f0f1f5'
                     return (
                       <span style={{ display: 'inline-block', padding: '2px 7px', borderRadius: 4, fontSize: 9.5, fontWeight: 700, letterSpacing: '0.04em', background: bg, color }}>
                         {s}
