@@ -575,6 +575,68 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
           </React.Fragment>
         ))}
 
+        {/* Hover discovery hint chip — top-left, never blocks bubbles */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 16,
+            left: 16,
+            zIndex: 10,
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 7,
+            padding: '6px 12px 6px 9px',
+            borderRadius: 999,
+            background: '#f2ebf5',
+            border: '1.5px solid #d3b8dd',
+            boxShadow: '0 3px 12px rgba(67,28,91,0.10)',
+          }}
+        >
+          {/* Eye icon with blink animation */}
+          <svg
+            aria-hidden="true"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ flexShrink: 0 }}
+          >
+            <style>{`
+              @keyframes eye-blink {
+                0%, 88%  { transform: scaleY(1); }
+                92%      { transform: scaleY(0.08); }
+                96%      { transform: scaleY(1); }
+                100%     { transform: scaleY(1); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .eye-lid { animation: none !important; }
+              }
+            `}</style>
+            {/* Eyelid almond path — animates the blink */}
+            <path
+              className="eye-lid"
+              d="M2 10 C5 4.5 15 4.5 18 10 C15 15.5 5 15.5 2 10 Z"
+              stroke="#431C5B"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+              fill="none"
+              style={{
+                transformOrigin: '50% 50%',
+                transformBox: 'fill-box',
+                animation: 'eye-blink 3.4s ease-in-out infinite',
+              }}
+            />
+            {/* Pupil */}
+            <circle cx="10" cy="10" r="2.4" fill="#431C5B" />
+          </svg>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: '#431C5B', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+            Hover over any bubble to see client details
+          </span>
+        </div>
+
         {/* Bubbles + collision-resolved name labels */}
         {resolved.map((b, i) => {
           const { c, xPct, yPct, diam, score, ar, bubbleBg, isEMEA, stage, labelAbove, labelOffsetPx } = b
