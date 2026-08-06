@@ -679,92 +679,82 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
         <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
           {/* Title bar */}
-          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'baseline', gap: 10 }}>
-            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Whisper Completion Status</span>
-            <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(26,31,78,0.42)' }}>21 Clients · 13 in Scope</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 whisper completion</span>
+            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>21 clients · 13 in scope · $93.5M</span>
           </div>
-          {/* Column headers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { label: 'Wave 1', sub: null },
-              { label: 'Whisper Completed', sub: null },
-              { label: '% Total', sub: null },
-              { label: 'Whisper ETA', sub: '8/7' },
-              { label: '% Total', sub: null },
-              { label: 'Whisper ETA', sub: '8/14' },
-              { label: '% Total', sub: null },
-              { label: 'No Whisper Planned', sub: null },
-              { label: '% Total', sub: null },
-              { label: 'Total Wave 1', sub: null },
-            ].map((col, i) => (
-              <div key={i} style={{ padding: '10px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }}>
-                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.42)', lineHeight: 1.3 }}>{col.label}</div>
-                {col.sub && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)', marginTop: 1 }}>{col.sub}</div>}
-              </div>
-            ))}
+
+          {/* Green bar for completed section */}
+          <div style={{ display: 'grid', gridTemplateColumns: '0 1fr 0 1fr 0 1fr 0 1fr', height: 4 }}>
+            <div style={{ background: '#2d7a0f', gridColumn: '2 / 3' }} />
           </div>
-          {/* ACV row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { val: 'ACV', bold: true, muted: false },
-              { val: '$53.7M', bold: true, muted: false },
-              { val: '57%', bold: false, muted: false },
-              { val: '$25.3M', bold: true, muted: false },
-              { val: '27%', bold: false, muted: false },
-              { val: '$9.4M', bold: true, muted: false },
-              { val: '10%', bold: false, muted: false },
-              { val: '$5.1M', bold: true, muted: false },
-              { val: '6%', bold: false, muted: false },
-              { val: '$93.5M', bold: true, muted: false },
-            ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1 }}>
-                {cell.val}
-              </div>
-            ))}
-          </div>
-          {/* Clients row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { val: 'Clients', bold: true, muted: false },
-              { val: '7', bold: true, muted: false },
-              { val: '33%', bold: false, muted: false },
-              { val: '4', bold: true, muted: false },
-              { val: '19%', bold: false, muted: false },
-              { val: '2', bold: true, muted: false },
-              { val: '10%', bold: false, muted: false },
-              { val: '8', bold: true, muted: false },
-              { val: '38%', bold: false, muted: false },
-              { val: '21 Clients', bold: true, muted: false },
-            ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: cell.bold ? 22 : 14, fontWeight: cell.bold ? 800 : 400, color: cell.muted ? 'rgba(26,31,78,0.42)' : INK, lineHeight: 1, background: '#fafbfc' }}>
-                {cell.val}
-              </div>
-            ))}
-          </div>
-          {/* Client names row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr' }}>
-            {[
-              { names: null, bold: true },
-              { names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', 'President\'s Choice', 'NatWest'], bold: false },
-              { names: null, bold: false },
-              { names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'], bold: false },
-              { names: null, bold: false },
-              { names: ['UBS', 'Brim Financial'], bold: false },
-              { names: null, bold: false },
-              { names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'], bold: false },
-              { names: null, bold: false },
-              { names: null, bold: false },
-            ].map((cell, i) => (
-              <div key={i} style={{ padding: '14px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, fontSize: 12, fontWeight: cell.bold ? 700 : 400, color: INK, lineHeight: 1.6 }}>
-                {i === 0 ? 'Client Names' : cell.names ? (
-                  <ul style={{ margin: 0, paddingLeft: 18, listStyle: 'disc' }}>
-                    {cell.names.map((name, ni) => (
-                      <li key={ni} style={{ marginBottom: 4, color: INK }}>{name}</li>
+
+          {/* Four column layout */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+            {(() => {
+              const cols = [
+                {
+                  label: 'Completed',
+                  acv: '$53.7M',
+                  acvColor: '#2d7a0f',
+                  clients: '7 clients',
+                  pct: '57% of ACV · 33% of clients',
+                  names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
+                  nameColor: '#2d7a0f',
+                },
+                {
+                  label: 'Whisper ETA',
+                  date: 'Aug 7',
+                  acv: '$25.3M',
+                  acvColor: '#5a3d82',
+                  clients: '4 clients',
+                  pct: '27% of ACV · 19% of clients',
+                  names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
+                  nameColor: '#5a3d82',
+                },
+                {
+                  label: 'Whisper ETA',
+                  date: 'Aug 14',
+                  acv: '$9.4M',
+                  acvColor: '#1a1f4e',
+                  clients: '2 clients',
+                  pct: '10% of ACV · 10% of clients',
+                  names: ['UBS', 'Brim Financial'],
+                  nameColor: '#1a1f4e',
+                },
+                {
+                  label: 'No whisper planned',
+                  acv: '$5.1M',
+                  acvColor: '#556070',
+                  clients: '8 clients',
+                  pct: '6% of ACV · 38% of clients',
+                  names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
+                  nameColor: '#7a8196',
+                },
+              ]
+
+              return cols.map((col, i) => (
+                <div key={i} style={{ padding: '18px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 2 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: col.acvColor }}>{col.label}</div>
+                    {col.date && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.42)' }}>{col.date}</div>}
+                  </div>
+
+                  <div style={{ fontSize: 26, fontWeight: 800, color: col.acvColor, marginBottom: 6, lineHeight: 1 }}>{col.acv}</div>
+
+                  <div style={{ fontSize: 13, color: INK, marginBottom: 12, lineHeight: 1.4 }}>
+                    <div style={{ fontWeight: 600 }}>{col.clients}</div>
+                    <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)' }}>{col.pct}</div>
+                  </div>
+
+                  <ul style={{ margin: 0, paddingLeft: 18, listStyle: 'disc', fontSize: 13, lineHeight: 1.6, flex: 1 }}>
+                    {col.names.map((name, ni) => (
+                      <li key={ni} style={{ marginBottom: 4, color: col.nameColor }}>{name}</li>
                     ))}
                   </ul>
-                ) : null}
-              </div>
-            ))}
+                </div>
+              ))
+            })()}
           </div>
         </div>
 
