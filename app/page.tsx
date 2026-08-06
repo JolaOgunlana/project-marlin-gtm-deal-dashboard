@@ -35,7 +35,7 @@ export default function Home() {
       {page === 'faq'       && <FaqPage page={page} onNavigate={navigate} highlightId={faqHighlight} onClearHighlight={() => setFaqHighlight(null)} />}
       {page === 'dashboard' && <Dashboard page={page} onNavigate={navigate} />}
       {page === 'consent'   && <ConsentMatrix page={page} onNavigate={navigate} />}
-      {page === 'tracker'   && <ConsentTrackerPage page={page} onNavigate={navigate} />}
+      {page === 'tracker'   && <ConsentTrackerPage page={page} onNavigate={navigate} onFaqLink={handleFaqLink} />}
     </main>
   )
 }

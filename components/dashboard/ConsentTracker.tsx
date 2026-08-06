@@ -18,46 +18,47 @@ const GRAY   = '#8A93A2'
 const GRAY_BG = '#ECEEF2'
 
 // ── Whisper Intelligence data (per-client learnings & points to address) ──────
-type LeverRow = { lever: string; learnings: string[]; points: ({ label: string } | { plain: string })[] }
+type LeverPoint = { label: string; id: string } | { plain: string }
+type LeverRow = { lever: string; learnings: string[]; points: LeverPoint[] }
 const WHISPER_DATA: Record<string, LeverRow[]> = {
   'Virgin Money': [
-    { lever: 'Outsourcing', learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'], points: [{ label: 'Concern about additional "material outsourcing" layers under PRA regulation.' }, { label: 'Are you bringing in support delivery partners?' }] },
-    { lever: 'Offshoring', learnings: ['Open to offshoring chat and back-office (non-voice) work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?' }] },
+    { lever: 'Outsourcing', learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'], points: [{ label: 'Concern about additional "material outsourcing" layers under PRA regulation.', id: 'oh-oo-pra' }, { label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' }] },
+    { lever: 'Offshoring', learnings: ['Open to offshoring chat and back-office (non-voice) work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }] },
     { lever: 'Digitization', learnings: ['Keen on digitization and automation, with leadership backing it.'], points: [{ plain: 'N/A' }] },
     { lever: 'Price Maintain', learnings: ['Already use a total-cost model, so predictable subscription pricing fits.'], points: [{ plain: 'N/A' }] },
   ],
   'Fifth Third Bank': [
     { lever: 'Outsourcing', learnings: ['The overall proposal landed well, with little pushback.', 'Sees how outsourcing helps with risk, scale, and technology gaps.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Offshoring', learnings: ['Little to no concern about offshoring back-office / non-voice work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'How do we know this meets standards? (Compliance & Infosec)' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?' }] },
-    { lever: 'Digitization', learnings: ['Comfortable adding more technology to their systems and processes.'], points: [{ label: 'Technology must be thoroughly proven end-to-end before moving forward (cited TCS implementation experience).' }, { label: 'What are the key new tech capabilities to be enabled and their associated benefits?' }] },
-    { lever: 'Price Maintain', learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'], points: [{ label: 'Are costs going up? How is pricing affected?' }] },
+    { lever: 'Offshoring', learnings: ['Little to no concern about offshoring back-office / non-voice work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'How do we know this meets standards? (Compliance & Infosec)', id: 'oh-comp-standards' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }] },
+    { lever: 'Digitization', learnings: ['Comfortable adding more technology to their systems and processes.'], points: [{ label: 'Technology must be thoroughly proven end-to-end before moving forward (cited TCS implementation experience).', id: 'oh-tech-walkthroughs' }, { label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
+    { lever: 'Price Maintain', learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
   'UMB': [
-    { lever: 'Outsourcing', learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'], points: [{ label: 'Confidence in execution: raised concern based on prior experiences with FIS.' }] },
-    { lever: 'Offshoring', learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)" }] },
+    { lever: 'Outsourcing', learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'], points: [{ label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' }] },
+    { lever: 'Offshoring', learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' }] },
     { lever: 'Digitization', learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?' }, { label: 'Do we charge for implementation cost?' }] },
+    { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' }] },
   ],
   "President's Choice": [
-    { lever: 'Outsourcing', learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?' }] },
-    { lever: 'Offshoring', learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.' }] },
+    { lever: 'Outsourcing', learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' }] },
+    { lever: 'Offshoring', learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' }, { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' }] },
     { lever: 'Digitization', learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Price Maintain', learnings: ["Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn't drop.", 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'], points: [{ label: 'Are costs going up? How is pricing affected?' }, { label: "If a client outsources, takes the technology but doesn't offshore, does the price change?" }] },
+    { lever: 'Price Maintain', learnings: ["Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn't drop.", 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: "If a client outsources, takes the technology but doesn't offshore, does the price change?", id: 'oh-pr-nooffshore' }] },
   ],
   'AIB': [
-    { lever: 'Outsourcing', learnings: ['Open to outsourcing, with no concerns about Genpact.', 'Would welcome the enhanced technical capabilities.', 'Keen to keep the strong TMS–Customer Engagement relationship in place.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?' }] },
+    { lever: 'Outsourcing', learnings: ['Open to outsourcing, with no concerns about Genpact.', 'Would welcome the enhanced technical capabilities.', 'Keen to keep the strong TMS–Customer Engagement relationship in place.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' }] },
     { lever: 'Offshoring', learnings: ['No objections to offshore voice support.'], points: [{ plain: 'N/A' }] },
     { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
-    { lever: 'Price Maintain', learnings: ['Open to discussing subscription-based pricing.'], points: [{ label: 'Are costs going up? How is pricing affected?' }] },
+    { lever: 'Price Maintain', learnings: ['Open to discussing subscription-based pricing.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
   'Simmons Bank': [
-    { lever: 'Outsourcing', learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?' }] },
-    { lever: 'Offshoring', learnings: ['Generally conservative when it comes to offshore support.'], points: [{ label: 'What are your key arguments why offshoring (even client facing voice) works?' }] },
+    { lever: 'Outsourcing', learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-genpact-refuse' }] },
+    { lever: 'Offshoring', learnings: ['Generally conservative when it comes to offshore support.'], points: [{ label: 'What are your key arguments why offshoring (even client facing voice) works?', id: 'oh-off-voice-works' }] },
     { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
     { lever: 'Price Maintain', learnings: [], points: [{ plain: 'N/A' }] },
   ],
   'NatWest': [
-    { lever: 'Outsourcing', learnings: ['Open to a new provider, as long as the right checks and approvals are in place.', 'Reassured the IVR service will stay reliable.'], points: [{ label: 'Sees this as a possible opportunity to take the final IVR back in-house and terminate our service.' }, { label: "What if timing isn't right?" }, { label: 'Are you bringing in support delivery partners?' }] },
+    { lever: 'Outsourcing', learnings: ['Open to a new provider, as long as the right checks and approvals are in place.', 'Reassured the IVR service will stay reliable.'], points: [{ label: 'Sees this as a possible opportunity to take the final IVR back in-house and terminate our service.', id: 'oh-oo-refuse' }, { label: "What if timing isn't right?", id: 'oh-nc-timing' }, { label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' }] },
     { lever: 'Offshoring', learnings: ['N/A — IVR service only, no agents involved.'], points: [{ plain: 'N/A' }] },
     { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
     { lever: 'Price Maintain', learnings: [], points: [{ plain: 'N/A' }] },
@@ -511,7 +512,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 }
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
-export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
+export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
 
   return (
@@ -960,7 +961,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                             <div key={h} style={{ padding: '9px 20px', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: '#5b2d6e' }}>{h}</div>
                           ))}
                         </div>
-                        {/* Lever rows */}
+                            {/* Lever rows */}
                         {displayData.map((lev, li) => (
                           <div key={lev.lever} style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', borderTop: li > 0 ? '1px solid #eef0f6' : undefined }}>
                             <div style={{ padding: '12px 20px', fontSize: 11.5, fontWeight: 700, color: INK, textTransform: 'uppercase', letterSpacing: '0.04em', paddingTop: 14 }}>{lev.lever}</div>
@@ -981,7 +982,18 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                                   ? <div key={idx} style={{ color: 'rgba(26,31,78,0.38)', fontStyle: 'italic', fontSize: 11.5 }}>{p.plain}</div>
                                   : <div key={idx} style={{ position: 'relative', paddingLeft: 14, marginBottom: idx < lev.points.length - 1 ? 5 : 0 }}>
                                       <span style={{ position: 'absolute', left: 2, color: 'rgba(26,31,78,0.4)' }}>•</span>
-                                      {p.label}
+                                      <button
+                                        onClick={e => { e.stopPropagation(); onFaqLink(p.id) }}
+                                        style={{
+                                          background: 'none', border: 'none', padding: 0,
+                                          fontFamily: 'inherit', fontSize: 12.5, color: INK,
+                                          cursor: 'pointer', textAlign: 'left',
+                                          borderBottom: '1px dotted rgba(91,45,110,0.5)',
+                                          lineHeight: 1.55,
+                                        }}
+                                      >
+                                        {p.label} <span style={{ fontSize: 10, color: '#5b2d6e' }}>→ FAQ</span>
+                                      </button>
                                     </div>
                               ))}
                             </div>
