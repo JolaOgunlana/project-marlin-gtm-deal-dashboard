@@ -524,7 +524,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
         {/* Page description */}
         <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          Client-by-client progression through Exploration, Alignment, Committed, and Not Pursuing — each stage gated by three evidence criteria. Click any client to see what has been confirmed and what still needs to be addressed.
+          Client-by-client progression through Exploration, Alignment, Committed, and Not Pursuing. Click any client to see what has been confirmed and what still needs to be addressed.
         </p>
 
         {/* ── Stage definition cards — KpiSection style ────────────── */}

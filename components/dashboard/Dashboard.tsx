@@ -101,7 +101,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       <div style={{ padding: '0 28px 48px' }}>
         {/* Description */}
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
-          Pipeline view of all consent opportunities — stage distribution, whisper status, and revenue at stake across Revenue Retention and New Deal clients. Track progress toward the <strong>$25M ACV</strong> Oct 2026 milestone.
+          Pipeline view of all consent opportunities — stage distribution, whisper status, and revenue at stake across Revenue Retention and New Deal clients. Track progress toward the <strong>$25M ACV</strong> end of year target.
         </p>
 
       {/* Pipeline Funnel */}
