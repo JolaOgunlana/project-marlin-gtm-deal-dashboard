@@ -662,10 +662,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               border: 'none', cursor: 'pointer', transition: 'background 0.2s',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 4, height: 24, borderRadius: 2, background: '#4bcd3e', flexShrink: 0 }} />
-              <span style={{ fontSize: 17, fontWeight: 800, color: wave1Open ? '#fff' : INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
-            </div>
+            <span style={{ fontSize: 17, fontWeight: 800, color: wave1Open ? '#fff' : INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 12, fontWeight: 500, color: wave1Open ? 'rgba(255,255,255,0.5)' : 'rgba(26,31,78,0.38)' }}>
                 Whisper completion &amp; client breakdown
