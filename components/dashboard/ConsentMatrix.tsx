@@ -8,8 +8,8 @@ const EGGPLANT_BORDER = '#d3b8dd'
 
 const rippleKeyframes = `
 @keyframes cm-ripple-ring {
-  0%   { transform: scale(0.4); opacity: 0.7; }
-  100% { transform: scale(2.6); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cm-ripple-ring { animation: none !important; }
@@ -846,7 +846,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
               </span>
               <div style={{ position: 'relative', width: 26, height: 26, flexShrink: 0 }}>
                 {[0, 1.1].map((delay, i) => (
-                  <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', bottom: 2, left: 2, width: 14, height: 14, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                  <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', top: '50%', left: '50%', width: 14, height: 14, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
                 ))}
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
                   <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
@@ -1190,7 +1190,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                 </span>
                 <div style={{ position: 'relative', width: 22, height: 22, flexShrink: 0 }}>
                   {[0, 1.1].map((delay, i) => (
-                    <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', bottom: 2, left: 2, width: 12, height: 12, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                    <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', top: '50%', left: '50%', width: 12, height: 12, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
                   ))}
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
                     <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>

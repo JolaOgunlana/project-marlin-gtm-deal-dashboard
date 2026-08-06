@@ -9,8 +9,8 @@ const EGGPLANT_BORDER = '#d3b8dd'
 
 const rippleKeyframes = `
 @keyframes ripple-ring {
-  0%   { transform: scale(0.4); opacity: 0.7; }
-  100% { transform: scale(2.6); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ripple-ring { animation: none !important; }
@@ -135,8 +135,8 @@ function FilterCluster({
                 className="ripple-ring"
                 style={{
                   position: 'absolute',
-                  bottom: 2,
-                  left: 2,
+                  top: '50%',
+                  left: '50%',
                   width: 14,
                   height: 14,
                   borderRadius: '50%',
