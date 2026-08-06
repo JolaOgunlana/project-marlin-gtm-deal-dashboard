@@ -1,7 +1,21 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { clients } from '@/lib/data'
+
+const EGGPLANT        = '#431C5B'
+const EGGPLANT_SOFT   = '#f2ebf5'
+const EGGPLANT_BORDER = '#d3b8dd'
+
+const rippleKeyframes = `
+@keyframes ripple-ring {
+  0%   { transform: scale(0.4); opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ripple-ring { animation: none !important; }
+}
+`
 
 type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
@@ -43,30 +57,147 @@ function FilterTabGroup<T extends string>({
   active: T
   onSelect: (v: T) => void
 }) {
+  const [hovered, setHovered] = useState<T | null>(null)
   return (
     <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
       <span style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(26,31,78,0.45)', marginRight: 4 }}>{label}</span>
-      {options.map((opt) => (
-        <button
-          key={opt.value}
-          onClick={() => onSelect(opt.value)}
-          style={{
-            padding: '6px 13px',
-            borderRadius: 999,
-            fontSize: 13,
-            fontWeight: 600,
-            cursor: 'pointer',
-            border: '1px solid',
-            borderColor: active === opt.value ? '#1a1f4e' : '#e2e4ee',
-            color: active === opt.value ? 'white' : 'rgba(26,31,78,0.45)',
-            background: active === opt.value ? '#1a1f4e' : 'transparent',
-            transition: 'all 0.15s',
-          }}
-        >
-          {opt.label}
-        </button>
-      ))}
+      {options.map((opt) => {
+        const isActive  = active === opt.value
+        const isHovered = hovered === opt.value
+        return (
+          <button
+            key={opt.value}
+            onClick={() => onSelect(opt.value)}
+            onMouseEnter={() => setHovered(opt.value)}
+            onMouseLeave={() => setHovered(null)}
+            style={{
+              padding: '6px 13px',
+              borderRadius: 999,
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: 'pointer',
+              border: '1.5px solid',
+              borderColor: isActive ? '#1a1f4e' : isHovered ? EGGPLANT : '#e2e4ee',
+              color: isActive ? 'white' : isHovered ? EGGPLANT : 'rgba(26,31,78,0.45)',
+              background: isActive ? '#1a1f4e' : 'transparent',
+              transform: !isActive && isHovered ? 'translateY(-2px)' : 'none',
+              boxShadow: !isActive && isHovered ? `0 4px 10px rgba(67,28,91,0.18)` : 'none',
+              transition: 'all 0.18s ease',
+              outline: 'none',
+            }}
+          >
+            {opt.label}
+          </button>
+        )
+      })}
     </div>
+  )
+}
+
+function FilterCluster({
+  clientFilter, onClientFilter,
+  waveFilter,   onWaveFilter,
+  regionFilter, onRegionFilter,
+  whisperFilter, onWhisperFilter,
+}: Omit<PipelineFunnelProps, 'stageFilter' | 'onStageFilter'>) {
+  const [boxHovered, setBoxHovered] = useState(false)
+
+  return (
+    <>
+      <style>{rippleKeyframes}</style>
+      <div
+        onMouseEnter={() => setBoxHovered(true)}
+        onMouseLeave={() => setBoxHovered(false)}
+        style={{
+          background: EGGPLANT_SOFT,
+          border: `1.5px solid ${boxHovered ? EGGPLANT : EGGPLANT_BORDER}`,
+          borderRadius: 16,
+          padding: '12px 16px 14px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          alignItems: 'flex-end',
+          boxShadow: boxHovered
+            ? `0 4px 16px rgba(67,28,91,0.20)`
+            : `0 2px 8px rgba(67,28,91,0.10)`,
+          transition: 'border-color 0.3s, box-shadow 0.3s',
+        }}
+      >
+        {/* Caption row with ripple icon */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, alignSelf: 'flex-end' }}>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em' }}>
+            Click any filter to refine the pipeline
+          </span>
+          {/* Cursor icon with two ripple rings */}
+          <div style={{ position: 'relative', width: 26, height: 26, flexShrink: 0 }}>
+            {/* Ripple rings emanate from cursor tip (bottom-left) */}
+            {[0, 1.1].map((delay, i) => (
+              <div
+                key={i}
+                className="ripple-ring"
+                style={{
+                  position: 'absolute',
+                  bottom: 2,
+                  left: 2,
+                  width: 14,
+                  height: 14,
+                  borderRadius: '50%',
+                  border: `2px solid ${EGGPLANT}`,
+                  animation: `ripple-ring 2.2s ease-out ${delay}s infinite`,
+                  pointerEvents: 'none',
+                }}
+              />
+            ))}
+            {/* Cursor SVG */}
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'relative', zIndex: 1 }}>
+              <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Filter rows */}
+        <FilterTabGroup
+          label="Opportunities"
+          active={clientFilter}
+          onSelect={onClientFilter}
+          options={[
+            { value: 'total' as ClientFilter, label: 'Total' },
+            { value: 'existing' as ClientFilter, label: 'Revenue Retention Opportunities' },
+            { value: 'new' as ClientFilter, label: 'New Deal Opportunities' },
+          ]}
+        />
+        <FilterTabGroup
+          label="Wave"
+          active={waveFilter}
+          onSelect={onWaveFilter}
+          options={[
+            { value: 'all' as WaveFilter, label: 'All' },
+            { value: '1' as WaveFilter, label: 'Wave 1' },
+            { value: '2' as WaveFilter, label: 'Wave 2' },
+            { value: '3' as WaveFilter, label: 'Wave 3' },
+          ]}
+        />
+        <FilterTabGroup
+          label="Region"
+          active={regionFilter}
+          onSelect={onRegionFilter}
+          options={[
+            { value: 'all' as RegionFilter, label: 'All' },
+            { value: 'NA' as RegionFilter, label: 'NA' },
+            { value: 'EMEA' as RegionFilter, label: 'EMEA' },
+          ]}
+        />
+        <FilterTabGroup
+          label="Whisper Completion"
+          active={whisperFilter}
+          onSelect={onWhisperFilter}
+          options={[
+            { value: 'all' as WhisperFilter, label: 'All' },
+            { value: 'completed' as WhisperFilter, label: 'Completed' },
+          ]}
+        />
+      </div>
+    </>
   )
 }
 
@@ -101,48 +232,12 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
           <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Pipeline by Opportunity Stage</div>
           <div style={{ fontSize: 12, fontStyle: 'italic', color: 'rgba(26,31,78,0.42)', marginTop: 3 }}>Click any stage to filter opportunities</div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end' }}>
-          <FilterTabGroup
-            label="Opportunities"
-            active={clientFilter}
-            onSelect={onClientFilter}
-            options={[
-              { value: 'total' as ClientFilter, label: 'Total' },
-              { value: 'existing' as ClientFilter, label: 'Revenue Retention Opportunities' },
-              { value: 'new' as ClientFilter, label: 'New Deal Opportunities' },
-            ]}
-          />
-          <FilterTabGroup
-            label="Wave"
-            active={waveFilter}
-            onSelect={onWaveFilter}
-            options={[
-              { value: 'all' as WaveFilter, label: 'All' },
-              { value: '1' as WaveFilter, label: 'Wave 1' },
-              { value: '2' as WaveFilter, label: 'Wave 2' },
-              { value: '3' as WaveFilter, label: 'Wave 3' },
-            ]}
-          />
-          <FilterTabGroup
-            label="Region"
-            active={regionFilter}
-            onSelect={onRegionFilter}
-            options={[
-              { value: 'all' as RegionFilter, label: 'All' },
-              { value: 'NA' as RegionFilter, label: 'NA' },
-              { value: 'EMEA' as RegionFilter, label: 'EMEA' },
-            ]}
-          />
-          <FilterTabGroup
-            label="Whisper Completion"
-            active={whisperFilter}
-            onSelect={onWhisperFilter}
-            options={[
-              { value: 'all' as WhisperFilter, label: 'All' },
-              { value: 'completed' as WhisperFilter, label: 'Completed' },
-            ]}
-          />
-        </div>
+        <FilterCluster
+          clientFilter={clientFilter} onClientFilter={onClientFilter}
+          waveFilter={waveFilter}     onWaveFilter={onWaveFilter}
+          regionFilter={regionFilter} onRegionFilter={onRegionFilter}
+          whisperFilter={whisperFilter} onWhisperFilter={onWhisperFilter}
+        />
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 10, alignItems: 'stretch' }}>
         {STAGES.map((stage) => {
