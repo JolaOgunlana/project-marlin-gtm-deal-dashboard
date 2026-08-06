@@ -847,7 +847,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           {/* Card 1: Wave 3 clients engaged */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-              <span style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1 }}>21</span>
+              <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>21</span>
               <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 3 clients engaged</div>
@@ -855,13 +855,13 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 2: In Wave 1 whisper scope */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#1d6b12', lineHeight: 1, marginBottom: 8 }}>13</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>13</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 1 whisper scope (8 not planned)</div>
           </div>
 
           {/* Card 3: Of in-scope whisper ACV in Alignment */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1, marginBottom: 8 }}>11%</div>
+            <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>11%</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
           </div>
 
@@ -918,9 +918,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
                 const isHigh = val.toLowerCase().startsWith('high')
                 const isMed  = val.toLowerCase().startsWith('med')
-                const bg   = isHigh ? '#e9fbe6' : isMed ? '#fdf1c9' : '#fce8ef'
-                const col  = isHigh ? '#1d6b12' : isMed ? '#8a6a00' : '#8a1040'
-                const dot  = isHigh ? '#4bcd3e' : isMed ? '#e8a800' : '#B21A53'
+                const bg   = isHigh ? '#e9fbe6' : isMed ? '#E6E7E8' : '#fce8ef'
+                const col  = isHigh ? '#1d6b12' : isMed ? '#3d4455' : '#8a1040'
+                const dot  = isHigh ? '#4bcd3e' : isMed ? '#6f7d94' : '#B21A53'
                 return (
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '5px 9px', borderRadius: 7, background: bg, color: col, fontSize: 10.5, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', whiteSpace: 'nowrap', border: '1.5px solid transparent' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: dot, flexShrink: 0 }} />
@@ -965,7 +965,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#1d6b12' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
+                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#4bcd3e' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
                       <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
                       <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>
                         ›

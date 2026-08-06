@@ -273,9 +273,9 @@ function RatingPill({ rating, onClick, active, noSignals }: { rating: Rating; on
 function OverallScore({ score, noSignals }: { score: number | null; noSignals?: boolean }) {
   if (score === null) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.35)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const band = scoreBand(score)
-    const barColor = band === 'High' ? '#4bcd3e' : band === 'Medium' ? '#e8a800' : '#B21A53'
-    const badgeBg = band === 'High' ? '#e9fbe6' : band === 'Medium' ? '#fdf1c9' : '#fce8ef'
-    const badgeColor = band === 'High' ? '#1d6b12' : band === 'Medium' ? '#8a6a00' : '#8a1040'
+    const barColor = band === 'High' ? '#4bcd3e' : band === 'Medium' ? '#6f7d94' : '#B21A53'
+    const badgeBg = band === 'High' ? '#e9fbe6' : band === 'Medium' ? '#E6E7E8' : '#fce8ef'
+    const badgeColor = band === 'High' ? '#1d6b12' : band === 'Medium' ? '#3d4455' : '#8a1040'
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, padding: '6px 13px', borderRadius: 8, background: badgeBg, color: badgeColor, fontSize: 12.5, fontWeight: 800, minWidth: 90 }}>
@@ -629,7 +629,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
           <div key={l} style={{ flex: 1, textAlign: 'center' }}>
             <span style={{
               fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
-              color: l === 'HIGH' ? '#1d6b12' : l === 'LOW' ? '#8a1040' : '#8a6a00',
+              color: l === 'HIGH' ? '#1d6b12' : l === 'LOW' ? '#8a1040' : '#3d4455',
             }}>{l}</span>
           </div>
         ))}
@@ -792,7 +792,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             }}>
               <span style={{
                 fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
-                color: l === 'HIGH' ? '#1d6b12' : l === 'MEDIUM' ? '#8a6a00' : '#8a1040',
+                color: l === 'HIGH' ? '#1d6b12' : l === 'MEDIUM' ? '#3d4455' : '#8a1040',
                 writingMode: 'vertical-rl', transform: 'rotate(180deg)',
               }}>{l}</span>
             </div>
@@ -1209,7 +1209,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>The client&apos;s existing pricing model already aligns with the proposed pricing structure, and discount expectations are in line with what can be offered.</td>
                     </tr>
                     <tr style={{ borderBottom: '1px solid #eef0f6' }}>
-                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#8a6a00' }}>Medium</span></td>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#3d4455' }}>Medium</span></td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness in principle, paired with an unresolved concern or condition that hasn&apos;t been ruled out yet, including external factors such as timing not being right.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness to specific service types, paired with an explicit exclusion in another area, including external factors such as timing not being right.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>General openness to digital transformation, but with conditions, timing concerns, or a preference for a phased approach before committing.</td>
