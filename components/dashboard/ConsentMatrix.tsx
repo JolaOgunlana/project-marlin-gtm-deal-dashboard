@@ -941,11 +941,6 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
         </div>
       </div>
 
-      {/* Hover note */}
-      <div style={{ padding: '8px 24px', fontSize: 12, color: 'rgba(26,31,78,0.5)', fontStyle: 'italic' }}>
-        Hover over any bubble to see client details.
-      </div>
-
       {/* Tooltip */}
       {tooltip && (() => {
         const c = tooltip.client
