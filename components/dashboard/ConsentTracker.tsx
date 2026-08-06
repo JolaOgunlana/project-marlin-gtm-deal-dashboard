@@ -620,7 +620,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
 
             const ProgressBar = ({ pct, color }: { pct: number; color: string }) => (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
-                <div style={{ flex: 1, height: 6, background: 'rgba(26,31,78,0.10)', borderRadius: 99, overflow: 'hidden' }}>
+                <div style={{ flex: 1, height: 10, background: 'rgba(26,31,78,0.10)', borderRadius: 99, overflow: 'hidden' }}>
                   <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 99 }} />
                 </div>
                 <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.55)', minWidth: 28 }}>{pct}%</span>
