@@ -302,7 +302,7 @@ const STATS = [
     label: 'Not Pursuing',
     tag: 'CLOSED',
     count: 0,
-    countColor: '#c0392b',
+    countColor: '#B21A53',
     revenue: '$0M',
     revenueLabel: 'Annual contract value',
     region: '0 NA · 0 EMEA',
@@ -358,7 +358,7 @@ function CurrentStagePill({ step }: { step: TrackerClient['currentStep'] }) {
     alignment:     { bg: AMBER_BG,   color: AMBER,      label: 'Alignment' },
     consent:       { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
     committed:     { bg: GREEN_BG,   color: GREEN,       label: 'Committed' },
-    'not-pursuing':{ bg: '#fad4ce',  color: '#c0392b',   label: 'Not Pursuing' },
+    'not-pursuing':{ bg: '#fce8ef',  color: '#B21A53',   label: 'Not Pursuing' },
     signed:        { bg: INK,        color: '#fff',      label: 'Signed' },
   }
   const s = map[step]
@@ -724,7 +724,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           })()}
         </div>
 
-        {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
+        {/* ── Wave 1 Whisper Completion Status ─���────────────────────── */}
         {(() => {
           const cols = [
             {
