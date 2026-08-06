@@ -513,6 +513,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
+  const [expandedRow, setExpandedRow] = useState<string | null>(null)
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -850,7 +851,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         <div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
             {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV Business Case</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
@@ -908,25 +909,88 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               }
 
               return rows.map((row, i) => {
-                const isAlt = i % 2 === 1
+                const isAlt    = i % 2 === 1
+                const isOpen   = expandedRow === row.name
+                const whisper  = WHISPER_DATA[row.name] ?? []
+                const defaultLevels = ['Outsourcing', 'Offshoring', 'Digitization', 'Price Maintain']
+                const displayData = whisper.length > 0 ? whisper : defaultLevels.map(l => ({ lever: l, learnings: [], points: [{ plain: 'N/A' }] }))
+
                 return (
-                  <div key={row.name}
-                    style={{
-                      display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr',
-                      padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
-                      background: isAlt ? '#fafbfc' : '#fff',
-                      borderBottom: BORDER,
-                    }}
-                  >
-                    <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
-                    <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
-                    <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
-                    <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
-                    <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
-                    <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
-                    <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                    <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#4bcd3e' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
-                    <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
+                  <div key={row.name}>
+                    {/* Main row */}
+                    <div
+                      onClick={() => setExpandedRow(isOpen ? null : row.name)}
+                      style={{
+                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
+                        padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
+                        background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
+                        borderBottom: BORDER,
+                        cursor: 'pointer',
+                      }}
+                      onMouseEnter={e => { if (!isOpen) (e.currentTarget as HTMLDivElement).style.background = 'rgba(91,45,110,0.03)' }}
+                      onMouseLeave={e => { if (!isOpen) (e.currentTarget as HTMLDivElement).style.background = isAlt ? '#fafbfc' : '#fff' }}
+                    >
+                      <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
+                      <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
+                      <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
+                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#4bcd3e' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
+                      <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
+                      <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>›</div>
+                    </div>
+
+                    {/* Expandable whisper detail panel */}
+                    {isOpen && (
+                      <div style={{ borderBottom: BORDER, background: '#fafbff' }}>
+                        {/* Panel header */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', background: '#f0eef8', borderBottom: '1px solid #e2ddf0' }}>
+                          {['Lever', 'Learnings', 'Points to Address'].map(h => (
+                            <div key={h} style={{ padding: '9px 20px', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: '#5b2d6e' }}>{h}</div>
+                          ))}
+                        </div>
+                        {/* Lever rows */}
+                        {displayData.map((lev, li) => (
+                          <div key={lev.lever} style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', borderTop: li > 0 ? '1px solid #eef0f6' : undefined }}>
+                            <div style={{ padding: '12px 20px', fontSize: 11.5, fontWeight: 700, color: INK, textTransform: 'uppercase', letterSpacing: '0.04em', paddingTop: 14 }}>{lev.lever}</div>
+                            <div style={{ padding: '12px 20px', fontSize: 12.5, lineHeight: 1.55, color: INK, borderLeft: '1px solid #eef0f6' }}>
+                              {lev.learnings.length === 0
+                                ? <span style={{ color: 'rgba(26,31,78,0.38)', fontStyle: 'italic', fontSize: 11.5 }}>N/A</span>
+                                : lev.learnings.map((l, idx) => (
+                                  <div key={idx} style={{ position: 'relative', paddingLeft: 14, marginBottom: idx < lev.learnings.length - 1 ? 5 : 0 }}>
+                                    <span style={{ position: 'absolute', left: 2, color: 'rgba(26,31,78,0.4)' }}>•</span>
+                                    {l}
+                                  </div>
+                                ))
+                              }
+                            </div>
+                            <div style={{ padding: '12px 20px', fontSize: 12.5, lineHeight: 1.55, color: INK, borderLeft: '1px solid #eef0f6' }}>
+                              {lev.points.map((p, idx) => (
+                                'plain' in p
+                                  ? <div key={idx} style={{ color: 'rgba(26,31,78,0.38)', fontStyle: 'italic', fontSize: 11.5 }}>{p.plain}</div>
+                                  : <div key={idx} style={{ position: 'relative', paddingLeft: 14, marginBottom: idx < lev.points.length - 1 ? 5 : 0 }}>
+                                      <span style={{ position: 'absolute', left: 2, color: 'rgba(26,31,78,0.4)' }}>•</span>
+                                      <button
+                                        onClick={e => { e.stopPropagation(); onFaqLink(p.id) }}
+                                        style={{
+                                          background: 'none', border: 'none', padding: 0,
+                                          fontFamily: 'inherit', fontSize: 12.5, color: INK,
+                                          cursor: 'pointer', textAlign: 'left',
+                                          borderBottom: '1px dotted rgba(91,45,110,0.5)',
+                                          lineHeight: 1.55,
+                                        }}
+                                      >
+                                        {p.label} <span style={{ fontSize: 10, color: '#5b2d6e' }}>→ FAQ</span>
+                                      </button>
+                                    </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )
               })
