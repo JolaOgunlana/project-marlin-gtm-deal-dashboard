@@ -677,86 +677,100 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         </div>
 
         {/* ── Wave 1 Whisper Completion Status ──────────────────────── */}
-        <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
-          {/* Title bar */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 whisper completion</span>
-            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>21 clients · 13 in scope · $93.5M</span>
-          </div>
+        {(() => {
+          const cols = [
+            {
+              label: 'Completed',
+              date: null,
+              barColor: '#2d7a0f',
+              acv: '$53.7M',
+              acvColor: '#2d7a0f',
+              meta: '7 clients · 57% of ACV · 33% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
+              nameColor: '#2d7a0f',
+            },
+            {
+              label: 'Whisper ETA',
+              date: 'Aug 7',
+              barColor: '#3d3270',
+              acv: '$25.3M',
+              acvColor: '#1a1f4e',
+              meta: '4 clients · 27% of ACV · 19% of clients',
+              names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
+              nameColor: '#3d3270',
+            },
+            {
+              label: 'Whisper ETA',
+              date: 'Aug 14',
+              barColor: '#1a1f4e',
+              acv: '$9.4M',
+              acvColor: '#1a1f4e',
+              meta: '2 clients · 10% of ACV · 10% of clients',
+              names: ['UBS', 'Brim Financial'],
+              nameColor: '#1a1f4e',
+            },
+            {
+              label: 'No whisper planned',
+              date: null,
+              barColor: '#9aa0b0',
+              acv: '$5.1M',
+              acvColor: '#1a1f4e',
+              meta: '8 clients · 6% of ACV · 38% of clients',
+              names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
+              nameColor: '#9aa0b0',
+            },
+          ]
 
-          {/* Green bar for completed section */}
-          <div style={{ display: 'grid', gridTemplateColumns: '0 1fr 0 1fr 0 1fr 0 1fr', height: 4 }}>
-            <div style={{ background: '#2d7a0f', gridColumn: '2 / 3' }} />
-          </div>
+          return (
+            <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
+              {/* Title bar */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+                <span style={{ fontSize: 18, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
+                <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>21 clients · 13 in scope · $93.5M</span>
+              </div>
 
-          {/* Four column layout */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-            {(() => {
-              const cols = [
-                {
-                  label: 'Completed',
-                  acv: '$53.7M',
-                  acvColor: '#2d7a0f',
-                  clients: '7 clients',
-                  pct: '57% of ACV · 33% of clients',
-                  names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
-                  nameColor: '#2d7a0f',
-                },
-                {
-                  label: 'Whisper ETA',
-                  date: 'Aug 7',
-                  acv: '$25.3M',
-                  acvColor: '#5a3d82',
-                  clients: '4 clients',
-                  pct: '27% of ACV · 19% of clients',
-                  names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
-                  nameColor: '#5a3d82',
-                },
-                {
-                  label: 'Whisper ETA',
-                  date: 'Aug 14',
-                  acv: '$9.4M',
-                  acvColor: '#1a1f4e',
-                  clients: '2 clients',
-                  pct: '10% of ACV · 10% of clients',
-                  names: ['UBS', 'Brim Financial'],
-                  nameColor: '#1a1f4e',
-                },
-                {
-                  label: 'No whisper planned',
-                  acv: '$5.1M',
-                  acvColor: '#556070',
-                  clients: '8 clients',
-                  pct: '6% of ACV · 38% of clients',
-                  names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
-                  nameColor: '#7a8196',
-                },
-              ]
+              {/* Per-column top color bars */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                {cols.map((c, i) => (
+                  <div key={i} style={{ height: 4, background: c.barColor, borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }} />
+                ))}
+              </div>
 
-              return cols.map((col, i) => (
-                <div key={i} style={{ padding: '18px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 2 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: col.acvColor }}>{col.label}</div>
-                    {col.date && <div style={{ fontSize: 11, color: 'rgba(26,31,78,0.42)' }}>{col.date}</div>}
+              {/* Four columns */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                {cols.map((col, i) => (
+                  <div key={i} style={{ padding: '20px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
+
+                    {/* Label + date */}
+                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>{col.label}</span>
+                      {col.date && <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>{col.date}</span>}
+                    </div>
+
+                    {/* ACV */}
+                    <div style={{ fontSize: 30, fontWeight: 800, color: col.acvColor, lineHeight: 1, marginBottom: 6 }}>{col.acv}</div>
+
+                    {/* Meta line */}
+                    <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)', marginBottom: 14, lineHeight: 1.4 }}>
+                      <span style={{ fontWeight: 700, color: INK }}>{col.meta.split(' · ')[0]}</span>
+                      {' · ' + col.meta.split(' · ').slice(1).join(' · ')}
+                    </div>
+
+                    {/* Dashed divider */}
+                    <div style={{ borderTop: '1px dashed #d4d7e3', marginBottom: 14 }} />
+
+                    {/* Client name list */}
+                    <ul style={{ margin: 0, paddingLeft: 16, listStyle: 'disc', flex: 1 }}>
+                      {col.names.map((name, ni) => (
+                        <li key={ni} style={{ fontSize: 13, color: col.nameColor, marginBottom: 5, lineHeight: 1.5 }}>{name}</li>
+                      ))}
+                    </ul>
                   </div>
-
-                  <div style={{ fontSize: 26, fontWeight: 800, color: col.acvColor, marginBottom: 6, lineHeight: 1 }}>{col.acv}</div>
-
-                  <div style={{ fontSize: 13, color: INK, marginBottom: 12, lineHeight: 1.4 }}>
-                    <div style={{ fontWeight: 600 }}>{col.clients}</div>
-                    <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)' }}>{col.pct}</div>
-                  </div>
-
-                  <ul style={{ margin: 0, paddingLeft: 18, listStyle: 'disc', fontSize: 13, lineHeight: 1.6, flex: 1 }}>
-                    {col.names.map((name, ni) => (
-                      <li key={ni} style={{ marginBottom: 4, color: col.nameColor }}>{name}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))
-            })()}
-          </div>
-        </div>
+                ))}
+              </div>
+            </div>
+          )
+        })()}
 
         {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
         <div style={{ padding: '14px 0', marginTop: 32, marginBottom: 14 }}>
