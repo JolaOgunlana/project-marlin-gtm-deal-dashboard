@@ -27,7 +27,7 @@ const STAGES = [
   { key: '2',    label: 'Early Sales',          color: '#B7860B', labelColor: '#B7860B',  num: 2, suffix: '',          desc: 'Whisper conversation conducted with client.' },
   { key: '3',    label: 'Mid Sales',            color: '#1a6fa8', labelColor: '#1a6fa8',  num: 3, suffix: '',          desc: 'First pitch delivered to client.' },
   { key: '4',    label: 'Late Sales / Pricing', color: '#1a6fa8', labelColor: '#1a6fa8',  num: 4, suffix: '',          desc: 'Client has agreed to further meetings; pricing and commercial terms are under discussion.' },
-  { key: '5',    label: 'Contracting',          color: '#16a34a', labelColor: '#15803d',  num: 5, suffix: '',          desc: 'Contract amendment submitted to legal; negotiations in progress, with commercial terms and pricing verbally agreed by client.' },
+  { key: '5',    label: 'Contracting',          color: '#52b000', labelColor: '#52b000',  num: 5, suffix: '',          desc: 'Contract amendment submitted to legal; negotiations in progress, with commercial terms and pricing verbally agreed by client.' },
   { key: '6',    label: 'Executed',             color: '#52b000', labelColor: '#52b000',  num: 6, suffix: ' \u2713',   desc: null },
   { key: '8',    label: 'Disqualified',         color: '#d0021b', labelColor: '#d0021b',  num: 8, suffix: ' \u2715',   desc: null },
 ]
