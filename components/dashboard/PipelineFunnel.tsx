@@ -199,6 +199,76 @@ function FilterCluster({
   )
 }
 
+function ConsentPhaseChevron({
+  label, step, accent, flex, shape,
+}: {
+  label: string
+  step: string
+  accent: string
+  flex: number
+  shape: 'first' | 'middle' | 'last'
+}) {
+  const [hovered, setHovered] = useState(false)
+
+  // clip-path polygons for the chevron shapes (height 38px, point depth 14px)
+  const clipPaths = {
+    first:  'polygon(0% 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 0% 100%)',
+    middle: 'polygon(0% 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 0% 100%, 14px 50%)',
+    last:   'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 14px 50%)',
+  }
+
+  const borderRadius = shape === 'first' ? '8px 0 0 8px' : shape === 'last' ? '0 8px 8px 0' : '0'
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        flex,
+        position: 'relative',
+        marginLeft: shape !== 'first' ? -14 : 0,
+        zIndex: shape === 'first' ? 3 : shape === 'middle' ? 2 : 1,
+      }}
+    >
+      {/* Connector tick — thin vertical line rising from top center into the gap above */}
+      <div style={{
+        position: 'absolute',
+        top: -12,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 1.5,
+        height: 12,
+        background: accent,
+        opacity: 0.3,
+        pointerEvents: 'none',
+      }} />
+
+      {/* Chevron body */}
+      <div
+        style={{
+          height: 38,
+          background: hovered
+            ? `${accent}22`
+            : `${accent}12`,
+          clipPath: clipPaths[shape],
+          borderRadius,
+          paddingLeft: shape !== 'first' ? 28 : 14,
+          paddingRight: 18,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          transition: 'background 0.2s',
+          cursor: 'default',
+          userSelect: 'none',
+        }}
+      >
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', color: accent, opacity: 0.5 }}>{step}</span>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: accent, whiteSpace: 'nowrap' }}>{label}</span>
+      </div>
+    </div>
+  )
+}
+
 export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter, onClientFilter, onWaveFilter, onRegionFilter, onStageFilter, onWhisperFilter }: PipelineFunnelProps) {
   const stageCounts = useMemo(() => {
     const cnt: Record<string, number> = {}
@@ -324,6 +394,70 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
             </button>
           )
         })}
+      </div>
+
+      {/* ── Consent Stage Phase Bar ──────────────────────────────────── */}
+      <div style={{ marginTop: 30, marginBottom: 4 }}>
+        {/* Eyebrow label */}
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.38)', marginBottom: 8 }}>
+          Consent Stage
+        </div>
+
+        {/* Phase bar row — same 7-column proportions as the funnel grid */}
+        <div style={{ display: 'flex', gap: 10, alignItems: 'stretch' }}>
+
+          {/* ── Flowing track: Exploration (2) + Alignment (2) + Committed (1) ── */}
+          <div style={{ flex: 5, display: 'flex', minWidth: 0 }}>
+
+            {/* Exploration — flat-left / pointed-right */}
+            <ConsentPhaseChevron
+              label="Exploration"
+              step="01"
+              accent="#1a1f4e"
+              flex={2}
+              shape="first"
+            />
+
+            {/* Alignment — notched-left / pointed-right */}
+            <ConsentPhaseChevron
+              label="Alignment"
+              step="02"
+              accent="#0891b2"
+              flex={2}
+              shape="middle"
+            />
+
+            {/* Committed — notched-left / flat-right */}
+            <ConsentPhaseChevron
+              label="Committed"
+              step="03"
+              accent="#4bcd3e"
+              flex={1}
+              shape="last"
+            />
+          </div>
+
+          {/* ── Terminal stages — Executed ── */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Executed</span>
+            </div>
+          </div>
+
+          {/* ── Terminal stages — Disqualified ── */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{
+              height: 38, borderRadius: 8, border: '1.5px dashed #d1d5e0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.28)', whiteSpace: 'nowrap' }}>Disqualified</span>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       </div>{/* closes padding wrapper */}
