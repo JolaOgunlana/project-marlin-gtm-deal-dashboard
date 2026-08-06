@@ -940,7 +940,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
               return rows.map((row, i) => {
                 const isAlt    = i % 2 === 1
-                const isOpen   = expandedRow === row.name
+                const isOpen   = false
                 const whisper  = WHISPER_DATA[row.name] ?? []
                 const defaultLevels = ['Outsourcing', 'Offshoring', 'Digitization', 'Price Maintain']
                 const displayData = whisper.length > 0 ? whisper : defaultLevels.map(l => ({ lever: l, learnings: [], points: [{ plain: 'N/A' }] }))
