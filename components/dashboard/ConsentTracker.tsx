@@ -513,7 +513,6 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
-  const [wave1Open, setWave1Open] = useState(false)
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -754,33 +753,14 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail Accordion ────────────────────────── */}
         <div style={{ marginTop: 24, border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
-          {/* Accordion header button */}
-          <button
-            onClick={() => setWave1Open(v => !v)}
-            style={{
-              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '18px 24px', background: wave1Open ? INK : '#fff',
-              border: 'none', cursor: 'pointer', transition: 'background 0.2s',
-            }}
-          >
-            <span style={{ fontSize: 17, fontWeight: 800, color: wave1Open ? '#fff' : INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 12, fontWeight: 500, color: wave1Open ? 'rgba(255,255,255,0.5)' : 'rgba(26,31,78,0.38)' }}>
-                Whisper completion &amp; client breakdown
-              </span>
-              <div style={{
-                width: 28, height: 28, borderRadius: '50%',
-                background: wave1Open ? 'rgba(255,255,255,0.12)' : 'rgba(26,31,78,0.07)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0,
-              }}>
-                <span style={{ fontSize: 15, color: wave1Open ? '#fff' : INK, lineHeight: 1, display: 'block', transform: wave1Open ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>›</span>
-              </div>
-            </div>
-          </button>
+          {/* Section header */}
+          <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', background: INK }}>
+            <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
+            <span style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.5)' }}>Whisper completion &amp; client breakdown</span>
+          </div>
 
-          {/* Accordion body */}
-          {wave1Open && (
+          {/* Section body */}
+          {(
             <div style={{ background: '#f8f9fc', borderTop: '1px solid #e2e4ee', padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ─────────────────────────────── */}
