@@ -155,8 +155,8 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       color: '#3a6e00',
       links: [
         { label: 'Deal Dashboard', page: 'dashboard' },
-        { label: 'Client Consent Matrix', page: 'consent' },
-        { label: 'Consent Tracker', page: 'tracker' },
+        { label: 'Consent Matrix', page: 'consent' },
+        { label: 'GTM Status', page: 'tracker' },
       ],
     },
   ]
