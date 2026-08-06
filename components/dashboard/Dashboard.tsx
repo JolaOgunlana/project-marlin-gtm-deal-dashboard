@@ -11,7 +11,7 @@ type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
 type WhisperFilter = 'all' | 'completed'
 
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
   const [clientFilter, setClientFilter] = useState<ClientFilter>('total')
@@ -70,7 +70,6 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
             { id: 'tracker',   label: 'GTM Status' },
             { id: 'consent',   label: 'Consent Matrix' },
             { id: 'dashboard', label: 'Deal Dashboard' },
-            { id: 'debrief',   label: 'Whisper Conversation Debrief' },
             { id: 'faq',       label: 'Sales FAQ' },
             { id: 'cover',     label: 'How to Use' },
           ] as { id: Page; label: string }[]).map(tab => (

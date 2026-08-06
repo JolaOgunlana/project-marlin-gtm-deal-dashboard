@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 // ── Shared nav banner ─────────────────────────────────────────────────────────
 export function NavBanner({ page, onNavigate, title }: {
@@ -14,7 +14,6 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'tracker',   label: 'GTM Status' },
     { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
-    { id: 'debrief',   label: 'Whisper Conversation Debrief' },
     { id: 'faq',       label: 'Sales FAQ' },
     { id: 'cover',     label: 'How to Use' },
   ]
@@ -144,7 +143,6 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       desc: 'See what we learned and what still needs addressing per client, across the four levers. Each point links to a ready FAQ response for your next conversation.',
       color: '#5b2d6e',
       links: [
-        { label: 'Whisper Conversation Debrief', page: 'debrief' },
         { label: 'Sales FAQ', page: 'faq' },
       ],
     },

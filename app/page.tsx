@@ -4,10 +4,9 @@ import { useState } from 'react'
 import { Dashboard } from '@/components/dashboard/Dashboard'
 import { ConsentMatrix } from '@/components/dashboard/ConsentMatrix'
 import { CoverPage } from '@/components/dashboard/CoverPage'
-import { WhisperDebriefPage, FaqPage } from '@/components/dashboard/WhisperDebrief'
-import { ConsentTrackerPage } from '@/components/dashboard/ConsentTracker'
+import { FaqPage } from '@/components/dashboard/WhisperDebrief'
 
-export type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+export type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 export default function Home() {
   const [page, setPage] = useState<Page>('tracker')
@@ -31,7 +30,6 @@ export default function Home() {
   return (
     <main style={{ minHeight: '100vh', background: '#f4f5f9' }}>
       {page === 'cover'     && <CoverPage page={page} onNavigate={navigate} />}
-      {page === 'debrief'   && <WhisperDebriefPage page={page} onNavigate={navigate} onFaqLink={handleFaqLink} />}
       {page === 'faq'       && <FaqPage page={page} onNavigate={navigate} highlightId={faqHighlight} onClearHighlight={() => setFaqHighlight(null)} />}
       {page === 'dashboard' && <Dashboard page={page} onNavigate={navigate} />}
       {page === 'consent'   && <ConsentMatrix page={page} onNavigate={navigate} />}

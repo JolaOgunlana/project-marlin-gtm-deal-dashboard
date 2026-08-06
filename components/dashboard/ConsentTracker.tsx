@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { NavBanner } from './CoverPage'
 
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 const INK   = '#1a1f4e'
@@ -74,7 +74,7 @@ interface EvidenceRow {
   question: string
   answer: string
   date?: string
-  link?: 'debrief' | 'faq'
+  link?: 'faq'
 }
 
 interface StageBlock {
@@ -110,7 +110,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '15 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '15 May 2026', link: 'faq' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Open to further outsourcing; concerns around PRA regulation and offshore voice flagged.', link: 'faq' },
           { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'No formal follow-up confirmed yet.' },
         ],
@@ -148,7 +148,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '8 Jun 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '8 Jun 2026', link: 'faq' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested case studies on digital transformation and geographic delivery capabilities.', link: 'faq' },
           { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Follow-up meeting scheduled; internal sponsors committed.' },
         ],
@@ -186,7 +186,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'done',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '22 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '22 May 2026', link: 'faq' },
           { status: 'y', question: 'Did the client request additional information?', answer: 'Yes. Requested offshore capability details and delivery location options for voice and back-office.', link: 'faq' },
           { status: 'y', question: 'Has the client remained engaged in the process?', answer: 'Yes. Formal pitch requested; targeting late August or early September.' },
         ],
@@ -224,7 +224,7 @@ const CLIENTS: TrackerClient[] = [
         step: 'exploration',
         status: 'active',
         evidence: [
-          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'debrief' },
+          { status: 'y', question: 'Have whisper conversations been held?', answer: 'Yes. Whisper held.', date: '28 May 2026', link: 'faq' },
           { status: 'q', question: 'Did the client request additional information?', answer: 'No request yet', link: 'faq' },
           { status: 'q', question: 'Has the client remained engaged in the process?', answer: 'Not Assessed Yet' },
         ],
@@ -407,7 +407,7 @@ function SbHead({ step, status }: { step: ConsentStep; status: StepStatus }) {
   )
 }
 
-function EvidenceRows({ rows, onLink }: { rows: EvidenceRow[]; onLink: (target: 'debrief' | 'faq') => void }) {
+function EvidenceRows({ rows, onLink }: { rows: EvidenceRow[]; onLink: (target: 'faq') => void }) {
   return (
     <div style={{ padding: '6px 14px 12px' }}>
       {rows.map((r, i) => (
