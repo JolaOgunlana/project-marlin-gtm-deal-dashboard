@@ -487,78 +487,121 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           overflow: 'hidden',
         }}>
           {/* Section title bar */}
-          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Consent Stages</span>
+          {/* Title bar */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Consent stages</span>
+            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.38)', fontWeight: 500 }}>Pipeline reads left to right · Not Pursuing is the off-ramp</span>
+          </div>
+
+          {/* Color bar per stage */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', height: 5 }}>
+            {STATS.map((s) => (
+              <div key={s.label} style={{ background: s.countColor }} />
+            ))}
           </div>
 
           {/* Four equal columns */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-            {STATS.map((s, i) => {
-              return (
-                <div key={s.label} style={{
-                  padding: '18px 22px 20px',
-                  borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined,
-                  display: 'flex',
-                  flexDirection: 'column',
+            {STATS.map((s, i) => (
+              <div key={s.label} style={{
+                padding: '18px 22px 22px',
+                borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined,
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+                {/* Stage label + tag */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.countColor }}>{s.label}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.35)' }}>{s.tag}</div>
+                </div>
+
+                {/* ACV + client count inline */}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 4 }}>
+                  <span style={{ fontSize: 36, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.revenue}</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: INK, lineHeight: 1 }}>{s.count}</span>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: MUTED_D, lineHeight: 1 }}>{s.count === 1 ? 'client' : 'clients'}</span>
+                </div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: MUTED_D, marginBottom: 14 }}>{s.revenueLabel}</div>
+
+                {/* Description */}
+                <div style={{ fontSize: 13, color: MUTED_D, lineHeight: 1.6, marginBottom: 18, flex: 1 }}>
+                  {s.descriptionParts.map((part, pi) => (
+                    part.bold
+                      ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
+                      : <span key={pi}>{part.text}</span>
+                  ))}
+                </div>
+
+                {/* SF mapping pill */}
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center',
+                  fontSize: 12, fontWeight: 500,
+                  color: 'rgba(26,31,78,0.50)',
+                  background: 'rgba(26,31,78,0.05)',
+                  border: '1px solid rgba(26,31,78,0.10)',
+                  borderRadius: 20,
+                  padding: '5px 14px',
+                  alignSelf: 'flex-start',
+                  marginTop: 'auto',
                 }}>
-                  {/* Stage label + tag */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-                    <div style={{
-                      fontSize: 15,
-                      fontWeight: 800,
-                      letterSpacing: '0.07em',
-                      textTransform: 'uppercase',
-                      color: s.countColor,
-                    }}>{s.label}</div>
-                    <div style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      letterSpacing: '0.09em',
-                      textTransform: 'uppercase',
-                      color: 'rgba(26,31,78,0.38)',
-                    }}>{s.tag}</div>
-                  </div>
-                  {/* ACV + client count */}
-                  <div style={{ marginBottom: 14 }}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 28 }}>
-                      <div>
-                        <span style={{ fontSize: 40, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.revenue}</span>
-                        <div style={{ fontSize: 11, color: MUTED_D, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.revenueLabel}</div>
+                  {s.sfStages}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Where the ACV actually sits */}
+          <div style={{ borderTop: '1px solid #e2e4ee', padding: '20px 22px 24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+              <span style={{ fontSize: 14, fontWeight: 700, color: INK }}>Where the ACV actually sits</span>
+              <span style={{ fontSize: 11, color: 'rgba(26,31,78,0.38)' }}>Bar width ∝ annual contract value</span>
+            </div>
+
+            {/* Bars */}
+            {(() => {
+              const maxAcv = 141.5
+              const target = 25
+              const targetPct = (target / maxAcv) * 100
+              const bars = [
+                { label: 'Exploration', color: INK,      acv: 141.5, clients: 63,  text: '$141.5M · 63 clients', empty: false },
+                { label: 'Alignment',   color: '#1a6fa8', acv: 10.3,  clients: 1,   text: '$10.3M',               empty: false },
+                { label: 'Committed',   color: '#16a34a', acv: 0,     clients: 0,   text: '',                     empty: true  },
+              ]
+              return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative' }}>
+                  {bars.map((bar) => {
+                    const widthPct = bar.acv > 0 ? Math.max((bar.acv / maxAcv) * 100, 8) : 0
+                    return (
+                      <div key={bar.label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{ width: 80, textAlign: 'right', fontSize: 13, fontWeight: 700, color: bar.color, flexShrink: 0 }}>{bar.label}</div>
+                        <div style={{ flex: 1, position: 'relative' }}>
+                          {bar.empty ? (
+                            <div style={{ height: 36, display: 'flex', alignItems: 'center', paddingLeft: 12, fontSize: 13, color: MUTED_D, fontStyle: 'italic', border: '1px dashed rgba(26,31,78,0.18)', borderRadius: 6 }}>
+                              $0M — no clients converted yet
+                            </div>
+                          ) : (
+                            <div style={{ width: `${widthPct}%`, height: 36, background: bar.color, borderRadius: 6, display: 'flex', alignItems: 'center', paddingLeft: 14 }}>
+                              <span style={{ fontSize: 13, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>{bar.text}</span>
+                            </div>
+                          )}
+                          {/* $25M target line — label only on first bar */}
+                          {bar.label === 'Exploration' && (
+                            <div style={{ position: 'absolute', top: -20, left: `${targetPct}%`, transform: 'translateX(-50%)', fontSize: 11, fontWeight: 700, color: '#c0392b', whiteSpace: 'nowrap' }}>
+                              ▼ $25M target
+                            </div>
+                          )}
+                          <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${targetPct}%`, width: 1, borderLeft: '2px dashed #c0392b', pointerEvents: 'none' }} />
+                        </div>
                       </div>
-                      <div>
-                        <span style={{ fontSize: 28, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.count} <span style={{ fontSize: 13, fontWeight: 600, color: MUTED_D }}>clients</span></span>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Description */}
-                  <div style={{ fontSize: 14, color: MUTED_D, lineHeight: 1.65, marginBottom: 16, flex: 1 }}>
-                    {s.descriptionParts.map((part, pi) => (
-                      part.bold
-                        ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
-                        : <span key={pi}>{part.text}</span>
-                    ))}
-                  </div>
-                  {/* SF mapping pill */}
-                  <div style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 5,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: 'rgba(26,31,78,0.45)',
-                    background: 'rgba(26,31,78,0.05)',
-                    border: '1px solid rgba(26,31,78,0.10)',
-                    borderRadius: 6,
-                    padding: '5px 12px',
-                    alignSelf: 'flex-start',
-                    marginTop: 'auto',
-                    letterSpacing: '0.01em',
-                  }}>
-                    {s.sfStages}
+                    )
+                  })}
+                  {/* Insight line */}
+                  <div style={{ marginTop: 12, fontSize: 13, color: MUTED_D, paddingLeft: 92 }}>
+                    Exploration ACV is <strong style={{ color: INK }}>5.7×</strong> the year-end target, but nothing has converted. <span style={{ color: '#c0392b' }}>The task is conversion, not top-of-funnel volume.</span>
                   </div>
                 </div>
               )
-            })}
+            })()}
           </div>
         </div>
 
