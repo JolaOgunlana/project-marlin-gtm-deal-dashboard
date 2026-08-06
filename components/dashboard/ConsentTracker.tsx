@@ -650,6 +650,90 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>
         </div>
 
+        {/* ── Program coverage by wave ────────────────────────────── */}
+        {(() => {
+          const waves = [
+            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 64, clients: 21, clientPct: 33 },
+            { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$18.7M',  acvPct: 13, clients: 27, clientPct: 42 },
+            { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$33.0M',  acvPct: 23, clients: 16, clientPct: 25 },
+          ]
+          const CELL: React.CSSProperties = { padding: '18px 24px', borderLeft: '1px solid #e8eaf0', verticalAlign: 'top' }
+          const LABEL: React.CSSProperties = { fontSize: 12, fontWeight: 700, color: 'rgba(26,31,78,0.45)', textTransform: 'uppercase', letterSpacing: '0.07em' }
+          return (
+            <div style={{ marginTop: 20, background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
+              {/* Header */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 24px', borderBottom: '1px solid #e8eaf0' }}>
+                <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Program coverage by wave</span>
+                <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.4)', fontWeight: 500 }}>64 clients · $145.2M total ACV</span>
+              </div>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                {/* Column headers */}
+                <thead>
+                  <tr style={{ borderBottom: '1px solid #e8eaf0' }}>
+                    <th style={{ width: 140, padding: '14px 24px', textAlign: 'left' }} />
+                    {waves.map(w => (
+                      <th key={w.label} style={{ ...CELL, textAlign: 'right', fontWeight: 800 }}>
+                        <div style={{ fontSize: 15, fontWeight: 800, color: INK, marginBottom: 6 }}>{w.label}</div>
+                        <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', padding: '3px 9px', borderRadius: 20, background: w.statusBg, color: w.statusText }}>
+                          {w.status}
+                        </span>
+                      </th>
+                    ))}
+                    <th style={{ ...CELL, textAlign: 'right', fontWeight: 800 }}>
+                      <div style={{ fontSize: 15, fontWeight: 800, color: '#431C5B', marginBottom: 6 }}>TOTAL</div>
+                      <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', padding: '3px 9px', borderRadius: 20, background: 'rgba(67,28,91,0.1)', color: '#431C5B' }}>
+                        WAVE 1–3
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* ACV row */}
+                  <tr style={{ borderBottom: '1px solid #e8eaf0' }}>
+                    <td style={{ padding: '18px 24px', verticalAlign: 'middle' }}>
+                      <span style={{ ...LABEL }}>ACV</span>
+                    </td>
+                    {waves.map(w => (
+                      <td key={w.label} style={{ ...CELL, textAlign: 'right' }}>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: INK, marginBottom: 8 }}>{w.acv}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                          <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#e8eaf0', maxWidth: 120 }}>
+                            <div style={{ width: `${w.acvPct}%`, height: '100%', borderRadius: 3, background: '#431C5B' }} />
+                          </div>
+                          <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.5)', minWidth: 28 }}>{w.acvPct}%</span>
+                        </div>
+                      </td>
+                    ))}
+                    <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.2M</span>
+                    </td>
+                  </tr>
+                  {/* Clients row */}
+                  <tr>
+                    <td style={{ padding: '18px 24px', verticalAlign: 'middle' }}>
+                      <span style={{ ...LABEL }}>Clients</span>
+                    </td>
+                    {waves.map(w => (
+                      <td key={w.label} style={{ ...CELL, textAlign: 'right' }}>
+                        <div style={{ fontSize: 20, fontWeight: 800, color: INK, marginBottom: 8 }}>{w.clients}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                          <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#e8eaf0', maxWidth: 120 }}>
+                            <div style={{ width: `${w.clientPct}%`, height: '100%', borderRadius: 3, background: INK }} />
+                          </div>
+                          <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.5)', minWidth: 28 }}>{w.clientPct}%</span>
+                        </div>
+                      </td>
+                    ))}
+                    <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>64</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )
+        })()}
+
         {/* ── Wave 1 Client Detail Accordion ────────────────────────── */}
         <div style={{ marginTop: 24, border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
