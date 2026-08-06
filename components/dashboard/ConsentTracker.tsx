@@ -713,25 +713,25 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               <span style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1 }}>21</span>
               <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Wave 3 clients engaged</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 3 clients engaged</div>
           </div>
 
           {/* Card 2: In Wave 1 whisper scope */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>13</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>In Wave 1 whisper scope (8 not planned)</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 1 whisper scope (8 not planned)</div>
           </div>
 
           {/* Card 3: Of in-scope whisper ACV in Alignment */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ fontSize: 40, fontWeight: 900, color: INK, lineHeight: 1, marginBottom: 8 }}>11%</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Of in-scope whisper ACV in Alignment</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
           </div>
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>93</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4 }}>Avg. propensity score (in-scope)</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
         </div>
 
