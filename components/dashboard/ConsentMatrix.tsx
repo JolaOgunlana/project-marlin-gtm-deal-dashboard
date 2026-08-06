@@ -597,7 +597,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
                 {c.name}
               </div>
 
-              {/* Bubble — outer ring is the stage color, inner circle is the region color */}
+              {/* Bubble — filled circle with region color */}
               <div
                 onMouseEnter={e => {
                   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
@@ -610,23 +610,15 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
                   top: `${yPct}%`,
                   transform: 'translate(-50%, -50%)',
                   width: diam, height: diam, borderRadius: '50%',
-                  background: stageRingColor,
+                  background: bubbleBg,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
                   cursor: 'default',
                   zIndex: 4,
                   flexShrink: 0,
                 }}
-              >
-                {/* Inner filled circle */}
-                <div style={{
-                  width: diam - 4,
-                  height: diam - 4,
-                  borderRadius: '50%',
-                  background: bubbleBg,
-                  flexShrink: 0,
-                }} />
-              </div>
+              />
+
             </React.Fragment>
           )
         })}
@@ -825,16 +817,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
       {/* ── Legend row ── */}
       <div style={{ padding: '12px 24px 16px', display: 'flex', alignItems: 'flex-end', gap: 24 }}>
 
-        {/* Left: Stage — spans all remaining space */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'nowrap', flex: 1, minWidth: 0, overflowX: 'auto' }}>
-          <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.4)', flexShrink: 0 }}>Stage</span>
-          {STAGE_LABELS.map(([, label, col]) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-              <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'transparent', border: `2px solid ${col}`, flexShrink: 0 }} />
-              <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.6)', whiteSpace: 'nowrap' }}>{label}</span>
-            </div>
-          ))}
-        </div>
+
 
         {/* Right: Region (top) + Revenue Tier (bottom) stacked */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, flexShrink: 0 }}>
