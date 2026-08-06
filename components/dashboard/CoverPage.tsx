@@ -143,8 +143,8 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       desc: 'See what we learned and what still needs addressing per client, across the four levers. Each point links to a ready FAQ response for your next conversation.',
       color: '#B21A53',
       links: [
-        { label: 'Sales FAQ', page: 'faq' },
         { label: 'GTM Status', page: 'tracker' },
+        { label: 'Sales FAQ', page: 'faq' },
       ],
     },
     {
@@ -153,8 +153,8 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       desc: 'Compare client consent at a glance across the four levers, with a blended score and colour-coded risk bands to guide prioritization and account strategy.',
       color: '#4bcd3e',
       links: [
-        { label: 'Deal Dashboard', page: 'dashboard' },
         { label: 'Consent Matrix', page: 'consent' },
+        { label: 'Deal Dashboard', page: 'dashboard' },
       ],
     },
   ]
