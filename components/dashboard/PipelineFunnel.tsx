@@ -23,7 +23,6 @@ interface PipelineFunnelProps {
 }
 
 const STAGES = [
-  { key: 'hold', label: 'Not Started',         color: '#9ca3af', labelColor: '#6b7280',  num: 0, suffix: '',          desc: null },
   { key: '1',    label: 'New Opportunity',      color: '#B7860B', labelColor: '#B7860B',  num: 1, suffix: '',          desc: 'Opportunity loaded and qualified for pursuit.' },
   { key: '2',    label: 'Early Sales',          color: '#B7860B', labelColor: '#B7860B',  num: 2, suffix: '',          desc: 'Whisper conversation conducted with client.' },
   { key: '3',    label: 'Mid Sales',            color: '#1a6fa8', labelColor: '#1a6fa8',  num: 3, suffix: '',          desc: 'First pitch delivered to client.' },
