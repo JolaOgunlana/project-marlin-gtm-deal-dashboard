@@ -683,7 +683,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               {/* Header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 24px', borderBottom: '1px solid #e8eaf0' }}>
                 <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Program coverage by wave</span>
-                <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.4)', fontWeight: 500 }}>64 clients · $145.2M total ACV</span>
               </div>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 {/* Column headers */}
