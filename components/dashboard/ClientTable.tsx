@@ -106,11 +106,13 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
             <col style={{ width: '3.5%' }} /> {/* Stage */}
             <col style={{ width: '5%' }} />   {/* Next Step */}
             <col style={{ width: '7%' }} />   {/* Opportunity Owner */}
-            <col style={{ width: '25%' }} />  {/* Whisper Outcome */}
+            <col style={{ width: '6%' }} />   {/* Whisper Date */}
+            <col style={{ width: '18%' }} />  {/* Whisper Outcome */}
+            <col style={{ width: '6%' }} />   {/* Pitch Date */}
           </colgroup>
           <thead>
             <tr>
-              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Stage', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Outcome'].map((h) => (
+              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Stage', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Date', 'Whisper Outcome', 'Pitch Date'].map((h) => (
                 <th key={h} style={{
                   padding: '9px 6px', textAlign: 'left', fontSize: 8.5, fontWeight: 700,
                   letterSpacing: '0.06em', textTransform: 'uppercase', color: '#fff',
@@ -153,8 +155,14 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                 </td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', overflow: 'hidden' }}>
+                  {row.whisperDate && row.whisperDate !== 'TBD' ? row.whisperDate : <TBDCell />}
+                </td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'top', fontSize: 10, color: '#1a1f4e', lineHeight: 1.45, wordBreak: 'break-word', whiteSpace: 'normal', overflow: 'hidden' }}>
                   {row.salesCategory && row.salesCategory !== 'TBD' ? row.salesCategory : <TBDCell />}
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', overflow: 'hidden' }}>
+                  {row.pitchDate && row.pitchDate !== 'TBD' ? row.pitchDate : <TBDCell />}
                 </td>
               </tr>
             ))}
