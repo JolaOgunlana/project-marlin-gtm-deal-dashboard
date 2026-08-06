@@ -502,16 +502,16 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                   flexDirection: 'column',
                 }}>
                   {/* Stage label + tag */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                     <div style={{
-                      fontSize: 13,
-                      fontWeight: 700,
+                      fontSize: 15,
+                      fontWeight: 800,
                       letterSpacing: '0.07em',
                       textTransform: 'uppercase',
                       color: s.countColor,
                     }}>{s.label}</div>
                     <div style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 700,
                       letterSpacing: '0.09em',
                       textTransform: 'uppercase',
@@ -519,19 +519,19 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                     }}>{s.tag}</div>
                   </div>
                   {/* ACV + client count */}
-                  <div style={{ marginBottom: 12 }}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 24 }}>
+                  <div style={{ marginBottom: 14 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 28 }}>
                       <div>
-                        <span style={{ fontSize: 28, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.revenue}</span>
-                        <div style={{ fontSize: 10, color: MUTED_D, marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.revenueLabel}</div>
+                        <span style={{ fontSize: 40, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.revenue}</span>
+                        <div style={{ fontSize: 11, color: MUTED_D, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.revenueLabel}</div>
                       </div>
                       <div>
-                        <span style={{ fontSize: 18, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.count} <span style={{ fontSize: 12, fontWeight: 600, color: MUTED_D }}>clients</span></span>
+                        <span style={{ fontSize: 28, fontWeight: 900, color: s.countColor, lineHeight: 1 }}>{s.count} <span style={{ fontSize: 13, fontWeight: 600, color: MUTED_D }}>clients</span></span>
                       </div>
                     </div>
                   </div>
                   {/* Description */}
-                  <div style={{ fontSize: 12, color: MUTED_D, lineHeight: 1.65, marginBottom: 14, flex: 1 }}>
+                  <div style={{ fontSize: 14, color: MUTED_D, lineHeight: 1.65, marginBottom: 16, flex: 1 }}>
                     {s.descriptionParts.map((part, pi) => (
                       part.bold
                         ? <strong key={pi} style={{ color: INK, fontWeight: 700 }}>{part.text}</strong>
@@ -543,13 +543,13 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 5,
-                    fontSize: 10.5,
+                    fontSize: 12,
                     fontWeight: 600,
                     color: 'rgba(26,31,78,0.45)',
                     background: 'rgba(26,31,78,0.05)',
                     border: '1px solid rgba(26,31,78,0.10)',
                     borderRadius: 6,
-                    padding: '4px 10px',
+                    padding: '5px 12px',
                     alignSelf: 'flex-start',
                     marginTop: 'auto',
                     letterSpacing: '0.01em',
