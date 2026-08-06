@@ -817,8 +817,16 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+        {/* ── Wave 1 Client Details wrapper ──────────────────────────── */}
+        <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
+
+          {/* Section header */}
+          <div style={{ padding: '16px 24px 14px', borderBottom: '1px solid #e2e4ee', background: '#fff' }}>
+            <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Client Details</span>
+          </div>
+
+          {/* Metric cards inside the wrapper */}
+          <div style={{ padding: '20px 20px 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
           {/* Card 1: Wave 1 clients engaged */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
@@ -845,11 +853,11 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>93</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
-        </div>
+          </div>{/* end metric cards grid */}
 
-        {/* ── Wave 1 Client Detail Table ────────────────────────────── */}
-        <div>
-          <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
+          {/* ── Wave 1 Client Detail Table — connected flush inside wrapper */}
+          <div style={{ marginTop: 20 }}>
+          <div style={{ overflow: 'hidden', borderTop: BORDER }}>
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
@@ -995,8 +1003,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 )
               })
             })()}
-          </div>{/* closes inner table border div (851) */}
-        </div>{/* closes outer table wrapper div (850) */}
+          </div>{/* closes table overflow div */}
+          </div>{/* closes marginTop wrapper */}
+        </div>{/* closes Wave 1 Client Details outer box */}
       </div>{/* closes Wave 1 section div (754) */}
 
       </div>
