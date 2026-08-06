@@ -738,19 +738,19 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#4bcd3e',
             },
             {
-              label: 'In-flight',
-              date: 'Aug 10',
+              label: 'Whisper ETA',
+              date: 'Aug 7',
               barColor: INK,
-              acv: '$48.1M',
+              acv: '$25.3M',
               acvColor: INK,
-              meta: '3 clients · 26% of ACV · 9% of clients',
-              names: ['NatWest', 'Northpointe Capital', 'Umpqua Bank'],
+              meta: '4 clients · 27% of ACV · 19% of clients',
+              names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
               nameColor: INK,
             },
             {
               label: 'Whisper ETA',
               date: 'Aug 14',
-              barColor: '#1a1f4e',
+              barColor: INK,
               acv: '$9.4M',
               acvColor: INK,
               meta: '2 clients · 10% of ACV · 10% of clients',
@@ -772,8 +772,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
               {/* Title bar */}
-              <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+              <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontSize: 18, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
+                <span style={{ fontSize: 13, color: 'rgba(26,31,78,0.45)', fontWeight: 500 }}>21 clients · 13 in scope · $93.5M</span>
               </div>
 
               {/* Per-column top color bars */}
