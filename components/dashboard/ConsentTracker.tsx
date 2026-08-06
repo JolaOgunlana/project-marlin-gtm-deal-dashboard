@@ -518,7 +518,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
-      <NavBanner page={page} onNavigate={onNavigate} title="Consent Tracker" />
+      <NavBanner page={page} onNavigate={onNavigate} title="GTM Status" />
 
       <div style={{ padding: '0 32px 56px' }}>
 
