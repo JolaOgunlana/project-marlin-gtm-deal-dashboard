@@ -756,7 +756,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           {/* Section header */}
           <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 24px', background: INK }}>
             <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
-            <span style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.5)' }}>Whisper completion &amp; client breakdown</span>
           </div>
 
           {/* Section body */}
