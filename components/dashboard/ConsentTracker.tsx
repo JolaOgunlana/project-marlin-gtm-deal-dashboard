@@ -513,7 +513,6 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
-  const [expandedRow, setExpandedRow] = useState<string | null>(null)
   const [wave1Open, setWave1Open] = useState(false)
 
   return (
@@ -881,7 +880,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         <div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
             {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV Business Case</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
@@ -950,9 +949,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   <div key={row.name}>
                     {/* Main row */}
                     <div
-                      onClick={() => setExpandedRow(isOpen ? null : row.name)}
                       style={{
-                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
+                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr',
                         padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
                         background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
                         borderBottom: BORDER,
