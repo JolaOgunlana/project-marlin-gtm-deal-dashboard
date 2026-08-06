@@ -67,7 +67,7 @@ type WhisperMode = 'pre' | 'post'
 // TMS Revenue, Wave and Stage are enriched at render time from the shared
 // `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
 const CM_DATA: CMClient[] = [
-  { name:"Virgin Money", id:"VM", rev:27154967, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
+  { name:"Virgin Money", id:"VM", rev:26229417, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
     lockPostPosition: true, absPostX: 42, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
@@ -75,8 +75,8 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"Strong appetite for digitization and automation across servicing workflows; leadership actively sponsoring the agenda." },
       price:{ rating:"High", rationale:"They already operate on a TCO model, so a subscription-based, predictable pricing structure would align with expectations." }
     }},
-  { name:"Deutsche Bank (Hamburg)", id:"", rev:17352102, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
-  { name:"Fifth Third Bank", id:"5685", rev:14062039, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
+  { name:"Deutsche Bank (Hamburg)", id:"", rev:16362300, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
+  { name:"Fifth Third Bank", id:"5685", rev:13558253, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
     preNudgeY: 13.335, postPlotOff: "High", lockPostPosition: true, absPostX: 53, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
@@ -84,8 +84,8 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"He is comfortable injecting more tech into our front ends and processes but admits this will have to be thoroughly proven prior to 5/3 moving forward." },
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
-  { name:"Metro Bank", id:"METRO", rev:12444434, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low" },
-  { name:"UMB", id:"9463", rev:10320970, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low",
+  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low" },
+  { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low",
     preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17, lockPrePosition: true, absPreX: 15, absPreY: 80,
     post:{
       out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
@@ -99,15 +99,15 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"Medium", rationale:"1) Technology Modernization identified as primary near-term opportunity. 2) Potential for expansion to other digitization initiatives. 3) Technology capabilities viewed as key differentiator in vendor selection. 4) Forward-looking on modern technology implementation." },
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
-  { name:"Lloyds", id:"LLOYDS", rev:9355708, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
-  { name:"UBS Financial Services Inc.", id:"7826", rev:8421652, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"High" },
-  { name:"PNC Bank", id:"", rev:5499455, region:"NA", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
-  { name:"ING (BV / Barneveld)", id:"", rev:4690204, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
-  { name:"Synovus Bank (incl. Business)", id:"", rev:3682762, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:null, dig:null, price:null },
+  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
+  { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"High" },
+  { name:"PNC Bank", id:"", rev:5143978, region:"NA", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
+  { name:"ING (BV / Barneveld)", id:"", rev:4502484, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
+  { name:"Synovus Bank (incl. Business)", id:"", rev:3577829, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Centene Corporation", id:"7697", rev:3489339, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"HSBC Technology & Services (USA)", id:"9368", rev:3083942, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
-  { name:"First Hawaiian Bank", id:"", rev:2197457, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:null, price:null },
-  { name:"Arvest", id:"", rev:2036070, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:"Medium", price:"Low" },
+  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
+  { name:"First Hawaiian Bank", id:"", rev:1836975, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:null, price:null },
+  { name:"Arvest", id:"", rev:2022941, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:"Medium", price:"Low" },
   { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
     post:{
       out:{ rating:"High", rationale:"They've had no previous engagement with Genpact, however are open to outsourcing and again did not express any concerns. The potential enhanced technical capabilities would be welcomed. John doesn't have an existing relationship with TMS so this wasn't discussed. However, TMS has a very strong relationship with the AIB Customer Engagement team and would be keen for this to remain in place." },
@@ -117,8 +117,8 @@ const CM_DATA: CMClient[] = [
     },
     lockPostPosition: true, absPostX: 78, absPostY: 8,
   },
-  { name:"Hancock-Whitney Bank", id:"", rev:1749293, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
-  { name:"Simmons Bank", id:"0149+7805+7873", rev:1744800, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
+  { name:"Hancock-Whitney Bank", id:"", rev:1703235, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
+  { name:"Simmons Bank", id:"0149+7805+7873", rev:1634077, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes." },
       off:{ rating:"High", rationale:"Not surprised by request and generally open to the idea from a Business POV, but has concerns legal team reaction. Generally conservative when it comes to offshore support." },
@@ -127,24 +127,24 @@ const CM_DATA: CMClient[] = [
     },
     lockPostPosition: true, absPostX: 84, absPostY: 22, lockPrePosition: true, absPreX: 86, absPreY: 22,
   },
-  { name:"Mission Lane", id:"", rev:539400, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"First Bank Puerto Rico", id:"444", rev:1721272, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
-  { name:"Capital One", id:"", rev:1590370, region:"NA", dealType:"existing", wave:2, stage:1, out:"Medium", off:null, dig:null, price:null },
-  { name:"Degussa (Hamburg) / OLB", id:"", rev:1533603, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
+  { name:"Mission Lane", id:"", rev:99655, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"First Bank Puerto Rico", id:"444", rev:1610916, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
+  { name:"Capital One", id:"", rev:1553245, region:"NA", dealType:"existing", wave:2, stage:1, out:"Medium", off:null, dig:null, price:null },
+  { name:"Degussa (Hamburg) / OLB", id:"", rev:1374601, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
   { name:"TDNA", id:"6899", rev:1461484, region:"NA", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"Low", price:"Medium" },
-  { name:"Brim Financial", id:"9159", rev:1266978, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
+  { name:"Brim Financial", id:"9159", rev:1057228, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"US Bank (BV / Barneveld)", id:"", rev:1151833, region:"EMEA-BV", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Fairstone Bank of Canada", id:"", rev:978405, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Marlette Funding / Best Egg", id:"", rev:921463, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"M & T Bank", id:"", rev:910405, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Central Trust Bank", id:"", rev:909758, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"City National Bank", id:"", rev:793955, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Marlette Funding / Best Egg", id:"", rev:859588, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"M & T Bank", id:"", rev:337396, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Central Trust Bank", id:"", rev:864644, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"City National Bank", id:"", rev:732080, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Truist Bank", id:"", rev:717090, region:"NA", dealType:"existing", wave:2, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low" },
-  { name:"Rogers Bank", id:"", rev:606000, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Jaja Finance", id:"", rev:590000, region:"EMEA-UK", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:"Low", price:null },
+  { name:"Rogers Bank", id:"", rev:268907, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Jaja Finance", id:"", rev:1444530, region:"EMEA-UK", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:"Low", price:null },
   { name:"Regions Financial Corporation", id:"", rev:567870, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"Low", price:"Low" },
   { name:"ServisFirst", id:"7841", rev:555696, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"President's Choice", id:"7607", rev:525550, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High",
+  { name:"President's Choice", id:"7607", rev:469862, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High",
     post:{
       out:{ rating:"High", rationale:"Will also need to be mindful of the fourth party element, would still need to have the right governance around that oversight, audit rights would be a discussion given cardholder data would be in play." },
       off:{ rating:"High", rationale:"Offshoring is not a concern for PCF, they do it today; although their new owner, EQ Bank, is completely in-house, which he mentioned is costly, so EQ is cautiously evaluating options within that area. What sets TMS apart is that the agents were located in Canada. This has always been beneficial, and would still be meaningful for PCF. Within PCF's other servicing experience with other providers (likely NTT), customers will sometimes say \"put me to an agent in Canada\" so they keep a 15% population of agents that are Canadian." },
@@ -155,13 +155,13 @@ const CM_DATA: CMClient[] = [
   },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Texas Capital", id:"", rev:426600, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Texas Capital", id:"", rev:364725, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Wells Fargo", id:"", rev:414000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Marshall and Ilsley (BMO)", id:"164", rev:380045, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Key Bank", id:"", rev:376815, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Union Bank (MUFG)", id:"8470", rev:344400, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High" },
+  { name:"Union Bank (MUFG)", id:"8470", rev:331182, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"High" },
   { name:"Citizens Bank", id:"6053", rev:330550, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low" },
-  { name:"BOKF, NA", id:"", rev:308614, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"BOKF, NA", id:"", rev:265301, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Bank Of America", id:"", rev:307350, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Banco Popular", id:"", rev:238800, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"The Bank Of Nova Scotia", id:"2280", rev:225000, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low" },
@@ -171,7 +171,7 @@ const CM_DATA: CMClient[] = [
   { name:"Citibank", id:"1410", rev:106021, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"Medium", price:"Low" },
   { name:"First Caribbean International Bank", id:"", rev:96000, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Bank of Montreal", id:"", rev:94334, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Valley National BK", id:"", rev:84000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Valley National BK", id:"", rev:81938, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Ameriprise Trust Bank", id:"", rev:62220, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"NatWest", id:"IVRRBS", rev:25243, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Medium", dig:"Medium", price:"High", lockPrePosition:true, lockPostPosition:true, absPostX: 81, absPostY: 26,
     post:{
@@ -208,8 +208,9 @@ const scoreBand = (s: number | null): Rating => {
 }
 const fmtRev = (n: number) => {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `$${(n / 1_000).toFixed(0)}K`
-  return `$${n}`
+  if (n >= 100_000)   return `$${(n / 1_000_000).toFixed(1)}M`
+  if (n >= 10_000)    return `$${(n / 1_000_000).toFixed(2)}M`
+  return `$${(n / 1_000_000).toFixed(3)}M`
 }
 const regionLabel = (r: string) => {
   if (r === 'NA') return 'NA'

@@ -258,7 +258,7 @@ const STATS = [
     tag: 'WHISPER',
     count: 63,
     countColor: INK,
-    revenue: '$141.5M',
+    revenue: '$135.3M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -273,7 +273,7 @@ const STATS = [
     tag: 'PITCH',
     count: 1,
     countColor: '#0891b2',
-    revenue: '$10.3M',
+    revenue: '$9.9M',
     revenueLabel: 'Annual contract value',
     region: '1 NA · 0 EMEA',
     descriptionParts: [
@@ -607,12 +607,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 141.5
+              const maxAcv = 135.3
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
-{ label: 'Exploration', color: INK, acv: 141.5, clients: 63,  text: '$141.5M', empty: false },
-  { label: 'Alignment',   color: '#0891b2', acv: 10.3,  clients: 1,   text: '$10.3M',  empty: false },
+{ label: 'Exploration', color: INK, acv: 135.3, clients: 63,  text: '$135.3M', empty: false },
+  { label: 'Alignment',   color: '#0891b2', acv: 9.9,  clients: 1,   text: '$9.9M',  empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
