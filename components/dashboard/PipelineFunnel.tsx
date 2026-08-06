@@ -326,21 +326,6 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
         })}
       </div>
 
-      {/* Consent stage color key */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginTop: 16 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(26,31,78,0.4)' }}>Consent Stage</span>
-        {[
-          { color: '#1a1f4e', label: 'Exploration' },
-          { color: '#0891b2', label: 'Alignment' },
-          { color: '#4bcd3e', label: 'Committed' },
-          { color: '#B21A53', label: 'Disqualified' },
-        ].map(({ color, label }) => (
-          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 12, height: 12, borderRadius: 3, background: color, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.65)', fontWeight: 600 }}>{label}</span>
-          </div>
-        ))}
-      </div>
       </div>{/* closes padding wrapper */}
     </div>
   )
