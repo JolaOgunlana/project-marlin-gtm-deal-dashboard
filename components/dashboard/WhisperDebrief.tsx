@@ -664,7 +664,7 @@ function FaqSection({ highlightId, onClearHighlight }: { highlightId: string | n
 export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
-      <NavBanner page={page} onNavigate={onNavigate} title="Whisper Conversation Debrief" />
+      <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Consent Tracker" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6 }}>
           This page captures what we learned from client whisper conversations and what still needs to be addressed across the four levers: Outsourcing, Offshoring, Digitization and Price Maintain. The table below shows each client&apos;s position on every lever at a glance. Click a client to see their Learnings and Points to Address. Each point links to the Sales FAQ page, where you&apos;ll find a ready response to use in your next conversation.
@@ -678,7 +678,7 @@ export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page
 export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { page: Page; onNavigate: (p: Page) => void; highlightId?: string | null; onClearHighlight?: () => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
-        <NavBanner page={page} onNavigate={onNavigate} title="Sales FAQ" />
+        <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Consent Tracker" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
           This page gives the account team ready-to-use responses for the most common objections and questions. It&apos;s organized by lever, including Technology, Outsourcing and Offshoring, Compliance, Transition, Pricing, No Consent, and New Tech Capabilities, so you can go straight to the relevant concern. Every unresolved point links directly to its corresponding response here.
