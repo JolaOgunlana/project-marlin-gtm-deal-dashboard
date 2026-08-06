@@ -690,8 +690,8 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
     const img = ctx.createImageData(RW, RH)
     for (let yy = 0; yy < RH; yy++) {
       for (let xx = 0; xx < RW; xx++) {
-        // Flat secondary grey: #E6E7E8 = rgb(230, 231, 232)
-        const r = 230, g = 231, b = 232
+        // Near-white light grey: #F7F7F8 = rgb(247, 247, 248)
+        const r = 247, g = 247, b = 248
         const idx = (yy * RW + xx) * 4
         img.data[idx] = r; img.data[idx+1] = g; img.data[idx+2] = b; img.data[idx+3] = 255
       }
