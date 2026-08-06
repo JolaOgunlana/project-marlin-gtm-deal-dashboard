@@ -208,9 +208,9 @@ const STATS = [
   {
     label: 'Exploration',
     tag: 'WHISPER',
-    count: 3,
+    count: 63,
     countColor: AMBER,
-    revenue: '$41.3M',
+    revenue: '$141.5M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
