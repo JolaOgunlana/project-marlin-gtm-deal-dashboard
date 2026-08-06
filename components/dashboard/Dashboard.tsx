@@ -99,6 +99,11 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
 
       {/* Content area with original padding */}
       <div style={{ padding: '0 28px 48px' }}>
+        {/* Description */}
+        <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
+          Wave-level view of consent opportunities showing Salesforce sales stages mapped to consent stages. Click a stage or client to explore the details.
+        </p>
+
       {/* Pipeline Funnel */}
       <PipelineFunnel
         clientFilter={clientFilter}
