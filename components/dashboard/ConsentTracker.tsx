@@ -488,9 +488,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         }}>
           {/* Section title bar */}
           {/* Title bar */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
             <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Consent stages</span>
-            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.38)', fontWeight: 500 }}>Pipeline reads left to right · Not Pursuing is the off-ramp</span>
           </div>
 
           {/* Color bar per stage */}
@@ -595,10 +594,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                       </div>
                     )
                   })}
-                  {/* Insight line */}
-                  <div style={{ marginTop: 12, fontSize: 13, color: MUTED_D, paddingLeft: 92 }}>
-                    Exploration ACV is <strong style={{ color: INK }}>5.7×</strong> the year-end target, but nothing has converted. <span style={{ color: '#c0392b' }}>The task is conversion, not top-of-funnel volume.</span>
-                  </div>
+
                 </div>
               )
             })()}
@@ -866,7 +862,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           </div>
         </div>
 
-        {/* ── Search bar ────────────────────────────────────────────── */}
+        {/* ── Search bar ─────────────────────��──────────────────────── */}
 
 
       </div>
