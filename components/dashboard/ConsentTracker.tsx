@@ -514,6 +514,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
+  const [wave1Open, setWave1Open] = useState(false)
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -649,164 +650,92 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>
         </div>
 
-        {/* ── Program Coverage by Wave ──────────────────────────────── */}
-        <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 28, overflow: 'hidden' }}>
-          {/* Title bar */}
-          <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-            <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Program coverage by wave</span>
-          </div>
+        {/* ── Wave 1 Client Detail Accordion ────────────────────────── */}
+        <div style={{ marginTop: 24, border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#fff', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
-          {/* Grid: label col + 3 wave cols + total col */}
-          {(() => {
-            const cols = [
-              { label: 'Wave 1', status: 'STARTED',     statusColor: '#1d6b12', statusBg: '#e9fbe6', acv: 93.5,  acvPct: 64,  clients: 21, clientsPct: 33 },
-              { label: 'Wave 2', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 18.7,  acvPct: 13,  clients: 27, clientsPct: 42 },
-              { label: 'Wave 3', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 33.0,  acvPct: 23,  clients: 16, clientsPct: 25 },
-            ]
-            const totalAcv = '$145.2M'
-            const totalClients = 64
-
-            const ProgressBar = ({ pct, color }: { pct: number; color: string }) => (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
-                <div style={{ flex: 1, height: 10, background: 'rgba(26,31,78,0.10)', borderRadius: 99, overflow: 'hidden' }}>
-                  <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 99 }} />
-                </div>
-                <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.55)', minWidth: 28 }}>{pct}%</span>
+          {/* Accordion header button */}
+          <button
+            onClick={() => setWave1Open(v => !v)}
+            style={{
+              width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '18px 24px', background: wave1Open ? INK : '#fff',
+              border: 'none', cursor: 'pointer', transition: 'background 0.2s',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 4, height: 24, borderRadius: 2, background: '#4bcd3e', flexShrink: 0 }} />
+              <span style={{ fontSize: 17, fontWeight: 800, color: wave1Open ? '#fff' : INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 500, color: wave1Open ? 'rgba(255,255,255,0.5)' : 'rgba(26,31,78,0.38)' }}>
+                Whisper completion &amp; client breakdown
+              </span>
+              <div style={{
+                width: 28, height: 28, borderRadius: '50%',
+                background: wave1Open ? 'rgba(255,255,255,0.12)' : 'rgba(26,31,78,0.07)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <span style={{ fontSize: 15, color: wave1Open ? '#fff' : INK, lineHeight: 1, display: 'block', transform: wave1Open ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>›</span>
               </div>
-            )
+            </div>
+          </button>
 
-            return (
-              <div style={{ display: 'grid', gridTemplateColumns: '110px repeat(3, 1fr) 120px' }}>
+          {/* Accordion body */}
+          {wave1Open && (
+            <div style={{ background: '#f8f9fc', borderTop: '1px solid #e2e4ee', padding: '24px 24px 28px', display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-                {/* Header row */}
-                <div style={{ padding: '12px 18px', borderBottom: '1px solid #e2e4ee' }} />
-                {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', textAlign: 'right' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: INK, marginBottom: 6 }}>{c.label}</div>
-                    <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: c.statusColor, background: c.statusBg, borderRadius: 99, padding: '3px 9px' }}>{c.status}</span>
-                  </div>
-                ))}
-                <div style={{ padding: '12px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', textAlign: 'right' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: INK, marginBottom: 6 }}>TOTAL</div>
-                  <span style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: INK, background: 'rgba(26,31,78,0.08)', borderRadius: 99, padding: '3px 9px' }}>WAVE 1–3</span>
-                </div>
-
-                {/* ACV row */}
-                <div style={{ padding: '18px 18px', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center' }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>ACV</span>
-                </div>
-                {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee' }}>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>${c.acv.toFixed(1)}M</div>
-                    <ProgressBar pct={c.acvPct} color={INK} />
-                  </div>
-                ))}
-                <div style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: INK }}>{totalAcv}</span>
-                </div>
-
-                {/* Clients row */}
-                <div style={{ padding: '18px 18px', display: 'flex', alignItems: 'center' }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>Clients</span>
-                </div>
-                {cols.map((c, i) => (
-                  <div key={i} style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee' }}>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: INK, textAlign: 'right' }}>{c.clients}</div>
-                    <ProgressBar pct={c.clientsPct} color={INK} />
-                  </div>
-                ))}
-                <div style={{ padding: '14px 22px', borderLeft: '1px solid #e2e4ee', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: INK }}>{totalClients}</span>
-                </div>
-
-              </div>
-            )
-          })()}
-        </div>
-
-        {/* ── Wave 1 Whisper Completion Status ─���───────────────��────── */}
+        {/* ── Wave 1 Whisper Completion ─────────────────────────────── */}
         {(() => {
           const cols = [
             {
-              label: 'Completed',
-              date: null,
-              barColor: '#4bcd3e',
-              acv: '$53.7M',
-              acvColor: '#4bcd3e',
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$53.7M', acvColor: '#4bcd3e',
               meta: '7 clients · 57% of ACV · 33% of clients',
               names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Whisper ETA',
-              date: 'Aug 7',
-              barColor: INK,
-              acv: '$25.3M',
-              acvColor: INK,
+              label: 'Whisper ETA', date: 'Aug 7', barColor: INK, acv: '$25.3M', acvColor: INK,
               meta: '4 clients · 27% of ACV · 19% of clients',
               names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
               nameColor: INK,
             },
             {
-              label: 'Whisper ETA',
-              date: 'Aug 14',
-              barColor: INK,
-              acv: '$9.4M',
-              acvColor: INK,
+              label: 'Whisper ETA', date: 'Aug 14', barColor: INK, acv: '$9.4M', acvColor: INK,
               meta: '2 clients · 10% of ACV · 10% of clients',
               names: ['UBS', 'Brim Financial'],
               nameColor: INK,
             },
             {
-              label: 'No whisper planned',
-              date: null,
-              barColor: INK,
-              acv: '$5.1M',
-              acvColor: INK,
+              label: 'No whisper planned', date: null, barColor: INK, acv: '$5.1M', acvColor: INK,
               meta: '8 clients · 6% of ACV · 38% of clients',
               names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
               nameColor: INK,
             },
           ]
-
           return (
-            <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.05)', marginTop: 20, overflow: 'hidden' }}>
-              {/* Title bar */}
+            <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
               <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-                <span style={{ fontSize: 18, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
+                <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
               </div>
-
-              {/* Per-column top color bars */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
                 {cols.map((c, i) => (
                   <div key={i} style={{ height: 4, background: c.barColor, borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }} />
                 ))}
               </div>
-
-              {/* Four columns */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
                 {cols.map((col, i) => (
                   <div key={i} style={{ padding: '20px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
-
-                    {/* Label + date */}
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>{col.label}</span>
                       {col.date && <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>{col.date}</span>}
                     </div>
-
-                    {/* ACV */}
                     <div style={{ fontSize: 30, fontWeight: 800, color: col.acvColor, lineHeight: 1, marginBottom: 6 }}>{col.acv}</div>
-
-                    {/* Meta line */}
                     <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)', marginBottom: 14, lineHeight: 1.4 }}>
                       <span style={{ fontWeight: 700, color: INK }}>{col.meta.split(' · ')[0]}</span>
                       {' · ' + col.meta.split(' · ').slice(1).join(' · ')}
                     </div>
-
-                    {/* Dashed divider */}
                     <div style={{ borderTop: '1px dashed #d4d7e3', marginBottom: 14 }} />
-
-                    {/* Client name list */}
                     <ul style={{ margin: 0, paddingLeft: 16, listStyle: 'disc', flex: 1 }}>
                       {col.names.map((name, ni) => (
                         <li key={ni} style={{ fontSize: 13, color: col.nameColor, marginBottom: 5, lineHeight: 1.5 }}>{name}</li>
@@ -820,10 +749,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         })()}
 
         {/* ── Wave 1 Metrics Cards ────────────────────────────── */}
-        <div style={{ padding: '14px 0', marginTop: 32, marginBottom: 14 }}>
-          <span style={{ fontSize: 18, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 1 Client Detail</span>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
           {/* Card 1: Wave 3 clients engaged */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
@@ -853,7 +779,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         </div>
 
         {/* ── Wave 1 Client Detail Table ────────────────────────────── */}
-        <div style={{ marginTop: 24, marginBottom: 0 }}>
+        <div>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
@@ -1007,6 +933,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             })()}
           </div>
         </div>
+
+            </div>{/* end accordion body */}
+          )}
+        </div>{/* end accordion container */}
 
         {/* ── Search bar ─────────────────────��───────────────────────�� */}
 
