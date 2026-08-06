@@ -860,7 +860,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               <div style={{ textAlign: 'center' }}>Rating Price Maintain</div>
               <div style={{ textAlign: 'center' }}>Overall Propensity Score</div>
               <div style={{ textAlign: 'center' }}>Client Progress Status</div>
-              <div />
             </div>
             {/* Rows */}
             {(() => {
@@ -932,7 +931,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 )
               })
             })()}
-          </div>
+          </div>{/* closes inner table border div (851) */}
+        </div>{/* closes outer table wrapper div (850) */}
+      </div>{/* closes Wave 1 section div (754) */}
 
       </div>
     </div>
