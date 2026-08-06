@@ -887,7 +887,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           </div>
         </div>
 
-        {/* ── Search bar ────────────────────────────────────────────── */}
+        {/* ── Search bar ─────────────────────��───────────────────────�� */}
 
 
       </div>
