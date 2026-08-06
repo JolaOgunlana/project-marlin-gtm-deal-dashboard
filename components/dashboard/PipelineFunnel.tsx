@@ -241,8 +241,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
         ].map(({ color, label, stages }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 12, height: 12, borderRadius: 3, background: color, flexShrink: 0 }} />
-            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.65)', fontWeight: 600 }}>{label}</span>
-            <span style={{ fontSize: 11, color: 'rgba(26,31,78,0.35)' }}>({stages})</span>
+            <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.65)', fontWeight: 600 }}>{label} {stages}</span>
           </div>
         ))}
       </div>
