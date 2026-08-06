@@ -751,7 +751,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
         </div>
       </div>
 
-      {/* ─��� Main plot layout ── */}
+      {/* ─����� Main plot layout ── */}
       <div style={{ display: 'flex', padding: '20px 24px 0' }}>
         {/* Y-axis label (rotated) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
@@ -1053,7 +1053,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
       <div style={{ padding: '0 28px 48px' }}>
         {/* Description */}
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24, width: '100%' }}>
-          Average propensity scores for all clients across four levers: Outsourcing, Offshoring, Digitization, and Price. The Heat Map compares Offshoring vs. Outsourcing. Risk bands show where consent is at risk.
+          Average propensity scores for all clients across four levers: Outsourcing, Offshoring, Digitization, and Price. The Heat Map compares Offshoring vs. Outsourcing. Click a client bubble to view its details.
         </p>
 
         {/* ── Top row: Toggle card + Total Clients + Avg Propensity ── */}
