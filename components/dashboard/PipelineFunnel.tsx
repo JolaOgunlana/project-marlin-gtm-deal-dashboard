@@ -24,11 +24,11 @@ interface PipelineFunnelProps {
 
 const STAGES = [
   { key: 'hold', label: 'Not Started',         color: '#9ca3af', labelColor: '#6b7280',  num: 0, suffix: '',          desc: null },
-  { key: '1',    label: 'New Opportunity',      color: '#1a1f4e', labelColor: '#1a1f4e',  num: 1, suffix: '',          desc: 'Opportunity loaded and qualified for pursuit.' },
-  { key: '2',    label: 'Early Sales',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 2, suffix: '',          desc: 'Whisper conversation conducted with client.' },
-  { key: '3',    label: 'Mid Sales',            color: '#1a1f4e', labelColor: '#1a1f4e',  num: 3, suffix: '',          desc: 'First pitch delivered to client.' },
-  { key: '4',    label: 'Late Sales / Pricing', color: '#1a1f4e', labelColor: '#1a1f4e',  num: 4, suffix: '',          desc: 'Client has agreed to further meetings; pricing and commercial terms are under discussion.' },
-  { key: '5',    label: 'Contracting',          color: '#1a1f4e', labelColor: '#1a1f4e',  num: 5, suffix: '',          desc: 'Contract amendment submitted to legal; negotiations in progress, with commercial terms and pricing verbally agreed by client.' },
+  { key: '1',    label: 'New Opportunity',      color: '#f59e0b', labelColor: '#d97706',  num: 1, suffix: '',          desc: 'Opportunity loaded and qualified for pursuit.' },
+  { key: '2',    label: 'Early Sales',          color: '#f59e0b', labelColor: '#d97706',  num: 2, suffix: '',          desc: 'Whisper conversation conducted with client.' },
+  { key: '3',    label: 'Mid Sales',            color: '#3b82f6', labelColor: '#1e40af',  num: 3, suffix: '',          desc: 'First pitch delivered to client.' },
+  { key: '4',    label: 'Late Sales / Pricing', color: '#3b82f6', labelColor: '#1e40af',  num: 4, suffix: '',          desc: 'Client has agreed to further meetings; pricing and commercial terms are under discussion.' },
+  { key: '5',    label: 'Contracting',          color: '#16a34a', labelColor: '#15803d',  num: 5, suffix: '',          desc: 'Contract amendment submitted to legal; negotiations in progress, with commercial terms and pricing verbally agreed by client.' },
   { key: '6',    label: 'Executed',             color: '#52b000', labelColor: '#52b000',  num: 6, suffix: ' \u2713',   desc: null },
   { key: '8',    label: 'Disqualified',         color: '#d0021b', labelColor: '#d0021b',  num: 8, suffix: ' \u2715',   desc: null },
 ]
