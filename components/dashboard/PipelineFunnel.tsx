@@ -165,6 +165,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                 cursor: 'pointer',
                 transition: 'background 0.15s, border-color 0.15s',
                 outline: 'none',
+                position: 'relative',
               }}
             >
               {/* Bar */}
@@ -183,8 +184,13 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                     opacity: stageFilter !== 'all' && !isActive ? 0.35 : 1,
                   }}
                 >
-                  {amtLabel && barHeight > 20 && (
+                  {amtLabel && barHeight > 16 && (
                     <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{amtLabel}</span>
+                  )}
+                  {amtLabel && barHeight <= 16 && (
+                    <div style={{ position: 'absolute', top: -20, left: '50%', transform: 'translateX(-50%)', fontSize: 12, fontWeight: 800, color: stage.color, whiteSpace: 'nowrap' }}>
+                      {amtLabel}
+                    </div>
                   )}
                 </div>
               </div>
