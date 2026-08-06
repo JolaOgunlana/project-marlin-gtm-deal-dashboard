@@ -149,7 +149,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
         {STAGES.map((stage) => {
           const count = stageCounts.cnt[stage.key]
           const rev = stageCounts.rev[stage.key]
-          const barHeight = rev > 0 ? Math.max(10, Math.round((rev / maxRev) * 150)) : 4
+          const barHeight = rev > 0 ? Math.max(28, Math.round((rev / maxRev) * 150)) : 4
           const amtLabel = rev > 0 ? `$${(rev / 1_000_000).toFixed(1)}M` : null
           const isActive = stageFilter === stage.key
           return (
@@ -185,13 +185,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
                   }}
                 >
                   {amtLabel && (
-                    barHeight > 16 ? (
-                      <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{amtLabel}</span>
-                    ) : (
-                      <div style={{ position: 'absolute', top: -22, left: '50%', transform: 'translateX(-50%)', fontSize: 13, fontWeight: 800, color: '#fff', whiteSpace: 'nowrap' }}>
-                        {amtLabel}
-                      </div>
-                    )
+                    <span style={{ fontSize: 13, fontWeight: 800, color: '#fff' }}>{amtLabel}</span>
                   )}
                 </div>
               </div>
