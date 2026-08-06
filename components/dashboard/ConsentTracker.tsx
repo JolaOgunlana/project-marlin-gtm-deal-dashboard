@@ -562,9 +562,9 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
-                { label: 'Exploration', color: INK,      acv: 141.5, clients: 63,  text: '$141.5M · 63 clients', empty: false },
-                { label: 'Alignment',   color: '#1a6fa8', acv: 10.3,  clients: 1,   text: '$10.3M',               empty: false },
-                { label: 'Committed',   color: '#16a34a', acv: 0,     clients: 0,   text: '',                     empty: true  },
+                { label: 'Exploration', color: INK,      acv: 141.5, clients: 63,  text: '$141.5M', empty: false },
+                { label: 'Alignment',   color: '#1a6fa8', acv: 10.3,  clients: 1,   text: '$10.3M',  empty: false },
+                { label: 'Committed',   color: '#16a34a', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative' }}>
