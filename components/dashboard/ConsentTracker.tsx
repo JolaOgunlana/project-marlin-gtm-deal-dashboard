@@ -17,6 +17,53 @@ const AMBER_BG = '#FBF0D0'
 const GRAY   = '#8A93A2'
 const GRAY_BG = '#ECEEF2'
 
+// ── Whisper Intelligence data (per-client learnings & points to address) ──────
+type LeverRow = { lever: string; learnings: string[]; points: ({ label: string } | { plain: string })[] }
+const WHISPER_DATA: Record<string, LeverRow[]> = {
+  'Virgin Money': [
+    { lever: 'Outsourcing', learnings: ['Open to more outsourcing, with no concerns about Genpact.', 'Liked that FIS funds access to modern technology like AI.', 'Glad to keep day-to-day control of the relationship.'], points: [{ label: 'Concern about additional "material outsourcing" layers under PRA regulation.' }, { label: 'Are you bringing in support delivery partners?' }] },
+    { lever: 'Offshoring', learnings: ['Open to offshoring chat and back-office (non-voice) work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?' }] },
+    { lever: 'Digitization', learnings: ['Keen on digitization and automation, with leadership backing it.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Already use a total-cost model, so predictable subscription pricing fits.'], points: [{ plain: 'N/A' }] },
+  ],
+  'Fifth Third Bank': [
+    { lever: 'Outsourcing', learnings: ['The overall proposal landed well, with little pushback.', 'Sees how outsourcing helps with risk, scale, and technology gaps.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Offshoring', learnings: ['Little to no concern about offshoring back-office / non-voice work.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'How do we know this meets standards? (Compliance & Infosec)' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?' }] },
+    { lever: 'Digitization', learnings: ['Comfortable adding more technology to their systems and processes.'], points: [{ label: 'Technology must be thoroughly proven end-to-end before moving forward (cited TCS implementation experience).' }, { label: 'What are the key new tech capabilities to be enabled and their associated benefits?' }] },
+    { lever: 'Price Maintain', learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'], points: [{ label: 'Are costs going up? How is pricing affected?' }] },
+  ],
+  'UMB': [
+    { lever: 'Outsourcing', learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'], points: [{ label: 'Confidence in execution: raised concern based on prior experiences with FIS.' }] },
+    { lever: 'Offshoring', learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)" }] },
+    { lever: 'Digitization', learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?' }, { label: 'Do we charge for implementation cost?' }] },
+  ],
+  "President's Choice": [
+    { lever: 'Outsourcing', learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?' }] },
+    { lever: 'Offshoring', learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?" }, { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.' }] },
+    { lever: 'Digitization', learnings: ['Values having agents located in Canada; sees it as a real differentiator.', 'With other providers, customers actively ask to be routed to a Canadian agent.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ["Sees offshoring as offsetting the cost of tech investment, so wants to discuss why the price wouldn't drop.", 'Would push back on flat pricing unless the tech genuinely improves the outbound fraud experience.'], points: [{ label: 'Are costs going up? How is pricing affected?' }, { label: "If a client outsources, takes the technology but doesn't offshore, does the price change?" }] },
+  ],
+  'AIB': [
+    { lever: 'Outsourcing', learnings: ['Open to outsourcing, with no concerns about Genpact.', 'Would welcome the enhanced technical capabilities.', 'Keen to keep the strong TMS–Customer Engagement relationship in place.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?' }] },
+    { lever: 'Offshoring', learnings: ['No objections to offshore voice support.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Open to discussing subscription-based pricing.'], points: [{ label: 'Are costs going up? How is pricing affected?' }] },
+  ],
+  'Simmons Bank': [
+    { lever: 'Outsourcing', learnings: ['Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes.'], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?' }] },
+    { lever: 'Offshoring', learnings: ['Generally conservative when it comes to offshore support.'], points: [{ label: 'What are your key arguments why offshoring (even client facing voice) works?' }] },
+    { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: [], points: [{ plain: 'N/A' }] },
+  ],
+  'NatWest': [
+    { lever: 'Outsourcing', learnings: ['Open to a new provider, as long as the right checks and approvals are in place.', 'Reassured the IVR service will stay reliable.'], points: [{ label: 'Sees this as a possible opportunity to take the final IVR back in-house and terminate our service.' }, { label: "What if timing isn't right?" }, { label: 'Are you bringing in support delivery partners?' }] },
+    { lever: 'Offshoring', learnings: ['N/A — IVR service only, no agents involved.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: [], points: [{ plain: 'N/A' }] },
+  ],
+}
+
 // ── Types ──────────────────────────────────────────────────────────────────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
@@ -465,6 +512,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
+  const [expandedRow, setExpandedRow] = useState<string | null>(null)
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -807,7 +855,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
         <div style={{ marginTop: 24, marginBottom: 0 }}>
           <div style={{ borderRadius: 10, overflow: 'hidden', border: BORDER, boxShadow: '0 1px 3px rgba(20,31,56,.06)' }}>
             {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
@@ -817,32 +865,34 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               <div style={{ textAlign: 'center' }}>Rating Price Maintain</div>
               <div style={{ textAlign: 'center' }}>Overall Propensity Score</div>
               <div style={{ textAlign: 'center' }}>Client Progress Status</div>
+              <div />
             </div>
             {/* Rows */}
-            {[
-              { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '2', out: 'High',   off: 'Medium',            dig: 'High',   price: 'High',   score: 94,   status: 'Exploration' },
-              { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '2', out: 'High',   off: 'Medium',            dig: 'High',   price: 'Medium', score: 88,   status: 'Exploration' },
-              { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',              dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
-              { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '1', out: null,   off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'AIB',                            acv: '$1.8M',  sfStage: '2', out: 'High',   off: 'High',              dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
-              { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '2', out: 'High',   off: 'High',              dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
-              { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'Exploration' },
-              { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: "President's Choice",             acv: '$0.5M',  sfStage: '1', out: 'High',   off: 'High',              dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
-              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'NatWest',                        acv: '$0.0M',  sfStage: '1', out: 'High',   off: 'High (n/a)',        dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
-              { name: 'Empire Innovation Group',        acv: '$0.0M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-              { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '1', out: null,     off: null,                dig: null,     price: null,     score: null, status: 'No Whisper' },
-            ].map((row, i) => {
-              const isAlt = i % 2 === 1
+            {(() => {
+              const rows = [
+                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '2', out: 'High',   off: 'Medium',     dig: 'High',   price: 'High',   score: 94,   status: 'Exploration' },
+                { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '2', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Exploration' },
+                { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',       dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
+                { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '1', out: null,   off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'AIB',                            acv: '$1.8M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+                { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
+                { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: "President's Choice",             acv: '$0.5M',  sfStage: '1', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
+                { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'NatWest',                        acv: '$0.0M',  sfStage: '1', out: 'High',   off: 'High (n/a)', dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+                { name: 'Empire Innovation Group',        acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+              ]
+
               const ratingChip = (val: string | null) => {
                 if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
                 const isHigh = val.toLowerCase().startsWith('high')
@@ -862,20 +912,87 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                 const bg  = s === 'Alignment' ? '#dceefa' : s === 'Exploration' ? AMBER_BG : GRAY_BG
                 return <span style={{ background: bg, color: col, fontWeight: 700, fontSize: 11, padding: '3px 10px', borderRadius: 20, display: 'inline-block' }}>{s}</span>
               }
-              return (
-                <div key={row.name} style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr', padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center', background: isAlt ? '#fafbfc' : '#fff', borderBottom: BORDER }}>
-                  <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
-                  <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
-                  <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
-                  <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
-                  <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
-                  <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
-                  <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                  <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#2d7a0f' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
-                  <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
-                </div>
-              )
-            })}
+
+              return rows.map((row, i) => {
+                const isAlt    = i % 2 === 1
+                const isOpen   = expandedRow === row.name
+                const whisper  = WHISPER_DATA[row.name] ?? null
+                const hasWhisper = whisper !== null
+
+                return (
+                  <div key={row.name}>
+                    {/* Main row */}
+                    <div
+                      onClick={() => hasWhisper && setExpandedRow(isOpen ? null : row.name)}
+                      style={{
+                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
+                        padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
+                        background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
+                        borderBottom: BORDER,
+                        cursor: hasWhisper ? 'pointer' : 'default',
+                      }}
+                      onMouseEnter={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = 'rgba(91,45,110,0.03)' }}
+                      onMouseLeave={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = isAlt ? '#fafbfc' : '#fff' }}
+                    >
+                      <div style={{ fontWeight: 600, color: INK, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {row.name}
+                        {hasWhisper && <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#5b2d6e', background: 'rgba(91,45,110,0.10)', padding: '2px 7px', borderRadius: 10 }}>Whisper</span>}
+                      </div>
+                      <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
+                      <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
+                      <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
+                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#2d7a0f' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
+                      <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
+                      <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>
+                        {hasWhisper ? '›' : ''}
+                      </div>
+                    </div>
+
+                    {/* Expandable whisper detail panel */}
+                    {isOpen && whisper && (
+                      <div style={{ borderBottom: BORDER, background: '#fafbff' }}>
+                        {/* Panel header */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', background: '#f0eef8', borderBottom: '1px solid #e2ddf0' }}>
+                          {['Lever', 'Learnings', 'Points to Address'].map(h => (
+                            <div key={h} style={{ padding: '9px 20px', fontSize: 10.5, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: '#5b2d6e' }}>{h}</div>
+                          ))}
+                        </div>
+                        {/* Lever rows */}
+                        {whisper.map((lev, li) => (
+                          <div key={lev.lever} style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', borderTop: li > 0 ? '1px solid #eef0f6' : undefined }}>
+                            <div style={{ padding: '12px 20px', fontSize: 11.5, fontWeight: 700, color: INK, textTransform: 'uppercase', letterSpacing: '0.04em', paddingTop: 14 }}>{lev.lever}</div>
+                            <div style={{ padding: '12px 20px', fontSize: 12.5, lineHeight: 1.55, color: INK, borderLeft: '1px solid #eef0f6' }}>
+                              {lev.learnings.length === 0
+                                ? <span style={{ color: 'rgba(26,31,78,0.38)', fontStyle: 'italic', fontSize: 11.5 }}>N/A</span>
+                                : lev.learnings.map((l, idx) => (
+                                  <div key={idx} style={{ position: 'relative', paddingLeft: 14, marginBottom: idx < lev.learnings.length - 1 ? 5 : 0 }}>
+                                    <span style={{ position: 'absolute', left: 2, color: 'rgba(26,31,78,0.4)' }}>•</span>
+                                    {l}
+                                  </div>
+                                ))
+                              }
+                            </div>
+                            <div style={{ padding: '12px 20px', fontSize: 12.5, lineHeight: 1.55, color: INK, borderLeft: '1px solid #eef0f6' }}>
+                              {lev.points.map((p, idx) => (
+                                'plain' in p
+                                  ? <div key={idx} style={{ color: 'rgba(26,31,78,0.38)', fontStyle: 'italic', fontSize: 11.5 }}>{p.plain}</div>
+                                  : <div key={idx} style={{ position: 'relative', paddingLeft: 14, marginBottom: idx < lev.points.length - 1 ? 5 : 0 }}>
+                                      <span style={{ position: 'absolute', left: 2, color: 'rgba(26,31,78,0.4)' }}>•</span>
+                                      {p.label}
+                                    </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              })
+            })()}
           </div>
         </div>
 
