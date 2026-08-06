@@ -916,23 +916,24 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
               return rows.map((row, i) => {
                 const isAlt    = i % 2 === 1
                 const isOpen   = expandedRow === row.name
-                const whisper  = WHISPER_DATA[row.name] ?? null
-                const hasWhisper = whisper !== null
+                const whisper  = WHISPER_DATA[row.name] ?? []
+                const defaultLevels = ['Outsourcing', 'Offshoring', 'Digitization', 'Price Maintain']
+                const displayData = whisper.length > 0 ? whisper : defaultLevels.map(l => ({ lever: l, learnings: [], points: [{ plain: 'N/A' }] }))
 
                 return (
                   <div key={row.name}>
                     {/* Main row */}
                     <div
-                      onClick={() => hasWhisper && setExpandedRow(isOpen ? null : row.name)}
+                      onClick={() => setExpandedRow(isOpen ? null : row.name)}
                       style={{
                         display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
                         padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
                         background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
                         borderBottom: BORDER,
-                        cursor: hasWhisper ? 'pointer' : 'default',
+                        cursor: 'pointer',
                       }}
-                      onMouseEnter={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = 'rgba(91,45,110,0.03)' }}
-                      onMouseLeave={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = isAlt ? '#fafbfc' : '#fff' }}
+                      onMouseEnter={e => { if (!isOpen) (e.currentTarget as HTMLDivElement).style.background = 'rgba(91,45,110,0.03)' }}
+                      onMouseLeave={e => { if (!isOpen) (e.currentTarget as HTMLDivElement).style.background = isAlt ? '#fafbfc' : '#fff' }}
                     >
                       <div style={{ fontWeight: 600, color: INK }}>
                         {row.name}
@@ -946,12 +947,12 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                       <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#2d7a0f' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
                       <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
                       <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>
-                        {hasWhisper ? '›' : ''}
+                        ›
                       </div>
                     </div>
 
                     {/* Expandable whisper detail panel */}
-                    {isOpen && whisper && (
+                    {isOpen && (
                       <div style={{ borderBottom: BORDER, background: '#fafbff' }}>
                         {/* Panel header */}
                         <div style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', background: '#f0eef8', borderBottom: '1px solid #e2ddf0' }}>
@@ -960,7 +961,7 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                           ))}
                         </div>
                         {/* Lever rows */}
-                        {whisper.map((lev, li) => (
+                        {displayData.map((lev, li) => (
                           <div key={lev.lever} style={{ display: 'grid', gridTemplateColumns: '14% 43% 43%', borderTop: li > 0 ? '1px solid #eef0f6' : undefined }}>
                             <div style={{ padding: '12px 20px', fontSize: 11.5, fontWeight: 700, color: INK, textTransform: 'uppercase', letterSpacing: '0.04em', paddingTop: 14 }}>{lev.lever}</div>
                             <div style={{ padding: '12px 20px', fontSize: 12.5, lineHeight: 1.55, color: INK, borderLeft: '1px solid #eef0f6' }}>
