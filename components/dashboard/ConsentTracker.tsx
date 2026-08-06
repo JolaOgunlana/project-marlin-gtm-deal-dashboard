@@ -933,10 +933,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             })()}
           </div>
         </div>
-
-            </div>{/* end accordion body */}
+            </div>
           )}
-        </div>{/* end accordion container */}
+        </div>
 
         {/* ── Search bar ─────────────────────��───────────────────────�� */}
 
