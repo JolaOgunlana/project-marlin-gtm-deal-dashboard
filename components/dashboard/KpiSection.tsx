@@ -115,7 +115,7 @@ export function KpiSection({
         <div style={{ padding: '18px 22px 16px', borderLeft: DIVIDER }}>
           <div style={{ ...LABEL, color: '#1d6b12' }}>Executed</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 7 }}>
-            <span style={{ ...BIG_VAL, color: '#1d6b12' }}>{executed}</span>
+            <span style={{ ...BIG_VAL, color: '#4bcd3e' }}>{executed}</span>
             <span style={{ fontSize: 14, fontWeight: 500, color: 'rgba(26,31,78,0.45)' }}>clients</span>
           </div>
         </div>
