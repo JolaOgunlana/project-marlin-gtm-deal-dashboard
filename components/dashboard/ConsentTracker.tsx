@@ -691,7 +691,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   {/* ACV row */}
                   <tr style={{ borderBottom: '1px solid #e8eaf0' }}>
                     <td style={{ padding: '18px 24px', verticalAlign: 'middle' }}>
-                      <span style={{ ...LABEL }}>ACV</span>
+                      <span style={{ ...LABEL }}>ACV Business Case</span>
                     </td>
                     {waves.map(w => (
                       <td key={w.label} style={{ ...CELL, textAlign: 'right' }}>
