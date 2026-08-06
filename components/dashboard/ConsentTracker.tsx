@@ -697,7 +697,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       <td key={w.label} style={{ ...CELL, textAlign: 'right' }}>
                         <div style={{ fontSize: 20, fontWeight: 800, color: INK, marginBottom: 8 }}>{w.acv}</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
-                          <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#e8eaf0', maxWidth: 120 }}>
+                          <div style={{ flex: 1, height: 10, borderRadius: 5, background: '#e8eaf0', maxWidth: 120 }}>
                             <div style={{ width: `${w.acvPct}%`, height: '100%', borderRadius: 3, background: '#431C5B' }} />
                           </div>
                           <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.5)', minWidth: 28 }}>{w.acvPct}%</span>
@@ -717,7 +717,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       <td key={w.label} style={{ ...CELL, textAlign: 'right' }}>
                         <div style={{ fontSize: 20, fontWeight: 800, color: INK, marginBottom: 8 }}>{w.clients}</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
-                          <div style={{ flex: 1, height: 6, borderRadius: 3, background: '#e8eaf0', maxWidth: 120 }}>
+                          <div style={{ flex: 1, height: 10, borderRadius: 5, background: '#e8eaf0', maxWidth: 120 }}>
                             <div style={{ width: `${w.clientPct}%`, height: '100%', borderRadius: 3, background: INK }} />
                           </div>
                           <span style={{ fontSize: 12, fontWeight: 600, color: 'rgba(26,31,78,0.5)', minWidth: 28 }}>{w.clientPct}%</span>
