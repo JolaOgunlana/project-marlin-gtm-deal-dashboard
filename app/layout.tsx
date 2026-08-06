@@ -28,8 +28,8 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Deal Dashboard',
-  description: 'Internal Deal Dashboard — INTERNAL USE ONLY',
+  title: 'Project Marlin - Consent Tracker',
+  description: 'Project Marlin consent tracking dashboard — INTERNAL USE ONLY',
   generator: 'v0.app',
   icons: {
     icon: [
