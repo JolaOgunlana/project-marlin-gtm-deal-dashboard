@@ -163,7 +163,7 @@ export function KpiSection({
          */
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
           <Cell label="$ Margin Secured" value={marginSecured} />
-          <Cell label="$ Won"  value={won}  color="#1d6b12" divider />
+          <Cell label="$ Won"  value={won}  color="#4bcd3e" divider />
           <Cell label="$ Lost" value={lost} color="#B21A53" divider />
         </div>
       )}
