@@ -724,7 +724,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           })()}
         </div>
 
-        {/* ── Wave 1 Whisper Completion Status ─���────────────────────── */}
+        {/* ── Wave 1 Whisper Completion Status ─���───────────────��────── */}
         {(() => {
           const cols = [
             {
@@ -740,7 +740,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
               label: 'In-flight',
               date: 'Aug 10',
-              barColor: '#0891b2',
+              barColor: INK,
               acv: '$48.1M',
               acvColor: INK,
               meta: '3 clients · 26% of ACV · 9% of clients',
@@ -760,7 +760,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
               label: 'No whisper planned',
               date: null,
-              barColor: '#9aa0b0',
+              barColor: INK,
               acv: '$5.1M',
               acvColor: INK,
               meta: '8 clients · 6% of ACV · 38% of clients',
