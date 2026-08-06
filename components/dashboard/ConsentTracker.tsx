@@ -882,11 +882,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
           </div>
         </div>
 
-        {/* ── Search bar ─────────────────────��───────────────────────�� */}
-
-
-          </div>{/* close table overflow div */}
-        </div>{/* close outer white card */}
+          </div>
+        </div>
       </div>
     </div>
   )
