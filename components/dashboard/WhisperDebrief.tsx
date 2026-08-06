@@ -667,7 +667,7 @@ export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page
       <NavBanner page={page} onNavigate={onNavigate} title="Whisper Conversation Debrief" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: MUTED, marginBottom: 22, lineHeight: 1.6 }}>
-          This page captures what we learned from client whisper conversations and what still needs to be addressed across the four levers: Outsourcing, Offshoring, Digitization and Price Maintain. The table below shows each client&apos;s position on every lever at a glance. Click a client to see their Learnings and Points to Address. Each point links to the FAQ / Objection Handling page, where you&apos;ll find a ready response to use in your next conversation.
+          This page captures what we learned from client whisper conversations and what still needs to be addressed across the four levers: Outsourcing, Offshoring, Digitization and Price Maintain. The table below shows each client&apos;s position on every lever at a glance. Click a client to see their Learnings and Points to Address. Each point links to the Sales FAQ page, where you&apos;ll find a ready response to use in your next conversation.
         </p>
         <DebriefSection onFaqLink={onFaqLink} />
       </div>
@@ -678,7 +678,7 @@ export function WhisperDebriefPage({ page, onNavigate, onFaqLink }: { page: Page
 export function FaqPage({ page, onNavigate, highlightId, onClearHighlight }: { page: Page; onNavigate: (p: Page) => void; highlightId?: string | null; onClearHighlight?: () => void }) {
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
-      <NavBanner page={page} onNavigate={onNavigate} title="FAQ / Objection Handling" />
+        <NavBanner page={page} onNavigate={onNavigate} title="Sales FAQ" />
       <div style={{ padding: '0 32px 56px' }}>
         <p style={{ fontSize: 13.5, color: 'rgba(26,31,78,0.55)', lineHeight: 1.65, marginBottom: 24 }}>
           This page gives the account team ready-to-use responses for the most common objections and questions. It&apos;s organized by lever, including Technology, Outsourcing and Offshoring, Compliance, Transition, Pricing, No Consent, and New Tech Capabilities, so you can go straight to the relevant concern. Each row pairs a client&apos;s point with a concise, FIS-approved response drawn from programme talking points. Every unresolved point links directly to its corresponding response here.

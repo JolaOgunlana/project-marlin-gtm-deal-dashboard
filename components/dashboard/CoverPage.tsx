@@ -14,8 +14,8 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'tracker',   label: 'GTM Status' },
     { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
-    { id: 'faq',       label: 'FAQ / Objection Handling' },
     { id: 'debrief',   label: 'Whisper Conversation Debrief' },
+    { id: 'faq',       label: 'Sales FAQ' },
     { id: 'cover',     label: 'How to Use' },
   ]
 
@@ -145,7 +145,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       color: '#5b2d6e',
       links: [
         { label: 'Whisper Conversation Debrief', page: 'debrief' },
-        { label: 'FAQ / Objection Handling', page: 'faq' },
+        { label: 'Sales FAQ', page: 'faq' },
       ],
     },
     {
