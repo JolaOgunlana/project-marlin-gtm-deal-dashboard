@@ -141,20 +141,20 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       num: 2,
       title: 'Use',
       desc: 'See what we learned and what still needs addressing per client, across the four levers. Each point links to a ready FAQ response for your next conversation.',
-      color: '#5b2d6e',
+      color: '#B21A53',
       links: [
         { label: 'Sales FAQ', page: 'faq' },
+        { label: 'GTM Status', page: 'tracker' },
       ],
     },
     {
       num: 3,
       title: 'Track',
       desc: 'Compare client consent at a glance across the four levers, with a blended score and colour-coded risk bands to guide prioritization and account strategy.',
-      color: '#1d6b12',
+      color: '#4bcd3e',
       links: [
         { label: 'Deal Dashboard', page: 'dashboard' },
         { label: 'Consent Matrix', page: 'consent' },
-        { label: 'GTM Status', page: 'tracker' },
       ],
     },
   ]
@@ -209,8 +209,8 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
                         fontWeight: 600,
                         color: s.ink,
                         padding: '14px 16px',
-                        background: 'rgba(91,45,110,0.12)',
-                        border: '1px solid rgba(91,45,110,0.18)',
+                        background: step.color === '#B21A53' ? 'rgba(178,26,83,0.12)' : step.color === '#4bcd3e' ? 'rgba(75,205,62,0.12)' : 'rgba(91,45,110,0.12)',
+                        border: step.color === '#B21A53' ? '1px solid rgba(178,26,83,0.18)' : step.color === '#4bcd3e' ? '1px solid rgba(75,205,62,0.18)' : '1px solid rgba(91,45,110,0.18)',
                         borderRadius: 9,
                         display: 'flex',
                         alignItems: 'center',
@@ -219,8 +219,12 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
                         textAlign: 'left',
                         transition: 'background 0.15s, transform 0.1s, box-shadow 0.15s',
                       }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(91,45,110,0.20)' }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(91,45,110,0.12)' }}
+                      onMouseEnter={e => { 
+                        (e.currentTarget as HTMLButtonElement).style.background = step.color === '#B21A53' ? 'rgba(178,26,83,0.20)' : step.color === '#4bcd3e' ? 'rgba(75,205,62,0.20)' : 'rgba(91,45,110,0.20)'
+                      }}
+                      onMouseLeave={e => { 
+                        (e.currentTarget as HTMLButtonElement).style.background = step.color === '#B21A53' ? 'rgba(178,26,83,0.12)' : step.color === '#4bcd3e' ? 'rgba(75,205,62,0.12)' : 'rgba(91,45,110,0.12)'
+                      }}
                     >
                       <span>{link.label}</span>
                       <span style={{ color: s.accent, fontWeight: 700, fontSize: 15 }}>→</span>
