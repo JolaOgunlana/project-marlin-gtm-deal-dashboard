@@ -557,6 +557,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined,
                 display: 'flex',
                 flexDirection: 'column',
+                position: 'relative',
               }}>
                 {/* Stage label + tag */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -595,6 +596,24 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 }}>
                   {s.sfStages}
                 </div>
+
+                {i < STATS.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      right: -10,
+                      top: '50%',
+                      width: 18,
+                      height: 18,
+                      background: '#fff',
+                      borderTop: '2px solid #e2e4ee',
+                      borderRight: '2px solid #e2e4ee',
+                      transform: 'translateY(-50%) rotate(45deg)',
+                      zIndex: 2,
+                    }}
+                  />
+                )}
               </div>
             ))}
           </div>
