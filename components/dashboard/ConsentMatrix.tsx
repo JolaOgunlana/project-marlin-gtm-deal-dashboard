@@ -1184,8 +1184,24 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
 
           {/* Left: Propensity Rating toggle */}
           <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px' }}>
-            <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 14 }}>
-              Propensity Rating
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)' }}>
+                Propensity Rating
+              </div>
+              {/* Click affordance: caption + ripple cursor */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, pointerEvents: 'none' }}>
+                <span style={{ fontSize: 11.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+                  Click to switch view
+                </span>
+                <div style={{ position: 'relative', width: 22, height: 22, flexShrink: 0 }}>
+                  {[0, 1.1].map((delay, i) => (
+                    <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', bottom: 2, left: 2, width: 12, height: 12, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                  ))}
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                    <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+                  </svg>
+                </div>
+              </div>
             </div>
             <div style={{ display: 'flex', gap: 10, background: '#eef0f6', borderRadius: 11, padding: 5 }}>
               {(['pre', 'post'] as WhisperMode[]).map(m => (
