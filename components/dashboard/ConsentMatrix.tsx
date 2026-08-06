@@ -242,7 +242,7 @@ function RatingPill({ rating, onClick, active, noSignals }: { rating: Rating; on
   if (!rating) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const styles: Record<string, { bg: string; color: string; dot: string }> = {
     High: { bg: '#e9fbe6', color: '#1d6b12', dot: '#4bcd3e' },
-    Medium: { bg: '#fdf1c9', color: '#8a6a00', dot: '#e8a800' },
+    Medium: { bg: '#f0f1f5', color: '#6f7d94', dot: '#6f7d94' },
     Low: { bg: '#fce8ef', color: '#8a1040', dot: '#B21A53' },
   }
   const s = styles[rating]

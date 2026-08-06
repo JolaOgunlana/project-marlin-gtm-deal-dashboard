@@ -738,24 +738,44 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#1d6b12',
             },
             {
-              label: 'Whisper ETA',
-              date: 'Aug 7',
-              barColor: '#3d3270',
-              acv: '$25.3M',
-              acvColor: '#1a1f4e',
-              meta: '4 clients · 27% of ACV · 19% of clients',
-              names: ['Metro Bank', 'Lloyds', 'HSBC', 'First Bank Puerto Rico'],
-              nameColor: '#3d3270',
+              label: 'In-flight',
+              date: 'Aug 10',
+              barColor: '#0891b2',
+              acv: '$48.1M',
+              acvColor: '#4bcd3e',
+              meta: '3 clients · 26% of ACV · 9% of clients',
+              names: ['NatWest', 'Northpointe Capital', 'Umpqua Bank'],
+              nameColor: '#4bcd3e',
             },
             {
               label: 'Whisper ETA',
               date: 'Aug 14',
               barColor: '#1a1f4e',
               acv: '$9.4M',
-              acvColor: '#1a1f4e',
+              acvColor: '#4bcd3e',
               meta: '2 clients · 10% of ACV · 10% of clients',
               names: ['UBS', 'Brim Financial'],
-              nameColor: '#1a1f4e',
+              nameColor: '#4bcd3e',
+            },
+            {
+              label: 'No whisper planned',
+              date: null,
+              barColor: '#9aa0b0',
+              acv: '$5.1M',
+              acvColor: '#4bcd3e',
+              meta: '8 clients · 6% of ACV · 38% of clients',
+              names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
+              nameColor: '#9aa0b0',
+            },
+            {
+              label: 'Whisper Completed',
+              date: 'Aug 8',
+              barColor: '#4bcd3e',
+              acv: '$93.5M',
+              acvColor: '#4bcd3e',
+              meta: '13 clients · 64% of ACV · 33% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank'],
+              nameColor: '#4bcd3e',
             },
             {
               label: 'No whisper planned',
@@ -847,7 +867,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#1d6b12', lineHeight: 1, marginBottom: 8 }}>93</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>93</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
         </div>
