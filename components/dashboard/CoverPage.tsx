@@ -43,7 +43,7 @@ export function NavBanner({ page, onNavigate, title }: {
             padding: '8px 18px', background: 'rgba(255,255,255,0.10)',
             border: '1px solid rgba(255,255,255,0.28)', borderRadius: 999,
           }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#7ed321', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #7ed32180' }} />
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4bcd3e', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #4bcd3e80' }} />
             <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
               ACV Target $25M by End of Year 2026
             </span>
@@ -150,7 +150,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       num: 3,
       title: 'Track',
       desc: 'Compare client consent at a glance across the four levers, with a blended score and colour-coded risk bands to guide prioritization and account strategy.',
-      color: '#3a6e00',
+      color: '#1d6b12',
       links: [
         { label: 'Deal Dashboard', page: 'dashboard' },
         { label: 'Consent Matrix', page: 'consent' },
@@ -237,7 +237,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
 
         {/* Footnote */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: s.muted, padding: '14px 18px', background: s.white, border: s.border, borderRadius: 10 }}>
-          <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#7ed321', flexShrink: 0 }} />
+          <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#4bcd3e', flexShrink: 0 }} />
           <span>This document is strictly confidential and for internal use only. Do not distribute outside of the named stakeholder group.</span>
         </div>
 

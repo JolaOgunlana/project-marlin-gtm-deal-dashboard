@@ -220,7 +220,7 @@ const regionColor = (r: string) => {
   if (r === 'NA') return '#1a1f4e'
   if (r === 'EMEA-UK') return '#5b2d6e'
   if (r === 'EMEA-HH') return '#252a5a'
-  return '#2e9e2e'
+  return '#4bcd3e'
 }
 
 // ── Sub-components ─────────────────────────────────────────────────────────
@@ -241,9 +241,9 @@ function NotEnoughSignals() {
 function RatingPill({ rating, onClick, active, noSignals }: { rating: Rating; onClick?: () => void; active?: boolean; noSignals?: boolean }) {
   if (!rating) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const styles: Record<string, { bg: string; color: string; dot: string }> = {
-    High: { bg: '#d8f3d8', color: '#1a6e1a', dot: '#2e9e2e' },
+    High: { bg: '#e9fbe6', color: '#1d6b12', dot: '#4bcd3e' },
     Medium: { bg: '#fdf1c9', color: '#8a6a00', dot: '#e8a800' },
-    Low: { bg: '#fde0e0', color: '#a01020', dot: '#d0021b' },
+    Low: { bg: '#fce8ef', color: '#8a1040', dot: '#B21A53' },
   }
   const s = styles[rating]
   return (
@@ -273,9 +273,9 @@ function RatingPill({ rating, onClick, active, noSignals }: { rating: Rating; on
 function OverallScore({ score, noSignals }: { score: number | null; noSignals?: boolean }) {
   if (score === null) return noSignals ? <NotEnoughSignals /> : <span style={{ color: 'rgba(26,31,78,0.35)', fontStyle: 'italic', fontSize: 11 }}>—</span>
   const band = scoreBand(score)
-  const barColor = band === 'High' ? '#2e9e2e' : band === 'Medium' ? '#e8a800' : '#d0021b'
-  const badgeBg = band === 'High' ? '#d8f3d8' : band === 'Medium' ? '#fdf1c9' : '#fde0e0'
-  const badgeColor = band === 'High' ? '#1a6e1a' : band === 'Medium' ? '#8a6a00' : '#a01020'
+    const barColor = band === 'High' ? '#4bcd3e' : band === 'Medium' ? '#e8a800' : '#B21A53'
+    const badgeBg = band === 'High' ? '#e9fbe6' : band === 'Medium' ? '#fdf1c9' : '#fce8ef'
+    const badgeColor = band === 'High' ? '#1d6b12' : band === 'Medium' ? '#8a6a00' : '#8a1040'
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, padding: '6px 13px', borderRadius: 8, background: badgeBg, color: badgeColor, fontSize: 12.5, fontWeight: 800, minWidth: 90 }}>
@@ -357,7 +357,7 @@ const STAGE_COLOR: Record<string, string> = {
   4: '#f59e0b',   // amber
   5: '#14b8a6',   // teal
   6: '#22c55e',   // green
-  8: '#ef4444',   // red
+  8: '#B21A53',   // raspberry
 }
 const STAGE_LABELS: [string, string, string][] = [
   ['1','1 · New Opportunity','#4f8ef7'],
@@ -366,7 +366,7 @@ const STAGE_LABELS: [string, string, string][] = [
   ['4','4 · Late Sales / Pricing','#f59e0b'],
   ['5','5 · Contracting','#14b8a6'],
   ['6','6 · Executed','#22c55e'],
-  ['8','8 · Disqualified','#ef4444'],
+  ['8','8 · Disqualified','#B21A53'],
 ]
 const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
 
@@ -629,7 +629,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
           <div key={l} style={{ flex: 1, textAlign: 'center' }}>
             <span style={{
               fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
-              color: l === 'HIGH' ? '#1a6e1a' : l === 'LOW' ? '#a01020' : '#8a6a00',
+              color: l === 'HIGH' ? '#1d6b12' : l === 'LOW' ? '#8a1040' : '#8a6a00',
             }}>{l}</span>
           </div>
         ))}
@@ -792,7 +792,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             }}>
               <span style={{
                 fontSize: 12, fontWeight: 800, letterSpacing: '0.12em',
-                color: l === 'HIGH' ? '#1a6e1a' : l === 'MEDIUM' ? '#8a6a00' : '#a01020',
+                color: l === 'HIGH' ? '#1d6b12' : l === 'MEDIUM' ? '#8a6a00' : '#8a1040',
                 writingMode: 'vertical-rl', transform: 'rotate(180deg)',
               }}>{l}</span>
             </div>
@@ -1019,7 +1019,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               padding: '8px 18px', background: 'rgba(255,255,255,0.10)',
               border: '1px solid rgba(255,255,255,0.28)', borderRadius: 999,
             }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#7ed321', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #7ed32180' }} />
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4bcd3e', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #4bcd3e80' }} />
               <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
                 ACV Target $25M by End of Year 2026
               </span>
@@ -1202,7 +1202,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                   </thead>
                   <tbody>
                     <tr style={{ borderBottom: '1px solid #eef0f6' }}>
-                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#1a6e1a' }}>High</span></td>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#1d6b12' }}>High</span></td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness to further outsourcing, no objection to the model itself, and positive language toward the value proposition. Regulatory mentions are framed as considerations to manage, not blockers.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Openness across all service types with no named exclusions.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Clear enthusiasm or readiness for digital transformation, including interest in modernizing processes or contact-centre capabilities, with no stated hesitation or conditions.</td>
@@ -1216,7 +1216,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>A different pricing model is described, with no explicit resistance stated, or discount expectations somewhat above what can be offered but not stated as a blocker.</td>
                     </tr>
                     <tr>
-                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#a01020' }}>Low / No</span></td>
+                      <td style={{ padding: '18px 14px 18px 0', verticalAlign: 'top' }}><span style={{ fontSize: 13.5, fontWeight: 800, color: '#8a1040' }}>Low / No</span></td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Explicit rejection language with no qualifier or path forward.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Blanket rejection with no named area of openness.</td>
                       <td style={{ padding: '18px 14px', fontSize: 12.5, color: '#4a5060', lineHeight: 1.6, verticalAlign: 'top' }}>Reluctance or resistance to digital transformation, preference to maintain current processes, or explicit concerns that outweigh interest in modernization.</td>

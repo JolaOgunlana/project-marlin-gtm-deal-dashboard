@@ -10,8 +10,8 @@ const INK   = '#1a1f4e'
 const MUTED = 'rgba(26,31,78,0.50)'
 const MUTED_D = 'rgba(26,31,78,0.65)'
 const BORDER = '1px solid #e5e8ed'
-const GREEN  = '#2d7a0f'  // Matches executed section in Dashboard KPI
-const GREEN_BG = '#DFF3E4'
+const GREEN  = '#4bcd3e'
+const GREEN_BG = '#e9fbe6'
 const AMBER  = '#B7860B'
 const AMBER_BG = '#FBF0D0'
 const GRAY   = '#8A93A2'
@@ -612,7 +612,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               const bars = [
                 { label: 'Exploration', color: INK,      acv: 141.5, clients: 63,  text: '$141.5M', empty: false },
                 { label: 'Alignment',   color: '#1a6fa8', acv: 10.3,  clients: 1,   text: '$10.3M',  empty: false },
-                { label: 'Committed',   color: '#16a34a', acv: 0,     clients: 0,   text: '',       empty: true  },
+                { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative' }}>
@@ -659,7 +659,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           {/* Grid: label col + 3 wave cols + total col */}
           {(() => {
             const cols = [
-              { label: 'Wave 1', status: 'STARTED',     statusColor: '#2d7a0f', statusBg: '#e6f4dc', acv: 93.5,  acvPct: 64,  clients: 21, clientsPct: 33 },
+              { label: 'Wave 1', status: 'STARTED',     statusColor: '#1d6b12', statusBg: '#e9fbe6', acv: 93.5,  acvPct: 64,  clients: 21, clientsPct: 33 },
               { label: 'Wave 2', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 18.7,  acvPct: 13,  clients: 27, clientsPct: 42 },
               { label: 'Wave 3', status: 'NOT STARTED',  statusColor: '#556070', statusBg: '#eff0f3', acv: 33.0,  acvPct: 23,  clients: 16, clientsPct: 25 },
             ]
@@ -730,12 +730,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
               label: 'Completed',
               date: null,
-              barColor: '#2d7a0f',
+              barColor: '#4bcd3e',
               acv: '$53.7M',
-              acvColor: '#2d7a0f',
+              acvColor: '#1d6b12',
               meta: '7 clients · 57% of ACV · 33% of clients',
               names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
-              nameColor: '#2d7a0f',
+              nameColor: '#1d6b12',
             },
             {
               label: 'Whisper ETA',
@@ -835,7 +835,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 2: In Wave 1 whisper scope */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>13</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#1d6b12', lineHeight: 1, marginBottom: 8 }}>13</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 1 whisper scope (8 not planned)</div>
           </div>
 
@@ -847,7 +847,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: 40, fontWeight: 900, color: '#2d7a0f', lineHeight: 1, marginBottom: 8 }}>93</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#1d6b12', lineHeight: 1, marginBottom: 8 }}>93</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
         </div>
@@ -898,9 +898,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
                 const isHigh = val.toLowerCase().startsWith('high')
                 const isMed  = val.toLowerCase().startsWith('med')
-                const bg   = isHigh ? '#d8f3d8' : isMed ? '#fdf1c9' : '#fde0e0'
-                const col  = isHigh ? '#1a6e1a' : isMed ? '#8a6a00' : '#a01020'
-                const dot  = isHigh ? '#2e9e2e' : isMed ? '#e8a800' : '#d0021b'
+                const bg   = isHigh ? '#e9fbe6' : isMed ? '#fdf1c9' : '#fce8ef'
+                const col  = isHigh ? '#1d6b12' : isMed ? '#8a6a00' : '#8a1040'
+                const dot  = isHigh ? '#4bcd3e' : isMed ? '#e8a800' : '#B21A53'
                 return (
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, padding: '5px 9px', borderRadius: 7, background: bg, color: col, fontSize: 10.5, fontWeight: 700, letterSpacing: '0.02em', textTransform: 'uppercase', whiteSpace: 'nowrap', border: '1.5px solid transparent' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: dot, flexShrink: 0 }} />
@@ -945,7 +945,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#2d7a0f' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
+                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#1d6b12' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
                       <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
                       <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>
                         ›

@@ -14,9 +14,9 @@ const LINK_COL = '#5b2d6e'
 
 function RatingCell({ r }: { r: 'High' | 'Medium' | 'Low' }) {
   const styles: Record<string, { bg: string; color: string; dot: string }> = {
-    High:   { bg: '#d8f3d8', color: '#1a6e1a', dot: '#2e9e2e' },
+    High:   { bg: '#e9fbe6', color: '#1d6b12', dot: '#4bcd3e' },
     Medium: { bg: '#fdf1c9', color: '#8a6a00', dot: '#e8a800' },
-    Low:    { bg: '#fde0e0', color: '#a01020', dot: '#d0021b' },
+    Low:    { bg: '#fce8ef', color: '#8a1040', dot: '#B21A53' },
   }
   const s = styles[r]
   return (

@@ -113,18 +113,18 @@ export function KpiSection({
 
         {/* Col 3 — Executed */}
         <div style={{ padding: '18px 22px 16px', borderLeft: DIVIDER }}>
-          <div style={{ ...LABEL, color: '#2d7a0f' }}>Executed</div>
+          <div style={{ ...LABEL, color: '#1d6b12' }}>Executed</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 7 }}>
-            <span style={{ ...BIG_VAL, color: '#2d7a0f' }}>{executed}</span>
+            <span style={{ ...BIG_VAL, color: '#1d6b12' }}>{executed}</span>
             <span style={{ fontSize: 14, fontWeight: 500, color: 'rgba(26,31,78,0.45)' }}>clients</span>
           </div>
         </div>
 
         {/* Col 4 — Disqualified */}
         <div style={{ padding: '18px 22px 16px', borderLeft: DIVIDER }}>
-          <div style={{ ...LABEL, color: '#d0021b' }}>Disqualified</div>
+          <div style={{ ...LABEL, color: '#B21A53' }}>Disqualified</div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 7 }}>
-            <span style={{ ...BIG_VAL, color: '#d0021b' }}>{disqualified}</span>
+            <span style={{ ...BIG_VAL, color: '#B21A53' }}>{disqualified}</span>
             <span style={{ fontSize: 14, fontWeight: 500, color: 'rgba(26,31,78,0.45)' }}>client</span>
           </div>
         </div>
@@ -147,13 +147,13 @@ export function KpiSection({
           </div>
           {/* Green: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
-            <Cell label="$ Won"        value={won}                    color="#2d7a0f" />
-            <Cell label="% of $25M ACV Oct" value={percentWon  ?? '0%'}  color="#2d7a0f" divider />
+            <Cell label="$ Won"        value={won}                    color="#1d6b12" />
+            <Cell label="% of $25M ACV Oct" value={percentWon  ?? '0%'}  color="#1d6b12" divider />
           </div>
           {/* Red: 2 sub-cols */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderLeft: DIVIDER }}>
-            <Cell label="$ Lost"          value={lost}                  color="#d0021b" />
-            <Cell label="% Revenue Lost"  value={percentLost ?? '0%'}   color="#d0021b" divider />
+            <Cell label="$ Lost"          value={lost}                  color="#B21A53" />
+            <Cell label="% Revenue Lost"  value={percentLost ?? '0%'}   color="#B21A53" divider />
           </div>
         </div>
       ) : (
@@ -163,8 +163,8 @@ export function KpiSection({
          */
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr' }}>
           <Cell label="$ Margin Secured" value={marginSecured} />
-          <Cell label="$ Won"  value={won}  color="#2d7a0f" divider />
-          <Cell label="$ Lost" value={lost} color="#d0021b" divider />
+          <Cell label="$ Won"  value={won}  color="#1d6b12" divider />
+          <Cell label="$ Lost" value={lost} color="#B21A53" divider />
         </div>
       )}
     </div>
