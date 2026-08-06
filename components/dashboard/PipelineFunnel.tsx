@@ -228,7 +228,6 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 12 }}>
         <div>
           <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.005em', color: '#1a1f4e' }}>Pipeline by Opportunity Stage</div>
-          <div style={{ fontSize: 12, fontStyle: 'italic', color: 'rgba(26,31,78,0.42)', marginTop: 3 }}>Click any stage to filter opportunities</div>
         </div>
         <FilterCluster
           clientFilter={clientFilter} onClientFilter={onClientFilter}
