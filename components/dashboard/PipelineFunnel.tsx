@@ -121,6 +121,38 @@ function FilterCluster({
           transition: 'background 0.25s, border-color 0.25s, box-shadow 0.25s',
         }}
       >
+        {/* Caption row with ripple icon */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, alignSelf: 'flex-end' }}>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em' }}>
+            Click any filter to refine the pipeline
+          </span>
+          {/* Cursor icon with two ripple rings */}
+          <div style={{ position: 'relative', width: 26, height: 26, flexShrink: 0 }}>
+            {/* Ripple rings emanate from cursor tip (bottom-left) */}
+            {[0, 1.1].map((delay, i) => (
+              <div
+                key={i}
+                className="ripple-ring"
+                style={{
+                  position: 'absolute',
+                  bottom: 2,
+                  left: 2,
+                  width: 14,
+                  height: 14,
+                  borderRadius: '50%',
+                  border: `2px solid ${EGGPLANT}`,
+                  animation: `ripple-ring 2.2s ease-out ${delay}s infinite`,
+                  pointerEvents: 'none',
+                }}
+              />
+            ))}
+            {/* Cursor SVG */}
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'relative', zIndex: 1 }}>
+              <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+
         {/* Filter rows */}
         <FilterTabGroup
           label="Opportunities"
@@ -195,24 +227,9 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
     <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
       {/* Header row: title left, filters right */}
       <div style={{ padding: '18px 24px 16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-              Pipeline by Opportunity Stage
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 12, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
-                Click any filter to refine the pipeline
-              </span>
-              <div style={{ position: 'relative', width: 22, height: 22, flexShrink: 0 }}>
-                {[0, 1.1].map((delay, i) => (
-                  <div key={i} className="ripple-ring" style={{ position: 'absolute', bottom: 2, left: 2, width: 12, height: 12, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
-                ))}
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
-                  <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
-                </svg>
-              </div>
-            </div>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
+          <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
+            Pipeline by Opportunity Stage
           </div>
           <FilterCluster
             clientFilter={clientFilter} onClientFilter={onClientFilter}
