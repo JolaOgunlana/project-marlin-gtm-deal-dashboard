@@ -103,8 +103,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
             <col style={{ width: '5%' }} />   {/* Region */}
             <col style={{ width: '6%' }} />   {/* TMS Total Revenue */}
             <col style={{ width: '3.5%' }} /> {/* Wave */}
-            <col style={{ width: '4.5%' }} /> {/* Salesforce Stage */}
-            <col style={{ width: '6%' }} />   {/* Client Progress Status */}
+            <col style={{ width: '3.5%' }} /> {/* Stage */}
             <col style={{ width: '5%' }} />   {/* Next Step */}
             <col style={{ width: '7%' }} />   {/* Opportunity Owner */}
             <col style={{ width: '6%' }} />   {/* Whisper Date */}
@@ -113,7 +112,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
           </colgroup>
           <thead>
             <tr>
-              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Salesforce Stage', 'Client Progress Status', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Date', 'Whisper Outcome', 'Pitch Date'].map((h) => (
+              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Stage', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Date', 'Whisper Outcome', 'Pitch Date'].map((h) => (
                 <th key={h} style={{
                   padding: '9px 6px', textAlign: 'left', fontSize: 8.5, fontWeight: 700,
                   letterSpacing: '0.06em', textTransform: 'uppercase', color: '#fff',
@@ -132,10 +131,28 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 <td style={{ padding: '7px 6px', fontSize: 10, color: '#1a1f4e', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
+                  <TBDCell />
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
+                  <div style={{ fontWeight: 600, fontSize: 10.5, lineHeight: 1.25, color: '#1a1f4e', wordBreak: 'break-word' }}>{row.name}</div>
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
+                  <span style={{ display: 'inline-block', padding: '2px 4px', borderRadius: 4, fontSize: 8.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e' }}>
+                    {row.clientType === 'existing' ? 'Existing' : 'New'}
+                  </span>
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
+                  <RegionBadge region={row.region} />
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, fontWeight: 700, color: '#1a1f4e', fontVariantNumeric: 'tabular-nums', overflow: 'hidden' }}>
+                  {formatRevM(row.tmsRevenue)}
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', fontWeight: 600, overflow: 'hidden' }}>
+                  {row.wave}
+                </td>
+                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontWeight: 600, color: '#1a1f4e', fontSize: 10, overflow: 'hidden' }}>
                   {row.stage}
                 </td>
-                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
-                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', overflow: 'hidden' }}>
