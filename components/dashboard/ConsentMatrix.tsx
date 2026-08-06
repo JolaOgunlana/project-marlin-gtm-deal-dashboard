@@ -1216,7 +1216,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           {/* Middle: Total Clients */}
           <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 14, padding: '22px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.45)', marginBottom: 12 }}>
-              Total Clients
+              {whisperMode === 'post' ? 'Completed Whisper Clients' : 'Total Clients'}
             </div>
             <div style={{ fontSize: 56, fontWeight: 900, color: '#1a1f4e', lineHeight: 1 }}>
               {whisperMode === 'post' ? postClients.length : filtered.length}
