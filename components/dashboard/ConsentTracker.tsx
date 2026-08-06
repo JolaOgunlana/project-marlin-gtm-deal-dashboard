@@ -934,9 +934,8 @@ export function ConsentTrackerPage({ page, onNavigate }: { page: Page; onNavigat
                       onMouseEnter={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = 'rgba(91,45,110,0.03)' }}
                       onMouseLeave={e => { if (hasWhisper && !isOpen) (e.currentTarget as HTMLDivElement).style.background = isAlt ? '#fafbfc' : '#fff' }}
                     >
-                      <div style={{ fontWeight: 600, color: INK, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <div style={{ fontWeight: 600, color: INK }}>
                         {row.name}
-                        {hasWhisper && <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#5b2d6e', background: 'rgba(91,45,110,0.10)', padding: '2px 7px', borderRadius: 10 }}>Whisper</span>}
                       </div>
                       <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
                       <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
