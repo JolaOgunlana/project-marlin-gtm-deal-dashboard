@@ -98,22 +98,19 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <colgroup>
             <col style={{ width: '4%' }} />   {/* Oppt. ID */}
-            <col style={{ width: '11%' }} />  {/* Client Name */}
+            <col style={{ width: '12%' }} />  {/* Client Name */}
             <col style={{ width: '5%' }} />   {/* Deal Type */}
             <col style={{ width: '5%' }} />   {/* Region */}
-            <col style={{ width: '6%' }} />   {/* TMS Total Revenue */}
-            <col style={{ width: '3.5%' }} /> {/* Wave */}
-            <col style={{ width: '3.5%' }} /> {/* Salesforce Stage */}
-            <col style={{ width: '6%' }} />   {/* Client Progress Status */}
-            <col style={{ width: '5%' }} />   {/* Next Step */}
-            <col style={{ width: '7%' }} />   {/* Opportunity Owner */}
-            <col style={{ width: '6%' }} />   {/* Whisper Date */}
-            <col style={{ width: '18%' }} />  {/* Whisper Outcome */}
-            <col style={{ width: '6%' }} />   {/* Pitch Date */}
+            <col style={{ width: '7%' }} />   {/* TMS Total Revenue */}
+            <col style={{ width: '4%' }} />   {/* Wave */}
+            <col style={{ width: '4%' }} />   {/* Salesforce Stage */}
+            <col style={{ width: '7%' }} />   {/* Client Progress Status */}
+            <col style={{ width: '6%' }} />   {/* Next Step */}
+            <col style={{ width: '9%' }} />   {/* Opportunity Owner */}
           </colgroup>
           <thead>
             <tr>
-              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Salesforce Stage', 'Client Progress Status', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce', 'Whisper Date', 'Whisper Outcome', 'Pitch Date'].map((h) => (
+              {['Oppt. ID', 'Client Name', 'Deal Type', 'Region', 'TMS Revenue', 'Wave', 'Salesforce Stage', 'Client Progress Status', 'Next Steps - Salesforce', 'Opp. Owner - Salesforce'].map((h) => (
                 <th key={h} style={{
                   padding: '9px 6px', textAlign: 'left', fontSize: 8.5, fontWeight: 700,
                   letterSpacing: '0.06em', textTransform: 'uppercase', color: '#fff',
@@ -168,15 +165,6 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                 </td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}><TBDCell /></td>
-                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', overflow: 'hidden' }}>
-                  {row.whisperDate && row.whisperDate !== 'TBD' ? row.whisperDate : <TBDCell />}
-                </td>
-                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'top', fontSize: 10, color: '#1a1f4e', lineHeight: 1.45, wordBreak: 'break-word', whiteSpace: 'normal', overflow: 'hidden' }}>
-                  {row.salesCategory && row.salesCategory !== 'TBD' ? row.salesCategory : <TBDCell />}
-                </td>
-                <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', fontSize: 10, color: '#1a1f4e', overflow: 'hidden' }}>
-                  {row.pitchDate && row.pitchDate !== 'TBD' ? row.pitchDate : <TBDCell />}
-                </td>
               </tr>
             ))}
           </tbody>
