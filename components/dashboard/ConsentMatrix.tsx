@@ -131,6 +131,9 @@ const CM_DATA: CMClient[] = [
     lockPostPosition: true, absPostX: 78, absPostY: 8,
   },
   { name:"Hancock-Whitney Bank", id:"", rev:1703235, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
+  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Low",
+    lockPostPosition: true, absPostX: 80, absPostY: 13,
+  },
   { name:"Simmons Bank", id:"0149+7805+7873", rev:1634077, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes." },
