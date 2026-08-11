@@ -791,9 +791,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: INK,
             },
             {
-              label: 'Pitch ETA', date: 'TBD', barColor: ALIGNMENT, acv: '$85.7M', acvColor: ALIGNMENT,
-              meta: '9 clients · 92% of ACV · 43% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank', 'UMB', 'Lloyds', 'UBS', 'Centene', 'HSBC', 'Texas Capital'],
+              label: 'Pitch ETA', date: 'TBD', barColor: ALIGNMENT, acv: '$75.8M', acvColor: ALIGNMENT,
+              meta: '8 clients · 81% of ACV · 38% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank', 'Lloyds', 'UBS', 'Centene', 'HSBC', 'Texas Capital'],
               nameColor: INK,
             },
           ]
