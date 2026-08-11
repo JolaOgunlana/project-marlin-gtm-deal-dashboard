@@ -785,8 +785,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCol = {
             label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
-            meta: '0 clients · 0% of ACV · 0% of clients',
-            names: [],
+            meta: '1 client · 11% of ACV · 5% of clients',
+            names: ['UMB'],
             nameColor: ALIGNMENT,
           }
           return (
