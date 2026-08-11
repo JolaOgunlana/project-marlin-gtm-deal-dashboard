@@ -787,7 +787,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
             meta: '1 client · 11% of ACV · 5% of clients',
             names: ['UMB'],
-            nameColor: ALIGNMENT,
+            nameColor: INK,
           }
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
@@ -868,7 +868,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ──────────────────────────��─ */}
+        {/* ── Wave 1 Client Details wrapper ────────────────────────���─��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}
