@@ -258,7 +258,7 @@ const STATS = [
     tag: 'WHISPER',
   count: 55,
   countColor: INK,
-  revenue: '$49.6M',
+  revenue: '$39.7M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
