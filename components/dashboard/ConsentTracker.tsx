@@ -828,14 +828,14 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     {/* Stage labels row */}
                     <div style={{ display: 'flex', padding: '10px 22px 0' }}>
                       <div style={{ flex: 4 }}>
-                        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-                          Exploration
+                  <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: '0.005em', color: INK, whiteSpace: 'nowrap' }}>
+                  Exploration
                         </span>
                       </div>
                       <div style={{ width: 30, flexShrink: 0 }} />
                       <div style={{ flex: 2 }}>
-                        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: ALIGNMENT, whiteSpace: 'nowrap' }}>
-                          Alignment
+                  <span style={{ fontSize: 16, fontWeight: 800, letterSpacing: '0.005em', color: ALIGNMENT, whiteSpace: 'nowrap' }}>
+                  Alignment
                         </span>
                       </div>
                     </div>
