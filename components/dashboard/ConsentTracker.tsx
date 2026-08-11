@@ -65,7 +65,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
 }
 
-// ── Types ──────────��───────────────────────────────────────────────────────────
+// ── Types ──────────����───────────────────────────────────────────────────────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
 
@@ -807,7 +807,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   <div style={{ padding: '20px 22px', borderLeft: bordered ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>{col.label}</span>
-                      {col.date && <span style={{ fontSize: 16, color: INK, fontWeight: 500 }}>{col.date}</span>}
+                      {col.date && <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 9px', borderRadius: 999, background: `${col.barColor}18`, color: col.barColor, fontSize: 13, fontWeight: 700, lineHeight: 1, whiteSpace: 'nowrap' }}>{col.date}</span>}
                     </div>
                     <div style={{ fontSize: 30, fontWeight: 800, color: col.acvColor, lineHeight: 1, marginBottom: 6 }}>{col.acv}</div>
                     <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)', marginBottom: 14, lineHeight: 1.4 }}>
