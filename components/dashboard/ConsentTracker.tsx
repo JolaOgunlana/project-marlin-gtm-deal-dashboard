@@ -758,9 +758,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {(() => {
           const cols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$53.7M', acvColor: '#4bcd3e',
-              meta: '7 clients · 57% of ACV · 33% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$43.8M', acvColor: '#4bcd3e',
+              meta: '6 clients · 47% of ACV · 29% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
               nameColor: '#4bcd3e',
             },
             {
@@ -782,24 +782,21 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: INK,
             },
           ]
+          const ALIGNMENT = '#0891b2'
+          const alignmentCol = {
+            label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
+            meta: '1 client · 11% of ACV · 5% of clients',
+            names: ['UMB'],
+            nameColor: ALIGNMENT,
+          }
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
               <div style={{ padding: '14px 22px 10px', borderBottom: '1px solid #e2e4ee' }}>
                 <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Wave 1 Consent Status</span>
               </div>
-              <div style={{ padding: '10px 22px 0' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
-                  Exploration
-                </span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '6px 22px 0' }}>
-                {cols.map((c, i) => (
-                  <div key={i} style={{ height: 5, background: INK, borderLeft: i > 0 ? '1px solid #fff' : undefined }} />
-                ))}
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-                {cols.map((col, i) => (
-                  <div key={i} style={{ padding: '20px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
+              {(() => {
+                const renderCard = (col: typeof cols[number], bordered: boolean) => (
+                  <div style={{ padding: '20px 22px', borderLeft: bordered ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column', height: '100%' }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>{col.label}</span>
                       {col.date && <span style={{ fontSize: 16, color: INK, fontWeight: 500 }}>{col.date}</span>}
@@ -816,8 +813,57 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       ))}
                     </ul>
                   </div>
-                ))}
-              </div>
+                )
+
+                return (
+                  <>
+                    {/* Stage labels row */}
+                    <div style={{ display: 'flex', padding: '10px 22px 0' }}>
+                      <div style={{ flex: 4 }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
+                          Exploration
+                        </span>
+                      </div>
+                      <div style={{ width: 30, flexShrink: 0 }} />
+                      <div style={{ flex: 1 }}>
+                        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: ALIGNMENT, whiteSpace: 'nowrap' }}>
+                          Alignment
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Stage color bars + flow arrow */}
+                    <div style={{ display: 'flex', alignItems: 'center', padding: '6px 22px 0' }}>
+                      <div style={{ flex: 4, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                        {cols.map((c, i) => (
+                          <div key={i} style={{ height: 5, background: INK, borderLeft: i > 0 ? '1px solid #fff' : undefined }} />
+                        ))}
+                      </div>
+                      <div style={{ width: 30, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                          <path d="M2 8H13M13 8L9 4M13 8L9 12" stroke={ALIGNMENT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ height: 5, background: ALIGNMENT, borderRadius: '0 3px 3px 0' }} />
+                      </div>
+                    </div>
+
+                    {/* Column cards */}
+                    <div style={{ display: 'flex', alignItems: 'stretch' }}>
+                      <div style={{ flex: 4, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                        {cols.map((col, i) => (
+                          <div key={i}>{renderCard(col, i > 0)}</div>
+                        ))}
+                      </div>
+                      <div style={{ width: 30, flexShrink: 0 }} />
+                      <div style={{ flex: 1 }}>
+                        {renderCard(alignmentCol, true)}
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
             </div>
           )
         })()}
