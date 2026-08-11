@@ -66,8 +66,8 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   'Metro Bank': [
     { lever: 'Outsourcing', learnings: ['The transformation concept, using a scale player like Genpact, landed well.', "Genpact is well known to Metro, having just lost out to Infosys for Metro's current transformation."], points: [{ label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' }] },
     { lever: 'Offshoring', learnings: ['Open to offshoring voice in principle, but wants small steps to prove the concept first.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Digitization', learnings: [], points: [{ plain: 'N/A' }] },
-    { lever: 'Price Maintain', learnings: [], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
+    { lever: 'Digitization', learnings: [], points: [{ label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
+    { lever: 'Price Maintain', learnings: ['Unhappy with the current FTE model; wants an outcome/SLA-based approach instead.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
 }
 
