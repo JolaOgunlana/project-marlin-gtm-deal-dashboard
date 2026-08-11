@@ -98,7 +98,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
   { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low",
-    lockPostPosition: true, absPostX: 80, absPostY: 13,
+    lockPostPosition: true, absPostX: 84, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The transformation concept, using a scale player like Genpact, landed well." },
       off:{ rating:"High", rationale:"Open to offshoring voice in principle, but wants small steps to prove the concept first." },
