@@ -561,7 +561,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 {/* Stage label + tag */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                   <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.countColor }}>{s.label}</div>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', color: 'rgba(26,31,78,0.72)' }}>{s.tag}</div>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', padding: '4px 9px', borderRadius: 999, background: `${s.countColor}18`, color: s.countColor, fontSize: 10, fontWeight: 800, letterSpacing: '0.09em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{s.tag}</span>
                 </div>
 
                 {/* ACV + client count inline */}
