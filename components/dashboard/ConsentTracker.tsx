@@ -844,7 +844,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     <div style={{ display: 'flex', alignItems: 'center', padding: '6px 22px 0' }}>
                       <div style={{ flex: 4, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
                         {cols.map((c, i) => (
-                          <div key={i} style={{ height: 5, background: INK, borderLeft: i > 0 ? '1px solid #fff' : undefined }} />
+                          <div key={i} style={{ height: 5, background: INK }} />
                         ))}
                       </div>
                       <div style={{ width: 30, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -854,7 +854,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       </div>
                       <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
                         {alignmentCols.map((_, i) => (
-                          <div key={i} style={{ height: 5, background: ALIGNMENT, borderLeft: i > 0 ? '1px solid #fff' : undefined, borderRadius: i === 1 ? '0 3px 3px 0' : undefined }} />
+                          <div key={i} style={{ height: 5, background: ALIGNMENT, borderRadius: i === 1 ? '0 3px 3px 0' : undefined }} />
                         ))}
                       </div>
                     </div>
