@@ -80,7 +80,7 @@ type WhisperMode = 'pre' | 'post'
 // TMS Revenue, Wave and Stage are enriched at render time from the shared
 // `clients` array in @/lib/data so they stay in sync with the GTM dashboard.
 const CM_DATA: CMClient[] = [
-  { name:"Virgin Money", id:"VM", rev:26229417, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low",
+  { name:"Virgin Money", id:"VM", rev:26229417, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"Medium", off:"Low", dig:"High", price:"Low",
     lockPostPosition: true, absPostX: 42, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
@@ -89,7 +89,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"High", rationale:"They already operate on a TCO model, so a subscription-based, predictable pricing structure would align with expectations." }
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:16362300, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
-  { name:"Fifth Third Bank", id:"5685", rev:13558253, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"Medium",
+  { name:"Fifth Third Bank", id:"5685", rev:13558253, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"Medium",
     preNudgeY: 13.335, postPlotOff: "High", lockPostPosition: true, absPostX: 53, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
@@ -97,7 +97,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"He is comfortable injecting more tech into our front ends and processes but admits this will have to be thoroughly proven prior to 5/3 moving forward." },
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
-  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"High", off:"High", dig:"High", price:"Low",
+  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"High", off:"High", dig:"High", price:"Low",
     lockPostPosition: true, absPostX: 84, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The transformation concept, using a scale player like Genpact, landed well." },
@@ -106,7 +106,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Low", rationale:"Are costs going up? How is pricing affected?" }
     }
   },
-  { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low",
+  { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:3, out:"Low", off:"Low", dig:"Medium", price:"Low",
     preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17, lockPrePosition: true, absPreX: 15, absPreY: 80,
     post:{
       out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
@@ -121,7 +121,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"Medium", rationale:"1) Technology Modernization identified as primary near-term opportunity. 2) Potential for expansion to other digitization initiatives. 3) Technology capabilities viewed as key differentiator in vendor selection. 4) Forward-looking on modern technology implementation." },
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
-  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"Medium", off:"High", dig:"High", price:"Low",
+  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Low",
     lockPrePosition: true, absPreX: 50, absPreY: 13,
     post:{
       out:{ rating:"Medium", rationale:"The transformation concept and outsourcing opportunity are being evaluated." },
@@ -130,15 +130,15 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Low", rationale:"Pricing remains a point to address." }
     }
   },
-  { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"High" },
+  { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"Low", dig:"Medium", price:"High" },
   { name:"PNC Bank", id:"", rev:5143978, region:"NA", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
   { name:"ING (BV / Barneveld)", id:"", rev:4502484, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Synovus Bank (incl. Business)", id:"", rev:3577829, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:null, dig:null, price:null },
-  { name:"Centene Corporation", id:"7697", rev:3489339, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
+  { name:"Centene Corporation", id:"7697", rev:3489339, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"High" },
+  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium" },
   { name:"First Hawaiian Bank", id:"", rev:1836975, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:null, price:null },
   { name:"Arvest", id:"", rev:2022941, region:"NA", dealType:"existing", wave:2, stage:1, out:"High", off:"High", dig:"Medium", price:"Low" },
-  { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"Low",
+  { name:"AIB", id:"AIB", rev:1827370, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"Medium", off:"Low", dig:"Medium", price:"Low",
     post:{
       out:{ rating:"High", rationale:"They've had no previous engagement with Genpact, however are open to outsourcing and again did not express any concerns. The potential enhanced technical capabilities would be welcomed. John doesn't have an existing relationship with TMS so this wasn't discussed. However, TMS has a very strong relationship with the AIB Customer Engagement team and would be keen for this to remain in place." },
       off:{ rating:"High", rationale:"There were no objections to offshore voice support." },
@@ -148,7 +148,7 @@ const CM_DATA: CMClient[] = [
     lockPostPosition: true, absPostX: 78, absPostY: 8,
   },
   { name:"Hancock-Whitney Bank", id:"", rev:1703235, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
-  { name:"Simmons Bank", id:"0149+7805+7873", rev:1634077, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
+  { name:"Simmons Bank", id:"0149+7805+7873", rev:1634077, region:"NA", dealType:"existing", wave:1, stage:2, out:"High", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes." },
       off:{ rating:"High", rationale:"Not surprised by request and generally open to the idea from a Business POV, but has concerns legal team reaction. Generally conservative when it comes to offshore support." },
@@ -185,7 +185,7 @@ const CM_DATA: CMClient[] = [
   },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Texas Capital", id:"", rev:364725, region:"NA", dealType:"existing", wave:1, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Texas Capital", id:"", rev:364725, region:"NA", dealType:"existing", wave:1, stage:3, out:null, off:null, dig:null, price:null },
   { name:"Wells Fargo", id:"", rev:414000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Marshall and Ilsley (BMO)", id:"164", rev:380045, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Key Bank", id:"", rev:376815, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
