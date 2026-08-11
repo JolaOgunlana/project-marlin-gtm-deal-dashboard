@@ -120,7 +120,15 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"Medium", rationale:"1) Technology Modernization identified as primary near-term opportunity. 2) Potential for expansion to other digitization initiatives. 3) Technology capabilities viewed as key differentiator in vendor selection. 4) Forward-looking on modern technology implementation." },
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
-  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
+  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Low",
+    lockPostPosition: true, absPostX: 50, absPostY: 13,
+    post:{
+      out:{ rating:"Medium", rationale:"The transformation concept and outsourcing opportunity are being evaluated." },
+      off:{ rating:"High", rationale:"Open to offshoring as part of the operating model." },
+      dig:{ rating:"High", rationale:"Strong interest in digitization and automation." },
+      price:{ rating:"Low", rationale:"Pricing remains a point to address." }
+    }
+  },
   { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:1, out:"Medium", off:"Low", dig:"Medium", price:"High" },
   { name:"PNC Bank", id:"", rev:5143978, region:"NA", dealType:"existing", wave:3, stage:1, out:"Medium", off:"Low", dig:"High", price:"Low" },
   { name:"ING (BV / Barneveld)", id:"", rev:4502484, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
