@@ -625,12 +625,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 135.3
+              const maxAcv = 95.6
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
-{ label: 'Exploration', color: INK, acv: 135.3, clients: 63,  text: '$135.3M', empty: false },
-  { label: 'Alignment',   color: '#0891b2', acv: 9.9,  clients: 1,   text: '$9.9M',  empty: false },
+                { label: 'Exploration', color: INK, acv: 39.7, clients: 54, text: '$39.7M', empty: false },
+                { label: 'Alignment',   color: '#0891b2', acv: 95.6, clients: 10, text: '$95.6M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
