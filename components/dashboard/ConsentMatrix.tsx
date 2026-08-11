@@ -111,6 +111,7 @@ const CM_DATA: CMClient[] = [
     post:{
       out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
       off:{ rating:"High", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
+      dig:{ rating:"Medium", rationale:"Technology Modernization identified as the most likely near-term opportunity, with potential to expand into other digitization initiatives." },
       price:{ rating:"Medium", rationale:"Challenged concept of maintaining current economics while offshoring." }
     },
     postPlotOut: "High",
