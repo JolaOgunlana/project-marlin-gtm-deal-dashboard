@@ -97,7 +97,15 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"He is comfortable injecting more tech into our front ends and processes but admits this will have to be thoroughly proven prior to 5/3 moving forward." },
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
-  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low" },
+  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low",
+    lockPostPosition: true, absPostX: 80, absPostY: 13,
+    post:{
+      out:{ rating:"High", rationale:"The transformation concept, using a scale player like Genpact, landed well." },
+      off:{ rating:"High", rationale:"Open to offshoring voice in principle, but wants small steps to prove the concept first." },
+      dig:{ rating:"High", rationale:"No specific digitization learning captured." },
+      price:{ rating:"Low", rationale:"Are costs going up? How is pricing affected?" }
+    }
+  },
   { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:1, out:"Low", off:"Low", dig:"Medium", price:"Low",
     preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17, lockPrePosition: true, absPreX: 15, absPreY: 80,
     post:{
@@ -131,9 +139,6 @@ const CM_DATA: CMClient[] = [
     lockPostPosition: true, absPostX: 78, absPostY: 8,
   },
   { name:"Hancock-Whitney Bank", id:"", rev:1703235, region:"NA", dealType:"existing", wave:2, stage:1, out:"Low", off:null, dig:null, price:null },
-  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low",
-    lockPostPosition: true, absPostX: 80, absPostY: 13,
-  },
   { name:"Simmons Bank", id:"0149+7805+7873", rev:1634077, region:"NA", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"Questioned options if they are not able to agree to off-shore/outsource. Plan to go into more detail at pitch and address questions or specifics when the time comes." },
