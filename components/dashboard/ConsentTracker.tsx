@@ -273,7 +273,7 @@ const STATS = [
     tag: 'PITCH',
   count: 9,
   countColor: '#0891b2',
-  revenue: '$95.6M',
+  revenue: '$85.7M',
   revenueLabel: 'Annual contract value',
   region: '9 clients',
     descriptionParts: [
@@ -625,12 +625,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 95.6
+              const maxAcv = 85.7
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
 { label: 'Exploration', color: INK, acv: 59.5, clients: 55, text: '$59.5M', empty: false },
-  { label: 'Alignment',   color: '#0891b2', acv: 95.6, clients: 9, text: '$95.6M', empty: false },
+  { label: 'Alignment',   color: '#0891b2', acv: 85.7, clients: 9, text: '$85.7M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
