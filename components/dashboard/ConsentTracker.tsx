@@ -758,9 +758,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {(() => {
           const cols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$43.8M', acvColor: '#4bcd3e',
-              meta: '6 clients · 47% of ACV · 29% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$53.7M', acvColor: '#4bcd3e',
+              meta: '7 clients · 57% of ACV · 33% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'NatWest'],
               nameColor: '#4bcd3e',
             },
             {
@@ -785,8 +785,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCol = {
             label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
-            meta: '1 client · 11% of ACV · 5% of clients',
-            names: ['UMB'],
+            meta: '0 clients · 0% of ACV · 0% of clients',
+            names: [],
             nameColor: ALIGNMENT,
           }
           return (
@@ -868,7 +868,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ──────────────────────────── */}
+        {/* ── Wave 1 Client Details wrapper ──────────────────────────��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}
