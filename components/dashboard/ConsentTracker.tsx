@@ -783,12 +783,20 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             },
           ]
           const ALIGNMENT = '#0891b2'
-          const alignmentCol = {
-            label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
-            meta: '1 client · 11% of ACV · 5% of clients',
-            names: ['UMB'],
-            nameColor: INK,
-          }
+          const alignmentCols = [
+            {
+              label: 'Pitch ETA', date: 'Aug 31', barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
+              meta: '1 client · 11% of ACV · 5% of clients',
+              names: ['UMB'],
+              nameColor: INK,
+            },
+            {
+              label: 'Pitch ETA', date: 'TBD', barColor: ALIGNMENT, acv: '$85.7M', acvColor: ALIGNMENT,
+              meta: '9 clients · 92% of ACV · 43% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank', 'UMB', 'Lloyds', 'UBS', 'Centene', 'HSBC', 'Texas Capital'],
+              nameColor: INK,
+            },
+          ]
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
               <div style={{ padding: '14px 22px 10px', borderBottom: '1px solid #e2e4ee' }}>
@@ -825,7 +833,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                         </span>
                       </div>
                       <div style={{ width: 30, flexShrink: 0 }} />
-                      <div style={{ flex: 1 }}>
+                      <div style={{ flex: 2 }}>
                         <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: ALIGNMENT, whiteSpace: 'nowrap' }}>
                           Alignment
                         </span>
@@ -844,8 +852,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                           <path d="M2 8H13M13 8L9 4M13 8L9 12" stroke={ALIGNMENT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ height: 5, background: ALIGNMENT, borderRadius: '0 3px 3px 0' }} />
+                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                        {alignmentCols.map((_, i) => (
+                          <div key={i} style={{ height: 5, background: ALIGNMENT, borderLeft: i > 0 ? '1px solid #fff' : undefined, borderRadius: i === 1 ? '0 3px 3px 0' : undefined }} />
+                        ))}
                       </div>
                     </div>
 
@@ -857,8 +867,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                         ))}
                       </div>
                       <div style={{ width: 30, flexShrink: 0 }} />
-                      <div style={{ flex: 1 }}>
-                        {renderCard(alignmentCol, true)}
+                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                        {alignmentCols.map((col, i) => (
+                          <div key={i}>{renderCard(col, true)}</div>
+                        ))}
                       </div>
                     </div>
                   </>
@@ -868,7 +880,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ────────────────────────���─��─ */}
+        {/* ── Wave 1 Client Details wrapper ────────────────────────�����─��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}
