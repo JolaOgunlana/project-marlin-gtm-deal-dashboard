@@ -938,7 +938,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               const rows = [
                 { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
                 { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
-                { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
+                { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
                 { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',       dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
                 { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
                 { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
