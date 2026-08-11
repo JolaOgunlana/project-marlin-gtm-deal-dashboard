@@ -256,9 +256,9 @@ const STATS = [
   {
     label: 'Exploration',
     tag: 'WHISPER',
-    count: 63,
-    countColor: INK,
-    revenue: '$135.3M',
+  count: 54,
+  countColor: INK,
+  revenue: '$39.7M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -271,11 +271,11 @@ const STATS = [
   {
     label: 'Alignment',
     tag: 'PITCH',
-    count: 1,
-    countColor: '#0891b2',
-    revenue: '$9.9M',
-    revenueLabel: 'Annual contract value',
-    region: '1 NA · 0 EMEA',
+  count: 10,
+  countColor: '#0891b2',
+  revenue: '$95.6M',
+  revenueLabel: 'Annual contract value',
+  region: '10 clients',
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
