@@ -97,7 +97,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"He is comfortable injecting more tech into our front ends and processes but admits this will have to be thoroughly proven prior to 5/3 moving forward." },
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
-  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"High", off:"High", dig:"High", price:"Low",
+  { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"High", off:"High", dig:"High", price:"Low",
     lockPostPosition: true, absPostX: 84, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The transformation concept, using a scale player like Genpact, landed well." },
@@ -120,7 +120,7 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"Medium", rationale:"1) Technology Modernization identified as primary near-term opportunity. 2) Potential for expansion to other digitization initiatives. 3) Technology capabilities viewed as key differentiator in vendor selection. 4) Forward-looking on modern technology implementation." },
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
-  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:1, out:"Medium", off:"High", dig:"High", price:"Low",
+  { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:2, out:"Medium", off:"High", dig:"High", price:"Low",
     lockPrePosition: true, absPreX: 50, absPreY: 13,
     post:{
       out:{ rating:"Medium", rationale:"The transformation concept and outsourcing opportunity are being evaluated." },
