@@ -784,12 +784,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           ]
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
-              <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
+              <div style={{ padding: '14px 22px 10px', borderBottom: '1px solid #e2e4ee' }}>
                 <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Wave 1 Consent Status</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+              <div style={{ padding: '10px 22px 0', color: INK, fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                Exploration
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '6px 22px 0' }}>
                 {cols.map((c, i) => (
-                  <div key={i} style={{ height: 4, background: c.barColor, borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined }} />
+                  <div key={i} style={{ height: 5, background: INK, borderLeft: i > 0 ? '1px solid #fff' : undefined }} />
                 ))}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
