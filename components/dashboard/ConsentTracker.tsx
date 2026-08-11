@@ -785,7 +785,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           return (
             <div style={{ background: 'white', border: '1px solid #e2e4ee', borderRadius: 12, overflow: 'hidden' }}>
               <div style={{ padding: '14px 22px', borderBottom: '1px solid #e2e4ee' }}>
-                <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Wave 1 whisper completion</span>
+                <span style={{ fontSize: 16, fontWeight: 800, color: INK }}>Wave 1 Consent Status</span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
                 {cols.map((c, i) => (
@@ -797,7 +797,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   <div key={i} style={{ padding: '20px 22px', borderLeft: i > 0 ? '1px solid #e2e4ee' : undefined, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>{col.label}</span>
-                      {col.date && <span style={{ fontSize: 12, color: 'rgba(26,31,78,0.42)', fontWeight: 500 }}>{col.date}</span>}
+                      {col.date && <span style={{ fontSize: 16, color: INK, fontWeight: 800 }}>{col.date}</span>}
                     </div>
                     <div style={{ fontSize: 30, fontWeight: 800, color: col.acvColor, lineHeight: 1, marginBottom: 6 }}>{col.acv}</div>
                     <div style={{ fontSize: 12, color: 'rgba(26,31,78,0.55)', marginBottom: 14, lineHeight: 1.4 }}>
