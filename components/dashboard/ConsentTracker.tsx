@@ -683,9 +683,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Program coverage by wave ────────────────────────────── */}
         {(() => {
           const waves = [
-            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.9M',  acvPct: 65, clients: 22, clientPct: 34 },
-            { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$18.3M',  acvPct: 12, clients: 26, clientPct: 41 },
-            { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$33.0M',  acvPct: 23, clients: 16, clientPct: 25 },
+            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 65, clients: 21, clientPct: 33 },
+            { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$18.3M',  acvPct: 13, clients: 26, clientPct: 41 },
+            { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$33.4M',  acvPct: 23, clients: 17, clientPct: 27 },
           ]
           const CELL: React.CSSProperties = { padding: '18px 24px', borderLeft: '1px solid #e8eaf0', verticalAlign: 'top' }
           const LABEL: React.CSSProperties = { fontSize: 12, fontWeight: 700, color: 'rgba(26,31,78,0.45)', textTransform: 'uppercase', letterSpacing: '0.07em' }
@@ -788,9 +788,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: INK,
             },
             {
-              label: 'No whisper planned', date: null, barColor: INK, acv: '$5.5M', acvColor: INK,
-              meta: '9 clients · 6% of ACV · 41% of clients',
-              names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth', 'Texas Capital'],
+  label: 'No whisper planned', date: null, barColor: INK, acv: '$5.1M', acvColor: INK,
+  meta: '8 clients · 6% of ACV · 38% of clients',
+  names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
               nameColor: INK,
             },
           ]
@@ -803,9 +803,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: INK,
             },
             {
-              label: 'Pitch ETA', date: 'TBD', barColor: ALIGNMENT, acv: '$75.8M', acvColor: ALIGNMENT,
-              meta: '8 clients · 81% of ACV · 38% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank', 'Lloyds', 'UBS', 'Centene', 'HSBC', 'Texas Capital'],
+  label: 'Pitch ETA', date: 'TBD', barColor: ALIGNMENT, acv: '$75.4M', acvColor: ALIGNMENT,
+  meta: '7 clients · 80% of ACV · 33% of clients',
+  names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank', 'Lloyds', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
           ]
@@ -905,16 +905,16 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           {/* Card 1: Wave 1 clients engaged */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-              <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>22</span>
-              <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.9M)</span>
+              <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>21</span>
+              <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 1 clients engaged</div>
           </div>
 
           {/* Card 2: In Wave 1 whisper scope */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>13</div>
-            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 1 whisper scope (9 not planned)</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>12</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 1 whisper scope (8 not planned)</div>
           </div>
 
           {/* Card 3: Of in-scope whisper ACV in Alignment */}
@@ -962,8 +962,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: "President's Choice",             acv: '$0.5M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
-                { name: 'Texas Capital',                  acv: '$0.4M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
-                { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
