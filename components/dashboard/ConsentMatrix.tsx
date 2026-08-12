@@ -185,7 +185,7 @@ const CM_DATA: CMClient[] = [
   },
   { name:"Santander Bank", id:"", rev:485904, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Royal Bank Of Canada", id:"", rev:477860, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
-  { name:"Texas Capital", id:"", rev:364725, region:"NA", dealType:"existing", wave:1, stage:3, out:null, off:null, dig:null, price:null },
+  { name:"Texas Capital", id:"", rev:364725, region:"NA", dealType:"existing", wave:3, stage:3, out:null, off:null, dig:null, price:null },
   { name:"Wells Fargo", id:"", rev:414000, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Marshall and Ilsley (BMO)", id:"164", rev:380045, region:"NA", dealType:"existing", wave:3, stage:1, out:null, off:null, dig:null, price:null },
   { name:"Key Bank", id:"", rev:376815, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
