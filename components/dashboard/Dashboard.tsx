@@ -24,7 +24,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
     <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       {/* Navy banner — full bleed, no radius */}
       <div style={{
-        background: "linear-gradient(90deg, rgba(22,24,56,0.68) 0%, rgba(22,24,56,0.68) 100%), url('/images/marlin-banner-bridge.jpg')",
+        background: "linear-gradient(90deg, rgba(22,24,56,0.80) 0%, rgba(22,24,56,0.80) 100%), url('/images/marlin-banner-bridge.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 34%',
         marginBottom: 18,
