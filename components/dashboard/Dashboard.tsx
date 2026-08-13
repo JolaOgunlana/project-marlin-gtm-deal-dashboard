@@ -28,12 +28,13 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         backgroundSize: 'cover',
         backgroundPosition: 'center 34%',
         marginBottom: 18,
+        padding: '18px 32px 0',
         display: 'flex',
         flexDirection: 'column',
         gap: 0,
       }}>
         {/* Top row: title left, meta right */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', padding: '18px 32px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 14 }}>
           {/* Left: title + internal tag */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <div style={{ fontSize: 58, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05, fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -68,38 +69,36 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
           </div>
         </div>
 
-        {/* Bottom: page tabs — darker shade to separate from hero content */}
-        <div style={{ background: 'rgba(0,0,0,0.42)', padding: '0 32px' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
-            {([
-              { id: 'tracker',   label: 'GTM Status' },
-              { id: 'consent',   label: 'Consent Matrix' },
-              { id: 'dashboard', label: 'Deal Dashboard' },
-              { id: 'faq',       label: 'Sales FAQ' },
-              { id: 'cover',     label: 'How to Use' },
-            ] as { id: Page; label: string }[]).map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => onNavigate(tab.id)}
-                style={{
-                  fontFamily: 'inherit',
-                  fontSize: 13,
-                  fontWeight: 600,
-                  padding: '6px 18px',
-                  borderRadius: 0,
-                  border: 'none',
-                  background: page === tab.id ? '#fff' : 'transparent',
-                  color: page === tab.id ? '#1a1f4e' : 'rgba(255,255,255,0.65)',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  letterSpacing: '0.01em',
-                  transition: 'background 0.15s, color 0.15s',
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Bottom: page tabs flush to banner bottom-left */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
+          {([
+            { id: 'tracker',   label: 'GTM Status' },
+            { id: 'consent',   label: 'Consent Matrix' },
+            { id: 'dashboard', label: 'Deal Dashboard' },
+            { id: 'faq',       label: 'Sales FAQ' },
+            { id: 'cover',     label: 'How to Use' },
+          ] as { id: Page; label: string }[]).map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => onNavigate(tab.id)}
+              style={{
+                fontFamily: 'inherit',
+                fontSize: 13,
+                fontWeight: 600,
+                padding: '6px 18px',
+                borderRadius: '8px 8px 0 0',
+                border: 'none',
+                background: page === tab.id ? '#fff' : 'rgba(255,255,255,0.10)',
+                color: page === tab.id ? '#1a1f4e' : 'rgba(255,255,255,0.65)',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                letterSpacing: '0.01em',
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
 
