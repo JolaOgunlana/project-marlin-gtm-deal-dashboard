@@ -776,9 +776,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Whisper ETA', date: 'Aug 14', barColor: INK, acv: '$13.8M', acvColor: INK,
-              meta: '4 clients · 15% of ACV · 18% of clients',
-              names: ['HSBC', 'First Bank Puerto Rico', 'Brim Financial', 'UBS'],
+              label: 'Whisper ETA', date: 'Aug 14', barColor: INK, acv: '$9.4M', acvColor: INK,
+              meta: '2 clients · 10% of ACV · 9% of clients',
+              names: ['Brim Financial', 'UBS'],
               nameColor: INK,
             },
             {
