@@ -20,7 +20,7 @@ export function NavBanner({ page, onNavigate, title }: {
 
   return (
     <div style={{
-      background: "linear-gradient(90deg, rgba(22,24,56,0.80) 0%, rgba(22,24,56,0.80) 100%), url('/images/marlin-banner-bridge.jpg')",
+      background: "linear-gradient(90deg, rgba(22,24,56,0.87) 0%, rgba(22,24,56,0.87) 100%), url('/images/marlin-banner-bridge.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center 34%',
       marginBottom: 18,
