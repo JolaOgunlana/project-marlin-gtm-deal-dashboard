@@ -1133,7 +1133,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             <div style={{ fontSize: 28, fontWeight: 400, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
               Consent Tracker
             </div>
-            <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
+            <span style={{ fontSize: 17, fontWeight: 700, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
               Internal Use Only
             </span>
           </div>
