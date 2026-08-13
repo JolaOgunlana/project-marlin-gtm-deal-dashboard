@@ -1130,7 +1130,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             <div style={{ fontSize: 58, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
               Project Marlin
             </div>
-            <div style={{ fontSize: 58, fontWeight: 400, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+            <div style={{ fontSize: 28, fontWeight: 400, color: '#ffffff', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
               Consent Tracker
             </div>
             <span style={{ fontSize: 17, fontWeight: 700, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}>
