@@ -782,6 +782,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: INK,
             },
             {
+              label: 'Whisper ETA', date: 'Aug 21', barColor: INK, acv: '—', acvColor: INK,
+              meta: '2 clients',
+              names: ['HSBC', 'First Bank Puerto Rico'],
+              nameColor: INK,
+            },
+            {
   label: 'No whisper planned', date: null, barColor: INK, acv: '$5.1M', acvColor: INK,
   meta: '8 clients · 6% of ACV · 38% of clients',
   names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
