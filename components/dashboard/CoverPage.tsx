@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { TabNav } from './TabNav'
 
 type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
 
@@ -20,17 +19,16 @@ export function NavBanner({ page, onNavigate, title }: {
   ]
 
   return (
-    <>
     <div style={{
       background: "linear-gradient(90deg, rgba(22,24,56,0.87) 0%, rgba(22,24,56,0.87) 100%), url('/images/marlin-banner-bridge.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center 34%',
       marginBottom: 18,
+      padding: '18px 32px 0',
       display: 'flex',
       flexDirection: 'column',
       gap: 0,
     }}>
-      <div style={{ padding: '18px 32px 0' }}>
       {/* Top row */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', paddingBottom: 14 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -63,10 +61,33 @@ export function NavBanner({ page, onNavigate, title }: {
           </div>
         </div>
       </div>
+
+      {/* Tabs */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => onNavigate(tab.id)}
+            style={{
+              fontFamily: 'inherit',
+              fontSize: 13,
+              fontWeight: 600,
+              padding: '6px 18px',
+              borderRadius: '8px 8px 0 0',
+              border: 'none',
+              background: page === tab.id ? '#fff' : 'rgba(255,255,255,0.10)',
+              color: page === tab.id ? '#1a1f4e' : 'rgba(255,255,255,0.65)',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.01em',
+              transition: 'background 0.15s, color 0.15s',
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
     </div>
-    <TabNav page={page} onNavigate={onNavigate} />
-    </>
   )
 }
 
