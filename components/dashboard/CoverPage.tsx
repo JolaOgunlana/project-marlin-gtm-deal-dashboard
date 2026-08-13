@@ -62,7 +62,7 @@ export function NavBanner({ page, onNavigate, title }: {
       </div>
 
       {/* Tabs strip — darker shade to separate from hero content */}
-      <div style={{ background: 'rgba(0,0,0,0.22)', padding: '0 32px' }}>
+      <div style={{ background: 'rgba(0,0,0,0.42)', padding: '0 32px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {tabs.map(tab => (
             <button
@@ -73,9 +73,9 @@ export function NavBanner({ page, onNavigate, title }: {
                 fontSize: 13,
                 fontWeight: 600,
                 padding: '6px 18px',
-                borderRadius: '8px 8px 0 0',
+                borderRadius: 0,
                 border: 'none',
-                background: page === tab.id ? '#fff' : 'rgba(255,255,255,0.10)',
+                background: page === tab.id ? '#fff' : 'transparent',
                 color: page === tab.id ? '#1a1f4e' : 'rgba(255,255,255,0.65)',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',

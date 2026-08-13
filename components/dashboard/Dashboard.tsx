@@ -69,7 +69,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
         </div>
 
         {/* Bottom: page tabs — darker shade to separate from hero content */}
-        <div style={{ background: 'rgba(0,0,0,0.22)', padding: '0 32px' }}>
+        <div style={{ background: 'rgba(0,0,0,0.42)', padding: '0 32px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
             {([
               { id: 'tracker',   label: 'GTM Status' },
@@ -86,9 +86,9 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
                   fontSize: 13,
                   fontWeight: 600,
                   padding: '6px 18px',
-                  borderRadius: '8px 8px 0 0',
+                  borderRadius: 0,
                   border: 'none',
-                  background: page === tab.id ? '#fff' : 'rgba(255,255,255,0.10)',
+                  background: page === tab.id ? '#fff' : 'transparent',
                   color: page === tab.id ? '#1a1f4e' : 'rgba(255,255,255,0.65)',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
