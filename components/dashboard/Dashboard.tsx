@@ -56,7 +56,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
               border: '1px solid rgba(75,205,62,0.45)', borderRadius: 999,
             }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4bcd3e', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 6px #4bcd3e80' }} />
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#8fe97f', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
                 ACV Target $25M by End of Year 2026
               </span>
             </div>
