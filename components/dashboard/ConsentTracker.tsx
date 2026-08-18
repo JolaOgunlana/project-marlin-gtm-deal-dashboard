@@ -948,7 +948,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {/* Rows */}
             {(() => {
               const rows = [
-                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
+                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 94,   status: 'Alignment' },
                 { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
                 { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',       dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
