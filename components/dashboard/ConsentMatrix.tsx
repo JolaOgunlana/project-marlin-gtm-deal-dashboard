@@ -1264,7 +1264,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
               <span style={{ fontSize: 56, fontWeight: 900, color: whisperMode === 'post' ? '#4bcd3e' : '#1a1f4e', lineHeight: 1 }}>
-                {whisperMode === 'post' ? 91 : (avgPropensity ?? '—')}
+                {avgPropensity ?? '—'}
               </span>
               {avgPropensity !== null && (
                 <span style={{ fontSize: 20, fontWeight: 600, color: 'rgba(26,31,78,0.45)' }}>/100</span>

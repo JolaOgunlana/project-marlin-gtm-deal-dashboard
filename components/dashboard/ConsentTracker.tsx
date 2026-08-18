@@ -925,7 +925,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>91</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>89</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
           </div>{/* end metric cards grid */}
@@ -948,7 +948,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {/* Rows */}
             {(() => {
               const rows = [
-                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 94,   status: 'Alignment' },
+                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
                 { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
                 { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',       dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
