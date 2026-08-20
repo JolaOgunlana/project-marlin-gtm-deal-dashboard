@@ -400,7 +400,7 @@ const STAGE_COLOR: Record<string, string> = {
 const STAGE_LABELS: [string, string, string][] = [
   ['1','1 · New Opportunity','#4f8ef7'],
   ['2','2 · Early Sales','#06b6d4'],
-  ['3','3 ���� Mid Sales','#8b5cf6'],
+  ['3','3 · Mid Sales','#8b5cf6'],
   ['4','4 · Late Sales / Pricing','#f59e0b'],
   ['5','5 · Contracting','#14b8a6'],
   ['6','6 · Executed','#22c55e'],
