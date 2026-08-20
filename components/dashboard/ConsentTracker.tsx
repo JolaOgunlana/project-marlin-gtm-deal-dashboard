@@ -771,7 +771,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const cols = [
             {
               label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$82.9M', acvColor: '#4bcd3e',
-              meta: '9 clients · 79% of ACV · 45% of clients',
+              meta: '9 clients · 89% of ACV · 45% of clients',
               names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'Metro Bank', 'Lloyds', 'UBS'],
               nameColor: '#4bcd3e',
             },
@@ -783,7 +783,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             },
             {
   label: 'No whisper planned', date: null, barColor: INK, acv: '$5.1M', acvColor: INK,
-  meta: '8 clients · 6% of ACV · 38% of clients',
+  meta: '8 clients · 5% of ACV · 40% of clients',
   names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
               nameColor: INK,
             },
