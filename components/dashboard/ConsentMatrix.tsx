@@ -122,7 +122,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
   { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"Low",
-  absPostX: 51, absPostY: 4,
+  absPostX: 49, absPostY: 5,
   post:{
       out:{ rating:"High", rationale:"The transformation concept and outsourcing opportunity are being evaluated." },
       off:{ rating:"Medium", rationale:"Open to offshoring as part of the operating model." },
