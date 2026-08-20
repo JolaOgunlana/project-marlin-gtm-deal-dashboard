@@ -449,7 +449,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
   const preBase = useMemo(() => {
     // Use absolute post positions when provided — these are immune to any
     // changes in the post-whisper client roster or quadrant ranges.
-    return allClients.filter(c => c.lockPostPosition).map(c => ({
+    return allClients.filter(c => c.absPostX != null && c.absPostY != null).map(c => ({
       name: c.name,
       xPct: c.absPostX ?? 50,
       yPct: c.absPostY ?? 50,
@@ -477,7 +477,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
     const qRange = quadrantRanges[qKey] ?? { min: scoreForPos, max: scoreForPos }
     const t = qRange.max > qRange.min ? (scoreForPos - qRange.min) / (qRange.max - qRange.min) : 0.5
     const isEMEA = c.region.startsWith('EMEA')
-    const lockedPost = whisperMode === 'post' && c.lockPostPosition
+    const lockedPost = whisperMode === 'post' && (c.lockPostPosition || c.absPostX != null)
       ? preBase.find(p => p.name === c.name)
       : null
     const lockedPre = whisperMode === 'pre' && c.lockPrePosition
