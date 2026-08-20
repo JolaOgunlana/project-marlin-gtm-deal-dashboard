@@ -122,7 +122,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Medium", rationale:"1) Challenged concept of maintaining current economics while offshoring. 2) Benchmark work from other outsourcing efforts suggests our pricing may be too high. 3) Comparison of current onshore rates to market pricing and prospective vendor rates provided as counterpoint. 4) Pricing concern expected to resurface during formal discussions; no resolution at this point." }
     }},
   { name:"Lloyds", id:"LLOYDS", rev:9103883, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"Low",
-  absPostX: 49, absPostY: 7,
+  absPostX: 49, absPostY: 7, lockPrePosition: true, absPreX: 46, absPreY: 13,
   post:{
       out:{ rating:"High", rationale:"The transformation concept and outsourcing opportunity are being evaluated." },
       off:{ rating:"Medium", rationale:"Open to offshoring as part of the operating model." },
@@ -400,7 +400,7 @@ const STAGE_COLOR: Record<string, string> = {
 const STAGE_LABELS: [string, string, string][] = [
   ['1','1 · New Opportunity','#4f8ef7'],
   ['2','2 · Early Sales','#06b6d4'],
-  ['3','3 �� Mid Sales','#8b5cf6'],
+  ['3','3 ���� Mid Sales','#8b5cf6'],
   ['4','4 · Late Sales / Pricing','#f59e0b'],
   ['5','5 · Contracting','#14b8a6'],
   ['6','6 · Executed','#22c55e'],
