@@ -86,7 +86,7 @@ const CM_DATA: CMClient[] = [
       out:{ rating:"High", rationale:'They are open to further outsourcing and did not express any concerns regarding Genpact. While they are not a current user, they have engaged with them previously. There are concerns around introducing additional layers of "material outsourcing" under PRA regulation. The opportunity to access more modernised technical capabilities (e.g. AI), funded by FIS, resonated well. Maintaining existing day-to-day relationship ownership was positively received.' },
       off:{ rating:"Medium", rationale:'Offshore voice support is a clear "red light". It was stated that they cannot envisage a future where voice services would move offshore. Given the ongoing Nationwide/Virgin Money integration, any offshoring would be viewed as additional customer disruption. However, they are open to exploring offshoring for chat and operational activities.' },
       dig:{ rating:"High", rationale:"Strong appetite for digitization and automation across servicing workflows; leadership actively sponsoring the agenda." },
-      price:{ rating:"High", rationale:"They already operate on a TCO model, so a subscription-based, predictable pricing structure would align with expectations." }
+      price:{ rating:"Low", rationale:"They already operate on a TCO model, so a subscription-based, predictable pricing structure would align with expectations." }
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:16362300, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Fifth Third Bank", id:"5685", rev:13558253, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"Medium",
@@ -969,11 +969,15 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
       {tooltip && (() => {
         const c = tooltip.client
         const mode = tooltip.whisperMode
-        const out  = mode === 'post' && c.post?.out  ? (c.post.out.rating  ?? c.out)  : c.out
-        const off  = mode === 'post' && c.post?.off  ? (c.post.off.rating  ?? c.off)  : c.off
-        const dig  = mode === 'post' && c.post?.dig  ? (c.post.dig.rating  ?? c.dig)  : c.dig
-        const price= mode === 'post' && c.post?.price? (c.post.price.rating?? c.price): c.price
-        const score = overallScore(c, mode)
+        // Post-whisper tooltip only shows confirmed post-whisper ratings — matching
+        // the GTM Status Wave 1 Client Details table (source of truth). Clients
+        // without a confirmed post-whisper assessment show "—" rather than
+        // silently falling back to pre-whisper estimates.
+        const out  = mode === 'post' ? (c.post?.out?.rating   ?? null) : c.out
+        const off  = mode === 'post' ? (c.post?.off?.rating   ?? null) : c.off
+        const dig  = mode === 'post' ? (c.post?.dig?.rating   ?? null) : c.dig
+        const price= mode === 'post' ? (c.post?.price?.rating ?? null) : c.price
+        const score = mode === 'post' ? (c.post ? overallScore(c, mode) : null) : overallScore(c, mode)
         const stageLbl = STAGE_LABELS.find(([s]) => s === String(c.stage))
         const regionLbl = c.region === 'NA' ? 'North America' : c.region.startsWith('EMEA') ? 'EMEA' : c.region
         const ratingColor = (r: Rating) => r === 'High' ? '#6ee76e' : r === 'Medium' ? '#fde87a' : r === 'Low' ? '#ff9999' : 'rgba(255,255,255,0.4)'
