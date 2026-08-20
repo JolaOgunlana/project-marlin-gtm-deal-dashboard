@@ -833,7 +833,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   <>
                     {/* Stage labels row */}
                     <div style={{ display: 'flex', padding: '10px 22px 0' }}>
-                      <div style={{ flex: 4 }}>
+                      <div style={{ flex: 3 }}>
                   <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: INK, whiteSpace: 'nowrap' }}>
                   Exploration
                         </span>
@@ -848,7 +848,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
                     {/* Stage color bars + flow arrow */}
                     <div style={{ display: 'flex', alignItems: 'center', padding: '6px 22px 0' }}>
-                      <div style={{ flex: 4, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
                         {cols.map((c, i) => (
                           <div key={i} style={{ height: 5, background: INK }} />
                         ))}
@@ -867,7 +867,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
                     {/* Column cards */}
                     <div style={{ display: 'flex', alignItems: 'stretch' }}>
-                      <div style={{ flex: 4, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
                         {cols.map((col, i) => (
                           <div key={i}>{renderCard(col, i > 0)}</div>
                         ))}
