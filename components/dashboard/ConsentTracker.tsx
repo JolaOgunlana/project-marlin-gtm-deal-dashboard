@@ -544,7 +544,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           Client-by-client progression through Exploration, Alignment, Committed, and Not Pursuing across each Wave. Shows program coverage per Wave. Click a client to view its details.
         </p>
 
-        {/* ── Stage definition cards — KpiSection style ────────────── */}
+        {/* ��─ Stage definition cards — KpiSection style ────────────── */}
         <div style={{
           background: 'white',
           border: '1px solid #e2e4ee',
@@ -805,7 +805,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
   label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$75.4M', acvColor: ALIGNMENT,
   meta: '7 clients · 80% of ACV · 35% of clients',
-  names: ['Virgin Money', 'Fifth Third Bank', 'Metro Bank (Sep 10)', 'Lloyds', 'UBS', 'Centene', 'HSBC'],
+  names: ['Virgin Money (Being scheduled)', 'Fifth Third Bank', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
           ]
