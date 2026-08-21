@@ -1040,7 +1040,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
 }
 
 // ── Main component ────────────────────────��─������────�����─���───���─────────�����─────���──
-  type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+  type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
   const [whisperMode, setWhisperMode] = useState<WhisperMode>('post')
@@ -1172,6 +1172,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
           {([
             { id: 'tracker',   label: 'GTM Status' },
+            { id: 'calendar',  label: 'Pitch Calendar' },
             { id: 'consent',   label: 'Consent Matrix' },
             { id: 'dashboard', label: 'Deal Dashboard' },
             { id: 'faq',       label: 'Sales FAQ' },

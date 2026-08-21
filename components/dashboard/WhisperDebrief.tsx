@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavBanner } from './CoverPage'
 
-type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent'
+type Page = 'cover' | 'debrief' | 'faq' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 
 // ── Shared style tokens ───────────────────────────────────────────────────────
 const INK = '#1a1f4e'

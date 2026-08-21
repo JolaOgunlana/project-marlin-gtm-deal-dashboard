@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker'
+type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 
 // ── Shared nav banner ─────────────────────────────────────────────────────────
 export function NavBanner({ page, onNavigate, title }: {
@@ -12,6 +12,7 @@ export function NavBanner({ page, onNavigate, title }: {
 }) {
   const tabs: { id: Page; label: string }[] = [
     { id: 'tracker',   label: 'GTM Status' },
+    { id: 'calendar',  label: 'Pitch Calendar' },
     { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
     { id: 'faq',       label: 'Sales FAQ' },
