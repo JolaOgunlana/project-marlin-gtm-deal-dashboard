@@ -797,15 +797,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$9.9M', acvColor: ALIGNMENT,
-              meta: '1 client · 11% of ACV · 5% of clients',
-              names: ['UMB'],
+              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$30.8M', acvColor: ALIGNMENT,
+              meta: '3 clients · 33% of ACV · 15% of clients',
+              names: ['UMB', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)'],
               nameColor: INK,
             },
             {
-  label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$75.4M', acvColor: ALIGNMENT,
-  meta: '7 clients · 80% of ACV · 35% of clients',
-  names: ['Virgin Money (Being scheduled)', 'Fifth Third Bank', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'UBS', 'Centene', 'HSBC'],
+  label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$54.5M', acvColor: ALIGNMENT,
+  meta: '5 clients · 58% of ACV · 25% of clients',
+  names: ['Virgin Money (Being scheduled)', 'Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
           ]
@@ -892,7 +892,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ────────────────────────�����─��─ */}
+        {/* ── Wave 1 Client Details wrapper ──────────────��─────────�����─��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}
