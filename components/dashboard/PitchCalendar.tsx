@@ -220,14 +220,14 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             )}
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
               <div style={{ fontSize: 10, letterSpacing: 1.8, fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
-              <div style={{ fontSize: 26, fontWeight: 800, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                {pitchCount}<span style={{ fontSize: 13, fontWeight: 700, color: MUTED_2 }}>meeting{pitchCount === 1 ? '' : 's'}</span>
+              <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                {pitchCount}<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meeting{pitchCount === 1 ? '' : 's'}</span>
               </div>
             </div>
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
               <div style={{ fontSize: 10, letterSpacing: 1.8, fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
-              <div style={{ fontSize: 26, fontWeight: 800, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                ${fmtM(totalACV)}<span style={{ fontSize: 13, fontWeight: 700, color: MUTED_2 }}>M</span>
+              <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
+                ${fmtM(totalACV)}M
               </div>
             </div>
           </div>
