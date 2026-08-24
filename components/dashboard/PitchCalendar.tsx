@@ -158,7 +158,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             <div style={{ fontSize: 13.5, lineHeight: 1.65, color: MUTED, maxWidth: 720 }}>
               Your upcoming client pitch meetings, Monday to Friday. Each card shows the client and the scheduled date; the summary above tracks how many pitches are booked and the ACV they represent.
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 16, flex: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 0, flex: 'none' }}>
               <button
                 aria-label="Previous month"
                 disabled={viewIndex === 0}
@@ -172,7 +172,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               >
                 &#8592;
               </button>
-              <div style={{ minWidth: 200, fontSize: 16, fontWeight: 800, letterSpacing: 2, color: INK, textTransform: 'uppercase' }}>
+              <div style={{ flex: 1, minWidth: 0, textAlign: 'center', fontSize: 16, fontWeight: 800, letterSpacing: 2, color: INK, textTransform: 'uppercase', lineHeight: 1 }}>
                 {MONTHS[mo.m]}<span style={{ color: MUTED_2, fontWeight: 700, marginLeft: 8 }}>{mo.y}</span>
               </div>
               <button
