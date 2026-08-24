@@ -191,18 +191,6 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             </div>
           </div>
 
-          {/* Legend row */}
-          <div style={{
-            display: 'flex', flexWrap: 'wrap', gap: '18px 26px', alignItems: 'center',
-            padding: '2px 0 20px', borderBottom: `1px solid ${LINE}`, marginBottom: 20,
-          }}>
-            <span style={{ fontSize: 11, letterSpacing: 2, fontWeight: 700, color: MUTED, textTransform: 'uppercase' }}>Legend</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 12.5, color: INK, fontWeight: 600 }}>
-              <span style={{ width: 11, height: 11, borderRadius: '50%', display: 'inline-block', flex: 'none', background: WAVE1, boxShadow: '0 0 0 3px rgba(0,0,0,.05)' }} />
-              Wave 1
-            </span>
-          </div>
-
           {/* Stat strip */}
           <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
             {next && (
