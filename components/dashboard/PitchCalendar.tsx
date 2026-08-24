@@ -153,7 +153,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
 
       <div style={{ padding: '0 32px 56px' }}>
         <div style={{ width: '100%', fontSize: 13.5, lineHeight: 1.65, color: MUTED, padding: '0 0 18px' }}>
-          Your upcoming client pitch meetings, Monday to Friday. Each card shows the client and the scheduled date; the summary above tracks how many pitches are booked and the ACV they represent.
+          Upcoming client pitch meetings, Monday to Friday. Each card shows the client and the scheduled date; the summary above tracks how many pitches are booked and the ACV they represent.
         </div>
 
         {/* Board */}
