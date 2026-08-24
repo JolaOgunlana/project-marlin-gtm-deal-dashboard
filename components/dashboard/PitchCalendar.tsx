@@ -152,6 +152,10 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
       `}</style>
 
       <div style={{ padding: '0 32px 56px' }}>
+        <div style={{ width: '100%', fontSize: 13.5, lineHeight: 1.65, color: MUTED, padding: '0 0 18px' }}>
+          Your upcoming client pitch meetings, Monday to Friday. Each card shows the client and the scheduled date; the summary above tracks how many pitches are booked and the ACV they represent.
+        </div>
+
         {/* Board */}
         <div style={{
           background: 'white',
@@ -162,11 +166,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
         }}>
 
           {/* Nav row */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '2px 0 18px', marginBottom: 16 }}>
-            <div style={{ fontSize: 13.5, lineHeight: 1.65, color: MUTED, maxWidth: 720 }}>
-              Your upcoming client pitch meetings, Monday to Friday. Each card shows the client and the scheduled date; the summary above tracks how many pitches are booked and the ACV they represent.
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 0, flex: 'none' }}>
+          <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: 0, flex: 'none', marginBottom: 16 }}>
               <button
                 aria-label="Previous month"
                 disabled={viewIndex === 0}
@@ -210,7 +210,6 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 </button>
               </div>
             </div>
-          </div>
 
           {/* Stat strip */}
           <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
