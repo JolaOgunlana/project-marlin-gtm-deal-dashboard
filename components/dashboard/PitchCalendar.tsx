@@ -164,15 +164,15 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 disabled={viewIndex === 0}
                 onClick={() => viewIndex > 0 && setViewIndex(viewIndex - 1)}
                 style={{
-                  width: 38, height: 38, flex: 'none', cursor: viewIndex === 0 ? 'default' : 'pointer',
+                  width: 46, height: 46, flex: 'none', cursor: viewIndex === 0 ? 'default' : 'pointer',
                   background: viewIndex === 0 ? '#d5d7e3' : INK, color: '#fff', border: 'none', borderRadius: 4,
-                  fontSize: 16, fontWeight: 700, lineHeight: 1,
+                  fontSize: 20, fontWeight: 700, lineHeight: 1,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
                 &#8592;
               </button>
-              <div style={{ flex: 1, minWidth: 0, textAlign: 'center', fontSize: 16, fontWeight: 800, letterSpacing: 2, color: INK, textTransform: 'uppercase', lineHeight: 1 }}>
+              <div style={{ flex: 1, minWidth: 0, textAlign: 'center', fontSize: 19, fontWeight: 800, letterSpacing: 2, color: INK, textTransform: 'uppercase', lineHeight: 1 }}>
                 {MONTHS[mo.m]}<span style={{ color: MUTED_2, fontWeight: 700, marginLeft: 8 }}>{mo.y}</span>
               </div>
               <button
@@ -182,7 +182,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 style={{
                   width: 38, height: 38, flex: 'none', cursor: viewIndex === MONTHLIST.length - 1 ? 'default' : 'pointer',
                   background: viewIndex === MONTHLIST.length - 1 ? '#d5d7e3' : INK, color: '#fff', border: 'none', borderRadius: 4,
-                  fontSize: 16, fontWeight: 700, lineHeight: 1,
+                  fontSize: 20, fontWeight: 700, lineHeight: 1,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
