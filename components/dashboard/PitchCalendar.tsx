@@ -9,6 +9,7 @@ type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 // ── Design tokens (matched to the rest of the dashboard) ──────────────────────
 const INK        = '#1a1f4e'
 const INK_2      = '#252a5c'
+const EGGPLANT   = '#431C5B'
 const GREEN      = '#4bcd3e'
 const GREEN_DIM  = '#3aa830'
 const MUTED      = 'rgba(26,31,78,0.50)'
