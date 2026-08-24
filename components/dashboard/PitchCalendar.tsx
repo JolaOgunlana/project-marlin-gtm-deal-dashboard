@@ -210,7 +210,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 background: `radial-gradient(400px 200px at 100% 0%, rgba(75,205,62,.18), transparent 65%), ${INK}`,
                 border: `1px solid ${INK}`, borderRadius: 14, padding: '14px 16px', position: 'relative',
               }}>
-                <div style={{ fontSize: 10, letterSpacing: 1.8, fontWeight: 800, color: GREEN, textTransform: 'uppercase' }}>Upcoming Pitch</div>
+                <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: GREEN, textTransform: 'uppercase' }}>Upcoming Pitch</div>
                 <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginTop: 6, lineHeight: 1 }}>{next.client}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8, fontSize: 12, fontWeight: 700, color: '#c7cae0', letterSpacing: 0.2 }}>
                   <CalendarIcon size={11} color={GREEN} strokeWidth={2.4} />
@@ -219,13 +219,13 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               </div>
             )}
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
-              <div style={{ fontSize: 10, letterSpacing: 1.8, fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
+              <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
                 {pitchCount}<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meeting{pitchCount === 1 ? '' : 's'}</span>
               </div>
             </div>
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
-              <div style={{ fontSize: 10, letterSpacing: 1.8, fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
+              <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
                 ${fmtM(totalACV)}M
               </div>
