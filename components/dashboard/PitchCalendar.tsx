@@ -185,7 +185,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               </div>
               <div style={{ position: 'relative', flex: 'none', paddingTop: 28 }}>
                 <div style={{ position: 'absolute', right: 0, top: 0, display: 'flex', alignItems: 'center', gap: 5, pointerEvents: 'none', whiteSpace: 'nowrap' }}>
-                  <span style={{ fontSize: 11.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em' }}>Click to switch view</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em' }}>Click to switch month</span>
                   <div style={{ position: 'relative', width: 18, height: 18, flexShrink: 0 }}>
                     {[0, 1.1].map((delay, i) => (
                       <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', top: '50%', left: '50%', width: 10, height: 10, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
