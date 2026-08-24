@@ -175,7 +175,19 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               <div style={{ flex: 1, minWidth: 0, textAlign: 'center', fontSize: 19, fontWeight: 800, letterSpacing: 2, color: INK, textTransform: 'uppercase', lineHeight: 1 }}>
                 {MONTHS[mo.m]}<span style={{ color: MUTED_2, fontWeight: 700, marginLeft: 8 }}>{mo.y}</span>
               </div>
-              <button
+              <div style={{ position: 'relative', flex: 'none', paddingTop: 28 }}>
+                <div style={{ position: 'absolute', right: 0, top: 0, display: 'flex', alignItems: 'center', gap: 5, pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontSize: 11.5, fontWeight: 600, color: EGGPLANT, letterSpacing: '0.01em' }}>Click to switch view</span>
+                  <div style={{ position: 'relative', width: 18, height: 18, flexShrink: 0 }}>
+                    {[0, 1.1].map((delay, i) => (
+                      <div key={i} className="cm-ripple-ring" style={{ position: 'absolute', top: '50%', left: '50%', width: 10, height: 10, borderRadius: '50%', border: `2px solid ${EGGPLANT}`, animation: `cm-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                    ))}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                      <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={EGGPLANT} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none" />
+                    </svg>
+                  </div>
+                </div>
+                <button
                 aria-label="Next month"
                 disabled={viewIndex === MONTHLIST.length - 1}
                 onClick={() => viewIndex < MONTHLIST.length - 1 && setViewIndex(viewIndex + 1)}
@@ -185,9 +197,10 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                   fontSize: 20, fontWeight: 700, lineHeight: 1,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
-              >
-                &#8594;
-              </button>
+                >
+                  &#8594;
+                </button>
+              </div>
             </div>
           </div>
 
