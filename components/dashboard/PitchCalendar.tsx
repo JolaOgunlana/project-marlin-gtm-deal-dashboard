@@ -138,8 +138,15 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Pitch Calendar" />
 
-      <style>{`
-        @media (max-width: 820px) {
+  <style>{`
+  @keyframes cm-ripple-ring {
+    0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.7; }
+    100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cm-ripple-ring { animation: none !important; }
+  }
+  @media (max-width: 820px) {
           .pcal-stat-strip { grid-template-columns: 1fr !important; }
         }
       `}</style>
