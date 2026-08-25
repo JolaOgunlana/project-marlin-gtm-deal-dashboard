@@ -218,7 +218,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 background: `radial-gradient(400px 200px at 100% 0%, rgba(75,205,62,.18), transparent 65%), ${INK}`,
                 border: `1px solid ${INK}`, borderRadius: 14, padding: '14px 16px', position: 'relative',
               }}>
-                <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: GREEN, textTransform: 'uppercase' }}>Upcoming Pitch</div>
+                <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: GREEN, textTransform: 'uppercase' }}>Next Upcoming Pitch</div>
                 <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginTop: 6, lineHeight: 1 }}>{next.client}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8, fontSize: 12, fontWeight: 700, color: '#c7cae0', letterSpacing: 0.2 }}>
                   <CalendarIcon size={11} color={GREEN} strokeWidth={2.4} />
