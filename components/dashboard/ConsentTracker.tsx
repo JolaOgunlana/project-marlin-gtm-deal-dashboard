@@ -797,15 +797,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$30.8M', acvColor: ALIGNMENT,
-              meta: '3 clients · 33% of ACV · 15% of clients',
-              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)'],
+              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$57.0M', acvColor: ALIGNMENT,
+              meta: '4 clients · 61% of ACV · 20% of clients',
+              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'Virgin Money (Sep 21)'],
               nameColor: INK,
             },
             {
-  label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$54.5M', acvColor: ALIGNMENT,
-  meta: '5 clients · 58% of ACV · 25% of clients',
-  names: ['Virgin Money (Being scheduled)', 'Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
+  label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$28.3M', acvColor: ALIGNMENT,
+  meta: '4 clients · 30% of ACV · 20% of clients',
+  names: ['Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
           ]
