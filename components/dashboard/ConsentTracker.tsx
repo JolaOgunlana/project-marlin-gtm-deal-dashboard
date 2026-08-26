@@ -776,7 +776,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {(() => {
           const cols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$86.9M', acvColor: '#4bcd3e',
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$86.8M', acvColor: '#4bcd3e',
               meta: '11 clients · 93% of ACV · 55% of clients',
               names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'Metro Bank', 'Lloyds', 'UBS', 'Brim Financial', 'HSBC'],
               nameColor: '#4bcd3e',
