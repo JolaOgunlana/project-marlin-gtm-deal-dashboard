@@ -69,6 +69,12 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Digitization', learnings: [], points: [{ label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
     { lever: 'Price Maintain', learnings: ['Unhappy with the current FTE model; wants an outcome/SLA-based approach instead.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
+  'HSBC Technology & Services (USA)': [
+    { lever: 'Outsourcing', learnings: ['Have a process for vetting 4th parties and we can expect to have to walk through that as part of contracting process.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Offshoring', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Digitization', learnings: ['Interested about the technology and process improvement opportunities.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Simpler more predictable pricing is well received and no pushback on the fixed fee model.'], points: [{ plain: 'N/A' }] },
+  ],
   'UBS Financial Services Inc.': [
     { lever: 'Outsourcing', learnings: ['Positive on tech modernization — views current TMS tech as an area that has historically fallen short.', 'Receptive to investment that improves client and agent experience through better technology.'], points: [{ label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
     { lever: 'Offshoring', learnings: ['Open to hearing the Genpact value prop beyond labor arbitrage (specialized capabilities, automation, quality controls, workforce management).'], points: [{ label: 'Will our work be done through global delivery locations?', id: 'oh-off-global-delivery' }, { label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'If work moves offshore, how will my current team and contacts be impacted? Will I have the same contacts?', id: 'oh-off-contacts' }, { label: "If experienced staff are replaced through offshoring, how do we protect the client's expertise and hold SLAs?", id: 'oh-off-expertise' }, { label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }] },
