@@ -86,7 +86,7 @@ function inRange(d: Date) {
   return d >= START && d <= END
 }
 function fmtM(n: number) {
-  return (Math.round(n * 10) / 10).toString()
+  return (Math.round(n * 10) / 10).toFixed(1)
 }
 
 type MonthGroup = { y: number; m: number; cells: Date[] }
