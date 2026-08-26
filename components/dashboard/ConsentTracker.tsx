@@ -39,6 +39,12 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Digitization', learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'], points: [{ plain: 'N/A' }] },
     { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' }] },
   ],
+  'Brim Financial': [
+    { lever: 'Outsourcing', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Offshoring', learnings: [], points: [{ plain: 'N/A' }] },
+    { lever: 'Digitization', learnings: ['Expects high outcomes, and high customer experiences are the most important.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Interested in a high-end experience and the cost of it way lower.'], points: [{ plain: 'N/A' }] },
+  ],
   "President's Choice": [
     { lever: 'Outsourcing', learnings: ['Open to the outsourcing investment, but wants to see it tied to outbound fraud specifically.'], points: [{ label: 'New Tech Capabilities — what are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-out-techcaps' }] },
     { lever: 'Offshoring', learnings: ['Not a concern for PCF; they already offshore today.', 'New owner EQ Bank runs fully in-house and is finding it costly, so is cautiously evaluating offshoring options.', 'Keeps a 15% Canadian agent population, and wants that preserved.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-off-delivered' }, { label: 'Which languages do you currently support across your delivery network? List associated delivery locations.', id: 'oh-off-languages' }] },
