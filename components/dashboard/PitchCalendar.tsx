@@ -32,7 +32,7 @@ const WAVE_COLORS: Record<string, { dot: string; halo: string }> = {
 // for the top-10 portfolio; extend as more clients are added.
 // ============================================================
 const CLIENT_ACV: Record<string, number> = {
-  'Virgin Money': 27.0,
+  'Virgin Money': 26.2,
   'Deutsche Bank': 17.2,
   'Mercury Financial': 17.0, // projected churn — excluded from target math
   'Fifth Third': 13.9,
