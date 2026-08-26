@@ -892,7 +892,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ──────────────��─────────�����─��─ */}
+        {/* ── Wave 1 Client Details wrapper ──────────��───��─────────�����─��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}
@@ -925,7 +925,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>90</div>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>91</div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
           </div>
           </div>{/* end metric cards grid */}
@@ -955,7 +955,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
                 { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
                 { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
-                { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '3', out: null,   off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
+                { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '3', out: 'High', off: 'High', dig: 'High', price: 'High', score: 100, status: 'Alignment' },
                 { name: 'AIB',                            acv: '$1.8M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
                 { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
                 { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
