@@ -776,15 +776,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {(() => {
           const cols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$82.9M', acvColor: '#4bcd3e',
-              meta: '9 clients · 89% of ACV · 45% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'Metro Bank', 'Lloyds', 'UBS'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$86.9M', acvColor: '#4bcd3e',
+              meta: '11 clients · 93% of ACV · 55% of clients',
+              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'Metro Bank', 'Lloyds', 'UBS', 'Brim Financial', 'HSBC'],
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Whisper ETA', date: 'Aug 28', barColor: INK, acv: '$5.5M', acvColor: INK,
-              meta: '3 clients · 6% of ACV · 15% of clients',
-              names: ['Brim Financial', 'HSBC (Aug 25)', 'First Bank Puerto Rico'],
+              label: 'Whisper ETA', date: 'Aug 28', barColor: INK, acv: '$1.5M', acvColor: INK,
+              meta: '1 client · 2% of ACV · 5% of clients',
+              names: ['First Bank Puerto Rico'],
               nameColor: INK,
             },
             {
