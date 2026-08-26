@@ -41,7 +41,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
   'Brim Financial': [
     { lever: 'Outsourcing', learnings: [], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-refuse' }] },
-    { lever: 'Offshoring', learnings: ['Hates offshoring; closed out what little they had by end of May and wants nothing to go offshore, citing data residency and geopolitical concerns \u2014 prefers US agents for US customers and Canada only for Canadian work.', '"Offshoring is never the answer. Automating, yes, offshoring, no."'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }, { label: "If experienced staff are replaced through offshoring, how do we protect the client's expertise and hold SLAs?", id: 'oh-oo-expertise' }] },
+    { lever: 'Offshoring', learnings: ['Opposed to offshoring citing data residency and geopolitical concerns', '"Offshoring is never the answer. Automating, yes, offshoring, no."'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }, { label: "If experienced staff are replaced through offshoring, how do we protect the client's expertise and hold SLAs?", id: 'oh-oo-expertise' }] },
     { lever: 'Digitization', learnings: ['Expects high outcomes, and high customer experiences are the most important.'], points: [{ label: 'Are there recorded walkthroughs of the new tech capabilities (Intelligent Virtual Assistant, Agent Assist, AI Coach, fraud/dispute bots, etc.) that you can show us?', id: 'oh-tech-walkthroughs' }] },
     { lever: 'Price Maintain', learnings: ['Interested in a high-end experience and the cost of it way lower.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
@@ -784,7 +784,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail ────────────────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ─────────────────────────────── */}
+        {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
         {(() => {
           const cols = [
             {
