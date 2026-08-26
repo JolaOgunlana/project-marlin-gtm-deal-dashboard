@@ -40,9 +40,9 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' }] },
   ],
   'Brim Financial': [
-    { lever: 'Outsourcing', learnings: ["Heard FIS's call center, support process, and offline operational support is terrible \u2014 cited as a reason issuers consider moving off FIS."], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-refuse' }] },
-    { lever: 'Offshoring', learnings: ['Hates offshoring; closed out what little they had by end of May and wants nothing to go offshore, citing data residency and geopolitical concerns \u2014 prefers US agents for US customers and Canada only for Canadian work.', "\"Offshoring is never the answer. Automating, yes, offshoring, no.\" Has built internal support tools to drive calls out of the call center and wants to demo them to us instead."], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }, { label: "If experienced staff are replaced through offshoring, how do we protect the client's expertise and hold SLAs?", id: 'oh-oo-expertise' }] },
-    { lever: 'Digitization', learnings: ['Expects high outcomes, and high customer experiences are the most important.', 'Current experience is very bad; intends to minimize any calls to the call center and has no desire for more TMS advancements. Interested in an experience that is seamless, swift, and immediate.'], points: [{ label: 'Are there recorded walkthroughs of the new tech capabilities (Intelligent Virtual Assistant, Agent Assist, AI Coach, fraud/dispute bots, etc.) that you can show us?', id: 'oh-tech-walkthroughs' }] },
+    { lever: 'Outsourcing', learnings: [], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-refuse' }] },
+    { lever: 'Offshoring', learnings: ['Hates offshoring; closed out what little they had by end of May and wants nothing to go offshore, citing data residency and geopolitical concerns \u2014 prefers US agents for US customers and Canada only for Canadian work.', '"Offshoring is never the answer. Automating, yes, offshoring, no."'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it?", id: 'oh-oo-delivered' }, { label: 'Can a client offshore only part of the service, for example, back office but not voice?', id: 'oh-oo-partial' }, { label: "If experienced staff are replaced through offshoring, how do we protect the client's expertise and hold SLAs?", id: 'oh-oo-expertise' }] },
+    { lever: 'Digitization', learnings: ['Expects high outcomes, and high customer experiences are the most important.'], points: [{ label: 'Are there recorded walkthroughs of the new tech capabilities (Intelligent Virtual Assistant, Agent Assist, AI Coach, fraud/dispute bots, etc.) that you can show us?', id: 'oh-tech-walkthroughs' }] },
     { lever: 'Price Maintain', learnings: ['Interested in a high-end experience and the cost of it way lower.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
   "President's Choice": [
@@ -95,7 +95,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
 }
 
-// ── Types ──────────����───────────────────────────────────────────────────────────
+// ── Types ──────────����─────────────────────────────────────────────────��─────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
 
