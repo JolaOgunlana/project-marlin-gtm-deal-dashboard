@@ -76,9 +76,9 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Price Maintain', learnings: ['Unhappy with the current FTE model; wants an outcome/SLA-based approach instead.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
   'HSBC Technology & Services (USA)': [
-    { lever: 'Outsourcing', learnings: ['Have a process for vetting 4th parties and we can expect to have to walk through that as part of contracting process.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Offshoring', learnings: [], points: [{ plain: 'N/A' }] },
-    { lever: 'Digitization', learnings: ['Interested about the technology and process improvement opportunities.'], points: [{ plain: 'N/A' }] },
+{ lever: 'Outsourcing', learnings: ['Have a process for vetting 4th parties and we can expect to have to walk through that as part of contracting process.'], points: [{ label: 'If experienced staff are replaced through offshoring, how do we protect the client\'s expertise and hold SLAs?', id: 'oh-oo-expertise' }, { label: 'If work moves offshore, how will my current team and contacts be impacted? Will I have the same contacts?', id: 'oh-oo-contacts' }] },
+  { lever: 'Offshoring', learnings: [], points: [{ label: 'If experienced staff are replaced through offshoring, how do we protect the client\'s expertise and hold SLAs?', id: 'oh-oo-expertise' }, { label: 'If work moves offshore, how will my current team and contacts be impacted? Will I have the same contacts?', id: 'oh-oo-contacts' }] },
+  { lever: 'Digitization', learnings: ['Interested about the technology and process improvement opportunities.'], points: [{ label: 'Are there recorded walkthroughs of the new tech capabilities (Intelligent Virtual Assistant, Agent Assist, AI Coach, fraud/dispute bots, etc.) that you can show us?', id: 'oh-tech-walkthroughs' }, { label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
     { lever: 'Price Maintain', learnings: ['Simpler more predictable pricing is well received and no pushback on the fixed fee model.'], points: [{ plain: 'N/A' }] },
   ],
   'UBS Financial Services Inc.': [
@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ───────────────────────────────────────────────────────────────────────
+// ── Data ──────────���────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
