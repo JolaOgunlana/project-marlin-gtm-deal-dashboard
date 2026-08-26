@@ -782,7 +782,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Whisper ETA', date: 'Aug 28', barColor: INK, acv: '$1.5M', acvColor: INK,
+              label: 'Whisper ETA', date: 'Aug 28', barColor: INK, acv: '$1.6M', acvColor: INK,
               meta: '1 client · 2% of ACV · 5% of clients',
               names: ['First Bank Puerto Rico'],
               nameColor: INK,
