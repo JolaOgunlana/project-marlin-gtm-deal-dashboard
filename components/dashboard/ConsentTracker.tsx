@@ -1019,7 +1019,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.dig)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.price)}</div>
-                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: '#4bcd3e' }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
+                      <div style={{ textAlign: 'center' }}>{row.score != null ? <span style={{ fontSize: 16, fontWeight: 900, color: row.score >= 75 ? '#4bcd3e' : GRAY }}>{row.score}</span> : <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>}</div>
                       <div style={{ textAlign: 'center' }}>{statusChip(row.status)}</div>
                       <div style={{ textAlign: 'center', color: 'rgba(26,31,78,0.35)', fontSize: 13, transition: 'transform .15s', transform: isOpen ? 'rotate(90deg)' : 'none' }}>›</div>
                     </div>
