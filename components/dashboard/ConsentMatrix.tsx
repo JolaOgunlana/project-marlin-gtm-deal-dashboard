@@ -130,7 +130,7 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Low", rationale:"Pricing remains a point to address." }
     }
   },
-  { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"Low", dig:"Medium", price:"High", postPlotOut: "Medium", absPostX: 50, absPostY: 8,
+  { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"Low", dig:"Medium", price:"High", postPlotOut: "Medium", absPostX: 50, absPostY: 50,
     post:{
       out:{ rating:"Medium", rationale:"Outsourcing remains an area to explore further; the post-whisper view reflects a medium level of consent." },
       off:{ rating:"Medium", rationale:"Willing to explore offshoring for select back-office functions." },
