@@ -132,7 +132,7 @@ const CM_DATA: CMClient[] = [
   },
   { name:"UBS Financial Services Inc.", id:"7826", rev:8332814, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"Low", dig:"Medium", price:"High", absPostX: 46, absPostY: 8,
     post:{
-      out:{ rating:"High", rationale:"Open to outsourcing discussions; positive early engagement." },
+      out:{ rating:"Medium", rationale:"Outsourcing remains an area to explore further; the post-whisper view reflects a medium level of consent." },
       off:{ rating:"Medium", rationale:"Willing to explore offshoring for select back-office functions." },
       dig:{ rating:"High", rationale:"Strong interest in digitization and automation capabilities." },
       price:{ rating:"High", rationale:"Comfortable with subscription-style pricing model." }
