@@ -72,7 +72,7 @@ type SortDir = 'asc' | 'desc'
 type DealFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
-type StageFilter = 'all' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '8'
+type StageFilter = 'all' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
 type WhisperMode = 'pre' | 'post'
 
 // ── Data ──────────────────────────────────────────────────────────────────
@@ -420,7 +420,7 @@ const STAGE_LABELS: [string, string, string][] = [
   ['4','4 · Late Sales / Pricing','#f59e0b'],
   ['5','5 · Contracting','#14b8a6'],
   ['6','6 · Executed','#22c55e'],
-  ['8','8 · Disqualified','#B21A53'],
+  ['7','7 · Disqualified','#B21A53'],
 ]
 const revTierDiam = (rev: number) => rev >= 10e6 ? 52 : rev >= 5e6 ? 38 : rev >= 1e6 ? 26 : 16
 
@@ -898,7 +898,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
               { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
-              { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['8','8 · Disqualified']], state: stageFilter, set: setStageFilter },
+              { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['7','7 · Disqualified']], state: stageFilter, set: setStageFilter },
             ].map(row => (
               <div key={row.label} style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
                 <span style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'rgba(26,31,78,0.45)', marginRight: 4, flexShrink: 0 }}>{row.label}</span>
