@@ -341,7 +341,7 @@ const STATS = [
       { text: 'has declined to proceed', bold: true },
       { text: ' — either the client has formally rejected the proposal, or the opportunity has been disqualified.', bold: false },
     ],
-    sfStages: 'Stage 8 · Disqualified',
+    sfStages: 'Stage 7 · Disqualified',
   },
 ]
 
