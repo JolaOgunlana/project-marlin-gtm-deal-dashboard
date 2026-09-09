@@ -61,8 +61,9 @@ const PITCHES: Record<string, Pitch[]> = {
 }
 
 const TODAY: string | null = null
-const START = new Date(2026, 7, 24) // Aug 24 2026 (Mon)
+const START = new Date(2026, 7, 1)  // Aug 1 2026
 const END   = new Date(2026, 8, 30) // Sep 30 2026 (Wed)
+const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
 
 const DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -257,6 +258,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               {mo.cells.map((d) => {
                 const key = iso(d)
                 const outside = !inRange(d)
+                const isPast = !outside && d < PAST_CUTOFF
                 const isToday = key === TODAY
                 const dayPitches = !outside ? PITCHES[key] : undefined
                 const hasPitch = !!dayPitches
@@ -271,24 +273,26 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                       minHeight: 132,
                       background: outside
                         ? 'repeating-linear-gradient(135deg,#f7f8fc,#f7f8fc 8px,#f4f5fa 8px,#f4f5fa 16px)'
-                        : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
+                        : isPast
+                          ? '#eef0f5'
+                          : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
                       border: `1px solid ${hasPitch ? '#d5e7f7' : LINE}`,
                       borderRadius: 14,
                       padding: '12px 12px 12px',
                       position: 'relative',
                       overflow: 'hidden',
-                      boxShadow: outside ? 'none' : hasPitch
+                      boxShadow: outside || isPast ? 'none' : hasPitch
                         ? '0 2px 6px rgba(29,31,72,.06), 0 0 0 1px rgba(62,139,205,.08) inset'
                         : '0 1px 3px rgba(29,31,72,.05)',
-                      transform: isHovered && !outside ? 'translateY(-2px)' : 'none',
-                      borderColor: isHovered && !outside ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
+                      transform: isHovered && !outside && !isPast ? 'translateY(-2px)' : 'none',
+                      borderColor: isHovered && !outside && !isPast ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
                       transition: 'transform .16s ease, box-shadow .16s ease, border-color .16s ease',
                     }}
                   >
                     <span style={{
                       fontSize: hasPitch ? 12.5 : 15,
                       fontWeight: 800,
-                      color: outside ? MUTED_2 : hasPitch ? '#fff' : INK,
+                      color: outside ? MUTED_2 : hasPitch ? '#fff' : isPast ? MUTED_2 : INK,
                       lineHeight: 1,
                       letterSpacing: 0.3,
                       display: 'inline-flex',
