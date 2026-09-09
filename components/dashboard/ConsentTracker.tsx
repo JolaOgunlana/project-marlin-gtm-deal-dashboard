@@ -811,7 +811,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
               label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$47.1M', acvColor: ALIGNMENT,
               meta: '3 clients · 50% of ACV · 15% of clients',
-              names: ['Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'Virgin Money (Sep 21)'],
+              names: ['Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
