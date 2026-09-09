@@ -809,16 +809,16 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$9.9M', acvColor: '#4bcd3e',
-              meta: '1 client · 11% of ACV · 5% of clients',
-              names: ['UMB'],
-              nameColor: '#4bcd3e',
-            },
-            {
               label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$47.1M', acvColor: ALIGNMENT,
               meta: '3 clients · 50% of ACV · 15% of clients',
               names: ['Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'Virgin Money (Sep 21)'],
               nameColor: INK,
+            },
+            {
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$9.9M', acvColor: '#4bcd3e',
+              meta: '1 client · 11% of ACV · 5% of clients',
+              names: ['UMB'],
+              nameColor: '#4bcd3e',
             },
             {
   label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$28.3M', acvColor: ALIGNMENT,
