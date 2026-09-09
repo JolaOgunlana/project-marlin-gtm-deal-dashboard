@@ -863,7 +863,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                         </span>
                       </div>
                       <div style={{ width: 30, flexShrink: 0 }} />
-                      <div style={{ flex: 2 }}>
+                      <div style={{ flex: 3 }}>
                   <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: ALIGNMENT, whiteSpace: 'nowrap' }}>
                   Alignment
                         </span>
@@ -882,9 +882,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                           <path d="M2 8H13M13 8L9 4M13 8L9 12" stroke={ALIGNMENT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
-                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
                         {alignmentCols.map((_, i) => (
-                          <div key={i} style={{ height: 5, background: ALIGNMENT, borderRadius: i === 1 ? '0 3px 3px 0' : undefined }} />
+                          <div key={i} style={{ height: 5, background: ALIGNMENT, borderRadius: i === 2 ? '0 3px 3px 0' : undefined }} />
                         ))}
                       </div>
                     </div>
@@ -897,7 +897,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                         ))}
                       </div>
                       <div style={{ width: 30, flexShrink: 0 }} />
-                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
                         {alignmentCols.map((col, i) => (
                           <div key={i}>{renderCard(col, true)}</div>
                         ))}
