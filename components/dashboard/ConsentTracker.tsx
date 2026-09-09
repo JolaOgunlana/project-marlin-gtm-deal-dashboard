@@ -794,15 +794,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Whisper ETA', date: 'Sep 11', barColor: INK, acv: '$1.6M', acvColor: INK,
-              meta: '1 client · 2% of ACV · 5% of clients',
-              names: ['First Bank Puerto Rico'],
-              nameColor: INK,
-            },
-            {
-  label: 'No whisper planned', date: null, barColor: INK, acv: '$5.1M', acvColor: INK,
-  meta: '8 clients · 5% of ACV · 40% of clients',
-  names: ['Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
+  label: 'No whisper planned', date: null, barColor: INK, acv: '$6.7M', acvColor: INK,
+  meta: '9 clients · 7% of ACV · 45% of clients',
+  names: ['First Bank Puerto Rico', 'Centene Corporation', 'ServisFirst', 'Union Bank', 'Citizens Bank', 'The Bank of Nova Scotia', 'Citibank', 'Empire Innovation Group', 'MotivHealth'],
               nameColor: INK,
             },
           ]
@@ -857,7 +851,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                   <>
                     {/* Stage labels row */}
                     <div style={{ display: 'flex', padding: '10px 22px 0' }}>
-                      <div style={{ flex: 3 }}>
+                      <div style={{ flex: 2 }}>
                   <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: INK, whiteSpace: 'nowrap' }}>
                   Exploration
                         </span>
@@ -872,7 +866,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
                     {/* Stage color bars + flow arrow */}
                     <div style={{ display: 'flex', alignItems: 'center', padding: '6px 22px 0' }}>
-                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
                         {cols.map((c, i) => (
                           <div key={i} style={{ height: 5, background: INK }} />
                         ))}
@@ -891,7 +885,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
                     {/* Column cards */}
                     <div style={{ display: 'flex', alignItems: 'stretch' }}>
-                      <div style={{ flex: 3, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                      <div style={{ flex: 2, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
                         {cols.map((col, i) => (
                           <div key={i}>{renderCard(col, i > 0)}</div>
                         ))}
