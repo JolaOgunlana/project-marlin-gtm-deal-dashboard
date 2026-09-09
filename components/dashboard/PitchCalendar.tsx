@@ -57,7 +57,7 @@ const PITCHES: Record<string, Pitch[]> = {
   '2026-08-31': [{ client: 'UMB', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-10': [{ client: 'Metro Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-15': [{ client: 'Lloyds', service: 'Pitch Meeting', type: 'w1' }],
-  '2026-09-21': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
+  '2026-10-05': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
 }
 
 // ============================================================
@@ -94,7 +94,7 @@ const ATTENDEES: Record<string, Attendee[]> = {
 
 const TODAY: string | null = null
 const START = new Date(2026, 7, 1)  // Aug 1 2026
-const END   = new Date(2026, 8, 30) // Sep 30 2026 (Wed)
+const END   = new Date(2026, 9, 31) // Oct 31 2026 (Sat)
 const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
 
 const DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
