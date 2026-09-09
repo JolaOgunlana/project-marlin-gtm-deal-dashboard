@@ -316,7 +316,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                     key={key}
                     onMouseEnter={() => setHoveredCell(key)}
                     onMouseLeave={() => setHoveredCell(null)}
-                    style={{ minHeight: hasPitch ? 196 : 132, position: 'relative', perspective: 1200 }}
+                    style={{ minHeight: 132, position: 'relative', perspective: 1200 }}
                   >
                     <div
                       role={hasPitch ? 'button' : undefined}
@@ -326,7 +326,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                         position: 'relative',
                         width: '100%',
                         height: '100%',
-                        minHeight: hasPitch ? 196 : 132,
+                        minHeight: 132,
                         transformStyle: 'preserve-3d',
                         transform: `${isHovered && !outside && !isPast && !isFlipped ? 'translateY(-2px) ' : ''}${isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'}`,
                         transition: 'transform .5s cubic-bezier(.4,.15,.2,1), box-shadow .16s ease, border-color .16s ease',
@@ -343,7 +343,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                             : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
                         border: `1px solid ${hasPitch ? '#d5e7f7' : LINE}`,
                         borderRadius: 14,
-                        padding: '12px 12px 12px',
+                        padding: '10px 10px 10px',
                         overflow: 'hidden',
                         boxShadow: outside || isPast ? 'none' : hasPitch
                           ? '0 2px 6px rgba(29,31,72,.06), 0 0 0 1px rgba(62,139,205,.08) inset'
@@ -374,30 +374,30 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                           const wc = WAVE_COLORS[p.type]
                           return (
                             <div key={pi} style={{
-                              display: 'block', marginTop: 9, padding: '7px 10px 7px 22px', borderRadius: 10,
-                              fontSize: 11.5, fontWeight: 800, lineHeight: 1.2, color: INK,
+                              display: 'block', marginTop: 6, padding: '6px 9px 6px 20px', borderRadius: 9,
+                              fontSize: 11, fontWeight: 800, lineHeight: 1.15, color: INK,
                               background: '#f4f6fb', border: '1px solid #eceff7', position: 'relative',
                             }}>
                               <span style={{
-                                position: 'absolute', left: 9, top: 11, width: 7, height: 7, borderRadius: '50%',
+                                position: 'absolute', left: 8, top: 9, width: 6, height: 6, borderRadius: '50%',
                                 background: wc.dot, boxShadow: `0 0 0 3px ${wc.halo}`,
                               }} />
                               {p.client}
-                              <span style={{ display: 'block', fontSize: 9, fontWeight: 700, letterSpacing: 0.4, color: MUTED, marginTop: 3, textTransform: 'uppercase' }}>
+                              <span style={{ display: 'block', fontSize: 8.5, fontWeight: 700, letterSpacing: 0.3, color: MUTED, marginTop: 2, textTransform: 'uppercase' }}>
                                 {p.service}
                               </span>
                               <span style={{
-                                display: 'flex', alignItems: 'center', gap: 5, marginTop: 7, paddingTop: 6,
-                                borderTop: '1px solid #e6e9f2', fontSize: 10, fontWeight: 700, color: INK, letterSpacing: 0.2,
+                                display: 'flex', alignItems: 'center', gap: 4, marginTop: 5, paddingTop: 4,
+                                borderTop: '1px solid #e6e9f2', fontSize: 9.5, fontWeight: 700, color: INK, letterSpacing: 0.2,
                               }}>
-                                <CalendarIcon size={9} color={MUTED} strokeWidth={2.4} />
+                                <CalendarIcon size={8} color={MUTED} strokeWidth={2.4} />
                                 {fmtShortDate(d)}
                               </span>
                               <span style={{
-                                display: 'flex', alignItems: 'center', gap: 4, marginTop: 6,
-                                fontSize: 8.5, fontWeight: 700, color: MUTED_2, letterSpacing: 0.3, textTransform: 'uppercase',
+                                display: 'flex', alignItems: 'center', gap: 3, marginTop: 4,
+                                fontSize: 8, fontWeight: 700, color: MUTED_2, letterSpacing: 0.2, textTransform: 'uppercase',
                               }}>
-                                <Users size={9} color={MUTED_2} strokeWidth={2.4} />
+                                <Users size={8} color={MUTED_2} strokeWidth={2.4} />
                                 Click for attendees
                               </span>
                             </div>
@@ -409,34 +409,34 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                       {hasPitch && attendeePitch && (
                         <div style={{
                           position: 'absolute', inset: 0, backfaceVisibility: 'hidden', transform: 'rotateY(180deg)',
-                          background: INK, borderRadius: 14, padding: '12px 13px', overflow: 'hidden',
+                          background: INK, borderRadius: 14, padding: '8px 10px', overflow: 'hidden',
                           border: `1px solid ${INK}`, boxShadow: '0 4px 12px rgba(26,31,78,.22)',
                           display: 'flex', flexDirection: 'column',
                         }}>
                           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 6 }}>
                             <div>
-                              <div style={{ fontSize: 8.5, fontWeight: 800, letterSpacing: 1, color: 'rgba(255,255,255,.5)', textTransform: 'uppercase' }}>
+                              <div style={{ fontSize: 7.5, fontWeight: 800, letterSpacing: 0.8, color: 'rgba(255,255,255,.5)', textTransform: 'uppercase' }}>
                                 {attendeePitch.client}
                               </div>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
-                                <Users size={11} color={GREEN} strokeWidth={2.4} />
-                                <span style={{ fontSize: 12, fontWeight: 800, color: '#fff' }}>Attendees</span>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 1 }}>
+                                <Users size={10} color={GREEN} strokeWidth={2.4} />
+                                <span style={{ fontSize: 10.5, fontWeight: 800, color: '#fff' }}>Attendees</span>
                               </div>
                             </div>
-                            <RotateCcw size={12} color="rgba(255,255,255,.4)" strokeWidth={2.2} style={{ flexShrink: 0, marginTop: 1 }} />
+                            <RotateCcw size={11} color="rgba(255,255,255,.4)" strokeWidth={2.2} style={{ flexShrink: 0, marginTop: 1 }} />
                           </div>
 
-                          <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 0 }}>
+                          <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 0 }}>
                             {(attendees ?? []).map((a) => (
                               <div key={a.role} style={{
-                                display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8,
-                                padding: '4.5px 0', borderBottom: '1px solid rgba(255,255,255,.12)',
+                                display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 6,
+                                padding: '2.5px 0', borderBottom: '1px solid rgba(255,255,255,.12)',
                               }}>
-                                <span style={{ fontSize: 9.5, fontWeight: 700, color: 'rgba(255,255,255,.55)', letterSpacing: 0.2, whiteSpace: 'nowrap' }}>
+                                <span style={{ fontSize: 8.5, fontWeight: 700, color: 'rgba(255,255,255,.55)', letterSpacing: 0.1, whiteSpace: 'nowrap' }}>
                                   {a.role}
                                 </span>
                                 <span style={{
-                                  fontSize: 10.5, fontWeight: 800, textAlign: 'right',
+                                  fontSize: 9.5, fontWeight: 800, textAlign: 'right',
                                   color: a.name === 'N/A' ? 'rgba(255,255,255,.35)' : '#fff',
                                 }}>
                                   {a.name}
