@@ -117,8 +117,10 @@ function buildMonths(): MonthGroup[] {
 
 const MONTHLIST = buildMonths()
 
+const DEFAULT_VIEW_INDEX = Math.max(0, MONTHLIST.findIndex((mo) => mo.m === 8)) // September (0-indexed month 8)
+
 export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
-  const [viewIndex, setViewIndex] = useState(0)
+  const [viewIndex, setViewIndex] = useState(DEFAULT_VIEW_INDEX)
   const [hoveredCell, setHoveredCell] = useState<string | null>(null)
 
   const mo = MONTHLIST[viewIndex]
