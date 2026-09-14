@@ -25,6 +25,7 @@ export type FaqNewRow = {
   responseDate: string
   status: FaqNewStatus
   followUp: string
+  commentPwc: string
 }
 
 const FAQ_NEW_DATA: FaqNewRow[] = []
@@ -63,16 +64,18 @@ const EMPTY_FILTERS: Filters = {
   responseDate: '',
   status: '',
   followUp: '',
+  commentPwc: '',
 }
 
 const COLUMNS: { key: ColKey; label: string; width: string }[] = [
-  { key: 'category',          label: 'Category',            width: '11%' },
-  { key: 'sharedWithGenpact', label: 'Shared with Genpact',  width: '9%' },
-  { key: 'points',            label: 'Points to Address',    width: '22%' },
-  { key: 'response',          label: 'Response',             width: '28%' },
-  { key: 'responseDate',      label: 'Response Date',        width: '10%' },
-  { key: 'status',            label: 'Status',               width: '10%' },
-  { key: 'followUp',          label: 'Follow Up',            width: '10%' },
+  { key: 'category',          label: 'Category',            width: '10%' },
+  { key: 'sharedWithGenpact', label: 'Shared with Genpact',  width: '8%' },
+  { key: 'points',            label: 'Points to Address',    width: '19%' },
+  { key: 'response',          label: 'Response',             width: '23%' },
+  { key: 'responseDate',      label: 'Response Date',        width: '9%' },
+  { key: 'status',            label: 'Status',               width: '9%' },
+  { key: 'followUp',          label: 'Follow Up',            width: '11%' },
+  { key: 'commentPwc',        label: 'Comment PwC',          width: '11%' },
 ]
 
 function FaqNewTable() {
@@ -239,6 +242,9 @@ function FaqNewTable() {
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 12.5, lineHeight: 1.6, color: 'rgba(26,31,78,0.82)' }}>
                       {row.followUp}
+                    </td>
+                    <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 12.5, lineHeight: 1.6, color: 'rgba(26,31,78,0.82)' }}>
+                      {row.commentPwc}
                     </td>
                   </tr>
                 ))
