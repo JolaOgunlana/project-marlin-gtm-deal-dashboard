@@ -76,7 +76,7 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
             { id: 'calendar',  label: 'Pitch Calendar' },
             { id: 'consent',   label: 'Consent Matrix' },
             { id: 'dashboard', label: 'Deal Dashboard' },
-            { id: 'faq',       label: 'Sales FAQ' },
+            { id: 'faq',       label: 'Sales FAQ (old)' },
             { id: 'cover',     label: 'How to Use' },
           ] as { id: Page; label: string }[]).map(tab => (
             <button

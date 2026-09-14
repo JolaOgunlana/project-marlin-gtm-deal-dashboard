@@ -15,7 +15,7 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'calendar',  label: 'Pitch Calendar' },
     { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
-    { id: 'faq',       label: 'Sales FAQ' },
+    { id: 'faq',       label: 'Sales FAQ (old)' },
     { id: 'cover',     label: 'How to Use' },
   ]
 
@@ -150,7 +150,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       color: '#B21A53',
       links: [
         { label: 'GTM Status', page: 'tracker' },
-        { label: 'Sales FAQ', page: 'faq' },
+        { label: 'Sales FAQ (old)', page: 'faq' },
       ],
     },
     {
