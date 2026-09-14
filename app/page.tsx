@@ -6,9 +6,10 @@ import { ConsentMatrix } from '@/components/dashboard/ConsentMatrix'
 import { CoverPage } from '@/components/dashboard/CoverPage'
 import { ConsentTrackerPage } from '@/components/dashboard/ConsentTracker'
 import { FaqPage } from '@/components/dashboard/WhisperDebrief'
+import { SalesFaqNewPage } from '@/components/dashboard/SalesFaqNew'
 import { PitchCalendarPage } from '@/components/dashboard/PitchCalendar'
 
-export type Page = 'cover' | 'faq' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+export type Page = 'cover' | 'faq' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 
 export default function Home() {
   const [page, setPage] = useState<Page>('tracker')
@@ -33,6 +34,7 @@ export default function Home() {
     <main style={{ minHeight: '100vh', background: '#f4f5f9' }}>
       {page === 'cover'     && <CoverPage page={page} onNavigate={navigate} />}
       {page === 'faq'       && <FaqPage page={page} onNavigate={navigate} highlightId={faqHighlight} onClearHighlight={() => setFaqHighlight(null)} />}
+      {page === 'faqNew'    && <SalesFaqNewPage page={page} onNavigate={navigate} />}
       {page === 'dashboard' && <Dashboard page={page} onNavigate={navigate} />}
       {page === 'consent'   && <ConsentMatrix page={page} onNavigate={navigate} />}
       {page === 'tracker'   && <ConsentTrackerPage page={page} onNavigate={navigate} onFaqLink={handleFaqLink} />}
