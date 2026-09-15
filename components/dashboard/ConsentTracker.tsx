@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ���������������────────������────────────────────────────────────────────────────────────
+// ── Data ����������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -286,9 +286,9 @@ const STATS = [
   {
     label: 'Exploration',
     tag: 'WHISPER',
-  count: 56,
+  count: 64,
   countColor: INK,
-  revenue: '$59.5M',
+  revenue: '$57.5M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -301,11 +301,11 @@ const STATS = [
   {
     label: 'Alignment',
     tag: 'PITCH',
-  count: 8,
+  count: 10,
   countColor: '#0891b2',
-  revenue: '$85.3M',
+  revenue: '$87.7M',
   revenueLabel: 'Annual contract value',
-  region: '8 clients',
+  region: '10 clients',
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
