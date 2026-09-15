@@ -95,7 +95,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
 }
 
-// ── Types ──────────����─────────────────────────────────────���───────────��─────────
+// ── Types ──────────����─────────────────────────────────────�����───────────��─────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
 
@@ -811,19 +811,19 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const alignmentCols = [
             {
               label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$30.8M', acvColor: '#4bcd3e',
-              meta: '3 clients · 36% of ACV · 15% of clients',
+              meta: '3 clients · 33% of ACV · 15% of clients',
               names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)'],
               nameColor: '#4bcd3e',
             },
             {
               label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$26.2M', acvColor: ALIGNMENT,
-              meta: '1 client · 31% of ACV · 5% of clients',
+              meta: '1 client · 28% of ACV · 5% of clients',
               names: ['Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
   label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$28.3M', acvColor: ALIGNMENT,
-  meta: '4 clients · 33% of ACV · 20% of clients',
+  meta: '4 clients · 39% of ACV · 20% of clients',
   names: ['Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
