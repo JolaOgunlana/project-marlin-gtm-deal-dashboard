@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ����────────������────────────────────────────────────────────────────────────
+// ── Data �����────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ──────�����������������───────────────── */}
+        {/* ── Wave 1 Client Detail ─────��������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -943,21 +943,24 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>{/* end metric cards grid */}
 
           {/* ── Wave 2 header + metric cards (placeholder) — sits under Wave 1 boxes, above the table ── */}
-          <div style={{ margin: '20px 20px 0', border: '1px dashed #d4d7e3', borderRadius: 12, background: '#fbfbfd', padding: '16px 18px 18px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-              <span style={{ fontSize: 13.5, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
+          <div style={{ margin: '20px 20px 0', border: '1px dashed #d4d7e3', borderRadius: 14, overflow: 'hidden', background: '#fbfbfd' }}>
+
+            {/* Section header — same size/banner treatment as Wave 1 */}
+            <div style={{ padding: '16px 24px 14px', borderBottom: '1px dashed #d4d7e3', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
               <span style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '3px 9px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+
+            <div style={{ padding: '20px 20px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
               {[
                 'Wave 2 clients engaged',
                 'In Wave 2 whisper scope',
                 'Of in-scope whisper ACV in Alignment',
                 'Avg. propensity score (in-scope)',
               ].map(label => (
-                <div key={label} style={{ background: '#fff', padding: '20px 18px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                  <div style={{ fontSize: 34, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
-                  <div style={{ fontSize: 11.5, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+                <div key={label} style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                  <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+                  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
                 </div>
               ))}
             </div>
