@@ -98,23 +98,22 @@ const CM_DATA: CMClient[] = [
       price:{ rating:"Medium", rationale:"Other than John understanding it is a price-neutral move with us assuming cost for the tech in conjunction with low-cost location, he had no comment relative to pricing." }
     }},
   { name:"Metro Bank", id:"METRO", rev:11793783, region:"EMEA-UK", dealType:"existing", wave:1, stage:3, out:"High", off:"High", dig:"High", price:"Low",
-    lockPostPosition: true, absPostX: 84, absPostY: 13,
+    lockPostPosition: true, absPostX: 83, absPostY: 83,
     post:{
-      out:{ rating:"High", rationale:"The transformation concept, using a scale player like Genpact, landed well." },
+      out:{ rating:"Low", rationale:"The transformation concept, using a scale player like Genpact, landed well, but overall willingness to outsource came through as low." },
       off:{ rating:"High", rationale:"Open to offshoring voice in principle, but wants small steps to prove the concept first." },
       dig:{ rating:"High", rationale:"No specific digitization learning captured." },
       price:{ rating:"Low", rationale:"Are costs going up? How is pricing affected?" }
     }
   },
   { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:3, out:"Low", off:"Low", dig:"Medium", price:"Low",
-    preNudgeX: -2.665, lockPostPosition: true, absPostX: 78, absPostY: 17, lockPrePosition: true, absPreX: 15, absPreY: 80,
+    preNudgeX: -2.665, lockPostPosition: true, absPostX: 50, absPostY: 50, lockPrePosition: true, absPreX: 15, absPreY: 80,
     post:{
-      out:{ rating:"High", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
-      off:{ rating:"High", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
-      dig:{ rating:"Medium", rationale:"Technology Modernization identified as the most likely near-term opportunity, with potential to expand into other digitization initiatives." },
+      out:{ rating:"Medium", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
+      off:{ rating:"Medium", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
+      dig:{ rating:"High", rationale:"Technology Modernization identified as the most likely near-term opportunity, with potential to expand into other digitization initiatives." },
       price:{ rating:"Medium", rationale:"Challenged concept of maintaining current economics while offshoring." }
     },
-    postPlotOut: "High",
     conv2:{
       out:{ rating:"High", rationale:"1) Recently involved in several outsourcing reviews across the business. 2) Currently exploring opportunities with Infosys in other areas. 3) Very positive on Genpact selection and believes they have the capability and credibility to deliver. 4) Strong receptivity to outsourcing discussion demonstrated." },
       off:{ rating:"Medium", rationale:"1) Exploring offshore model opportunities. 2) Some level of offshore implementation being considered. 3) Technology Modernization identified as most likely near-term opportunity. 4) Potential to expand offshore scope from initial engagement." },
