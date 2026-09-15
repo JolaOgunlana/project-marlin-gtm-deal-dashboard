@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ─────────������────────────────────────────────────────────────────────────
+// ── Data ��────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ────────────────────────── */}
+        {/* ── Wave 1 Client Detail ────────���───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -963,7 +963,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
                 { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
-                { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'High',   off: 'High',       dig: 'Medium', price: 'Medium', score: 88,   status: 'Alignment' },
+                { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
                 { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
                 { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'High',   score: 88,   status: 'Alignment' },
                 { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
