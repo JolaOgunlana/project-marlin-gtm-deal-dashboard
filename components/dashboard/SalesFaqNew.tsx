@@ -36,7 +36,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -46,7 +46,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -76,7 +76,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -106,7 +106,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] We are seeking overarching approval for the right to offshore all in-scope services rather than offering a component-by-component choice. This is a concentrated investment to improve our servicing and technology capabilities end to end, and the benefits depend on transforming the service as a whole. Splitting it would divide ownership of SLAs and KPIs and limit the improvement we can deliver — we don't want clients to miss out on having their service offering transformed.\n\nWe do not get the full realization of the cost benefit; the impact sits in our internal margin, not with the client; the client is charged a fixed fee no matter what; we are looking for consent to the full program. Prices will not increase if clients choose selected services?",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Confirm with Stephen, we do not increase prices, it will decrease our margin.",
   },
   {
@@ -126,7 +126,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -136,7 +136,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[8/20/2026] FIS/Genpact supports customer operations across 30+ languages through its global delivery network and multilingual Centres of Excellence. Language coverage includes all major European languages (English, German, Dutch, French, Spanish, Italian, Portuguese and Nordic languages) from its EMEA centres.",
     responseDate: "[8/20/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact, exact location and languages (not generic)",
   },
   {
@@ -176,7 +176,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[8/20/2026] Everything we deliver continues to meet the standards in your agreement. Those commitments remain intact, and we're accredited to them today. Upon request clients' can review e.g., applicable certifications, control reports, security documentation, and regulatory compliance evidence.",
     responseDate: "[8/20/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -196,7 +196,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] See pitch deck for illustrative implementation timeline.",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x 9/28",
+    followUp: "9/28",
     commentPwc: "Follow up with Chanda and Moona as contract negotiations continue.",
   },
   {
@@ -226,7 +226,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/28",
+    followUp: "9/28",
     commentPwc: "",
   },
   {
@@ -236,7 +236,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] Same fee, more value. Your cost does not change and you actually get more for it. The same fee now brings new technology and AI-powered capabilities. Think of it as a subscription. We fix your annual cost at the service level into a single predictable monthly fee per service. Normal volume swings up to 8% are absorbed at no extra charge, and higher usage runs at a simple transparent rate.",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Confirm with Stephen if this answer works. And also that client prices do not increase.",
   },
   {
@@ -266,7 +266,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] Bundles are based on 8% of workload per service line; triggered when a client goes over 8% of the monthly forecast.",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x 9/10",
+    followUp: "9/10",
     commentPwc: "Confirm with Stephen - the pitch deck we say it's 8%, are we good to adjust this to 8% (we wanted to have a buffer vs the contract).",
   },
   {
@@ -276,7 +276,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] Not at the client level; this sits in the one-off transformation budget. We will waive clients' implementation fees. This must be positioned as a financial benefit.",
     responseDate: "[9/10/2026]",
     status: "Complete" as FaqNewStatus,
-    followUp: "x 9/10",
+    followUp: "9/10",
     commentPwc: "Confirm with Stephen if this answer works.",
   },
   {
@@ -326,7 +326,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -336,7 +336,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -356,7 +356,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -366,7 +366,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] Work in progress with the vendor; the contracting mechanism is the scenario-based vendor cost model in the workbook, driven by the level of offshoring the client takes; that model determines the cost per client under the consent scenario the client chooses.",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/28",
+    followUp: "9/28",
     commentPwc: "",
   },
   {
@@ -376,7 +376,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] The vendor is acting as TMS, so there will be a charge for changes; a contractual mechanism will define the rates and the change control schedule, i.e. what is chargeable and what is not; approach to be confirmed with Procurement.",
     responseDate: "[9/10/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/28",
+    followUp: "9/28",
     commentPwc: "",
   },
   {
@@ -426,7 +426,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -446,7 +446,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[8/20/2026] The primary languages are Dutch, German and French. The solution is Krisp.AI. Genapact has implemented this solution for a few of their clients. Genpact doesn't have demo's which can be made available.",
     responseDate: "[8/20/2026]",
     status: "WIP" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact on the follow up question \"Good, are you using live agents for Spanish? Is it French Canadian?\"",
   },
   {
@@ -516,7 +516,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] A single month isn't enough to confirm a downward trend, so a one-month dip on its own doesn't trigger any changes. The threshold for reworking the numbers is 3 consecutive months under forecast, with a 20% tolerance. This ensures we're reacting to a genuine trend rather than normal month-to-month fluctuation.",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Pending Genpact's answers",
   },
   {
@@ -526,7 +526,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -546,7 +546,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -556,7 +556,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x - 9/10",
+    followUp: "9/10",
     commentPwc: "Follow up with Genpact",
   },
   {
@@ -576,7 +576,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026 - prel.] Yes — and with your agreement, it should be. It's how the full value of the program reaches you. We deliver through a distributed global model that gives us depth and surge capacity a single site can't match, and that's what protects your SLAs. When you've hit capacity strain or fraud-and-dispute backlogs before, this is what prevents a repeat: more hands when volume spikes, multiple centers to route to, faster dispute turnaround. It's vetted against your standards, fully compliant, and open to your audits, and FIS stays accountable for every outcome. Banks across the industry already operate this way, with analysts expecting the support delivery partner market to keep growing.",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Answer to be reviewed by FIS, follow up with Derek",
   },
   {
@@ -586,7 +586,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026 - prel.] FIS already delivers this service to you today. What's changing is that we're bringing in a support delivery partner to work alongside us, specifically to lift your service levels and sustain capacity. FIS remains your service provider and stays fully accountable for your outcomes. Your contract doesn't change; we amend it to reflect the partner and the model. Same accountability, stronger delivery.",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Answer to be reviewed by FIS; follow up with Derek",
   },
   {
@@ -596,7 +596,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026 - prel.]Yes, and the partner is one we know well. We believe Genpact is a vendor the industry relies on:  With over 20 years of process, business, and industry knowledge specifically in financial services. Genpact employs 20,000+ specialists dedicated to financial services alone, operating from 100+ delivery centres in 35+ countries, and more than a quarter of the Global Fortune 500 are already Genpact clients. This isn't a new arrangement being proposed for the first time; it's an operation already running in production, with roughly 2,000 people on the joint team today. FIS holds full contractual accountability for Genpact's performance, so you have a single point of accountability regardless of which team executes the work.",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Answer to be reviewed by FIS; follow up with Derek",
   },
   {
@@ -606,7 +606,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026 - prel.] Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Answer to be reviewed by FIS; follow up with Derek",
   },
   {
@@ -616,7 +616,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Follow up with Stephen",
   },
   {
@@ -656,7 +656,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[8/26/26 prel.] Actively being worked with FIS Operations. The exact number will depend on client consents.",
     responseDate: "[8/26/26]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Follow up with Tessa",
   },
   {
@@ -666,7 +666,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[8/26/26 prel. ]  Actively being worked with FIS Operations. The exact timing will depend on client consents.",
     responseDate: "[8/26/26]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Follow up with Tessa",
   },
   {
@@ -676,7 +676,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "[9/10/2026] Implementation RACI is under development (contract exhibit).\nWe do not anticipate any challenges defining and documenting the respective responsibilities of FIS and Genpact. While clients would continue to contract with and receive services from FIS, Genpact would operate as a subcontracted delivery partner under FIS governance and oversight. As part of the detailed operating model, we would clearly define accountability across key areas such as agent staffing, supervision, training, quality management, performance monitoring, and operational controls to ensure seamless service delivery and a clear accountability framework.",
     responseDate: "[9/10/2026]",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Follow up with Moona on implementation RACI exhibit",
   },
   {
@@ -706,7 +706,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     response: "",
     responseDate: "",
     status: "Delayed" as FaqNewStatus,
-    followUp: "x 9-10",
+    followUp: "9-10",
     commentPwc: "Follow up with Genpact/Tisha",
   },
 ]
