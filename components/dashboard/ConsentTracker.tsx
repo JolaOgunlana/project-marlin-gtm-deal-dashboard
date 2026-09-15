@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ──────�����������───────────────── */}
+        {/* ── Wave 1 Client Detail ──────�������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -903,6 +903,31 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             </div>
           )
         })()}
+
+        {/* ── Wave 2 Client Details wrapper (placeholder) ─────────────────── */}
+        <div style={{ border: '1px dashed #d4d7e3', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc' }}>
+
+          {/* Section header */}
+          <div style={{ padding: '16px 24px 14px', borderBottom: '1px solid #e2e4ee', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '4px 10px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
+          </div>
+
+          {/* Metric cards inside the wrapper (placeholders) */}
+          <div style={{ padding: '20px 20px 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+            {[
+              'Wave 2 clients engaged',
+              'In Wave 2 whisper scope',
+              'Of in-scope whisper ACV in Alignment',
+              'Avg. propensity score (in-scope)',
+            ].map(label => (
+              <div key={label} style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* ── Wave 1 Client Details wrapper ──────────�����───��─────────�����─��─ */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
