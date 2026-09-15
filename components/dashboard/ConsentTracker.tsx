@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ─────��������������������───────────────── */}
+        {/* ── Wave 1 Client Detail ────�����������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -942,16 +942,16 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>
           </div>{/* end metric cards grid */}
 
-          {/* ── Wave 2 header + metric cards (placeholder) — sits under Wave 1 boxes, above the table ── */}
-          <div style={{ margin: '20px 20px 0', border: '1px dashed #d4d7e3', borderRadius: 14, overflow: 'hidden', background: '#fbfbfd' }}>
+          {/* ── Wave 2 header + metric cards (placeholder) — same horizontal span as Wave 1, sits directly under Wave 1 boxes, above the table ── */}
+          <div style={{ marginTop: 20 }}>
 
-            {/* Section header — same size/banner treatment as Wave 1 */}
-            <div style={{ padding: '16px 24px 14px', borderBottom: '1px dashed #d4d7e3', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            {/* Section header — same size/banner treatment as Wave 1, full width, no inset */}
+            <div style={{ padding: '16px 24px 14px', borderTop: '1px dashed #d4d7e3', borderBottom: '1px dashed #d4d7e3', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
               <span style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '3px 9px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
             </div>
 
-            <div style={{ padding: '20px 20px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+            <div style={{ padding: '20px 20px 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
               {[
                 'Wave 2 clients engaged',
                 'In Wave 2 whisper scope',
