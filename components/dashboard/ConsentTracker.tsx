@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ������────────������────────────────────────────────────────────────────────────
+// ── Data �������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -701,8 +701,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Program coverage by wave ────────────────────────────── */}
         {(() => {
           const waves = [
-            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 64, clients: 20, clientPct: 31 },
-            { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$17.0M',  acvPct: 12, clients: 21, clientPct: 33 },
+            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 65, clients: 20, clientPct: 32 },
+            { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$16.5M',  acvPct: 11, clients: 20, clientPct: 32 },
             { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$34.7M',  acvPct: 24, clients: 23, clientPct: 36 },
           ]
           const CELL: React.CSSProperties = { padding: '18px 24px', borderLeft: '1px solid #e8eaf0', verticalAlign: 'top' }
@@ -752,7 +752,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       </td>
                     ))}
                     <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
-                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.2M</span>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$144.7M</span>
                     </td>
                   </tr>
                   {/* Clients row */}
@@ -772,7 +772,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       </td>
                     ))}
                     <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
-                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>64</span>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>63</span>
                     </td>
                   </tr>
                 </tbody>
@@ -781,10 +781,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ───��������������������������������───────────────── */}
+        {/* ── Wave 1 Client Detail ───����������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ──────────────���───���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ──────────────���─���─���────���─────── */}
         {(() => {
           const cols = [
             {
