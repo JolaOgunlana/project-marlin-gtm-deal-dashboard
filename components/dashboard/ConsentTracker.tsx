@@ -781,10 +781,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ───������������������������������───────────────── */}
+        {/* ── Wave 1 Client Detail ───��������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ──────────────���────────���─────── */}
+        {/* ── Wave 1 Whisper Completion ──────────────���───���────���─────── */}
         {(() => {
           const cols = [
             {
@@ -1009,22 +1009,22 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Arvest',                         acv: '$2.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'First Hawaiian Bank',            acv: '$1.8M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'Hancock-Whitney Bank',           acv: '$1.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
-                { name: 'Capital One',                    acv: '$1.6M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Marlette Funding / Best Egg',    acv: '$0.9M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'City National Bank',             acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Truist Bank',                    acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Royal Bank Of Canada',            acv: '$0.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Wells Fargo',                    acv: '$0.4M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Key Bank',                       acv: '$0.4M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'M & T Bank',                     acv: '$0.3M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'BOKF, NA',                       acv: '$0.3M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Banco Popular',                  acv: '$0.2M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'IVR BOA',                        acv: '$0.2M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Vancouver City Savings Credit',  acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Bank of Montreal',               acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Valley National BK',             acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'San Diego County Credit Union',  acv: '$0.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
-                { name: 'Chase Corporate Card (JP Morgan)', acv: '$0.0M', wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Whisper' },
+                { name: 'Capital One',                    acv: '$1.6M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Marlette Funding / Best Egg',    acv: '$0.9M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'City National Bank',             acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Truist Bank',                    acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Royal Bank Of Canada',            acv: '$0.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Wells Fargo',                    acv: '$0.4M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Key Bank',                       acv: '$0.4M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'M & T Bank',                     acv: '$0.3M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'BOKF, NA',                       acv: '$0.3M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Banco Popular',                  acv: '$0.2M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'IVR BOA',                        acv: '$0.2M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Vancouver City Savings Credit',  acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Bank of Montreal',               acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Valley National BK',             acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'San Diego County Credit Union',  acv: '$0.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Chase Corporate Card (JP Morgan)', acv: '$0.0M', wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
               ]
 
               const ratingChip = (val: string | null) => {
