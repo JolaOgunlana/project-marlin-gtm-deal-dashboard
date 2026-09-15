@@ -25,7 +25,48 @@ export type ActionRow = {
   owner: string
 }
 
-const ACTION_DATA: ActionRow[] = []
+const ACTION_DATA: ActionRow[] = [
+  {
+    clientName: 'UBS',
+    action: 'UBS Whisper Response',
+    description: 'Preparation of UBS specific requirements asked for before pitch regarding the movement of their dedicated teams, current services and new proposed technological capabilities',
+    startDate: '8/25/2026',
+    status: 'Complete',
+    owner: 'Mike Malone',
+  },
+  {
+    clientName: 'Metro Bank',
+    action: 'Metro Bank Pitch Response',
+    description: 'Preparation of Metro Bank pitch response based on received feedback',
+    startDate: '9/11/2026',
+    status: 'WIP',
+    owner: 'Nathalie Monreau',
+  },
+  {
+    clientName: 'Virgin Money',
+    action: 'Virgin Money Pitch Preparation',
+    description: 'Preparation of Virgin Money pitch where pitch content needs to be produced, socialized and conduct pitch dry run',
+    startDate: '9/14/2026',
+    status: 'WIP',
+    owner: 'Timothy Clack',
+  },
+  {
+    clientName: 'All',
+    action: 'FAQ Follow Up',
+    description: 'Follow up on delayed and WIP questions on the FAQ with their respective owners',
+    startDate: '9/10/2026',
+    status: 'WIP',
+    owner: 'PwC',
+  },
+  {
+    clientName: 'All',
+    action: 'Primer Client Pitches',
+    description: 'Material preparation for primer clients',
+    startDate: '9/14/2026',
+    status: 'WIP',
+    owner: 'Nathalie Monreau',
+  },
+]
 
 const STATUS_STYLES: Record<ActionStatus, { bg: string; color: string; dot: string }> = {
   Complete:     { bg: '#e9fbe6', color: '#1d6b12', dot: '#4bcd3e' },
