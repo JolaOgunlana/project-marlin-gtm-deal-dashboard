@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ��������������������────────������────────────────────────────────────────────────────────────
+// ── Data ���������������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -544,6 +544,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
+ const [waveFilter, setWaveFilter] = useState<'Wave 1' | 'Wave 2'>('Wave 1')
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -980,9 +981,38 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             </div>
           </div>
 
-          {/* ── Wave 1 Client Detail Table — connected flush inside wrapper (Wave 2 clients will be added here later) */}
+          {/* ── Wave 1 / Wave 2 Client Detail Table — filterable by wave toggle */}
           <div style={{ marginTop: 20 }}>
           <div style={{ overflow: 'hidden', borderTop: BORDER }}>
+            {/* Filter toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: '#fff', borderBottom: BORDER }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Showing:</span>
+              <div style={{ display: 'inline-flex', background: GRAY_BG, borderRadius: 20, padding: 3, gap: 2 }}>
+                {(['Wave 1', 'Wave 2'] as const).map(w => {
+                  const active = waveFilter === w
+                  return (
+                    <button
+                      key={w}
+                      onClick={() => { setWaveFilter(w); setExpandedRow(null) }}
+                      style={{
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '7px 18px',
+                        borderRadius: 17,
+                        fontSize: 12.5,
+                        fontWeight: 700,
+                        fontFamily: 'inherit',
+                        background: active ? INK : 'transparent',
+                        color: active ? '#fff' : 'rgba(26,31,78,0.55)',
+                        transition: 'background .15s, color .15s',
+                      }}
+                    >
+                      {w}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
@@ -998,7 +1028,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             </div>
             {/* Rows */}
             {(() => {
-              const rows = [
+              const allRows = [
                 { name: 'Virgin Money',                   acv: '$26.2M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
                 { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', wave: 'Wave 1', sfStage: '3', out: 'Low',    off: 'High',       dig: 'High',   price: 'Low',    score: 75,   status: 'Alignment' },
@@ -1040,6 +1070,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'San Diego County Credit Union',  acv: '$0.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Chase Corporate Card (JP Morgan)', acv: '$0.0M', wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
               ]
+
+              const rows = allRows.filter(r => r.wave === waveFilter)
 
               const ratingChip = (val: string | null) => {
                 if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
