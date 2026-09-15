@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ����������────────������────────────────────────────────────────────────────────────
+// ── Data �����������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -784,13 +784,13 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ──────────────������─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ────────���─────������─���─���────���─────── */}
         {(() => {
           const cols = [
             {
               label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$86.8M', acvColor: '#4bcd3e',
               meta: '11 clients · 93% of ACV · 55% of clients',
-              names: ['Virgin Money', 'Fifth Third Bank', 'UMB', 'AIB', 'Simmons Bank', "President's Choice", 'Metro Bank', 'Lloyds', 'UBS', 'Brim Financial', 'HSBC'],
+              names: ['Virgin Money (Jul 16)', 'Fifth Third Bank (Jul 17)', 'UMB (Jul 20)', 'AIB (Jul 28)', "President's Choice (Jul 31)", 'Simmons Bank (Aug 5)', 'Metro Bank (Aug 6)', 'Lloyds (Aug 6)', 'UBS (Aug 19)', 'Brim Financial (Aug 25)', 'HSBC (Aug 25)'],
               nameColor: '#4bcd3e',
             },
             {
