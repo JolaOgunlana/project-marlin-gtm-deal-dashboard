@@ -946,9 +946,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           <div style={{ marginTop: 20 }}>
 
             {/* Section header — same size/banner treatment as Wave 1, full width, no inset */}
-            <div style={{ padding: '16px 24px 14px', borderTop: '1px dashed #d4d7e3', borderBottom: '1px dashed #d4d7e3', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ padding: '16px 24px 14px', borderTop: '1px solid #e2e4ee', borderBottom: '1px solid #e2e4ee', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
-              <span style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '3px 9px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
             </div>
 
             <div style={{ padding: '20px 20px 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
@@ -967,14 +966,14 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 2 whisper scope (16 not planned)</div>
               </div>
 
-              {/* Card 3: Of in-scope whisper ACV in Alignment — placeholder, no ratings yet */}
-              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+              {/* Card 3: Of in-scope whisper ACV in Alignment */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>0%</div>
                 <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
               </div>
 
-              {/* Card 4: Avg propensity score — placeholder, no ratings yet */}
-              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+              {/* Card 4: Avg propensity score — no ratings yet */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
                 <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
                 <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
               </div>
