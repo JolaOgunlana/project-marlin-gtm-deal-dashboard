@@ -296,7 +296,7 @@ const STATS = [
       { text: 'willing to engage, learn more, and evaluate', bold: true },
       { text: ' the opportunity.', bold: false },
     ],
-    sfStages: 'Stage 1→2 · New Opportunity / Early Sales',
+    sfStages: 'Stage 1-2 · New Opportunity / Early Sales',
   },
   {
     label: 'Alignment',
