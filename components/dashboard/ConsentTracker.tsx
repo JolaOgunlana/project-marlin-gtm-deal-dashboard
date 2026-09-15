@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ���────────������────────────────────────────────────────────────────────────
+// ── Data ����────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ──────���������������───────────────── */}
+        {/* ── Wave 1 Client Detail ──────�����������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -942,7 +942,28 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>
           </div>{/* end metric cards grid */}
 
-          {/* ── Wave 1 Client Detail Table — connected flush inside wrapper */}
+          {/* ── Wave 2 header + metric cards (placeholder) — sits under Wave 1 boxes, above the table ── */}
+          <div style={{ margin: '20px 20px 0', border: '1px dashed #d4d7e3', borderRadius: 12, background: '#fbfbfd', padding: '16px 18px 18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <span style={{ fontSize: 13.5, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '3px 9px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+              {[
+                'Wave 2 clients engaged',
+                'In Wave 2 whisper scope',
+                'Of in-scope whisper ACV in Alignment',
+                'Avg. propensity score (in-scope)',
+              ].map(label => (
+                <div key={label} style={{ background: '#fff', padding: '20px 18px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                  <div style={{ fontSize: 34, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+                  <div style={{ fontSize: 11.5, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Wave 1 Client Detail Table — connected flush inside wrapper (Wave 2 clients will be added here later) */}
           <div style={{ marginTop: 20 }}>
           <div style={{ overflow: 'hidden', borderTop: BORDER }}>
             {/* Header */}
@@ -1094,52 +1115,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           </div>{/* closes table overflow div */}
           </div>{/* closes marginTop wrapper */}
         </div>{/* closes Wave 1 Client Details outer box */}
-
-        {/* ── Wave 2 Client Details wrapper (placeholder) — attached directly under Wave 1 ─── */}
-        <div style={{ border: '1px dashed #d4d7e3', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', marginTop: -1 }}>
-
-          {/* Section header */}
-          <div style={{ padding: '16px 24px 14px', borderBottom: '1px solid #e2e4ee', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 16, fontWeight: 800, color: INK, letterSpacing: '0.005em' }}>Wave 2 Client Details</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.45)', background: '#eef0f5', padding: '4px 10px', borderRadius: 20, letterSpacing: '0.04em', textTransform: 'uppercase' }}>Placeholder — TBD</span>
-          </div>
-
-          {/* Metric cards inside the wrapper (placeholders) */}
-          <div style={{ padding: '20px 20px 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-            {[
-              'Wave 2 clients engaged',
-              'In Wave 2 whisper scope',
-              'Of in-scope whisper ACV in Alignment',
-              'Avg. propensity score (in-scope)',
-            ].map(label => (
-              <div key={label} style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
-                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Empty table shell — connected flush inside wrapper, matching the Wave 1 table structure */}
-          <div style={{ marginTop: 20 }}>
-            <div style={{ overflow: 'hidden', borderTop: BORDER }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center', opacity: 0.55 }}>
-                <div>Client Name</div>
-                <div>ACV Business Case</div>
-                <div style={{ textAlign: 'center' }}>Wave</div>
-                <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
-                <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
-                <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
-                <div style={{ textAlign: 'center' }}>Rating Digitization</div>
-                <div style={{ textAlign: 'center' }}>Rating Price Maintain</div>
-                <div style={{ textAlign: 'center' }}>Overall Propensity Score</div>
-                <div style={{ textAlign: 'center' }}>Client Progress Status</div>
-              </div>
-              <div style={{ padding: '32px 20px', textAlign: 'center', fontSize: 12.5, color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', background: '#fff' }}>
-                No Wave 2 clients added yet — rows will appear here once provided.
-              </div>
-            </div>
-          </div>
-        </div>
       </div>{/* closes Wave 1 section div (754) */}
 
       </div>
