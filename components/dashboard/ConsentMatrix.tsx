@@ -1266,7 +1266,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
                     transition: 'all 0.12s',
                   }}
                 >
-                  {m === 'post' ? 'Post-whisper' : 'Pre-whisper'}
+                  {m === 'post' ? 'Latest sentiment' : 'Pre-whisper'}
                 </button>
               ))}
             </div>
