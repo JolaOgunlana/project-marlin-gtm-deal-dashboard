@@ -749,7 +749,7 @@ const EMPTY_FILTERS: Filters = {
 const COLUMNS: { key: ColKey; label: string; width: string }[] = [
   { key: 'category',          label: 'Category',            width: '10%' },
   { key: 'sharedWithGenpact', label: 'Shared with Genpact',  width: '8%' },
-  { key: 'points',            label: 'Points to Address',    width: '19%' },
+  { key: 'points',            label: 'Questions',            width: '19%' },
   { key: 'response',          label: 'Response',             width: '23%' },
   { key: 'responseDate',      label: 'Response Date',        width: '9%' },
   { key: 'status',            label: 'Status',               width: '9%' },
