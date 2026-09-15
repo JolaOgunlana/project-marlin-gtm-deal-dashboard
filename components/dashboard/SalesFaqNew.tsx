@@ -820,10 +820,12 @@ function FaqNewTable() {
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', minWidth: 1180, borderCollapse: 'collapse', tableLayout: 'fixed' as const }}>
             <colgroup>
+              <col style={{ width: '4%' }} />
               {COLUMNS.map(c => <col key={c.key} style={{ width: c.width }} />)}
             </colgroup>
             <thead>
               <tr>
+                <th style={{ background: INK, color: '#fff', fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: 'center', padding: '12px 8px' }}>#</th>
                 {COLUMNS.map(c => (
                   <th key={c.key} style={{
                     background: INK, color: '#fff', fontSize: 10, fontWeight: 700,
@@ -835,6 +837,7 @@ function FaqNewTable() {
                 ))}
               </tr>
               <tr>
+                <th style={{ padding: '8px 6px', background: '#f7f8fc', borderBottom: '1px solid #e5e7eb' }} />
                 {COLUMNS.map(c => (
                   <th key={c.key} style={{ padding: '8px 10px', background: '#f7f8fc', borderBottom: '1px solid #e5e7eb' }}>
                     {c.key === 'sharedWithGenpact' ? (
@@ -892,7 +895,7 @@ function FaqNewTable() {
             <tbody>
               {filteredRows.length === 0 ? (
                 <tr>
-                  <td colSpan={COLUMNS.length} style={{ padding: '48px 20px', textAlign: 'center', fontSize: 13, color: MUTED }}>
+                  <td colSpan={COLUMNS.length + 1} style={{ padding: '48px 20px', textAlign: 'center', fontSize: 13, color: MUTED }}>
                     {FAQ_NEW_DATA.length === 0
                       ? 'No entries yet. This table is ready to be populated — submit the CSV to fill it in.'
                       : 'No rows match the current filters. Try clearing a filter above.'}
@@ -901,6 +904,9 @@ function FaqNewTable() {
               ) : (
                 filteredRows.map((row, i) => (
                   <tr key={i} style={{ borderTop: i > 0 ? '1px solid #eef0f2' : undefined }}>
+                    <td style={{ padding: '14px 8px', verticalAlign: 'top', textAlign: 'center', fontSize: 12, fontWeight: 800, color: MUTED }}>
+                      {FAQ_NEW_DATA.indexOf(row) + 1}
+                    </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em', color: '#0f1230' }}>
                       {row.category}
                     </td>
