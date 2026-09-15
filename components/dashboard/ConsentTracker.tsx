@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ����������������────────������────────────────────────────────────────────────────────────
+// ── Data �����������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -655,7 +655,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 85.3
+              const maxAcv = 100
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
