@@ -941,9 +941,6 @@ export function SalesFaqNewPage({ page, onNavigate }: { page: Page; onNavigate: 
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Consent Tracker" />
       <div style={{ padding: '0 32px 56px' }}>
-        <p style={{ fontSize: 13.5, color: MUTED, lineHeight: 1.65, marginBottom: 24 }}>
-          The refreshed Sales FAQ table, tracking each client question with whether it&apos;s been shared with Genpact, the point to address, the agreed response, when it was answered, its current status, and any follow-up still needed. Use the filters below to narrow by any column.
-        </p>
         <FaqNewTable />
       </div>
     </div>
