@@ -42,6 +42,7 @@ const CLIENT_ACV: Record<string, number> = {
   'UBS': 8.4,
   'PNC': 5.5,
   'ING': 4.6,
+  'Citibank': 0.1,
 }
 const TARGET_ACV = 60 // $M consent target
 
@@ -57,6 +58,7 @@ const PITCHES: Record<string, Pitch[]> = {
   '2026-08-31': [{ client: 'UMB', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-10': [{ client: 'Metro Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-15': [{ client: 'Lloyds', service: 'Pitch Meeting', type: 'w1' }],
+  '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-10-05': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
 }
 
