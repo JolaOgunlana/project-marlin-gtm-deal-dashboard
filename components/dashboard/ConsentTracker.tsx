@@ -817,8 +817,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             },
             {
               label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$26.2M', acvColor: ALIGNMENT,
-              meta: '1 client · 28% of ACV · 5% of clients',
-              names: ['Virgin Money (Oct 5)'],
+              meta: '2 clients · 28% of ACV · 10% of clients',
+              names: ['Virgin Money (Oct 5)', 'Citibank (Sep 25)'],
               nameColor: INK,
             },
             {
