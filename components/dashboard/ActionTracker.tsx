@@ -40,7 +40,7 @@ const ACTION_DATA: ActionRow[] = [
     description: 'Preparation of Metro Bank pitch response based on received feedback',
     startDate: '9/11/2026',
     status: 'WIP',
-    owner: 'Nathalie Monreau',
+    owner: 'Nathalie Moreau',
   },
   {
     clientName: 'Virgin Money',
@@ -64,7 +64,7 @@ const ACTION_DATA: ActionRow[] = [
     description: 'Material preparation for primer clients',
     startDate: '9/14/2026',
     status: 'WIP',
-    owner: 'Nathalie Monreau',
+    owner: 'Nathalie Moreau',
   },
 ]
 
