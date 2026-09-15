@@ -97,16 +97,26 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
       <div>
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
           <colgroup>
-            <col style={{ width: '4%' }} />   {/* Oppt. ID */}
-            <col style={{ width: '12%' }} />  {/* Client Name */}
-            <col style={{ width: '5%' }} />   {/* Deal Type */}
-            <col style={{ width: '5%' }} />   {/* Region */}
-            <col style={{ width: '7%' }} />   {/* TMS Total Revenue */}
-            <col style={{ width: '4%' }} />   {/* Wave */}
-            <col style={{ width: '4%' }} />   {/* Salesforce Stage */}
-            <col style={{ width: '7%' }} />   {/* Client Progress Status */}
-            <col style={{ width: '6%' }} />   {/* Next Step */}
-            <col style={{ width: '9%' }} />   {/* Opportunity Owner */}
+            {/* Oppt. ID */}
+            <col style={{ width: '4%' }} />
+            {/* Client Name */}
+            <col style={{ width: '12%' }} />
+            {/* Deal Type */}
+            <col style={{ width: '5%' }} />
+            {/* Region */}
+            <col style={{ width: '5%' }} />
+            {/* TMS Total Revenue */}
+            <col style={{ width: '7%' }} />
+            {/* Wave */}
+            <col style={{ width: '4%' }} />
+            {/* Salesforce Stage */}
+            <col style={{ width: '4%' }} />
+            {/* Client Progress Status */}
+            <col style={{ width: '7%' }} />
+            {/* Next Step */}
+            <col style={{ width: '6%' }} />
+            {/* Opportunity Owner */}
+            <col style={{ width: '9%' }} />
           </colgroup>
           <thead>
             <tr>
