@@ -95,7 +95,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
 }
 
-// ── Types ──────────����─────────────────────────────────────���������───────────��─────────
+// ── Types ────────────────────────────────────────────────────────────────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
 
@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data �����������������������────────������────────────────────────────────────────────────────────────
+// ── Data ─────────────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -281,7 +281,7 @@ const CLIENTS: TrackerClient[] = [
   },
 ]
 
-// ── Summary stats ────────��────────────────────────────────────────────────────
+// ── Summary stats ───────────────────────────────────────────────────────────
 const STATS = [
   {
     label: 'Exploration',
@@ -296,7 +296,7 @@ const STATS = [
       { text: 'willing to engage, learn more, and evaluate', bold: true },
       { text: ' the opportunity.', bold: false },
     ],
-    sfStages: 'Stage 1��2 · New Opportunity / Early Sales',
+    sfStages: 'Stage 1→2 · New Opportunity / Early Sales',
   },
   {
     label: 'Alignment',
@@ -345,7 +345,7 @@ const STATS = [
   },
 ]
 
-// ── Sub-components ──────────────────────────────────────��──────────────────────
+// ── Sub-components ────────────────────────────────────────────────────────────
 function TickIcon({ status }: { status: 'y' | 'q' | 'n' }) {
   const map = {
     y: { bg: GREEN_BG,  color: GREEN, label: '✓' },
@@ -563,7 +563,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           Client-by-client progression through Exploration, Alignment, Committed, and Not Pursuing across each Wave. Shows program coverage per Wave. Click a client to view its details.
         </p>
 
-        {/* ��─ Stage definition cards — KpiSection style ────────────── */}
+        {/* ── Stage definition cards — KpiSection style ────────────── */}
         <div style={{
           background: 'white',
           border: '1px solid #e2e4ee',
@@ -788,10 +788,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
+        {/* ── Wave 1 Client Detail ──────────────────────────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ────���������������─────������─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ──────────────────────────── */}
         {(() => {
           const cols = [
             {
@@ -911,7 +911,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Details wrapper ──────────�����───��─────────�����─��─ */}
+        {/* ── Wave 1 Client Details wrapper ──────────────────────────── */}
         <div style={{ border: '1px solid #e2e4ee', borderRadius: 14, overflow: 'hidden', background: '#f8f9fc', boxShadow: '0 1px 6px rgba(26,31,78,0.06)' }}>
 
           {/* Section header */}

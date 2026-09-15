@@ -242,7 +242,7 @@ const CM_DATA: CMClient[] = [
   { name:"Chase Corporate Card (JP Morgan)", id:"", rev:2400, region:"NA", dealType:"existing", wave:2, stage:1, out:null, off:null, dig:null, price:null },
 ]
 
-// ── Helpers ─────────────────────��───────���────────────────��������──����─────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 const RATING_SCORE: Record<string, number> = { High: 100, Medium: 75, Low: 50 }
 const ratingScore = (r: Rating) => (r ? (RATING_SCORE[r] ?? 0) : 0)
 const overallScore = (c: CMClient, mode: WhisperMode) => {
@@ -551,7 +551,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
     return { ...b, xPct, labelAbove: true, labelOffsetPx: 0 }
   })
 
-  // ── Step 3: label collision resolution ─────────────────────────��──────────
+// ── Step 3: label collision resolution ───────────────────────────────────
   // Try 6 candidate positions per label (above, below, right, left, top-right, top-left).
   // Place in the first non-overlapping slot; fall back to least-overlap option.
   type LabelRect = { left: number; right: number; top: number; bottom: number; labelAbove: boolean; labelOffsetPx: number }
@@ -913,7 +913,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
         </div>
       </div>
 
-      {/* ─������� Main plot layout ── */}
+        {/* ── Main plot layout ── */}
       <div style={{ display: 'flex', padding: '20px 24px 0' }}>
         {/* Y-axis label (rotated) */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 20, marginRight: 8, flexShrink: 0 }}>
@@ -1054,7 +1054,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
   )
 }
 
-// ── Main component ────────────────────────��─������────�����─���───���─────────�����─────���──
+// ── Main component ────────────────────────────────────────────────────────
   type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
 
 export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
@@ -1300,7 +1300,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           </div>
         </div>
 
-        {/* ─��� Heat-Map with Filters ── */}
+        {/* ── Heat-Map with Filters ── */}
         <HeatMap 
           allClients={filtered} 
           whisperMode={whisperMode}
@@ -1314,7 +1314,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           setStageFilter={setStageFilter}
         />
 
-        {/* ����� Info note ── */}
+          {/* ── Info note ── */}
         {/* ── Rationale accordion ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, marginBottom: 16, overflow: 'hidden' }}>
           <button onClick={() => setRationaleOpen(v => !v)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
@@ -1324,7 +1324,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           </button>
           {rationaleOpen && (
             <div style={{ padding: '0 22px 26px', borderTop: '1px solid #eef0f6' }}>
-              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>Each client is scored on four categories ��� Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.</p>
+              <p style={{ fontSize: 13.5, color: '#4a5060', lineHeight: 1.7, margin: '18px 0 22px' }}>Each client is scored on four categories — Outsourcing, Offshoring, Digitization and Price. Each rating becomes a percentage, and the four are averaged into one 0–100 score.</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div style={{ border: '1px solid #e2e4ee', borderRadius: 10, padding: '18px 22px', background: '#fafbfd' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5b2d6e', marginBottom: 16 }}>Rating → Points</div>
@@ -1347,7 +1347,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
           )}
         </div>
 
-        {/* ── Criteria accordion ���─ */}
+        {/* ── Criteria accordion ── */}
         <div style={{ background: '#fff', border: '1px solid #e2e4ee', borderRadius: 12, marginBottom: 16, overflow: 'hidden' }}>
           <button onClick={() => setCriteriaOpen(v => !v)} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 11, padding: '18px 22px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24, borderRadius: '50%', background: '#5b2d6e', color: '#fff', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>i</span>
