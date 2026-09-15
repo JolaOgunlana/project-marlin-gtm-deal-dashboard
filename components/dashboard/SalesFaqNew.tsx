@@ -775,7 +775,7 @@ function FaqNewTable() {
         if (!f) return true
         return String(row[key]).toLowerCase().includes(f)
       })
-    )
+    })
   }, [filters, questionNumberFilter])
   
   const activeFilterCount = COLUMNS.filter(({ key }) => filters[key].trim() !== '').length + (questionNumberFilter.trim() ? 1 : 0)
