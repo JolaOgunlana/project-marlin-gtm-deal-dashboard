@@ -71,7 +71,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes - reframed",
+    sharedWithGenpact: "Yes",
     points: "For each proposed technology capability, confirm: (a) whether it can be excluded for an individual client without affecting delivery of the remaining scope, (b) which capabilities are foundational and cannot be excluded, and (c) the operational impact of exclusion at client level, covering staffing model, SLA attainment, and transition sequencing. Respond at the capability level, not in aggregate.",
     response: "",
     responseDate: "",
@@ -321,7 +321,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes - reframed",
+    sharedWithGenpact: "Yes",
     points: "[Who owns, manages and pays for legacy tech?]\nFor each in-scope legacy tool that stays in service after transition, confirm who operates and supports it, who holds the license under the assumption you priced against, and what changes for the client in raising and escalating an issue.",
     response: "",
     responseDate: "",
@@ -331,7 +331,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes - reframed",
+    sharedWithGenpact: "Yes",
     points: "[Timeline that shows commitment of each item being replaced for the portfolio. This also needs to tie out to the client-level timeline expectations we need to share with clients.]\nProvide a technology replacement roadmap covering every in-scope legacy tool: current tool, replacement, target replacement quarter, and any dependency on client consent or client-side integration. Present at portfolio level and identify where dates differ by migration wave or by region. For each item, state whether the date is contractually committable or indicative.",
     response: "",
     responseDate: "",
@@ -351,7 +351,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes - reframed",
+    sharedWithGenpact: "Yes",
     points: "[What tech change requires consent and what does not? E.g. in some cases they will need integration into client-owned systems (e.g. automations built for Loyalty). We need definitive guidance from client legal on what is permissible vs. what is not. Anything moving to the cloud from on-prem systems needs client consent. e.g. CCaaS on-prem Avaya moving to NICE CCaaS cloud.]\nFor each proposed technology change, provide the change being made (from and to), whether it alters data hosting location or hosting model, whether it requires integration with client-owned systems, and the specific client-side action required to enable it.",
     response: "",
     responseDate: "",
@@ -521,7 +521,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes (New)",
+    sharedWithGenpact: "Yes",
     points: "We have clients who are expecting a huge shift towards disputes self serve via use the TIS App. Do Genpact have a view, based on other books, of what containment can be achieved through a good app for dispute intake (appreciate this is a TIS app, rather than a Genpact App but any info would be useful).",
     response: "",
     responseDate: "",
@@ -531,7 +531,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes (New)",
+    sharedWithGenpact: "Yes",
     points: "What containment rate in IVA can be expected for Disputes claim?",
     response: "[9/10/2027] During the meeting Genpact mentioned 27% IVA containment overall.",
     responseDate: "[9/10/2026]",
@@ -541,7 +541,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes (New)",
+    sharedWithGenpact: "Yes",
     points: "On disputes and process automation/ai, Pega and suppliers like Wipro, TCS offer high levels of efficiencies. Can Genpact give a view of what efficiencies % can be achieved through AI on Disputes / Fraud specifically.",
     response: "",
     responseDate: "",
@@ -551,7 +551,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes (New)",
+    sharedWithGenpact: "Yes",
     points: "Are Genpact familiar with competitors AI solutions such as Wipro’s Kognitos tool and TCS's workbench? What would be an equivalent solution at Genpact, how benefits will be delivered and what tools are being considered?",
     response: "",
     responseDate: "",
@@ -561,7 +561,7 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
   },
   {
     category: "Technology",
-    sharedWithGenpact: "Yes (New)",
+    sharedWithGenpact: "Yes",
     points: "Does Genpact offer a chat solution as part of this transformation?",
     response: "[9/10/2027] Genpact confirmed during the demo's they offer a chat solution and it is also part of the pitch deck tech capabilities.",
     responseDate: "[9/10/2026]",
