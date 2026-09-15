@@ -88,10 +88,10 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Price Maintain', learnings: [], points: [{ plain: 'N/A' }] },
   ],
   'Metro Bank': [
-    { lever: 'Outsourcing', learnings: ['The transformation concept, using a scale player like Genpact, landed well.', "Genpact is well known to Metro, having just lost out to Infosys for Metro's current transformation."], points: [{ label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' }] },
-    { lever: 'Offshoring', learnings: ['Open to offshoring voice in principle, but wants small steps to prove the concept first.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Digitization', learnings: [], points: [{ label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
-    { lever: 'Price Maintain', learnings: ['Unhappy with the current FTE model; wants an outcome/SLA-based approach instead.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
+    { lever: 'Outsourcing', learnings: ['Genpact is a known vendor to Metro Bank — recently went through an RFP process with Genpact, and there were no negatives.'], points: [{ label: 'Are you bringing in support delivery partners?', id: 'oh-oo-partners' }] },
+    { lever: 'Offshoring', learnings: ['Supportive of the existing back-office offshoring plan (Manila).'], points: [{ plain: 'N/A' }] },
+    { lever: 'Digitization', learnings: ['Sees the benefit of the technology transformation in principle.', 'Open to a "technology transformation only" model — willing to explore taking tech improvements while leaving service delivery under FIS.'], points: [{ label: 'What are the key new tech capabilities to be enabled and their associated benefits?', id: 'oh-cap-list' }] },
+    { lever: 'Price Maintain', learnings: ["Acknowledged today's forecasting-based model works well and has delivered results.", 'Open to a growth-based model in principle — noted that growth should reduce total per-engagement cost if illustrated properly.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
 }
 
@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ���������������������────────������────────────────────────────────────────────────────────────
+// ── Data �����������������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
