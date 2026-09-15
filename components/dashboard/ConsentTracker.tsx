@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ──────���������───────────────── */}
+        {/* ── Wave 1 Client Detail ──────�����������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -946,9 +946,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           <div style={{ marginTop: 20 }}>
           <div style={{ overflow: 'hidden', borderTop: BORDER }}>
             {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV Business Case</div>
+              <div style={{ textAlign: 'center' }}>Wave</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
               <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
               <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
@@ -960,26 +961,26 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {/* Rows */}
             {(() => {
               const rows = [
-                { name: 'Virgin Money',                   acv: '$26.2M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
-                { name: 'Fifth Third Bank',               acv: '$13.6M', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
-                { name: 'Metro Bank',                     acv: '$11.8M', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
-                { name: 'UMB',                            acv: '$9.9M',  sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
-                { name: 'Lloyds',                         acv: '$9.1M',  sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
-                { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'High',   score: 88,   status: 'Alignment' },
-                { name: 'Centene Corporation',            acv: '$3.5M',  sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
-                { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', sfStage: '3', out: 'High', off: 'High', dig: 'High', price: 'High', score: 100, status: 'Alignment' },
-                { name: 'AIB',                            acv: '$1.8M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
-                { name: 'Simmons Bank',                   acv: '$1.6M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
-                { name: 'First Bank Puerto Rico',         acv: '$1.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
-                { name: 'Brim Financial',                 acv: '$1.1M',  sfStage: '1', out: 'Low',    off: 'Low',        dig: 'High',   price: 'Low',    score: 61,   status: 'Exploration' },
-                { name: 'ServisFirst',                    acv: '$0.6M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: "President's Choice",             acv: '$0.5M',  sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
-                              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Citizens Bank',                  acv: '$0.3M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Citibank',                       acv: '$0.1M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Empire Innovation Group',        acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'MotivHealth',                    acv: '$0.0M',  sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Virgin Money',                   acv: '$26.2M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
+                { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
+                { name: 'Metro Bank',                     acv: '$11.8M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: 88,   status: 'Alignment' },
+                { name: 'UMB',                            acv: '$9.9M',  wave: 'Wave 1', sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
+                { name: 'Lloyds',                         acv: '$9.1M',  wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
+                { name: 'UBS Financial Services Inc.',    acv: '$8.3M',  wave: 'Wave 1', sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'High',   score: 88,   status: 'Alignment' },
+                { name: 'Centene Corporation',            acv: '$3.5M',  wave: 'Wave 1', sfStage: '3', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
+                { name: 'HSBC Technology & Services (USA)', acv: '$2.9M', wave: 'Wave 1', sfStage: '3', out: 'High', off: 'High', dig: 'High', price: 'High', score: 100, status: 'Alignment' },
+                { name: 'AIB',                            acv: '$1.8M',  wave: 'Wave 1', sfStage: '2', out: 'High',   off: 'High',       dig: 'Medium', price: 'High',   score: 94,   status: 'Exploration' },
+                { name: 'Simmons Bank',                   acv: '$1.6M',  wave: 'Wave 1', sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'Medium', score: 94,   status: 'Exploration' },
+                { name: 'First Bank Puerto Rico',         acv: '$1.6M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'Brim Financial',                 acv: '$1.1M',  wave: 'Wave 1', sfStage: '1', out: 'Low',    off: 'Low',        dig: 'High',   price: 'Low',    score: 61,   status: 'Exploration' },
+                { name: 'ServisFirst',                    acv: '$0.6M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: "President's Choice",             acv: '$0.5M',  wave: 'Wave 1', sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
+                              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citizens Bank',                  acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Empire Innovation Group',        acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'MotivHealth',                    acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
               ]
 
               const ratingChip = (val: string | null) => {
@@ -1015,7 +1016,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     <div
                       onClick={() => setExpandedRow(isOpen ? null : row.name)}
                       style={{
-                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
+                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
                         padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
                         background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
                         borderBottom: BORDER,
@@ -1026,6 +1027,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     >
                       <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
                       <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
+                      <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>{row.wave}</div>
                       <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>
