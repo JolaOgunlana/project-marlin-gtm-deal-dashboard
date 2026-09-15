@@ -825,7 +825,7 @@ function FaqNewTable() {
             </colgroup>
             <thead>
               <tr>
-                <th style={{ background: INK, color: '#fff', fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: 'center', padding: '12px 8px' }}>#</th>
+                <th style={{ background: INK, color: '#fff', fontSize: 10, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', textAlign: 'center', padding: '12px 8px' }}>Question #</th>
                 {COLUMNS.map(c => (
                   <th key={c.key} style={{
                     background: INK, color: '#fff', fontSize: 10, fontWeight: 700,
