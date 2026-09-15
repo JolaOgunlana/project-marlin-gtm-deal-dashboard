@@ -163,6 +163,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       links: [
         { label: 'Consent Matrix', page: 'consent' },
         { label: 'Deal Dashboard', page: 'dashboard' },
+        { label: 'Pitch Calendar', page: 'calendar' },
       ],
     },
   ]
