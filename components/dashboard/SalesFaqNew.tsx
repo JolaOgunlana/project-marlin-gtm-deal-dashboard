@@ -759,22 +759,26 @@ const COLUMNS: { key: ColKey; label: string; width: string }[] = [
 
 function FaqNewTable() {
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS)
+  const [questionNumberFilter, setQuestionNumberFilter] = useState('')
 
   const categories = useMemo(() => Array.from(new Set(FAQ_NEW_DATA.map(r => r.category))).sort(), [])
   const sharedOptions = useMemo(() => Array.from(new Set(FAQ_NEW_DATA.map(r => r.sharedWithGenpact))).sort(), [])
   const statuses: FaqNewStatus[] = ['Complete', 'WIP', 'Delayed']
 
   const filteredRows = useMemo(() => {
-    return FAQ_NEW_DATA.filter(row =>
-      COLUMNS.every(({ key }) => {
+    const numberFilter = questionNumberFilter.trim().toLowerCase()
+    return FAQ_NEW_DATA.filter((row, index) => {
+      const questionNumber = String(index + 1)
+      if (numberFilter && !questionNumber.includes(numberFilter)) return false
+      return COLUMNS.every(({ key }) => {
         const f = filters[key].trim().toLowerCase()
         if (!f) return true
         return String(row[key]).toLowerCase().includes(f)
       })
     )
-  }, [filters])
-
-  const activeFilterCount = COLUMNS.filter(({ key }) => filters[key].trim() !== '').length
+  }, [filters, questionNumberFilter])
+  
+  const activeFilterCount = COLUMNS.filter(({ key }) => filters[key].trim() !== '').length + (questionNumberFilter.trim() ? 1 : 0)
 
   function setFilter(key: ColKey, value: string) {
     setFilters(prev => ({ ...prev, [key]: value }))
@@ -782,6 +786,7 @@ function FaqNewTable() {
 
   function clearFilters() {
     setFilters(EMPTY_FILTERS)
+    setQuestionNumberFilter('')
   }
 
   return (
@@ -837,7 +842,17 @@ function FaqNewTable() {
                 ))}
               </tr>
               <tr>
-                <th style={{ padding: '8px 6px', background: '#f7f8fc', borderBottom: '1px solid #e5e7eb' }} />
+                <th style={{ padding: '8px 6px', background: '#f7f8fc', borderBottom: '1px solid #e5e7eb' }}>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    aria-label="Filter by question number"
+                    placeholder="#"
+                    value={questionNumberFilter}
+                    onChange={e => setQuestionNumberFilter(e.target.value)}
+                    style={{ width: '100%', padding: '6px 4px', borderRadius: 6, border: '1px solid #dfe1ea', background: '#fff', color: INK, fontFamily: 'inherit', fontSize: 11.5, textAlign: 'center' }}
+                  />
+                </th>
                 {COLUMNS.map(c => (
                   <th key={c.key} style={{ padding: '8px 10px', background: '#f7f8fc', borderBottom: '1px solid #e5e7eb' }}>
                     {c.key === 'sharedWithGenpact' ? (
