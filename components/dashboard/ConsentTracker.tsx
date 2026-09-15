@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ��────────������────────────────────────────────────────────────────────────
+// ── Data ���────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ────────���───────────────── */}
+        {/* ── Wave 1 Client Detail ───────������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -803,15 +803,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$9.9M', acvColor: '#4bcd3e',
-              meta: '1 client · 11% of ACV · 5% of clients',
-              names: ['UMB'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$21.7M', acvColor: '#4bcd3e',
+              meta: '2 clients · 25% of ACV · 10% of clients',
+              names: ['UMB', 'Metro Bank'],
               nameColor: '#4bcd3e',
             },
             {
-              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$47.1M', acvColor: ALIGNMENT,
-              meta: '3 clients · 50% of ACV · 15% of clients',
-              names: ['Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'Virgin Money (Oct 5)'],
+              label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$35.3M', acvColor: ALIGNMENT,
+              meta: '2 clients · 41% of ACV · 10% of clients',
+              names: ['Lloyds (Sep 15)', 'Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
