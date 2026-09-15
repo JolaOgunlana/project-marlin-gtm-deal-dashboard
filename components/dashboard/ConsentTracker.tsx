@@ -34,10 +34,10 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
     { lever: 'Price Maintain', learnings: ['Accepts it costs them nothing extra, as FIS covers the technology cost.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }] },
   ],
   'UMB': [
-    { lever: 'Outsourcing', learnings: ["Didn't reject the idea — encouraging given the expected sensitivity.", 'Prefers aligning UMB to the standard operating model over a bespoke solution.', 'Recently involved in multiple outsourcing reviews across the business.', 'Very positive on Genpact selection; believes they have the capability and credibility to deliver.'], points: [{ label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' }] },
-    { lever: 'Offshoring', learnings: ['Exploring the offshoring split: voice from the Philippines, back-office from India.', 'Exploring offshore model opportunities; Technology Modernization identified as primary near-term opportunity.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' }] },
-    { lever: 'Digitization', learnings: ['Technology Modernization identified as primary near-term opportunity.', 'Technology capabilities viewed as key differentiator in vendor selection.'], points: [{ plain: 'N/A' }] },
-    { lever: 'Price Maintain', learnings: ['Challenged concept of maintaining current economics while offshoring.'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' }] },
+    { lever: 'Outsourcing', learnings: ['Not saying no — open to continued discussions.', 'Requested a dedicated "risk page" discussion, signaling willingness to work through concerns rather than walk away.', 'Requested a follow-up session specifically on the agent training model.'], points: [{ label: 'Confidence in execution: raised concern based on prior experiences with FIS.', id: 'oh-oo-expertise' }] },
+    { lever: 'Offshoring', learnings: ['Asked whether portions of the portfolio can be segregated.', 'Consumer F&D may be more viable for offshoring than commercial F&D.', 'Sees potential to treat Private Wealth and Institutional business differently.', 'Requested follow-up discussions on both F&D operations and portfolio carve-outs.'], points: [{ label: "Where exactly would our client's work be delivered from, and does any data move with it? (model already accepted; confirms the split)", id: 'oh-oo-delivered' }] },
+    { lever: 'Digitization', learnings: ['Support a technology-first approach, showing appetite for investment in back-office improvement.', 'Open to sequencing technology upgrades ahead of offshore migration', 'Discussed a realistic 10–12 month timeframe inclusive of people and tech, suggesting willingness to plan toward execution.', 'Requested a follow-up discussion specifically on technology-first transformation sequencing.'], points: [{ plain: 'N/A' }] },
+    { lever: 'Price Maintain', learnings: ['Understands the rebadging/outsourcing cost delta from its own internal planning, showing informed engagement with the model.', 'Open to offshoring part of the business in exchange for a discount'], points: [{ label: 'Are costs going up? How is pricing affected?', id: 'oh-pr-costs' }, { label: 'Do we charge for implementation cost?', id: 'oh-pr-impl' }] },
   ],
   'Brim Financial': [
     { lever: 'Outsourcing', learnings: [], points: [{ label: 'Is outsourcing mandatory, and what happens if a client refuses it outright? What is the impact to pricing?', id: 'oh-oo-mandatory' }, { label: 'What do we do if a client refuses Genpact or the new model altogether?', id: 'oh-oo-refuse' }] },
@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ──────────���────────────────────────────────────────────────────────────
+// ── Data ─────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
