@@ -781,7 +781,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ───────������───────────────── */}
+        {/* ── Wave 1 Client Detail ──────���������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* ── Wave 1 Whisper Completion ──────────────���──────────────── */}
@@ -805,7 +805,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {
               label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$21.7M', acvColor: '#4bcd3e',
               meta: '2 clients · 25% of ACV · 10% of clients',
-              names: ['UMB', 'Metro Bank'],
+              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)'],
               nameColor: '#4bcd3e',
             },
             {
