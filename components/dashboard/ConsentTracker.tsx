@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data �����������────────������────────────────────────────────────────────────────────────
+// ── Data ������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -784,7 +784,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ────────���─────������─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ───────������─────������─���─���────���─────── */}
         {(() => {
           const cols = [
             {
@@ -962,14 +962,14 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
               {/* Card 2: In Wave 2 whisper scope */}
               <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>4</div>
-                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 2 whisper scope (16 not planned)</div>
+  <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>7</div>
+  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 2 whisper scope (13 not planned)</div>
               </div>
 
               {/* Card 3: Of in-scope whisper ACV in Alignment */}
               <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>0%</div>
-                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
+  <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>18%</div>
+  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
               </div>
 
               {/* Card 4: Avg propensity score — no ratings yet */}
@@ -1022,10 +1022,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'ING (BV / Barneveld)',           acv: '$4.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'Arvest',                         acv: '$2.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
                 { name: 'First Hawaiian Bank',            acv: '$1.8M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
-                { name: 'Hancock-Whitney Bank',           acv: '$1.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
-                { name: 'Capital One',                    acv: '$1.6M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Marlette Funding / Best Egg',    acv: '$0.9M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'City National Bank',             acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Hancock-Whitney Bank',           acv: '$1.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
+                { name: 'Capital One',                    acv: '$1.6M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'Marlette Funding / Best Egg',    acv: '$0.9M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
+                { name: 'City National Bank',             acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Alignment' },
                 { name: 'Truist Bank',                    acv: '$0.7M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Royal Bank Of Canada',            acv: '$0.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Wells Fargo',                    acv: '$0.4M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
