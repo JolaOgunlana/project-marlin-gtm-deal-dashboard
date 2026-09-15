@@ -1271,7 +1271,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
               ))}
             </div>
             <div style={{ fontSize: 13, color: 'rgba(26,31,78,0.42)', marginTop: 12, fontStyle: 'italic' }}>
-              Filter comparison with Pre-Whisper and Post-Whisper Consent Likelihood
+              Filter comparison with Pre-Whisper and Latest Sentiment Consent Likelihood
             </div>
           </div>
 
