@@ -548,6 +548,12 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
+      <style>{`
+        @keyframes ct-ripple-ring {
+          0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.8; }
+          100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+        }
+      `}</style>
       <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Consent Tracker" />
 
       <div style={{ padding: '0 32px 56px' }}>
@@ -1011,6 +1017,20 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     </button>
                   )
                 })}
+              </div>
+              {/* Click affordance: caption + ripple cursor */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, pointerEvents: 'none' }}>
+                <span style={{ fontSize: 11.5, fontWeight: 600, color: INK, letterSpacing: '0.01em', whiteSpace: 'nowrap' }}>
+                  Click to switch view
+                </span>
+                <div style={{ position: 'relative', width: 22, height: 22, flexShrink: 0 }}>
+                  {[0, 1.1].map((delay, i) => (
+                    <div key={i} className="ct-ripple-ring" style={{ position: 'absolute', top: '50%', left: '50%', width: 12, height: 12, borderRadius: '50%', border: `2px solid ${INK}`, animation: `ct-ripple-ring 2.2s ease-out ${delay}s infinite`, pointerEvents: 'none' }} />
+                  ))}
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ position: 'relative', zIndex: 1 }}>
+                    <path d="M5 3L19 12L12 13.5L9 21L5 3Z" stroke={INK} strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+                  </svg>
+                </div>
               </div>
             </div>
             {/* Header */}
