@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ��������────────������────────────────────────────────────────────────────────────
+// ── Data ����������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -781,10 +781,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           )
         })()}
 
-        {/* ── Wave 1 Client Detail ──�������������������������������������───────────────── */}
+        {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ──────────────�����─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ──────────────������─���─���────���─────── */}
         {(() => {
           const cols = [
             {
@@ -952,17 +952,32 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             </div>
 
             <div style={{ padding: '20px 20px 0', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-              {[
-                'Wave 2 clients engaged',
-                'In Wave 2 whisper scope',
-                'Of in-scope whisper ACV in Alignment',
-                'Avg. propensity score (in-scope)',
-              ].map(label => (
-                <div key={label} style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                  <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
-                  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+              {/* Card 1: Wave 2 clients engaged */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>20</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($16.5M)</span>
                 </div>
-              ))}
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 2 clients engaged</div>
+              </div>
+
+              {/* Card 2: In Wave 2 whisper scope */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>4</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>In Wave 2 whisper scope (16 not planned)</div>
+              </div>
+
+              {/* Card 3: Of in-scope whisper ACV in Alignment — placeholder, no ratings yet */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
+              </div>
+
+              {/* Card 4: Avg propensity score — placeholder, no ratings yet */}
+              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px dashed #d4d7e3', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'rgba(26,31,78,0.28)', lineHeight: 1, marginBottom: 8 }}>—</div>
+                <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
+              </div>
             </div>
           </div>
 
