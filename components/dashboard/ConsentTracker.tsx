@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data ��������������────────������────────────────────────────────────────────────────────────
+// ── Data ���������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -659,8 +659,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               const target = 25
               const targetPct = (target / maxAcv) * 100
               const bars = [
-{ label: 'Exploration', color: INK, acv: 59.5, clients: 56, text: '$59.5M', empty: false },
-  { label: 'Alignment',   color: '#0891b2', acv: 85.3, clients: 8, text: '$85.3M', empty: false },
+          { label: 'Exploration', color: INK, acv: 57.5, clients: 64, text: '$57.5M', empty: false },
+          { label: 'Alignment',   color: '#0891b2', acv: 87.7, clients: 10, text: '$87.7M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
@@ -784,7 +784,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ─────������������─────������─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ────���������������─────������─���─���────���─────── */}
         {(() => {
           const cols = [
             {
