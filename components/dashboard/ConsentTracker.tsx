@@ -95,7 +95,7 @@ const WHISPER_DATA: Record<string, LeverRow[]> = {
   ],
 }
 
-// ── Types ──────────����─────────────────────────────────────�����───────────��─────────
+// ── Types ──────────����─────────────────────────────────────�������───────────��─────────
 type StepStatus = 'done' | 'active' | 'pending'
 type ConsentStep = 'exploration' | 'alignment' | 'consent'
 
@@ -823,7 +823,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             },
             {
   label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$28.3M', acvColor: ALIGNMENT,
-  meta: '4 clients · 39% of ACV · 20% of clients',
+  meta: '4 clients · 30% of ACV · 20% of clients',
   names: ['Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
               nameColor: INK,
             },
