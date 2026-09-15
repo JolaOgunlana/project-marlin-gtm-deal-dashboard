@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data �������������������────────������────────────────────────────────────────────────────────────
+// ── Data ��������������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -937,10 +937,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-                <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>88</div>
-            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
-          </div>
-          </div>{/* end metric cards grid */}
+ <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>86</div>
+ <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
+  </div>
+  </div>{/* end metric cards grid */}
 
           {/* ── Wave 2 header + metric cards (placeholder) — same horizontal span as Wave 1, sits directly under Wave 1 boxes, above the table ── */}
           <div style={{ marginTop: 20 }}>
