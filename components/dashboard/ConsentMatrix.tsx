@@ -107,7 +107,7 @@ const CM_DATA: CMClient[] = [
     }
   },
   { name:"UMB", id:"9463", rev:9913772, region:"NA", dealType:"existing", wave:1, stage:3, out:"Low", off:"Low", dig:"Medium", price:"Low",
-    preNudgeX: -2.665, lockPostPosition: true, absPostX: 50, absPostY: 50, lockPrePosition: true, absPreX: 15, absPreY: 80,
+    preNudgeX: -2.665, lockPostPosition: true, absPostX: 46, absPostY: 64, lockPrePosition: true, absPreX: 15, absPreY: 80,
     post:{
       out:{ rating:"Medium", rationale:"The concept was not rejected outright, which is encouraging given the expected sensitivity around the topic. Uma appeared to recognize the value of aligning with the broader operating model rather than pursuing a unique solution for UMB." },
       off:{ rating:"Medium", rationale:"Offshoring was a primary area of focus. We confirmed that voice operations would be supported from the Philippines and off-phone/back-office activities from India." },
