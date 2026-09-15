@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { Calendar as CalendarIcon, Users, RotateCcw } from 'lucide-react'
 import { NavBanner } from './CoverPage'
 
-type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
 // ── Design tokens (matched to the rest of the dashboard) ──────────────────────
 const INK        = '#1a1f4e'

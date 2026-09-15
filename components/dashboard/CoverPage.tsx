@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
 // ── Shared nav banner ─────────────────────────────────────────────────────────
 export function NavBanner({ page, onNavigate, title }: {
@@ -16,6 +16,7 @@ export function NavBanner({ page, onNavigate, title }: {
     { id: 'consent',   label: 'Consent Matrix' },
     { id: 'dashboard', label: 'Deal Dashboard' },
     { id: 'faqNew',    label: 'Sales FAQ' },
+    { id: 'actionTracker', label: 'Action Tracker' },
     { id: 'cover',     label: 'How to Use' },
   ]
 
@@ -151,6 +152,7 @@ export function CoverPage({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       links: [
         { label: 'GTM Status', page: 'tracker' },
         { label: 'Sales FAQ', page: 'faqNew' },
+        { label: 'Action Tracker', page: 'actionTracker' },
       ],
     },
     {

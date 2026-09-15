@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { Filter, X } from 'lucide-react'
 import { NavBanner } from './CoverPage'
 
-type Page = 'cover' | 'debrief' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+type Page = 'cover' | 'debrief' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
 // ── Shared style tokens ───────────────────────────────────────────────────────
 const INK = '#1a1f4e'

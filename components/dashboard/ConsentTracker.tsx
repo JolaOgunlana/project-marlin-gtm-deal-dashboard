@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { NavBanner } from './CoverPage'
 
-type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 const INK   = '#1a1f4e'

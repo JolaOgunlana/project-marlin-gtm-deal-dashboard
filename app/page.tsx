@@ -7,8 +7,9 @@ import { CoverPage } from '@/components/dashboard/CoverPage'
 import { ConsentTrackerPage } from '@/components/dashboard/ConsentTracker'
 import { SalesFaqNewPage } from '@/components/dashboard/SalesFaqNew'
 import { PitchCalendarPage } from '@/components/dashboard/PitchCalendar'
+import { ActionTrackerPage } from '@/components/dashboard/ActionTracker'
 
-export type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar'
+export type Page = 'cover' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
 export default function Home() {
   const [page, setPage] = useState<Page>('tracker')
@@ -30,6 +31,7 @@ export default function Home() {
       {page === 'consent'   && <ConsentMatrix page={page} onNavigate={navigate} />}
       {page === 'tracker'   && <ConsentTrackerPage page={page} onNavigate={navigate} onFaqLink={handleFaqLink} />}
       {page === 'calendar'  && <PitchCalendarPage page={page} onNavigate={navigate} />}
+      {page === 'actionTracker' && <ActionTrackerPage page={page} onNavigate={navigate} />}
     </main>
   )
 }
