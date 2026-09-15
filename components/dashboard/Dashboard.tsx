@@ -62,9 +62,9 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
             </div>
             <div style={{ textAlign: 'right', lineHeight: 1.65 }}>
               <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 1 }}>Last Update</div>
-              <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>September 8th 2026 · 18:00 EST</div>
+              <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>September 15th 2026 · 18:00 EST</div>
 <div style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 4, marginBottom: 1 }}>Next Update</div>
-            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>September 15th 2026 · 18:00 EST</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.75)', whiteSpace: 'nowrap' }}>September 22nd 2026 · 18:00 EST</div>
             </div>
           </div>
         </div>
