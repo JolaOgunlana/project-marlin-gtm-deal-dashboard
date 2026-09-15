@@ -124,7 +124,7 @@ interface TrackerClient {
   stages: StageBlock[]
 }
 
-// ── Data �������������────────������────────────────────────────────────────────────────────────
+// ── Data ��������������────────������────────────────────────────────────────────────────────────
 // Only clients with completed whisper conversations are shown in the tracker
 const CLIENTS: TrackerClient[] = [
   {
@@ -784,7 +784,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Wave 1 Client Detail ─����������������������������������������───────────────── */}
             <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* ── Wave 1 Whisper Completion ──────���������─────������─���─���────���─────── */}
+        {/* ── Wave 1 Whisper Completion ─────������������─────������─���─���────���─────── */}
         {(() => {
           const cols = [
             {
@@ -967,9 +967,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               </div>
 
               {/* Card 3: Of in-scope whisper ACV in Alignment */}
-              <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-  <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>18%</div>
-  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
+  <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+  <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>2%</div>
+ <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Of in-scope whisper ACV in Alignment</div>
               </div>
 
               {/* Card 4: Avg propensity score — no ratings yet */}
