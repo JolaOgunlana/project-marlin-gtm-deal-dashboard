@@ -733,6 +733,59 @@ function StatusPill({ status }: { status: FaqNewStatus }) {
   )
 }
 
+function FormattedResponse({ text }: { text: string }) {
+  if (!text) return null
+
+  const paragraphs = text.split(/\n{2,}/).filter((p) => p.trim() !== '')
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {paragraphs.map((para, pi) => {
+        const lines = para.split('\n').filter((l) => l.trim() !== '')
+
+        return (
+          <div key={pi} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {lines.map((line, li) => {
+              const dateTag = line.match(/^\[([^\]]+)\]\s*(.*)$/)
+              const numbered = line.match(/^(\d+)\.\s+(.*)$/)
+              const lettered = line.match(/^([a-zA-Z])\)\s+(.*)$/)
+
+              if (dateTag) {
+                return (
+                  <div key={li} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    <span style={{
+                      fontSize: 10.5, fontWeight: 700, color: '#8b8fb8',
+                      textTransform: 'uppercase', letterSpacing: '0.03em',
+                    }}>
+                      {dateTag[1]}
+                    </span>
+                    {dateTag[2] && <span>{dateTag[2]}</span>}
+                  </div>
+                )
+              }
+              if (numbered) {
+                return (
+                  <div key={li} style={{ fontWeight: 700, marginTop: li > 0 ? 4 : 0, color: '#1a1f4e' }}>
+                    {line}
+                  </div>
+                )
+              }
+              if (lettered) {
+                return (
+                  <div key={li} style={{ paddingLeft: 16 }}>
+                    {line}
+                  </div>
+                )
+              }
+              return <div key={li}>{line}</div>
+            })}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 type ColKey = keyof FaqNewRow
 type Filters = Record<ColKey, string>
 const EMPTY_FILTERS: Filters = {
@@ -932,7 +985,7 @@ function FaqNewTable() {
                       {row.points}
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 12.5, lineHeight: 1.6, color: 'rgba(26,31,78,0.82)' }}>
-                      {row.response}
+                      <FormattedResponse text={row.response} />
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 12, color: MUTED, whiteSpace: 'nowrap' }}>
                       {row.responseDate}
