@@ -855,26 +855,22 @@ function FaqNewTable() {
   return (
     <div>
       {/* Status summary boxes */}
-      <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-        {statusBoxes.map(({ label, count, color, bg }) => (
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+        {statusBoxes.map(({ label, count, color }) => (
           <div
             key={label}
             style={{
-              flex: 1,
-              background: bg,
-              border: `1px solid ${color}33`,
-              borderRadius: 12,
-              padding: '18px 20px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 4,
+              background: 'linear-gradient(180deg,#ffffff,#fbfdff)',
+              border: '1px solid #e5e7eb',
+              borderRadius: 14,
+              padding: '14px 16px',
             }}
           >
-            <div style={{ fontSize: 40, fontWeight: 800, color, lineHeight: 1 }}>{count}</div>
-            <div style={{ fontSize: 12, fontWeight: 700, color, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              {label}
+            <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>
+              {label} Questions
+            </div>
+            <div style={{ fontSize: 36, fontWeight: 900, color, marginTop: 6, lineHeight: 1 }}>
+              {count}
             </div>
           </div>
         ))}
