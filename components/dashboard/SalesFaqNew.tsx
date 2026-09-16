@@ -842,8 +842,44 @@ function FaqNewTable() {
     setQuestionNumberFilter('')
   }
 
+  const completeCount = FAQ_NEW_DATA.filter(r => r.status === 'Complete').length
+  const delayedCount = FAQ_NEW_DATA.filter(r => r.status === 'Delayed').length
+  const wipCount = FAQ_NEW_DATA.filter(r => r.status === 'WIP').length
+
+  const statusBoxes: Array<{ label: string; count: number; color: string; bg: string }> = [
+    { label: 'Complete', count: completeCount, color: '#0f7a3d', bg: '#e8f8ef' },
+    { label: 'Delayed', count: delayedCount, color: '#b3261e', bg: '#fdecea' },
+    { label: 'WIP', count: wipCount, color: '#946200', bg: '#fef6e0' },
+  ]
+
   return (
     <div>
+      {/* Status summary boxes */}
+      <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
+        {statusBoxes.map(({ label, count, color, bg }) => (
+          <div
+            key={label}
+            style={{
+              flex: 1,
+              background: bg,
+              border: `1px solid ${color}33`,
+              borderRadius: 12,
+              padding: '18px 20px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 4,
+            }}
+          >
+            <div style={{ fontSize: 40, fontWeight: 800, color, lineHeight: 1 }}>{count}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              {label}
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Filter summary bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: INK, letterSpacing: '0.03em', textTransform: 'uppercase' }}>
