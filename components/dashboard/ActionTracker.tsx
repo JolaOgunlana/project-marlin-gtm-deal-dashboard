@@ -66,6 +66,38 @@ const ACTION_DATA: ActionRow[] = [
     status: 'WIP',
     owner: 'Nathalie Moreau',
   },
+  {
+    clientName: 'Lloyds',
+    action: 'GenPact Move Commercials',
+    description: 'Produce and present the cost/commercials for the move to GenPact — the critical path Lloyds needs to see before the conversation can progress',
+    startDate: '9/15/2026',
+    status: 'WIP',
+    owner: 'Stephen Lynch',
+  },
+  {
+    clientName: 'Lloyds',
+    action: 'Cost Options Modelling',
+    description: 'Produce cost views across the four operating model options requested by Lloyds: (a) fully offshore; (b) full onshore; (c) back office offshore with specialist and telephony onshore; (d) back office offshore with specialist onshore and telephony offshore',
+    startDate: '9/15/2026',
+    status: 'WIP',
+    owner: 'Stephen Lynch',
+  },
+  {
+    clientName: 'Lloyds',
+    action: 'Process Optimization Review',
+    description: 'End-to-end review of focus areas using AI/RPA to optimize sub-optimal processes before moving offshore (avoid "rubbish in, rubbish out"); list of areas that would most benefit from these efficiencies to be produced by TMS',
+    startDate: '9/15/2026',
+    status: 'WIP',
+    owner: 'TMS',
+  },
+  {
+    clientName: 'Lloyds',
+    action: 'Contract Renewal Alignment',
+    description: 'Restate the contract and align the renewal start date to the move to GenPact, working through a longer (7 year) extension that could start earlier to facilitate the move',
+    startDate: '9/15/2026',
+    status: 'WIP',
+    owner: 'Stewart Sims',
+  },
 ]
 
 const STATUS_STYLES: Record<ActionStatus, { bg: string; color: string; dot: string }> = {

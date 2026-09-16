@@ -58,7 +58,7 @@ const PITCHES: Record<string, Pitch[]> = {
   '2026-08-31': [{ client: 'UMB', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-10': [{ client: 'Metro Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-15': [{ client: 'Lloyds', service: 'Pitch Meeting', type: 'w1' }],
-  '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }],
+  '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }, { client: 'Fifth Third', service: 'Pitch Meeting', type: 'w1' }],
   '2026-10-05': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
 }
 
