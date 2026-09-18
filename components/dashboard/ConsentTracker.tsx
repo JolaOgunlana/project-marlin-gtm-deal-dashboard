@@ -544,7 +544,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
- const [waveFilter, setWaveFilter] = useState<'All' | 'Wave 1' | 'Wave 2'>('Wave 1')
+  const [waveFilter, setWaveFilter] = useState<'All' | 'Wave 1' | 'Wave 2' | 'Wave 3' | 'Prime Clients'>('Wave 1')
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -994,7 +994,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: '#fff', borderBottom: BORDER }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Showing:</span>
               <div style={{ display: 'inline-flex', background: GRAY_BG, borderRadius: 20, padding: 3, gap: 2 }}>
-                {(['All', 'Wave 1', 'Wave 2'] as const).map(w => {
+                {(['All', 'Wave 1', 'Wave 2', 'Wave 3', 'Prime Clients'] as const).map(w => {
                   const active = waveFilter === w
                   return (
                     <button
@@ -1089,9 +1089,20 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Valley National BK',             acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'San Diego County Credit Union',  acv: '$0.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Chase Corporate Card (JP Morgan)', acv: '$0.0M', wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'HSBC (Global)',                  acv: '$8.1M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'FRES travel card',               acv: '$1.8M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'FRES Cash',                      acv: '$1.2M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Landesbankinn',                  acv: '$1.1M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Federal Bank of India',          acv: '$0.3M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
               ]
 
-              const rows = waveFilter === 'All' ? allRows : allRows.filter(r => r.wave === waveFilter)
+              const PRIME = new Set(['HSBC (Global)', 'FRES travel card', 'FRES Cash', 'Landesbankinn', 'Federal Bank of India'])
+              const rows =
+                waveFilter === 'All'
+                  ? allRows
+                  : waveFilter === 'Prime Clients'
+                    ? allRows.filter(r => PRIME.has(r.name))
+                    : allRows.filter(r => r.wave === waveFilter)
 
               const ratingChip = (val: string | null) => {
                 if (!val) return <span style={{ color: 'rgba(26,31,78,0.4)', fontStyle: 'italic', fontSize: 11 }}>—</span>
