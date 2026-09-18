@@ -142,7 +142,12 @@ const CM_DATA: CMClient[] = [
   { name:"ING (BV / Barneveld)", id:"", rev:4502484, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Synovus Bank (incl. Business)", id:"", rev:3577829, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Centene Corporation", id:"7697", rev:3489339, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", isPrime:true, wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium",
+  { name:"HSBC (Global)", id:"", rev:8100000, region:"Global", dealType:"new", isPrime:true, wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"FRES travel card", id:"", rev:1800000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"FRES Cash", id:"", rev:1200000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Landesbankinn", id:"", rev:1100000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"Federal Bank of India", id:"", rev:300000, region:"EMEA-India", dealType:"new", isPrime:true, wave:3, stage:1, out:null, off:null, dig:null, price:null },
+  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"High propensity across all levers following the whisper conversation." },
       off:{ rating:"High", rationale:"High propensity across all levers following the whisper conversation." },
