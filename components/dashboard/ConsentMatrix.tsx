@@ -919,7 +919,10 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
               Consent Propensity Heat-Map
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#1a1f4e' }}>
+                Key
+              </span>
               <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgba(26,31,78,0.55)' }}>
                 Client name colour = Price Maintain
               </span>
@@ -965,7 +968,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             </div>
 
             {[
-              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities'],['prime','Prime Clients']], state: dealFilter, set: setDealFilter },
+              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
               { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['7','7 · Disqualified']], state: stageFilter, set: setStageFilter },
