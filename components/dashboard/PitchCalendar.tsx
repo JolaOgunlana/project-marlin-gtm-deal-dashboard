@@ -95,6 +95,41 @@ const ATTENDEES: Record<string, Attendee[]> = {
     { role: 'FIS CSM', name: 'N/A' },
     { role: 'Delivery Lead', name: 'Anthony Anderson' },
   ],
+  'HSBC': [
+    { role: 'FIS/TIS', name: 'Mike Malone' },
+    { role: 'FIS/TIS', name: 'Mike Reed' },
+    { role: 'FIS/TIS', name: 'Laura Noble' },
+    { role: 'FIS/TIS', name: 'Jill Nevins' },
+    { role: 'Client', name: 'Chris Alcuri' },
+    { role: 'Client', name: 'Lizzie Pine' },
+  ],
+  'Fifth Third': [
+    { role: 'FIS/TIS', name: 'Mike Malone' },
+    { role: 'FIS/TIS', name: 'Geoff Evans' },
+    { role: 'FIS/TIS', name: 'Glenn Dean' },
+    { role: 'Client', name: 'John Garden' },
+    { role: 'Client', name: 'Kristopher Edward' },
+    { role: 'Client', name: 'Kyle Corcoran' },
+    { role: 'Client', name: 'Blake' },
+    { role: 'Client', name: 'Laura Noble' },
+    { role: 'Client', name: 'Derek Tanis' },
+    { role: 'Client', name: 'Sam Rumer' },
+    { role: 'Client', name: 'Brian Green' },
+  ],
+  'Citibank': [
+    { role: 'FIS/TIS', name: 'Mike Malone' },
+    { role: 'FIS/TIS', name: 'Glenn Dean' },
+    { role: 'Client', name: 'Ian Gilb' },
+    { role: 'Client', name: 'Shelley Zens' },
+    { role: 'Client', name: 'Jagmohan "Jag" Hayer' },
+  ],
+  'Union Bank': [
+    { role: 'FIS/TIS', name: 'Mike Malone' },
+    { role: 'FIS/TIS', name: 'Geoff Evans' },
+    { role: 'Client', name: 'Joaquin Aguilar' },
+    { role: 'Client', name: 'Tracy Smith' },
+    { role: 'Client', name: 'Sandra Roque-Wnuk' },
+  ],
 }
 
 const TODAY: string | null = '2026-09-16'
@@ -447,14 +482,14 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                             <RotateCcw size={11} color="rgba(255,255,255,.4)" strokeWidth={2.2} style={{ flexShrink: 0, marginTop: 1 }} />
                           </div>
 
-                          <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 0 }}>
-                            {(attendees ?? []).map((a) => (
-                              <div key={a.role} style={{
+                          <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', gap: 0, overflowY: 'auto', flex: 1, minHeight: 0 }}>
+                            {(attendees ?? []).map((a, i, arr) => (
+                              <div key={`${a.role}-${a.name}-${i}`} style={{
                                 display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 6,
                                 padding: '2.5px 0', borderBottom: '1px solid rgba(255,255,255,.12)',
                               }}>
                                 <span style={{ fontSize: 8.5, fontWeight: 700, color: 'rgba(255,255,255,.55)', letterSpacing: 0.1, whiteSpace: 'nowrap' }}>
-                                  {a.role}
+                                  {i === 0 || arr[i - 1].role !== a.role ? a.role : ''}
                                 </span>
                                 <span style={{
                                   fontSize: 9.5, fontWeight: 800, textAlign: 'right',
