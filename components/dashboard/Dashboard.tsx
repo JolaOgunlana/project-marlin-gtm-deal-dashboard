@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { KpiSection } from './KpiSection'
 import { PipelineFunnel } from './PipelineFunnel'
 import { ClientTable } from './ClientTable'
+import { clients, formatRevM } from '@/lib/data'
 
 type ClientFilter = 'total' | 'existing' | 'new' | 'prime'
 type WaveFilter = 'all' | '1' | '2' | '3'
@@ -19,6 +20,18 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('all')
   const [stageFilter, setStageFilter] = useState<StageFilter>('all')
   const [whisperFilter, setWhisperFilter] = useState<WhisperFilter>('all')
+
+  const isPrimeView = clientFilter === 'prime'
+  const primeClients = clients.filter((c) => c.isPrime)
+  const primeRev = primeClients.reduce((sum, c) => sum + (typeof c.tmsRevenue === 'number' ? c.tmsRevenue : 0), 0)
+  const primeNA = primeClients.filter((c) => c.region === 'NA').length
+  const primeEMEA = primeClients.filter((c) => c.region.startsWith('EMEA')).length
+  const primeGlobal = primeClients.filter((c) => c.region === 'Global').length
+  const primeSub = [
+    primeNA ? `${primeNA} NA` : null,
+    primeEMEA ? `${primeEMEA} EMEA` : null,
+    primeGlobal ? `${primeGlobal} Global` : null,
+  ].filter(Boolean).join('  ·  ')
 
   return (
     <div className="db-wrap" style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -128,46 +141,68 @@ export function Dashboard({ page, onNavigate }: { page: Page; onNavigate: (p: Pa
       {/* Client Table */}
       <ClientTable clientFilter={clientFilter} waveFilter={waveFilter} regionFilter={regionFilter} stageFilter={stageFilter} whisperFilter={whisperFilter} />
 
-      {/* KPI — Revenue Retention Opportunities */}
-      <div style={{ marginTop: 56 }}>
-      <KpiSection
-        variant="existing"
-        title="Revenue Retention Opportunities"
-        totalRevLabel="TOTAL PORTOLIO REVENUE"
-        totalRevValue="$145.2M"
-        totalRevSub="Current annual contract value"
-        totalClients="64"
-        totalClientsSub="53 NA  ·  11 EMEA"
-        executed="0"
-        disqualified="0"
-        marginSecured="$0"
-        percentACV25="0%"
-        percentACV40="0%"
-        totalACV="0%"
-        won="$0"
-        percentWon="0%"
-        lost="$0"
-        percentLost="0%"
-      />
-      </div>
+      {isPrimeView ? (
+        /* KPI — Prime Clients only */
+        <div style={{ marginTop: 56 }}>
+        <KpiSection
+          variant="new"
+          title="Prime Clients"
+          totalRevLabel="Total Prime ACV"
+          totalRevValue={formatRevM(primeRev)}
+          totalRevSub="Annual contract value"
+          totalClients={String(primeClients.length)}
+          totalClientsSub={primeSub}
+          executed="0"
+          disqualified="0"
+          marginSecured="$0"
+          won="$0"
+          lost="$0"
+        />
+        </div>
+      ) : (
+        <>
+        {/* KPI — Revenue Retention Opportunities */}
+        <div style={{ marginTop: 56 }}>
+        <KpiSection
+          variant="existing"
+          title="Revenue Retention Opportunities"
+          totalRevLabel="TOTAL PORTOLIO REVENUE"
+          totalRevValue="$145.2M"
+          totalRevSub="Current annual contract value"
+          totalClients="64"
+          totalClientsSub="53 NA  ·  11 EMEA"
+          executed="0"
+          disqualified="0"
+          marginSecured="$0"
+          percentACV25="0%"
+          percentACV40="0%"
+          totalACV="0%"
+          won="$0"
+          percentWon="0%"
+          lost="$0"
+          percentLost="0%"
+        />
+        </div>
 
-      {/* KPI — New Deal Opportunities */}
-      <div style={{ marginTop: 40 }}>
-      <KpiSection
-        variant="new"
-        title="New Deal Opportunities"
-        totalRevLabel="Total Opportunity Revenue"
-        totalRevValue="$0"
-        totalRevSub="Annual contract value"
-        totalClients="0"
-        totalClientsSub="0 NA  ·  0 EMEA"
-        executed="0"
-        disqualified="0"
-        marginSecured="$0"
-        won="$0"
-        lost="$0"
-      />
-      </div>
+        {/* KPI — New Deal Opportunities */}
+        <div style={{ marginTop: 40 }}>
+        <KpiSection
+          variant="new"
+          title="New Deal Opportunities"
+          totalRevLabel="Total Opportunity Revenue"
+          totalRevValue="$0"
+          totalRevSub="Annual contract value"
+          totalClients="0"
+          totalClientsSub="0 NA  ·  0 EMEA"
+          executed="0"
+          disqualified="0"
+          marginSecured="$0"
+          won="$0"
+          lost="$0"
+        />
+        </div>
+        </>
+      )}
       </div>
     </div>
   )
