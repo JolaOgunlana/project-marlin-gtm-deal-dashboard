@@ -96,7 +96,7 @@ const ATTENDEES: Record<string, Attendee[]> = {
   ],
 }
 
-const TODAY: string | null = null
+const TODAY: string | null = '2026-09-16'
 const START = new Date(2026, 7, 1)  // Aug 1 2026
 const END   = new Date(2026, 9, 31) // Oct 31 2026 (Sat)
 const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
@@ -179,7 +179,11 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
 
   const pitchCount = entries.length
   const totalACV = entries.reduce((sum, e) => sum + (CLIENT_ACV[e.client] || 0), 0)
-  const next = useMemo(() => [...entries].sort((a, b) => a.date.localeCompare(b.date))[0], [entries])
+  const next = useMemo(() => {
+    const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date))
+    const upcoming = TODAY ? sorted.filter(e => e.date >= TODAY) : sorted
+    return (upcoming[0] ?? sorted[0])
+  }, [entries])
 
   const lead = weekdayPos(mo.cells[0])
   const trailCount = 4 - weekdayPos(mo.cells[mo.cells.length - 1])
