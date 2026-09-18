@@ -728,6 +728,9 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
           const stageRingColor = STAGE_COLOR[String(stage)] ?? '#c9ccdb'
           const isDraggable = whisperMode === 'pre' && c.name === DRAGGABLE_CLIENT
           const isBeingDragged = isDraggable && dragging
+          // Client-name label colour follows the Price Maintain rating: Low = red, Medium = grey, High = green
+          const priceRating = whisperMode === 'post' && c.post?.price ? c.post.price.rating : c.price
+          const priceLabelColor = priceRating === 'High' ? '#1d8a2f' : priceRating === 'Low' ? '#c62828' : priceRating === 'Medium' ? '#6b7280' : '#1a1f4e'
           return (
             <React.Fragment key={i}>
               {/* Label */}
@@ -744,7 +747,7 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
                   ? `calc(${yPct}% - ${labelGap + LABEL_H}px)`
                   : `calc(${yPct}% + ${labelGap}px)`,
                 transform: labelOffsetPx === 0 ? 'translateX(-50%)' : labelOffsetPx > 0 ? 'translateX(0)' : 'translateX(-100%)',
-                fontSize: 10.5, fontWeight: 600, color: '#1a1f4e',
+                fontSize: 10.5, fontWeight: 700, color: priceLabelColor,
                 whiteSpace: 'nowrap',
                 textShadow: '0 1px 4px rgba(255,255,255,0.98), 0 0 8px rgba(255,255,255,0.98)',
                 zIndex: 5,
@@ -911,9 +914,22 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
       <div style={{ padding: '18px 24px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
 
-          {/* Left: title only */}
-          <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap', paddingTop: 2 }}>
-            Consent Propensity Heat-Map
+          {/* Left: title + Price Maintain colour key */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 2 }}>
+            <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
+              Consent Propensity Heat-Map
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgba(26,31,78,0.55)' }}>
+                Client name colour = Price Maintain
+              </span>
+              {([['High', '#1d8a2f'], ['Medium', '#6b7280'], ['Low', '#c62828']] as const).map(([lbl, col]) => (
+                <span key={lbl} style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: col, flexShrink: 0, display: 'inline-block' }} />
+                  <span style={{ fontSize: 12, fontWeight: 700, color: col }}>{lbl}</span>
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Right: hover-reveal filter cluster */}
