@@ -816,9 +816,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               nameColor: '#4bcd3e',
             },
             {
-    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$52.2M', acvColor: ALIGNMENT,
-      meta: '6 clients · 56% of ACV · 30% of clients',
-      names: ['Lloyds (Sep 15)', 'HSBC (Sep 21)', 'Fifth Third (Sep 24)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
+    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$43.1M', acvColor: ALIGNMENT,
+      meta: '5 clients · 46% of ACV · 25% of clients',
+      names: ['HSBC (Sep 21)', 'Fifth Third (Sep 24)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
