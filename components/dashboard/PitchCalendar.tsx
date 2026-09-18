@@ -47,7 +47,7 @@ const CLIENT_ACV: Record<string, number> = {
 const TARGET_ACV = 60 // $M consent target
 
 type PitchType = 'w1' | 'w2' | 'w3'
-type Pitch = { client: string; service: string; type: PitchType }
+type Pitch = { client: string; service: string; type: PitchType; dateLabel?: string }
 
 // ============================================================
 // EDIT HERE: pitch dates per client.
@@ -59,7 +59,7 @@ const PITCHES: Record<string, Pitch[]> = {
   '2026-09-10': [{ client: 'Metro Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-15': [{ client: 'Lloyds', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-21': [{ client: 'HSBC', service: 'Pitch Meeting', type: 'w1' }],
-  '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }, { client: 'Fifth Third', service: 'Pitch Meeting', type: 'w1' }],
+  '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }, { client: 'Fifth Third', service: 'Pitch Meeting', type: 'w1', dateLabel: 'TBC' }],
   '2026-09-29': [{ client: 'Union Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-10-05': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
 }
@@ -410,7 +410,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                                 borderTop: '1px solid #e6e9f2', fontSize: 9.5, fontWeight: 700, color: INK, letterSpacing: 0.2,
                               }}>
                                 <CalendarIcon size={8} color={MUTED} strokeWidth={2.4} />
-                                {fmtShortDate(d)}
+                                {p.dateLabel ? `${fmtShortDate(d)} (${p.dateLabel})` : fmtShortDate(d)}
                               </span>
                               <span style={{
                                 display: 'flex', alignItems: 'center', gap: 3, marginTop: 4,
