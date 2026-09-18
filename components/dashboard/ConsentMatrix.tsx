@@ -90,7 +90,7 @@ const CM_DATA: CMClient[] = [
     }},
   { name:"Deutsche Bank (Hamburg)", id:"", rev:16362300, region:"EMEA-HH", dealType:"existing", wave:3, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Fifth Third Bank", id:"5685", rev:13558253, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"Medium",
-    preNudgeY: 13.335, postPlotOff: "High", lockPostPosition: true, absPostX: 53, absPostY: 13,
+    preNudgeY: 13.335, postPlotOff: "High", lockPostPosition: true, absPostX: 58, absPostY: 13,
     post:{
       out:{ rating:"High", rationale:"The overall message was received well with little resistance and candid feedback provided. He sees the logic in outsourcing to a provider that shores up much of our operational risk and traditional shortcomings — specifically scalability and lacking technology." },
       off:{ rating:"Medium", rationale:"His initial and largest concern is the low-cost location component. He advised this will more than likely present some legal challenges as well as business ops challenges. Through the operational lens, he is concerned about degradation of voice services specifically, with little to no concern on offshoring any and all back-office/non-voice work." },
@@ -919,7 +919,10 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             <div style={{ fontSize: 16, fontWeight: 800, color: '#1a1f4e', whiteSpace: 'nowrap' }}>
               Consent Propensity Heat-Map
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'nowrap', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#1a1f4e' }}>
+                Key
+              </span>
               <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'rgba(26,31,78,0.55)' }}>
                 Client name colour = Price Maintain
               </span>
@@ -965,7 +968,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             </div>
 
             {[
-              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities'],['prime','Prime Clients']], state: dealFilter, set: setDealFilter },
+              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
               { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['7','7 · Disqualified']], state: stageFilter, set: setStageFilter },
