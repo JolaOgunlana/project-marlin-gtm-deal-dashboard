@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import { clients, formatRevM, type ClientRow } from '@/lib/data'
 
-type ClientFilter = 'total' | 'existing' | 'new' | 'prime'
+type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
@@ -57,7 +57,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
     })
   }, [clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter, search])
 
-  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : clientFilter === 'prime' ? 'Prime Clients' : 'New Deal Opportunities'
+  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
   const rg = regionFilter === 'all' ? 'all regions' : regionFilter
   const st = stageFilter === 'all' ? 'all stages' : `Stage ${stageFilter}`
@@ -145,8 +145,8 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
                   <div style={{ fontWeight: 600, fontSize: 10.5, lineHeight: 1.25, color: '#1a1f4e', wordBreak: 'break-word' }}>{row.name}</div>
                 </td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>
-                  <span style={{ display: 'inline-block', padding: '2px 4px', borderRadius: 4, fontSize: 8.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e' }}>
-                    {row.clientType === 'existing' ? 'Existing' : 'New'}
+                  <span style={{ display: 'inline-block', padding: '2px 4px', borderRadius: 4, fontSize: 8.5, fontWeight: 700, background: 'rgba(26,31,78,0.08)', color: '#1a1f4e', whiteSpace: 'nowrap' }}>
+                    {row.clientType === 'existing' ? 'Existing' : 'New / Prime'}
                   </span>
                 </td>
                 <td style={{ padding: '7px 6px', borderBottom: '1px solid #f0f1f7', verticalAlign: 'middle', overflow: 'hidden' }}>

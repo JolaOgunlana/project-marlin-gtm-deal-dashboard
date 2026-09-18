@@ -17,7 +17,7 @@ const rippleKeyframes = `
 }
 `
 
-type ClientFilter = 'total' | 'existing' | 'new' | 'prime'
+type ClientFilter = 'total' | 'existing' | 'new'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
@@ -162,7 +162,6 @@ function FilterCluster({
             { value: 'total' as ClientFilter, label: 'Total' },
             { value: 'existing' as ClientFilter, label: 'Revenue Retention Opportunities' },
             { value: 'new' as ClientFilter, label: 'New Deal Opportunities' },
-            { value: 'prime' as ClientFilter, label: 'Prime Clients' },
           ]}
         />
         <FilterTabGroup
@@ -277,7 +276,7 @@ export function PipelineFunnel({ clientFilter, waveFilter, regionFilter, stageFi
     STAGES.forEach((s) => { cnt[s.key] = 0; rev[s.key] = 0 })
 
     clients.forEach((row) => {
-      const cMatch = clientFilter === 'total' || (clientFilter === 'prime' ? !!row.isPrime : clientFilter === row.clientType)
+      const cMatch = clientFilter === 'total' || clientFilter === row.clientType
       const wMatch = waveFilter === 'all' || waveFilter === row.wave
       const rMatch = regionFilter === 'all' || (regionFilter === 'NA' ? row.region === 'NA' : row.region.startsWith('EMEA'))
       const isCompleted = row.salesCategory.trim() !== '' && row.salesCategory.trim() !== 'TBD'
