@@ -451,6 +451,41 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
   const PLOT_H = 640
   const REF_W = 1200 // reference px width for label collision maths
 
+  // ── Drag-to-move (pre-whisper only, Metro Bank) ────────────────────────────
+  // Metro Bank can be repositioned manually by dragging its bubble around the
+  // pre-whisper heat-map. The dragged position overrides its pinned coordinates
+  // for the lifetime of this view.
+  const DRAGGABLE_CLIENT = 'Metro Bank'
+  const [dragPos, setDragPos] = useState<{ xPct: number; yPct: number } | null>(null)
+  const [dragging, setDragging] = useState(false)
+
+  const applyPointer = useCallback((clientX: number, clientY: number) => {
+    const plot = plotRef.current
+    if (!plot) return
+    const rect = plot.getBoundingClientRect()
+    if (rect.width === 0 || rect.height === 0) return
+    const xPct = ((clientX - rect.left) / rect.width) * 100
+    const yPct = ((clientY - rect.top) / rect.height) * 100
+    setDragPos({
+      xPct: Math.max(3, Math.min(97, xPct)),
+      yPct: Math.max(3, Math.min(97, yPct)),
+    })
+  }, [plotRef])
+
+  useEffect(() => {
+    if (!dragging) return
+    const onMove = (e: PointerEvent) => { e.preventDefault(); applyPointer(e.clientX, e.clientY) }
+    const onUp = () => setDragging(false)
+    window.addEventListener('pointermove', onMove, { passive: false })
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('pointercancel', onUp)
+    }
+  }, [dragging, applyPointer])
+
   type BubbleData = {
     c: CMClient
     ar: { out: Rating; off: Rating }
@@ -508,6 +543,9 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
       : null
     const locked = lockedPost ?? lockedPre ?? null
 
+    // Manual drag override wins for the draggable client in pre-whisper mode.
+    const dragActive = whisperMode === 'pre' && c.name === DRAGGABLE_CLIENT && dragPos != null
+
     return {
       c, ar,
       score: overallScore(c, whisperMode),
@@ -515,9 +553,9 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
       isEMEA,
       bubbleBg: '#1a1f4e',
       stage: c.stage,
-      xPct: locked ? locked.xPct : inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : (c.preNudgeX ?? 0)),
-      yPct: locked ? locked.yPct : inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : (c.preNudgeY ?? 0)),
-      lockPos: !!locked,
+      xPct: dragActive ? dragPos!.xPct : locked ? locked.xPct : inBandX(ar.off as string, t) + (whisperMode === 'post' ? (c.postNudgeX ?? 0) : (c.preNudgeX ?? 0)),
+      yPct: dragActive ? dragPos!.yPct : locked ? locked.yPct : inBandY(ar.out as string, t) + (whisperMode === 'post' ? (c.postNudgeY ?? 0) : (c.preNudgeY ?? 0)),
+      lockPos: !!locked || dragActive,
     }
   })
 
@@ -683,6 +721,8 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
           const labelGap = diam / 2 + 4
           // Stage color ring wraps the bubble fill
           const stageRingColor = STAGE_COLOR[String(stage)] ?? '#c9ccdb'
+          const isDraggable = whisperMode === 'pre' && c.name === DRAGGABLE_CLIENT
+          const isBeingDragged = isDraggable && dragging
           return (
             <React.Fragment key={i}>
               {/* Label */}
@@ -715,10 +755,16 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
               {/* Bubble — filled circle with region color */}
               <div
                 onMouseEnter={e => {
+                  if (isBeingDragged) return
                   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
                   setTooltip({ x: rect.right + 8, y: rect.top, client: c, whisperMode })
                 }}
                 onMouseLeave={() => setTooltip(null)}
+                onPointerDown={isDraggable ? (e => {
+                  e.preventDefault()
+                  setTooltip(null)
+                  setDragging(true)
+                }) : undefined}
                 style={{
                   position: 'absolute',
                   left: `${xPct}%`,
@@ -727,9 +773,12 @@ function PlotArea({ plotRef, canvasRef, allClients, plotted, whisperMode, quadra
                   width: diam, height: diam, borderRadius: '50%',
                   background: bubbleBg,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-                  cursor: 'default',
-                  zIndex: 4,
+                  boxShadow: isBeingDragged ? '0 6px 20px rgba(0,0,0,0.35)' : '0 2px 8px rgba(0,0,0,0.18)',
+                  cursor: isDraggable ? (isBeingDragged ? 'grabbing' : 'grab') : 'default',
+                  outline: isDraggable ? '2px dashed rgba(255,255,255,0.9)' : 'none',
+                  outlineOffset: isDraggable ? 3 : 0,
+                  touchAction: isDraggable ? 'none' : 'auto',
+                  zIndex: isBeingDragged ? 8 : 4,
                   flexShrink: 0,
                 }}
               />
