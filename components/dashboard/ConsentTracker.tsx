@@ -823,8 +823,8 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             },
             {
   label: 'Pitch ETA', date: 'Sep 31', barColor: ALIGNMENT, acv: '$28.3M', acvColor: ALIGNMENT,
-  meta: '4 clients · 30% of ACV · 20% of clients',
-  names: ['Fifth Third Bank', 'UBS', 'Centene', 'HSBC'],
+  meta: '2 clients · 30% of ACV · 10% of clients',
+  names: ['UBS', 'Centene'],
               nameColor: INK,
             },
           ]
