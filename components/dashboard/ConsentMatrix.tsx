@@ -69,7 +69,7 @@ interface CMClient {
 
 type SortKey = 'rev' | 'name' | 'deal' | 'region' | 'wave' | 'stage' | 'out' | 'off' | 'dig' | 'price' | 'overall'
 type SortDir = 'asc' | 'desc'
-type DealFilter = 'total' | 'existing' | 'new'
+type DealFilter = 'total' | 'existing' | 'new' | 'prime'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
@@ -142,7 +142,7 @@ const CM_DATA: CMClient[] = [
   { name:"ING (BV / Barneveld)", id:"", rev:4502484, region:"EMEA-BV", dealType:"existing", wave:2, stage:1, out:"Low", off:"Low", dig:"High", price:"Low" },
   { name:"Synovus Bank (incl. Business)", id:"", rev:3577829, region:"NA", dealType:"existing", wave:3, stage:1, out:"Low", off:null, dig:null, price:null },
   { name:"Centene Corporation", id:"7697", rev:3489339, region:"NA", dealType:"existing", wave:1, stage:3, out:"High", off:"Medium", dig:"High", price:"High" },
-  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium",
+  { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", isPrime:true, wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"High propensity across all levers following the whisper conversation." },
       off:{ rating:"High", rationale:"High propensity across all levers following the whisper conversation." },
@@ -944,7 +944,7 @@ function HeatMap({ allClients, whisperMode, dealFilter, setDealFilter, waveFilte
             </div>
 
             {[
-              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities']], state: dealFilter, set: setDealFilter },
+              { label: 'Opportunities', btns: [['total','Total'],['existing','Revenue Retention Opportunities'],['new','New Deal Opportunities'],['prime','Prime Clients']], state: dealFilter, set: setDealFilter },
               { label: 'Wave', btns: [['all','All'],['1','Wave 1'],['2','Wave 2'],['3','Wave 3']], state: waveFilter, set: setWaveFilter },
               { label: 'Region', btns: [['all','All'],['NA','NA'],['EMEA','EMEA']], state: regionFilter, set: setRegionFilter },
               { label: 'Stage', btns: [['all','All'],['1','1 · New Opportunity'],['2','2 · Early Sales'],['3','3 · Mid Sales'],['4','4 · Late Sales / Pricing'],['5','5 · Contracting'],['6','6 · Executed'],['7','7 · Disqualified']], state: stageFilter, set: setStageFilter },
@@ -1129,7 +1129,7 @@ export function ConsentMatrix({ page, onNavigate }: { page: Page; onNavigate: (p
     return CM_DATA.filter(c => {
       // In post-whisper mode only show clients that have whisper data
       if (whisperMode === 'post' && !c.post) return false
-      const d = dealFilter === 'total' || dealFilter === c.dealType
+      const d = dealFilter === 'total' || (dealFilter === 'prime' ? !!c.isPrime : dealFilter === c.dealType)
       const w = waveFilter === 'all' || String(c.wave) === waveFilter
       const r = regionFilter === 'all' || (regionFilter === 'NA' ? c.region === 'NA' : c.region.startsWith('EMEA'))
       const s = stageFilter === 'all' || String(c.stage) === stageFilter

@@ -5,7 +5,7 @@ import { KpiSection } from './KpiSection'
 import { PipelineFunnel } from './PipelineFunnel'
 import { ClientTable } from './ClientTable'
 
-type ClientFilter = 'total' | 'existing' | 'new'
+type ClientFilter = 'total' | 'existing' | 'new' | 'prime'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '7'

@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import { clients, formatRevM, type ClientRow } from '@/lib/data'
 
-type ClientFilter = 'total' | 'existing' | 'new'
+type ClientFilter = 'total' | 'existing' | 'new' | 'prime'
 type WaveFilter = 'all' | '1' | '2' | '3'
 type RegionFilter = 'all' | 'NA' | 'EMEA'
 type StageFilter = 'all' | 'hold' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
@@ -57,7 +57,7 @@ export function ClientTable({ clientFilter, waveFilter, regionFilter, stageFilte
     })
   }, [clientFilter, waveFilter, regionFilter, stageFilter, whisperFilter, search])
 
-  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : 'New Deal Opportunities'
+  const cl = clientFilter === 'total' ? 'All clients' : clientFilter === 'existing' ? 'Revenue Retention Opportunities' : clientFilter === 'prime' ? 'Prime Clients' : 'New Deal Opportunities'
   const wv = waveFilter === 'all' ? 'all waves' : `Wave ${waveFilter}`
   const rg = regionFilter === 'all' ? 'all regions' : regionFilter
   const st = stageFilter === 'all' ? 'all stages' : `Stage ${stageFilter}`
