@@ -374,13 +374,24 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                           </span>
                         )}
 
+                        <div
+                          onClick={(e) => { if (dayPitches && dayPitches.length > 1) e.stopPropagation() }}
+                          style={{
+                            marginTop: 6,
+                            maxHeight: 86,
+                            overflowY: dayPitches && dayPitches.length > 1 ? 'auto' : 'visible',
+                            display: 'flex', flexDirection: 'column', gap: 6,
+                            paddingRight: dayPitches && dayPitches.length > 1 ? 3 : 0,
+                          }}
+                        >
                         {dayPitches?.map((p, pi) => {
                           const wc = WAVE_COLORS[p.type]
                           return (
                             <div key={pi} style={{
-                              display: 'block', marginTop: 6, padding: '6px 9px 6px 20px', borderRadius: 9,
+                              display: 'block', padding: '6px 9px 6px 20px', borderRadius: 9,
                               fontSize: 11, fontWeight: 800, lineHeight: 1.15, color: INK,
                               background: '#f4f6fb', border: '1px solid #eceff7', position: 'relative',
+                              flexShrink: 0,
                             }}>
                               <span style={{
                                 position: 'absolute', left: 8, top: 9, width: 6, height: 6, borderRadius: '50%',
@@ -407,6 +418,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                             </div>
                           )
                         })}
+                        </div>
                       </div>
 
                       {/* BACK FACE — attendee list */}
