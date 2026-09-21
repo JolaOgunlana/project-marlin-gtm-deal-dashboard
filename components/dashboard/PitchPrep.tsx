@@ -58,7 +58,8 @@ const CLIENTS: ClientPitch[] = [
   { name: 'Virgin Money',    pitchDate: '2026-10-28', statuses: seed(3, 2) },
   { name: 'Metro Bank',      pitchDate: '2026-11-04', statuses: seed(2, 2) },
   { name: 'Fifth Third Bank',pitchDate: '2026-11-11', statuses: seed(1, 1) },
-  { name: 'Lloyds',          pitchDate: '2026-11-18', statuses: seed(4, 2) },
+    { name: 'Lloyds',          pitchDate: '2026-11-18', statuses: seed(4, 2) },
+    { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: seed(2, 1) },
 ]
 
 const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string; label: string }> = {
