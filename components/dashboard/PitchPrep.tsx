@@ -54,11 +54,11 @@ const seed = (done: number, wip: number): StepStatus[] =>
   Array.from({ length: N }, (_, i) => (i < done ? 'Completed' : i < done + wip ? 'In Progress' : 'Not Started'))
 
 const CLIENTS: ClientPitch[] = [
-  { name: 'HSBC',            pitchDate: '2026-10-21', statuses: ['Completed', 'In Progress', 'In Progress', ...seed(0, 0).slice(3)] },
-  { name: 'Virgin Money',    pitchDate: '2026-10-28', statuses: seed(3, 2) },
-  { name: 'Metro Bank',      pitchDate: '2026-11-04', statuses: seed(2, 2) },
-  { name: 'Fifth Third Bank',pitchDate: '2026-11-11', statuses: seed(1, 1) },
-    { name: 'Lloyds',          pitchDate: '2026-11-18', statuses: seed(4, 2) },
+    { name: 'HSBC',            pitchDate: '2026-09-21', statuses: ['Completed', 'In Progress', 'In Progress', ...seed(0, 0).slice(3)] },
+    { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: seed(3, 2) },
+    { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: seed(2, 2) },
+    { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: seed(1, 1) },
+    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: seed(4, 2) },
     { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: seed(2, 1) },
 ]
 
