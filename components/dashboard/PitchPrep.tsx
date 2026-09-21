@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Check } from 'lucide-react'
 
 // ── Shared style tokens (match ActionTracker) ─────────────────────────────────
@@ -70,11 +70,25 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
 
-// Back-calculate a step's due date from the pitch date and the step offset.
-function dueDate(pitchISO: string, offsetDays: number): string {
+// ── Date helpers (ISO yyyy-mm-dd ↔ display) ────────────────────────────────────
+function toISO(d: Date): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+// Back-calculate a step's ISO due date from the pitch date and the step offset.
+function dueISO(pitchISO: string, offsetDays: number): string {
   const d = new Date(pitchISO + 'T00:00:00')
   d.setDate(d.getDate() - offsetDays)
-  return `${d.getMonth() + 1}/${d.getDate()}`
+  return toISO(d)
+}
+
+// Format an ISO date as M/D for display.
+function fmtMD(iso: string): string {
+  const [, m, d] = iso.split('-').map(Number)
+  return `${m}/${d}`
 }
 
 // ── Horizontal stepper with hover detail ──────────────────────────────────────
@@ -193,11 +207,56 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
   )
 }
 
-// ── Matrix table (dates auto-computed backwards from pitch date) ───────────────
+// ── Editable date cell (opens the native calendar picker on click) ─────────────
+function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: string) => void; muted?: boolean }) {
+  const ref = useRef<HTMLInputElement>(null)
+  const open = () => {
+    const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
+    if (!el) return
+    if (typeof el.showPicker === 'function') el.showPicker()
+    else el.focus()
+  }
+  return (
+    <span style={{ position: 'relative', display: 'inline-block' }}>
+      <button
+        type="button"
+        onClick={open}
+        title="Click to pick a date"
+        style={{
+          border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit',
+          fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK,
+          padding: '1px 3px', borderRadius: 5, lineHeight: 1.2,
+          borderBottom: '1px dashed rgba(26,31,78,0.35)',
+        }}
+      >
+        {fmtMD(iso)}
+      </button>
+      <input
+        ref={ref}
+        type="date"
+        value={iso}
+        onChange={e => e.target.value && onChange(e.target.value)}
+        tabIndex={-1}
+        aria-hidden
+        style={{ position: 'absolute', left: 0, bottom: 0, width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
+      />
+    </span>
+  )
+}
+
+// ── Matrix table (dates editable; prior steps back-calculated from pitch date) ─
 function PitchMatrix() {
   const [clientFilter, setClientFilter] = useState('All')
-  const [overrides, setOverrides] = useState<Record<string, StepStatus[]>>(() =>
+  const [statuses, setStatuses] = useState<Record<string, StepStatus[]>>(() =>
     Object.fromEntries(CLIENTS.map(c => [c.name, [...c.statuses]]))
+  )
+  // Scheduled pitch date per client (the anchor for backward calculation).
+  const [pitchDates, setPitchDates] = useState<Record<string, string>>(() =>
+    Object.fromEntries(CLIENTS.map(c => [c.name, c.pitchDate]))
+  )
+  // Per-cell manual date overrides: client name → { stepIndex: iso }.
+  const [dateOverrides, setDateOverrides] = useState<Record<string, Record<number, string>>>(() =>
+    Object.fromEntries(CLIENTS.map(c => [c.name, {}]))
   )
 
   const rows = useMemo(
@@ -206,12 +265,25 @@ function PitchMatrix() {
   )
 
   function cycle(name: string, idx: number) {
-    setOverrides(prev => {
+    setStatuses(prev => {
       const arr = [...prev[name]]
-      const next = CYCLE[(CYCLE.indexOf(arr[idx]) + 1) % CYCLE.length]
-      arr[idx] = next
+      arr[idx] = CYCLE[(CYCLE.indexOf(arr[idx]) + 1) % CYCLE.length]
       return { ...prev, [name]: arr }
     })
+  }
+
+  // Effective ISO date for a step: manual override wins, else back-calculated.
+  function cellISO(name: string, idx: number, offsetDays: number): string {
+    return dateOverrides[name]?.[idx] ?? dueISO(pitchDates[name], offsetDays)
+  }
+
+  function setCellDate(name: string, idx: number, iso: string) {
+    setDateOverrides(prev => ({ ...prev, [name]: { ...prev[name], [idx]: iso } }))
+  }
+
+  // Changing the pitch date recomputes every non-overridden prior step.
+  function setPitchDate(name: string, iso: string) {
+    setPitchDates(prev => ({ ...prev, [name]: iso }))
   }
 
   return (
@@ -255,29 +327,33 @@ function PitchMatrix() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((client, r) => {
-              const statuses = overrides[client.name]
-              return (
-                <tr key={client.name} style={{ borderTop: r > 0 ? '1px solid #eef0f2' : undefined }}>
-                  <td style={{ padding: '12px 12px', verticalAlign: 'middle', background: '#f9fafd' }}>
-                    <div style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.03em', color: '#0f1230' }}>
-                      {client.name}
-                    </div>
-                    <div style={{ fontSize: 10, color: MUTED, marginTop: 2 }}>
-                      Pitch {dueDate(client.pitchDate, 0)}
-                    </div>
-                  </td>
-                  {STEPS.map((step, i) => (
+            {rows.map((client, r) => (
+              <tr key={client.name} style={{ borderTop: r > 0 ? '1px solid #eef0f2' : undefined }}>
+                <td style={{ padding: '12px 12px', verticalAlign: 'middle', background: '#f9fafd' }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.03em', color: '#0f1230' }}>
+                    {client.name}
+                  </div>
+                  <div style={{ fontSize: 10, color: MUTED, marginTop: 2, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                    Pitch <DateCell iso={pitchDates[client.name]} muted onChange={next => setPitchDate(client.name, next)} />
+                  </div>
+                </td>
+                {STEPS.map((step, i) => {
+                  const isPitch = step.n === 'pitch'
+                  const iso = isPitch ? pitchDates[client.name] : cellISO(client.name, i, step.offsetDays)
+                  return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
-                      <div style={{ fontSize: 12.5, fontWeight: 800, color: INK, marginBottom: 6 }}>
-                        {dueDate(client.pitchDate, step.offsetDays)}
+                      <div style={{ marginBottom: 6 }}>
+                        <DateCell
+                          iso={iso}
+                          onChange={next => (isPitch ? setPitchDate(client.name, next) : setCellDate(client.name, i, next))}
+                        />
                       </div>
-                      <StatusButton status={statuses[i]} onClick={() => cycle(client.name, i)} />
+                      <StatusButton status={statuses[client.name][i]} onClick={() => cycle(client.name, i)} />
                     </td>
-                  ))}
-                </tr>
-              )
-            })}
+                  )
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -293,8 +369,8 @@ export function PitchPrepDashboard() {
           Client Pitch Preparation Sequence
         </h2>
         <p style={{ margin: '4px 0 0', fontSize: 12.5, color: MUTED, lineHeight: 1.5 }}>
-          Hover any step for detail. Once a pitch date is scheduled, prior-step due dates are calculated backwards
-          automatically. Click a status to update it.
+          Hover any step for detail. Click any date to pick a new one from the calendar, or click a status to update it.
+          Editing a client&apos;s pitch date recalculates the prior-step due dates backwards automatically.
         </p>
       </div>
 
