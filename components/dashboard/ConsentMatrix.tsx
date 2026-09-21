@@ -373,7 +373,7 @@ function FilterBtn({ active, onClick, children }: { active: boolean; onClick: ()
   )
 }
 
-// ── Heat-map constants ─────────────────────────────────────────────────────
+// ── Heat-map constants ──────────────────────────────────────────���──────────
 // Each band occupies exactly 1/3 of the axis (0–33.33%, 33.33–66.67%, 66.67–100%).
 // Within a quadrant, clients are spread using their overall propensity score
 // normalised *relative to the min/max scores inside that same quadrant*,

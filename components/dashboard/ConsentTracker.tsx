@@ -1089,11 +1089,11 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Valley National BK',             acv: '$0.1M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'San Diego County Credit Union',  acv: '$0.0M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Chase Corporate Card (JP Morgan)', acv: '$0.0M', wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'HSBC (Global)',                  acv: '$8.1M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'FRES travel card',               acv: '$1.8M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'FRES Cash',                      acv: '$1.2M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Landesbankinn',                  acv: '$1.1M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Federal Bank of India',          acv: '$0.3M',  wave: 'Wave 3', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'HSBC (Global)',                  acv: '$8.1M',  wave: 'Wave 3', sfStage: '1', out: 'High',   off: 'High',       dig: 'High',   price: 'Low',    score: null, status: 'Exploration' },
+                { name: 'FRES travel card',               acv: '$1.8M',  wave: 'Wave 3', sfStage: '1', out: 'Low',    off: 'Medium',     dig: 'High',   price: 'Medium', score: null, status: 'No Whisper' },
+                { name: 'FRES Cash',                      acv: '$1.2M',  wave: 'Wave 3', sfStage: '1', out: 'Low',    off: 'Medium',     dig: 'High',   price: 'Medium', score: null, status: 'No Whisper' },
+                { name: 'Landesbankinn',                  acv: '$1.1M',  wave: 'Wave 3', sfStage: '1', out: 'Medium', off: 'High',       dig: 'High',   price: 'Medium', score: null, status: 'No Whisper' },
+                { name: 'Federal Bank of India',          acv: '$0.3M',  wave: 'Wave 3', sfStage: '1', out: 'Medium', off: 'High',       dig: 'High',   price: 'Medium', score: null, status: 'No Whisper' },
               ]
 
               const PRIME = new Set(['HSBC (Global)', 'FRES travel card', 'FRES Cash', 'Landesbankinn', 'Federal Bank of India'])
