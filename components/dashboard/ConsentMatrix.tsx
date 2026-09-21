@@ -149,10 +149,10 @@ const CM_DATA: CMClient[] = [
       dig:{ rating:"High", rationale:"High propensity to digitize confirmed following the whisper conversation." },
       price:{ rating:"Low", rationale:"Low propensity on price maintenance following the whisper conversation." },
     } },
-  { name:"FRES travel card", id:"", rev:1800000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
-  { name:"FRES Cash", id:"", rev:1200000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
+  { name:"FRES travel card", id:"", rev:1800000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
+  { name:"FRES Cash", id:"", rev:1200000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
   { name:"Landesbankinn", id:"", rev:1100000, region:"EMEA-UK", dealType:"new", isPrime:true, wave:3, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
-  { name:"Federal Bank of India", id:"", rev:300000, region:"EMEA-India", dealType:"new", isPrime:true, wave:3, stage:1, out:"Medium", off:"High", dig:"High", price:"Medium" },
+  { name:"Federal Bank of India", id:"", rev:300000, region:"EMEA-India", dealType:"new", isPrime:true, wave:3, stage:1, out:"Low", off:"Medium", dig:"High", price:"Medium" },
   { name:"HSBC Technology & Services (USA)", id:"9368", rev:2876755, region:"NA", dealType:"existing", wave:1, stage:3, out:"Medium", off:"High", dig:"High", price:"Medium",
     post:{
       out:{ rating:"High", rationale:"High propensity across all levers following the whisper conversation." },
