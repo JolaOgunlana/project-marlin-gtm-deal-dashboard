@@ -259,10 +259,13 @@ function PitchMatrix() {
     Object.fromEntries(CLIENTS.map(c => [c.name, {}]))
   )
 
-  const rows = useMemo(
-    () => (clientFilter === 'All' ? CLIENTS : CLIENTS.filter(c => c.name === clientFilter)),
-    [clientFilter]
-  )
+  const rows = useMemo(() => {
+    const list = clientFilter === 'All' ? CLIENTS : CLIENTS.filter(c => c.name === clientFilter)
+    return [...list].sort(
+      (a, b) =>
+        new Date(pitchDates[a.name]).getTime() - new Date(pitchDates[b.name]).getTime()
+    )
+  }, [clientFilter, pitchDates])
 
   function cycle(name: string, idx: number) {
     setStatuses(prev => {
@@ -308,7 +311,7 @@ function PitchMatrix() {
                     padding: '5px 8px', borderRadius: 6, border: 'none', background: '#fff', cursor: 'pointer',
                   }}
                 >
-                  <option value="All">All pitched clients</option>
+                  <option value="All">All scheduled clients</option>
                   {CLIENTS.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
                 </select>
               </th>
