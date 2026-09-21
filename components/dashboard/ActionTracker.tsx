@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import { Filter, X } from 'lucide-react'
 import { NavBanner } from './CoverPage'
+import { PitchPrepDashboard } from './PitchPrep'
 
 type Page = 'cover' | 'debrief' | 'faqNew' | 'dashboard' | 'consent' | 'tracker' | 'calendar' | 'actionTracker'
 
@@ -316,7 +317,15 @@ export function ActionTrackerPage({ page, onNavigate }: { page: Page; onNavigate
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
       <NavBanner page={page} onNavigate={onNavigate} title="Project Marlin - Consent Tracker" />
       <div style={{ padding: '0 32px 56px' }}>
-        <ActionTable />
+        <PitchPrepDashboard />
+        <div style={{ marginBottom: 6 }}>
+          <h2 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: INK, letterSpacing: '-0.01em' }}>
+            Action Items
+          </h2>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <ActionTable />
+        </div>
       </div>
     </div>
   )
