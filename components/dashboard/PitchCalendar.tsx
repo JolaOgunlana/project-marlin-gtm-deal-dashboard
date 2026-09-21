@@ -63,6 +63,7 @@ const PITCHES: Record<string, Pitch[]> = {
   '2026-09-25': [{ client: 'Citibank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-09-29': [{ client: 'Union Bank', service: 'Pitch Meeting', type: 'w1' }],
   '2026-10-05': [{ client: 'Virgin Money', service: 'Pitch Meeting', type: 'w1' }],
+  '2026-10-21': [{ client: 'Deutsche Bank', service: 'Pitch Meeting', type: 'w2' }],
 }
 
 // ============================================================
@@ -129,6 +130,12 @@ const ATTENDEES: Record<string, Attendee[]> = {
     { role: 'Client', name: 'Joaquin Aguilar' },
     { role: 'Client', name: 'Tracy Smith' },
     { role: 'Client', name: 'Sandra Roque-Wnuk' },
+  ],
+  'Deutsche Bank': [
+    { role: 'Executive Sponsor', name: 'Ashley Beard' },
+    { role: 'TIS CSM', name: 'TBD' },
+    { role: 'FIS CSM', name: 'TBD' },
+    { role: 'Delivery Lead', name: 'TBD' },
   ],
 }
 
