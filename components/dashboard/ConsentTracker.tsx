@@ -703,7 +703,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                                   <div
                                     style={{
                                       position: 'absolute',
-                                      top: i % 2 === 0 ? -22 : -40,
+                                      top: -40,
                                       left: `${targetPct}%`,
                                       transform: align,
                                       fontSize: 11,
