@@ -344,7 +344,7 @@ function PitchMatrix() {
                     padding: '5px 8px', borderRadius: 6, border: 'none', background: '#fff', cursor: 'pointer',
                   }}
                 >
-                  <option value="All">All scheduled clients</option>
+                  <option value="All">All clients</option>
                   {CLIENTS.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
                 </select>
               </th>
