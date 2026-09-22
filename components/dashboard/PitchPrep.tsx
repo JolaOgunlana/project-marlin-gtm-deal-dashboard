@@ -33,7 +33,7 @@ const MUTED = 'rgba(26,31,78,0.55)'
 // days BEFORE the pitch) used to back-calculate its due date
 // from a client's scheduled pitch date.
 // ============================================================
-type StepStatus = 'Completed' | 'In Progress' | 'Not Started'
+type StepStatus = 'Completed' | 'In Progress' | 'Not Started' | 'Not Applicable'
 
 type PitchStep = {
   n: number | 'pitch'
@@ -162,6 +162,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
+  'Not Applicable': { bg: '#eceef4', color: '#c0143c', dot: '#c0143c', label: 'Not Applicable' },
 }
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
@@ -557,7 +558,7 @@ export function PitchPrepDashboard() {
       {/* Legend */}
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, marginBottom: 12, fontSize: 10.5, fontWeight: 700, color: MUTED }}>
         <span style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>Status key</span>
-        {(['Completed', 'In Progress', 'Not Started'] as StepStatus[]).map(s => (
+        {(['Completed', 'In Progress', 'Not Started', 'Not Applicable'] as StepStatus[]).map(s => (
           <span key={s} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             <span style={{ width: 9, height: 9, borderRadius: '50%', background: STATUS_STYLES[s].dot }} />
             {STATUS_STYLES[s].label}
