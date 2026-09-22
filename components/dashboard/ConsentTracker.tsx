@@ -299,13 +299,13 @@ const STATS = [
     sfStages: 'Stage 1-2 · New Opportunity / Early Sales',
   },
   {
-    label: 'Alignment',
-    tag: 'PITCH',
-  count: 10,
+  label: 'Alignment',
+  tag: 'PITCH',
+  count: 11,
   countColor: '#0891b2',
-  revenue: '$87.7M',
+  revenue: '$104.1M',
   revenueLabel: 'Annual contract value',
-  region: '10 clients',
+  region: '11 clients',
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
@@ -673,7 +673,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               ].sort((a, b) => a.acv - b.acv)
               const bars = [
           { label: 'Exploration', color: INK, acv: 57.5, clients: 64, text: '$57.5M', empty: false },
-          { label: 'Alignment',   color: '#0891b2', acv: 87.7, clients: 10, text: '$87.7M', empty: false },
+          { label: 'Alignment',   color: '#0891b2', acv: 104.1, clients: 11, text: '$104.1M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
