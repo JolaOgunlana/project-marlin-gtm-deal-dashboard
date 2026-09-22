@@ -286,9 +286,9 @@ const STATS = [
   {
     label: 'Exploration',
     tag: 'WHISPER',
-    count: 54,
+    count: 58,
     countColor: INK,
-    revenue: '$57.5M',
+    revenue: '$53.6M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -301,11 +301,11 @@ const STATS = [
   {
     label: 'Alignment',
     tag: 'PITCH',
-  count: 10,
-  countColor: '#0891b2',
-  revenue: '$87.7M',
-  revenueLabel: 'Annual contract value',
-  region: '10 clients',
+    count: 11,
+    countColor: '#0891b2',
+    revenue: '$104.1M',
+    revenueLabel: 'Annual contract value',
+    region: '11 clients',
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
@@ -544,7 +544,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
-  const [waveFilter, setWaveFilter] = useState<'All' | 'Wave 1' | 'Wave 2' | 'Wave 3' | 'Prime Clients'>('Wave 1')
+  const [waveFilter, setWaveFilter] = useState<'All Scheduled clients' | 'Wave 1' | 'Wave 2' | 'Wave 3' | 'Prime Clients'>('Wave 1')
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -662,16 +662,22 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 100
-              const target = 25
-              const targetPct = (target / maxAcv) * 100
+              // Scale bars and targets against the entire $145.2M portfolio so
+              // bar length and target position share one consistent axis.
+              const maxAcv = 145.2
+              const targets = [
+                { acv: 25,  date: 'Feb 1, 2027',  label: '$25M' },
+                { acv: 54,  date: 'Jun 1, 2027',  label: '$54M' },
+                { acv: 104, date: 'Oct 1, 2027',  label: '$104M' },
+                { acv: 137, date: 'Jan 1, 2028',  label: '$137M' },
+              ].sort((a, b) => a.acv - b.acv)
               const bars = [
-          { label: 'Exploration', color: INK, acv: 57.5, clients: 64, text: '$57.5M', empty: false },
-          { label: 'Alignment',   color: '#0891b2', acv: 87.7, clients: 10, text: '$87.7M', empty: false },
+          { label: 'Exploration', color: INK, acv: 53.6, clients: 58, text: '$53.6M', empty: false },
+          { label: 'Alignment',   color: '#0891b2', acv: 104.1, clients: 11, text: '$104.1M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', marginTop: 30 }}>
                   {bars.map((bar) => {
                     const widthPct = bar.acv > 0 ? Math.max((bar.acv / maxAcv) * 100, 8) : 0
                     return (
@@ -687,13 +693,34 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                               <span style={{ fontSize: 13, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>{bar.text}</span>
                             </div>
                           )}
-                          {/* $25M target line — label only on first bar */}
-                          {bar.label === 'Exploration' && (
-                            <div style={{ position: 'absolute', top: -20, left: `${targetPct}%`, transform: 'translateX(-50%)', fontSize: 11, fontWeight: 700, color: '#c0392b', whiteSpace: 'nowrap' }}>
-                              ▼ $25M target
-                            </div>
-                          )}
-                          <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${targetPct}%`, width: 1, borderLeft: '2px dashed #c0392b', pointerEvents: 'none' }} />
+                          {/* Sequential revenue targets — dated, ordered left-to-right by size */}
+                          {targets.map((t, i) => {
+                            const targetPct = (t.acv / maxAcv) * 100
+                            const align = targetPct > 85 ? 'translateX(-92%)' : targetPct < 12 ? 'translateX(-8%)' : 'translateX(-50%)'
+                            return (
+                              <div key={t.acv} style={{ display: 'contents' }}>
+                                {bar.label === 'Exploration' && (
+                                  <div
+                                    style={{
+                                      position: 'absolute',
+                                      top: -40,
+                                      left: `${targetPct}%`,
+                                      transform: align,
+                                      fontSize: 11,
+                                      fontWeight: 700,
+                                      color: '#c0392b',
+                                      whiteSpace: 'nowrap',
+                                      lineHeight: 1.3,
+                                    }}
+                                  >
+                                    <div>▼ {t.label} target</div>
+                                    <div style={{ fontSize: 10, fontWeight: 600, color: 'rgba(192,57,43,0.75)' }}>{t.date}</div>
+                                  </div>
+                                )}
+                                <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${targetPct}%`, width: 1, borderLeft: '2px dashed #c0392b', pointerEvents: 'none' }} />
+                              </div>
+                            )
+                          })}
                         </div>
                       </div>
                     )
@@ -708,7 +735,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Program coverage by wave ────────────────────────────── */}
         {(() => {
           const waves = [
-            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.4M',  acvPct: 64, clients: 20, clientPct: 31 },
+            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 64, clients: 20, clientPct: 31 },
             { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$16.5M',  acvPct: 11, clients: 20, clientPct: 31 },
             { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$35.2M',  acvPct: 25, clients: 24, clientPct: 38 },
           ]
@@ -759,7 +786,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       </td>
                     ))}
                     <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
-                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.1M</span>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.2M</span>
                     </td>
                   </tr>
                   {/* Clients row */}
@@ -810,15 +837,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$30.8M', acvColor: '#4bcd3e',
-              meta: '3 clients · 33% of ACV · 15% of clients',
-              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$33.7M', acvColor: '#4bcd3e',
+              meta: '4 clients · 36% of ACV · 20% of clients',
+              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'HSBC (Sep 21)'],
               nameColor: '#4bcd3e',
             },
             {
-    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$43.1M', acvColor: ALIGNMENT,
-      meta: '5 clients · 46% of ACV · 25% of clients',
-      names: ['HSBC (Sep 21)', 'Fifth Third (Sep 24)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
+    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$40.2M', acvColor: ALIGNMENT,
+      meta: '4 clients · 43% of ACV · 20% of clients',
+      names: ['Fifth Third (Sep 24)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
@@ -925,7 +952,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
               <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>20</span>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.4M)</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 1 clients engaged</div>
           </div>
@@ -994,7 +1021,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: '#fff', borderBottom: BORDER }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Showing:</span>
               <div style={{ display: 'inline-flex', background: GRAY_BG, borderRadius: 20, padding: 3, gap: 2 }}>
-                {(['All', 'Wave 1', 'Wave 2', 'Wave 3', 'Prime Clients'] as const).map(w => {
+                {(['Wave 1', 'Wave 2', 'Prime Clients', 'All Scheduled clients'] as const).map(w => {
                   const active = waveFilter === w
                   return (
                     <button
@@ -1098,7 +1125,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
               const PRIME = new Set(['HSBC (Global)', 'FRES travel card', 'FRES Cash', 'Landesbankinn', 'Federal Bank of India'])
               const rows =
-                waveFilter === 'All'
+                waveFilter === 'All Scheduled clients'
                   ? allRows
                   : waveFilter === 'Prime Clients'
                     ? allRows.filter(r => PRIME.has(r.name))

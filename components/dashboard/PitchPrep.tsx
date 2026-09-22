@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Check } from 'lucide-react'
+import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
 const STORAGE_KEY = 'pitchPrep.v1'
@@ -32,7 +33,7 @@ const MUTED = 'rgba(26,31,78,0.55)'
 // days BEFORE the pitch) used to back-calculate its due date
 // from a client's scheduled pitch date.
 // ============================================================
-type StepStatus = 'Completed' | 'In Progress' | 'Not Started'
+type StepStatus = 'Completed' | 'In Progress' | 'Not Started' | 'Not Applicable'
 
 type PitchStep = {
   n: number | 'pitch'
@@ -79,15 +80,96 @@ const CLIENTS: ClientPitch[] = [
     { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: seed(2, 1) },
 ]
 
+// ── Merged client universe (scheduled prep rows + full master list) ───────────
+// The filter categories operate on the full master client list from lib/data.
+// Scheduled clients keep their real pitch dates & step statuses; every other
+// master client is shown as unscheduled (no pitch date, all steps Not Started).
+type MatrixClient = {
+  name: string
+  wave: '1' | '2' | '3'
+  isPrime: boolean
+  scheduled: boolean
+  pitchDate: string // '' when unscheduled
+  statuses: StepStatus[]
+}
+
+// Normalize names so "HSBC" matches "HSBC (Global)" and "Deutsche Bank" matches
+// "Deutsche Bank (Hamburg)" when overlaying master wave/prime attributes.
+const normName = (s: string) => s.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim()
+
+const notStarted = (): StepStatus[] => Array.from({ length: N }, () => 'Not Started')
+
+function buildUniverse(): MatrixClient[] {
+  const masterByNorm = new Map<string, ClientRow>()
+  for (const c of clients) {
+    const k = normName(c.name)
+    if (!masterByNorm.has(k)) masterByNorm.set(k, c)
+  }
+  const scheduledNorms = new Set(CLIENTS.map(c => normName(c.name)))
+
+  const scheduled: MatrixClient[] = CLIENTS.map(c => {
+    const m = masterByNorm.get(normName(c.name))
+    return {
+      name: c.name,
+      wave: m?.wave ?? '1',
+      isPrime: m?.isPrime ?? false,
+      scheduled: true,
+      pitchDate: c.pitchDate,
+      statuses: [...c.statuses],
+    }
+  })
+
+  const unscheduled: MatrixClient[] = clients
+    .filter(c => !scheduledNorms.has(normName(c.name)))
+    .map(c => ({
+      name: c.name,
+      wave: c.wave,
+      isPrime: !!c.isPrime,
+      scheduled: false,
+      pitchDate: '',
+      statuses: notStarted(),
+    }))
+
+  return [...scheduled, ...unscheduled]
+}
+
+const UNIVERSE: MatrixClient[] = buildUniverse()
+
+type CatKey = 'wave1' | 'wave2' | 'prime' | 'scheduled'
+  const CATEGORIES: { key: CatKey; label: string }[] = [
+  { key: 'wave1', label: 'Wave 1 clients' },
+  { key: 'wave2', label: 'Wave 2' },
+  { key: 'prime', label: 'Prime Clients' },
+  { key: 'scheduled', label: 'Scheduled Clients' },
+  ]
+
+function matchCat(c: MatrixClient, cat: CatKey): boolean {
+  switch (cat) {
+    case 'wave1': return c.wave === '1'
+    case 'wave2': return c.wave === '2'
+    case 'prime': return c.isPrime
+    case 'scheduled': return c.scheduled
+  }
+}
+
+const BADGE_BASE: CSSProperties = {
+  fontSize: 8.5, fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase',
+  borderRadius: 999, padding: '1px 6px', lineHeight: 1.5, whiteSpace: 'nowrap',
+}
+const WAVE_BADGE: CSSProperties = { ...BADGE_BASE, color: INK, background: '#eef0f6', border: '1px solid #e3e5f0' }
+const PRIME_BADGE: CSSProperties = { ...BADGE_BASE, color: '#8a5a00', background: '#fff4e0', border: '1px solid #f0dcae' }
+const UNSCHED_BADGE: CSSProperties = { ...BADGE_BASE, color: '#454b6e', background: '#f3f4fa', border: '1px solid #e3e5f0' }
+
 const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string; label: string }> = {
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
+  'Not Applicable': { bg: '#eceef4', color: '#c0143c', dot: '#c0143c', label: 'Not Applicable' },
 }
 
-const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
+const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed', 'Not Applicable']
 
-// ── Date helpers (ISO yyyy-mm-dd ↔ display) ────────────────────────────────────
+// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────���───���────────
 function toISO(d: Date): string {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
@@ -106,6 +188,36 @@ function dueISO(pitchISO: string, offsetDays: number): string {
 function fmtMD(iso: string): string {
   const [, m, d] = iso.split('-').map(Number)
   return `${m}/${d}`
+}
+
+// ── Completed-pitch handling ──────────────────────────────────────────────────
+// Fixed "today" reference (matches PitchCalendar) so completion is deterministic
+// across server/client renders — avoids hydration mismatches.
+const TODAY_ISO = '2026-09-22'
+
+// A pitch is "completed" once its scheduled date is in the past.
+function isPitchCompleted(pitchISO: string): boolean {
+  return !!pitchISO && pitchISO < TODAY_ISO
+}
+
+// Parse a GTM-Status style date ("Aug 6, 2026") into ISO ("2026-08-06").
+const GTM_MONTHS: Record<string, string> = {
+  jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06',
+  jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+}
+function parseGtmDate(s: string): string {
+  const m = /^([A-Za-z]{3})[a-z]*\s+(\d{1,2}),\s*(\d{4})$/.exec((s || '').trim())
+  if (!m) return ''
+  const mon = GTM_MONTHS[m[1].toLowerCase()]
+  if (!mon) return ''
+  return `${m[3]}-${mon}-${m[2].padStart(2, '0')}`
+}
+
+// Whisper-conversation date per client, sourced from GTM Status (lib/data).
+const WHISPER_ISO_BY_NORM = new Map<string, string>()
+for (const c of clients) {
+  const k = normName(c.name)
+  if (!WHISPER_ISO_BY_NORM.has(k)) WHISPER_ISO_BY_NORM.set(k, parseGtmDate(c.whisperDate))
 }
 
 // ── Horizontal stepper with hover detail ──────────────────────────────────────
@@ -225,7 +337,7 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
 }
 
 // ── Editable date cell (opens the native calendar picker on click) ─────────────
-function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: string) => void; muted?: boolean }) {
+function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange: (next: string) => void; muted?: boolean; emptyLabel?: string }) {
   const ref = useRef<HTMLInputElement>(null)
   const open = () => {
     const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
@@ -233,6 +345,7 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
     if (typeof el.showPicker === 'function') el.showPicker()
     else el.focus()
   }
+  const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
     <span style={{ position: 'relative', display: 'inline-block' }}>
       <button
@@ -246,7 +359,7 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
           borderBottom: '1px dashed rgba(26,31,78,0.35)',
         }}
       >
-        {fmtMD(iso)}
+        {label}
       </button>
       <input
         ref={ref}
@@ -263,19 +376,19 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
 
 // ── Matrix table (dates editable; prior steps back-calculated from pitch date) ─
 function PitchMatrix() {
-  const [clientFilter, setClientFilter] = useState('All')
+  const [category, setCategory] = useState<CatKey>('wave1')
   const [statuses, setStatuses] = useState<Record<string, StepStatus[]>>(() => {
-    const base = Object.fromEntries(CLIENTS.map(c => [c.name, [...c.statuses]]))
+    const base = Object.fromEntries(UNIVERSE.map(c => [c.name, [...c.statuses]]))
     return { ...base, ...loadPersisted().statuses }
   })
   // Scheduled pitch date per client (the anchor for backward calculation).
   const [pitchDates, setPitchDates] = useState<Record<string, string>>(() => {
-    const base = Object.fromEntries(CLIENTS.map(c => [c.name, c.pitchDate]))
+    const base = Object.fromEntries(UNIVERSE.map(c => [c.name, c.pitchDate]))
     return { ...base, ...loadPersisted().pitchDates }
   })
   // Per-cell manual date overrides: client name → { stepIndex: iso }.
   const [dateOverrides, setDateOverrides] = useState<Record<string, Record<number, string>>>(() => {
-    const base = Object.fromEntries(CLIENTS.map(c => [c.name, {}]))
+    const base = Object.fromEntries(UNIVERSE.map(c => [c.name, {}]))
     return { ...base, ...loadPersisted().dateOverrides }
   })
 
@@ -293,12 +406,14 @@ function PitchMatrix() {
   }, [statuses, pitchDates, dateOverrides])
 
   const rows = useMemo(() => {
-    const list = clientFilter === 'All' ? CLIENTS : CLIENTS.filter(c => c.name === clientFilter)
-    return [...list].sort(
-      (a, b) =>
-        new Date(pitchDates[a.name]).getTime() - new Date(pitchDates[b.name]).getTime()
-    )
-  }, [clientFilter, pitchDates])
+    const list = UNIVERSE.filter(c => matchCat(c, category))
+    return [...list].sort((a, b) => {
+      // Scheduled clients first (by pitch date); unscheduled fall to the bottom.
+      const da = pitchDates[a.name] ? new Date(pitchDates[a.name]).getTime() : Infinity
+      const db = pitchDates[b.name] ? new Date(pitchDates[b.name]).getTime() : Infinity
+      return da - db
+    })
+  }, [category, pitchDates])
 
   function cycle(name: string, idx: number) {
     setStatuses(prev => {
@@ -310,7 +425,11 @@ function PitchMatrix() {
 
   // Effective ISO date for a step: manual override wins, else back-calculated.
   function cellISO(name: string, idx: number, offsetDays: number): string {
-    return dateOverrides[name]?.[idx] ?? dueISO(pitchDates[name], offsetDays)
+    const override = dateOverrides[name]?.[idx]
+    if (override) return override
+    // No scheduled pitch date → no derived step dates (avoid NaN output).
+    if (!pitchDates[name]) return ''
+    return dueISO(pitchDates[name], offsetDays)
   }
 
   function setCellDate(name: string, idx: number, iso: string) {
@@ -334,18 +453,17 @@ function PitchMatrix() {
             <tr>
               <th style={{ background: INK, padding: '10px 12px', textAlign: 'left', verticalAlign: 'bottom' }}>
                 <label style={{ display: 'block', fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: 5 }}>
-                  Client (filter)
+                  Client group
                 </label>
                 <select
-                  value={clientFilter}
-                  onChange={e => setClientFilter(e.target.value)}
+                  value={category}
+                  onChange={e => setCategory(e.target.value as CatKey)}
                   style={{
                     width: '100%', fontFamily: 'inherit', fontSize: 12, fontWeight: 700, color: INK,
                     padding: '5px 8px', borderRadius: 6, border: 'none', background: '#fff', cursor: 'pointer',
                   }}
                 >
-                  <option value="All">All scheduled clients</option>
-                  {CLIENTS.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+                  {CATEGORIES.map(c => <option key={c.key} value={c.key}>{c.label}</option>)}
                 </select>
               </th>
               {STEPS.map((step, i) => (
@@ -369,20 +487,44 @@ function PitchMatrix() {
                   <div style={{ fontSize: 13, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.03em', color: '#0f1230' }}>
                     {client.name}
                   </div>
-                  <div style={{ fontSize: 10, color: MUTED, marginTop: 2, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-                    Pitch <DateCell iso={pitchDates[client.name]} muted onChange={next => setPitchDate(client.name, next)} />
+                  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, marginTop: 4 }}>
+                    <span style={WAVE_BADGE}>Wave {client.wave}</span>
+                    {client.isPrime && <span style={PRIME_BADGE}>Prime</span>}
+                    {!client.scheduled && <span style={UNSCHED_BADGE}>Unscheduled</span>}
+                  </div>
+                  <div style={{ fontSize: 10, color: MUTED, marginTop: 4, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                    Pitch <DateCell iso={pitchDates[client.name]} muted emptyLabel="TBD" onChange={next => setPitchDate(client.name, next)} />
                   </div>
                 </td>
                 {STEPS.map((step, i) => {
                   const isPitch = step.n === 'pitch'
-                  const iso = isPitch ? pitchDates[client.name] : cellISO(client.name, i, step.offsetDays)
+                  const isWhisper = i === 0
+                  // Once the pitch date has passed, the prep sequence is history:
+                  // surface only the whisper date (GTM Status) and the pitch date
+                  // (Pitch calendar); leave every other step blank.
+                  const completed = isPitchCompleted(pitchDates[client.name])
+                  const iso = completed
+                    ? isPitch
+                      ? pitchDates[client.name]
+                      : isWhisper
+                        ? (WHISPER_ISO_BY_NORM.get(normName(client.name)) || '')
+                        : ''
+                    : isPitch
+                      ? pitchDates[client.name]
+                      : cellISO(client.name, i, step.offsetDays)
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
-                        <DateCell
-                          iso={iso}
-                          onChange={next => (isPitch ? setPitchDate(client.name, next) : setCellDate(client.name, i, next))}
-                        />
+                        {iso ? (
+                          <DateCell
+                            iso={iso}
+                            onChange={next => (isPitch ? setPitchDate(client.name, next) : setCellDate(client.name, i, next))}
+                          />
+                        ) : isPitch ? (
+                          <DateCell iso="" emptyLabel="" onChange={next => setPitchDate(client.name, next)} />
+                        ) : (
+                          <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
+                        )}
                       </div>
                       <StatusButton status={statuses[client.name][i]} onClick={() => cycle(client.name, i)} />
                     </td>
@@ -418,7 +560,7 @@ export function PitchPrepDashboard() {
       {/* Legend */}
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, marginBottom: 12, fontSize: 10.5, fontWeight: 700, color: MUTED }}>
         <span style={{ letterSpacing: '0.06em', textTransform: 'uppercase' }}>Status key</span>
-        {(['Completed', 'In Progress', 'Not Started'] as StepStatus[]).map(s => (
+        {(['Completed', 'In Progress', 'Not Started', 'Not Applicable'] as StepStatus[]).map(s => (
           <span key={s} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             <span style={{ width: 9, height: 9, borderRadius: '50%', background: STATUS_STYLES[s].dot }} />
             {STATUS_STYLES[s].label}

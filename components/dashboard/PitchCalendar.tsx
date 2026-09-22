@@ -139,10 +139,10 @@ const ATTENDEES: Record<string, Attendee[]> = {
   ],
 }
 
-const TODAY: string | null = '2026-09-16'
+ const TODAY: string | null = '2026-09-22'
 const START = new Date(2026, 7, 1)  // Aug 1 2026
 const END   = new Date(2026, 9, 31) // Oct 31 2026 (Sat)
-const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
+  const PAST_CUTOFF = new Date(2026, 8, 18) // Sep 18 2026 — days before this have already passed
 
 const DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -309,7 +309,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             </div>
 
           {/* Stat strip */}
-          <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+          <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 20 }}>
             {next && (
               <div style={{
                 background: `radial-gradient(400px 200px at 100% 0%, rgba(75,205,62,.18), transparent 65%), ${INK}`,
@@ -321,18 +321,30 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                   <CalendarIcon size={11} color={GREEN} strokeWidth={2.4} />
                   {fmtShortDate(parseKey(next.date))}
                 </div>
-              </div>
-            )}
-            <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
-              <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
+  </div>
+  )}
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Completed</div>
+  <div style={{ fontSize: 36, fontWeight: 900, color: '#4bcd3e', marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
+  4<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>pitches</span>
+  </div>
+  </div>
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Completed ACV</div>
+  <div style={{ fontSize: 36, fontWeight: 900, color: '#4bcd3e', marginTop: 6, lineHeight: 1 }}>
+  $33.7M
+  </div>
+  </div>
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                {pitchCount}<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meeting{pitchCount === 1 ? '' : 's'}</span>
-              </div>
-            </div>
+  5<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meetings</span>
+  </div>
+  </div>
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
               <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
-                ${fmtM(totalACV)}M
+                $56.6M
               </div>
             </div>
           </div>
@@ -353,7 +365,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               {mo.cells.map((d) => {
                 const key = iso(d)
                 const outside = !inRange(d)
-                const isPast = !outside && d < PAST_CUTOFF
+                const isPast = !outside && d <= PAST_CUTOFF
                 const isToday = key === TODAY
                 const dayPitches = !outside ? PITCHES[key] : undefined
                 const hasPitch = !!dayPitches
@@ -415,11 +427,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                           {d.getDate()}
                         </span>
 
-                        {isToday && (
-                          <span style={{ position: 'absolute', top: 11, right: 12, fontSize: 8, letterSpacing: 1.5, fontWeight: 800, color: GREEN_DIM, textTransform: 'uppercase' }}>
-                            Today
-                          </span>
-                        )}
+
 
                         <div
                           onClick={(e) => { if (dayPitches && dayPitches.length > 1) e.stopPropagation() }}

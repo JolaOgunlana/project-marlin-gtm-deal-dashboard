@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { Filter, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Check, Filter, X } from 'lucide-react'
 import { NavBanner } from './CoverPage'
 import { PitchPrepDashboard } from './PitchPrep'
 
@@ -16,7 +16,7 @@ const MUTED = 'rgba(26,31,78,0.55)'
 // EDIT HERE: rows for the Action Tracker table. Add one object
 // per action item matching this shape.
 // ============================================================
-export type ActionStatus = 'Complete' | 'WIP' | 'Delayed' | 'Not Started'
+export type ActionStatus = 'Complete' | 'WIP' | 'Delayed' | 'Not Started' | 'Not Applicable'
 export type ActionRow = {
   clientName: string
   action: string
@@ -106,6 +106,7 @@ const STATUS_STYLES: Record<ActionStatus, { bg: string; color: string; dot: stri
   WIP:          { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d' },
   Delayed:      { bg: '#fce8ef', color: '#8a1040', dot: '#B21A53' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf' },
+  'Not Applicable': { bg: '#eceef4', color: '#c0143c', dot: '#c0143c' },
 }
 
 function StatusPill({ status }: { status: ActionStatus }) {
@@ -121,6 +122,35 @@ function StatusPill({ status }: { status: ActionStatus }) {
       <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
       {status}
     </span>
+  )
+}
+
+const ACTION_STORAGE_KEY = 'actionTracker.v1'
+
+function loadPublished(): ActionRow[] | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const raw = window.localStorage.getItem(ACTION_STORAGE_KEY)
+    return raw ? (JSON.parse(raw) as ActionRow[]) : null
+  } catch {
+    return null
+  }
+}
+
+function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onChange(!checked)}
+      style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}
+    >
+      <span style={{ position: 'relative', width: 38, height: 22, borderRadius: 999, background: checked ? '#5b2d6e' : '#cfd2e0', transition: 'background 0.15s', flexShrink: 0 }}>
+        <span style={{ position: 'absolute', top: 2, left: checked ? 18 : 2, width: 18, height: 18, borderRadius: '50%', background: '#fff', transition: 'left 0.15s', boxShadow: '0 1px 3px rgba(0,0,0,0.25)' }} />
+      </span>
+      <span style={{ fontSize: 12.5, fontWeight: 700, color: INK }}>{label}</span>
+    </button>
   )
 }
 
@@ -147,12 +177,23 @@ const COLUMNS: { key: ColKey; label: string; width: string }[] = [
 function ActionTable() {
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS)
   const [numberFilter, setNumberFilter] = useState('')
+  const [rowsData, setRowsData] = useState<ActionRow[]>(ACTION_DATA)
+  const [adminMode, setAdminMode] = useState(false)
+  const [dirty, setDirty] = useState(false)
+  const [justPublished, setJustPublished] = useState(false)
 
-  const statuses: ActionStatus[] = ['Complete', 'WIP', 'Delayed', 'Not Started']
+  // Load any previously published edits after mount so the SSR and initial
+  // client render stay identical (avoids hydration mismatches).
+  useEffect(() => {
+    const published = loadPublished()
+    if (published) setRowsData(published)
+  }, [])
+
+  const statuses: ActionStatus[] = ['Complete', 'WIP', 'Delayed', 'Not Started', 'Not Applicable']
 
   const filteredRows = useMemo(() => {
     const nFilter = numberFilter.trim().toLowerCase()
-    return ACTION_DATA.filter((row, index) => {
+    return rowsData.filter((row, index) => {
       const number = String(index + 1)
       if (nFilter && !number.includes(nFilter)) return false
       return COLUMNS.every(({ key }) => {
@@ -161,7 +202,24 @@ function ActionTable() {
         return String(row[key]).toLowerCase().includes(f)
       })
     })
-  }, [filters, numberFilter])
+  }, [filters, numberFilter, rowsData])
+
+  function updateStatus(rowIndex: number, status: ActionStatus) {
+    setRowsData(prev => prev.map((r, i) => (i === rowIndex ? { ...r, status } : r)))
+    setDirty(true)
+    setJustPublished(false)
+  }
+
+  function publish() {
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.setItem(ACTION_STORAGE_KEY, JSON.stringify(rowsData))
+      setDirty(false)
+      setJustPublished(true)
+    } catch {
+      /* ignore quota / serialization errors */
+    }
+  }
 
   const activeFilterCount = COLUMNS.filter(({ key }) => filters[key].trim() !== '').length + (numberFilter.trim() ? 1 : 0)
 
@@ -176,6 +234,53 @@ function ActionTable() {
 
   return (
     <div>
+      {/* Admin edit / publish bar */}
+      <div style={{
+        display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12,
+        flexWrap: 'wrap', marginBottom: 14, padding: '12px 14px',
+        background: '#f7f8fc', border: BORDER, borderRadius: 10,
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <Toggle checked={adminMode} onChange={v => { setAdminMode(v); setJustPublished(false) }} label="Admin edit mode" />
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 5, padding: '3px 9px', borderRadius: 999,
+              background: adminMode ? '#fff4e0' : '#eef0f6', color: adminMode ? '#8a5a00' : '#454b6e',
+              fontSize: 10, fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase',
+            }}>
+              {adminMode ? 'Editing' : 'View only'}
+            </span>
+          </div>
+          <p style={{ margin: 0, fontSize: 11, lineHeight: 1.5, color: MUTED, maxWidth: 640 }}>
+            <strong style={{ color: '#c0143c', fontWeight: 800 }}>View only — admin edit access only.</strong>{' '}
+            Edit access is restricted to the 3 project admins. This toggle is client-side, so in production it must be gated to those named admins — front-end visitors should not be able to enable editing or publish changes.
+          </p>
+        </div>
+        {adminMode && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {justPublished && !dirty && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 700, color: '#1d6b12' }}>
+                <Check size={13} strokeWidth={3} /> Published
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={publish}
+              disabled={!dirty}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'inherit',
+                fontSize: 12, fontWeight: 800, letterSpacing: '0.02em',
+                padding: '8px 16px', borderRadius: 8, border: 'none',
+                background: dirty ? INK : '#c9ccdb', color: '#fff',
+                cursor: dirty ? 'pointer' : 'not-allowed',
+              }}
+            >
+              Publish changes
+            </button>
+          </div>
+        )}
+      </div>
+
       {/* Filter summary bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: INK, letterSpacing: '0.03em', textTransform: 'uppercase' }}>
@@ -272,7 +377,7 @@ function ActionTable() {
               {filteredRows.length === 0 ? (
                 <tr>
                   <td colSpan={COLUMNS.length + 1} style={{ padding: '48px 20px', textAlign: 'center', fontSize: 13, color: MUTED }}>
-                    {ACTION_DATA.length === 0
+                    {rowsData.length === 0
                       ? 'No actions yet. This table is ready to be populated.'
                       : 'No rows match the current filters. Try clearing a filter above.'}
                   </td>
@@ -281,7 +386,7 @@ function ActionTable() {
                 filteredRows.map((row, i) => (
                   <tr key={i} style={{ borderTop: i > 0 ? '1px solid #eef0f2' : undefined }}>
                     <td style={{ padding: '14px 8px', verticalAlign: 'top', textAlign: 'center', fontSize: 12, fontWeight: 800, color: MUTED }}>
-                      {ACTION_DATA.indexOf(row) + 1}
+                      {rowsData.indexOf(row) + 1}
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.03em', color: '#0f1230' }}>
                       {row.clientName}
@@ -296,7 +401,21 @@ function ActionTable() {
                       {row.startDate}
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top' }}>
-                      <StatusPill status={row.status} />
+                      {adminMode ? (
+                        <select
+                          value={row.status}
+                          onChange={e => updateStatus(rowsData.indexOf(row), e.target.value as ActionStatus)}
+                          aria-label={`Status for ${row.action}`}
+                          style={{
+                            width: '100%', fontFamily: 'inherit', fontSize: 11, fontWeight: 700, color: INK,
+                            padding: '6px 8px', borderRadius: 6, border: '1px solid #dfe1ea', background: '#fff', cursor: 'pointer',
+                          }}
+                        >
+                          {statuses.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      ) : (
+                        <StatusPill status={row.status} />
+                      )}
                     </td>
                     <td style={{ padding: '14px 14px', verticalAlign: 'top', fontSize: 12.5, lineHeight: 1.6, color: 'rgba(26,31,78,0.82)' }}>
                       {row.owner}
