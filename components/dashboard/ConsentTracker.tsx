@@ -662,16 +662,22 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              const maxAcv = 100
-              const target = 25
-              const targetPct = (target / maxAcv) * 100
+              // Scale bars and targets against the entire $145.1M portfolio so
+              // bar length and target position share one consistent axis.
+              const maxAcv = 145.1
+              const targets = [
+                { acv: 25,  date: 'Feb 1, 2027',  label: '$25M' },
+                { acv: 54,  date: 'Jun 1, 2027',  label: '$54M' },
+                { acv: 104, date: 'Oct 1, 2027',  label: '$104M' },
+                { acv: 137, date: 'Jan 1, 2028',  label: '$137M' },
+              ].sort((a, b) => a.acv - b.acv)
               const bars = [
           { label: 'Exploration', color: INK, acv: 57.5, clients: 64, text: '$57.5M', empty: false },
           { label: 'Alignment',   color: '#0891b2', acv: 87.7, clients: 10, text: '$87.7M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
               return (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, position: 'relative', marginTop: 30 }}>
                   {bars.map((bar) => {
                     const widthPct = bar.acv > 0 ? Math.max((bar.acv / maxAcv) * 100, 8) : 0
                     return (
@@ -687,13 +693,34 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                               <span style={{ fontSize: 13, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>{bar.text}</span>
                             </div>
                           )}
-                          {/* $25M target line — label only on first bar */}
-                          {bar.label === 'Exploration' && (
-                            <div style={{ position: 'absolute', top: -20, left: `${targetPct}%`, transform: 'translateX(-50%)', fontSize: 11, fontWeight: 700, color: '#c0392b', whiteSpace: 'nowrap' }}>
-                              ▼ $25M target
-                            </div>
-                          )}
-                          <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${targetPct}%`, width: 1, borderLeft: '2px dashed #c0392b', pointerEvents: 'none' }} />
+                          {/* Sequential revenue targets — dated, ordered left-to-right by size */}
+                          {targets.map((t, i) => {
+                            const targetPct = (t.acv / maxAcv) * 100
+                            const align = targetPct > 85 ? 'translateX(-92%)' : targetPct < 12 ? 'translateX(-8%)' : 'translateX(-50%)'
+                            return (
+                              <div key={t.acv} style={{ display: 'contents' }}>
+                                {bar.label === 'Exploration' && (
+                                  <div
+                                    style={{
+                                      position: 'absolute',
+                                      top: i % 2 === 0 ? -22 : -40,
+                                      left: `${targetPct}%`,
+                                      transform: align,
+                                      fontSize: 11,
+                                      fontWeight: 700,
+                                      color: '#c0392b',
+                                      whiteSpace: 'nowrap',
+                                      lineHeight: 1.3,
+                                    }}
+                                  >
+                                    <div>▼ {t.label} target</div>
+                                    <div style={{ fontSize: 10, fontWeight: 600, color: 'rgba(192,57,43,0.75)' }}>{t.date}</div>
+                                  </div>
+                                )}
+                                <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${targetPct}%`, width: 1, borderLeft: '2px dashed #c0392b', pointerEvents: 'none' }} />
+                              </div>
+                            )
+                          })}
                         </div>
                       </div>
                     )
