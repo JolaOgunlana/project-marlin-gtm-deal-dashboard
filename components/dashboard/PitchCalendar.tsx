@@ -309,7 +309,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             </div>
 
           {/* Stat strip */}
-          <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 20 }}>
+          <div className="pcal-stat-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginBottom: 20 }}>
             {next && (
               <div style={{
                 background: `radial-gradient(400px 200px at 100% 0%, rgba(75,205,62,.18), transparent 65%), ${INK}`,
@@ -321,10 +321,22 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                   <CalendarIcon size={11} color={GREEN} strokeWidth={2.4} />
                   {fmtShortDate(parseKey(next.date))}
                 </div>
-              </div>
-            )}
-            <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
-              <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
+  </div>
+  )}
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Completed</div>
+  <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
+  4<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>pitches</span>
+  </div>
+  </div>
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Completed ACV</div>
+  <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
+  $33.7M
+  </div>
+  </div>
+  <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
+  <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
                 {pitchCount}<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meeting{pitchCount === 1 ? '' : 's'}</span>
               </div>
