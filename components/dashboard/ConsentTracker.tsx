@@ -286,9 +286,9 @@ const STATS = [
   {
   label: 'Exploration',
   tag: 'WHISPER',
-  count: 53,
+  count: 58,
   countColor: INK,
-  revenue: '$41.1M',
+  revenue: '$53.6M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -672,7 +672,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { acv: 137, date: 'Jan 1, 2028',  label: '$137M' },
               ].sort((a, b) => a.acv - b.acv)
               const bars = [
-          { label: 'Exploration', color: INK, acv: 41.1, clients: 53, text: '$41.1M', empty: false },
+          { label: 'Exploration', color: INK, acv: 53.6, clients: 58, text: '$53.6M', empty: false },
           { label: 'Alignment',   color: '#0891b2', acv: 104.1, clients: 11, text: '$104.1M', empty: false },
                 { label: 'Committed',   color: '#4bcd3e', acv: 0,     clients: 0,   text: '',       empty: true  },
               ]
