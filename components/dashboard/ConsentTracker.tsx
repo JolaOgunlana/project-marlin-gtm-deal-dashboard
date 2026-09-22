@@ -662,9 +662,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
             {/* Bars */}
             {(() => {
-              // Scale bars and targets against the entire $145.1M portfolio so
+              // Scale bars and targets against the entire $145.2M portfolio so
               // bar length and target position share one consistent axis.
-              const maxAcv = 145.1
+              const maxAcv = 145.2
               const targets = [
                 { acv: 25,  date: 'Feb 1, 2027',  label: '$25M' },
                 { acv: 54,  date: 'Jun 1, 2027',  label: '$54M' },
@@ -735,7 +735,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
         {/* ── Program coverage by wave ────────────────────────────── */}
         {(() => {
           const waves = [
-            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.4M',  acvPct: 64, clients: 20, clientPct: 31 },
+            { label: 'Wave 1', status: 'STARTED',     statusColor: '#4bcd3e', statusBg: '#e9fbe6', statusText: '#1d6b12', acv: '$93.5M',  acvPct: 64, clients: 20, clientPct: 31 },
             { label: 'Wave 2', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$16.5M',  acvPct: 11, clients: 20, clientPct: 31 },
             { label: 'Wave 3', status: 'NOT STARTED', statusColor: '#9aa0b0', statusBg: '#f0f1f5', statusText: '#556070', acv: '$35.2M',  acvPct: 25, clients: 24, clientPct: 38 },
           ]
@@ -786,7 +786,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                       </td>
                     ))}
                     <td style={{ ...CELL, textAlign: 'right', verticalAlign: 'middle' }}>
-                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.1M</span>
+                      <span style={{ fontSize: 22, fontWeight: 900, color: '#431C5B' }}>$145.2M</span>
                     </td>
                   </tr>
                   {/* Clients row */}
@@ -952,7 +952,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
               <span style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1 }}>20</span>
-                  <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.4M)</span>
+                  <span style={{ fontSize: 22, fontWeight: 800, color: INK, lineHeight: 1 }}>($93.5M)</span>
             </div>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wave 1 clients engaged</div>
           </div>
