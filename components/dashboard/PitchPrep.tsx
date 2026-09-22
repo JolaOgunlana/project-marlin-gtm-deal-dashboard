@@ -345,7 +345,7 @@ function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange:
     if (typeof el.showPicker === 'function') el.showPicker()
     else el.focus()
   }
-  const label = iso ? fmtMD(iso) : (emptyLabel ?? 'Set date')
+  const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
     <span style={{ position: 'relative', display: 'inline-block' }}>
       <button
@@ -521,7 +521,7 @@ function PitchMatrix() {
                             onChange={next => (isPitch ? setPitchDate(client.name, next) : setCellDate(client.name, i, next))}
                           />
                         ) : isPitch ? (
-                          <DateCell iso="" emptyLabel="Set date" onChange={next => setPitchDate(client.name, next)} />
+                          <DateCell iso="" emptyLabel="" onChange={next => setPitchDate(client.name, next)} />
                         ) : (
                           <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
                         )}
