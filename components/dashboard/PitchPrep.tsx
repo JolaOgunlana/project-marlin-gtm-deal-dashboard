@@ -135,18 +135,20 @@ function buildUniverse(): MatrixClient[] {
 
 const UNIVERSE: MatrixClient[] = buildUniverse()
 
-type CatKey = 'wave1' | 'wave2' | 'prime'
-const CATEGORIES: { key: CatKey; label: string }[] = [
+type CatKey = 'wave1' | 'wave2' | 'prime' | 'scheduled'
+  const CATEGORIES: { key: CatKey; label: string }[] = [
   { key: 'wave1', label: 'Wave 1 clients' },
   { key: 'wave2', label: 'Wave 2' },
   { key: 'prime', label: 'Prime Clients' },
-]
+  { key: 'scheduled', label: 'Scheduled Clients' },
+  ]
 
 function matchCat(c: MatrixClient, cat: CatKey): boolean {
   switch (cat) {
     case 'wave1': return c.wave === '1'
     case 'wave2': return c.wave === '2'
     case 'prime': return c.isPrime
+    case 'scheduled': return c.scheduled
   }
 }
 
@@ -165,9 +167,9 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   'Not Applicable': { bg: '#eceef4', color: '#c0143c', dot: '#c0143c', label: 'Not Applicable' },
 }
 
-const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
+const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed', 'Not Applicable']
 
-// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────────���────────
+// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────���───���────────
 function toISO(d: Date): string {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
