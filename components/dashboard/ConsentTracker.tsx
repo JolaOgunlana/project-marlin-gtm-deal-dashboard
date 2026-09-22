@@ -1021,7 +1021,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: '#fff', borderBottom: BORDER }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Showing:</span>
               <div style={{ display: 'inline-flex', background: GRAY_BG, borderRadius: 20, padding: 3, gap: 2 }}>
-                {(['All', 'Wave 1', 'Wave 2', 'Wave 3', 'Prime Clients'] as const).map(w => {
+                {(['All', 'Wave 1', 'Wave 2', 'Prime Clients'] as const).map(w => {
                   const active = waveFilter === w
                   return (
                     <button
