@@ -544,7 +544,7 @@ function ClientRow({ client, onLink }: { client: TrackerClient; onLink: (target:
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page; onNavigate: (p: Page) => void; onFaqLink: (id: string) => void }) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null)
-  const [waveFilter, setWaveFilter] = useState<'All' | 'Wave 1' | 'Wave 2' | 'Wave 3' | 'Prime Clients'>('Wave 1')
+  const [waveFilter, setWaveFilter] = useState<'All Scheduled clients' | 'Wave 1' | 'Wave 2' | 'Wave 3' | 'Prime Clients'>('Wave 1')
 
   return (
     <div style={{ fontFamily: "var(--font-inter), 'Source Sans 3', system-ui, sans-serif" }}>
@@ -1021,7 +1021,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: '#fff', borderBottom: BORDER }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(26,31,78,0.5)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Showing:</span>
               <div style={{ display: 'inline-flex', background: GRAY_BG, borderRadius: 20, padding: 3, gap: 2 }}>
-                {(['All', 'Wave 1', 'Wave 2', 'Prime Clients'] as const).map(w => {
+                {(['Wave 1', 'Wave 2', 'Prime Clients', 'All Scheduled clients'] as const).map(w => {
                   const active = waveFilter === w
                   return (
                     <button
@@ -1125,7 +1125,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
               const PRIME = new Set(['HSBC (Global)', 'FRES travel card', 'FRES Cash', 'Landesbankinn', 'Federal Bank of India'])
               const rows =
-                waveFilter === 'All'
+                waveFilter === 'All Scheduled clients'
                   ? allRows
                   : waveFilter === 'Prime Clients'
                     ? allRows.filter(r => PRIME.has(r.name))
