@@ -284,11 +284,11 @@ const CLIENTS: TrackerClient[] = [
 // ── Summary stats ───────────────────────────────────────────────────────────
 const STATS = [
   {
-  label: 'Exploration',
-  tag: 'WHISPER',
-  count: 58,
-  countColor: INK,
-  revenue: '$53.6M',
+    label: 'Exploration',
+    tag: 'WHISPER',
+    count: 58,
+    countColor: INK,
+    revenue: '$53.6M',
     revenueLabel: 'Annual contract value',
     region: '2 NA · 1 EMEA',
     descriptionParts: [
@@ -299,13 +299,13 @@ const STATS = [
     sfStages: 'Stage 1-2 · New Opportunity / Early Sales',
   },
   {
-  label: 'Alignment',
-  tag: 'PITCH',
-  count: 11,
-  countColor: '#0891b2',
-  revenue: '$104.1M',
-  revenueLabel: 'Annual contract value',
-  region: '11 clients',
+    label: 'Alignment',
+    tag: 'PITCH',
+    count: 11,
+    countColor: '#0891b2',
+    revenue: '$104.1M',
+    revenueLabel: 'Annual contract value',
+    region: '11 clients',
     descriptionParts: [
       { text: 'The client ', bold: false },
       { text: 'wants the specifics', bold: true },
