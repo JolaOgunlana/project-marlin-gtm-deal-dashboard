@@ -139,7 +139,7 @@ const ATTENDEES: Record<string, Attendee[]> = {
   ],
 }
 
-const TODAY: string | null = '2026-09-16'
+ const TODAY: string | null = '2026-09-22'
 const START = new Date(2026, 7, 1)  // Aug 1 2026
 const END   = new Date(2026, 9, 31) // Oct 31 2026 (Sat)
 const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
