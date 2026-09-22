@@ -135,17 +135,15 @@ function buildUniverse(): MatrixClient[] {
 
 const UNIVERSE: MatrixClient[] = buildUniverse()
 
-type CatKey = 'scheduled' | 'wave1' | 'wave2' | 'prime'
+type CatKey = 'wave1' | 'wave2' | 'prime'
 const CATEGORIES: { key: CatKey; label: string }[] = [
-  { key: 'scheduled', label: 'All Scheduled clients' },
-  { key: 'wave1', label: 'Wave 1' },
+  { key: 'wave1', label: 'Wave 1 clients' },
   { key: 'wave2', label: 'Wave 2' },
   { key: 'prime', label: 'Prime Clients' },
 ]
 
 function matchCat(c: MatrixClient, cat: CatKey): boolean {
   switch (cat) {
-    case 'scheduled': return c.scheduled
     case 'wave1': return c.wave === '1'
     case 'wave2': return c.wave === '2'
     case 'prime': return c.isPrime
@@ -168,7 +166,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
 
-// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────────��────────
+// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────────���────────
 function toISO(d: Date): string {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
@@ -336,7 +334,7 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
 }
 
 // ── Editable date cell (opens the native calendar picker on click) ─────────────
-function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: string) => void; muted?: boolean }) {
+function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange: (next: string) => void; muted?: boolean; emptyLabel?: string }) {
   const ref = useRef<HTMLInputElement>(null)
   const open = () => {
     const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
@@ -344,6 +342,7 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
     if (typeof el.showPicker === 'function') el.showPicker()
     else el.focus()
   }
+  const label = iso ? fmtMD(iso) : (emptyLabel ?? 'Set date')
   return (
     <span style={{ position: 'relative', display: 'inline-block' }}>
       <button
@@ -357,7 +356,7 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
           borderBottom: '1px dashed rgba(26,31,78,0.35)',
         }}
       >
-        {fmtMD(iso)}
+        {label}
       </button>
       <input
         ref={ref}
@@ -374,7 +373,7 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
 
 // ── Matrix table (dates editable; prior steps back-calculated from pitch date) ─
 function PitchMatrix() {
-  const [category, setCategory] = useState<CatKey>('scheduled')
+  const [category, setCategory] = useState<CatKey>('wave1')
   const [statuses, setStatuses] = useState<Record<string, StepStatus[]>>(() => {
     const base = Object.fromEntries(UNIVERSE.map(c => [c.name, [...c.statuses]]))
     return { ...base, ...loadPersisted().statuses }
@@ -404,12 +403,14 @@ function PitchMatrix() {
   }, [statuses, pitchDates, dateOverrides])
 
   const rows = useMemo(() => {
-    const list = clientFilter === 'All' ? CLIENTS : CLIENTS.filter(c => c.name === clientFilter)
-    return [...list].sort(
-      (a, b) =>
-        new Date(pitchDates[a.name]).getTime() - new Date(pitchDates[b.name]).getTime()
-    )
-  }, [clientFilter, pitchDates])
+    const list = UNIVERSE.filter(c => matchCat(c, category))
+    return [...list].sort((a, b) => {
+      // Scheduled clients first (by pitch date); unscheduled fall to the bottom.
+      const da = pitchDates[a.name] ? new Date(pitchDates[a.name]).getTime() : Infinity
+      const db = pitchDates[b.name] ? new Date(pitchDates[b.name]).getTime() : Infinity
+      return da - db
+    })
+  }, [category, pitchDates])
 
   function cycle(name: string, idx: number) {
     setStatuses(prev => {
@@ -421,7 +422,11 @@ function PitchMatrix() {
 
   // Effective ISO date for a step: manual override wins, else back-calculated.
   function cellISO(name: string, idx: number, offsetDays: number): string {
-    return dateOverrides[name]?.[idx] ?? dueISO(pitchDates[name], offsetDays)
+    const override = dateOverrides[name]?.[idx]
+    if (override) return override
+    // No scheduled pitch date → no derived step dates (avoid NaN output).
+    if (!pitchDates[name]) return ''
+    return dueISO(pitchDates[name], offsetDays)
   }
 
   function setCellDate(name: string, idx: number, iso: string) {
@@ -490,7 +495,20 @@ function PitchMatrix() {
                 </td>
                 {STEPS.map((step, i) => {
                   const isPitch = step.n === 'pitch'
-                  const iso = isPitch ? pitchDates[client.name] : cellISO(client.name, i, step.offsetDays)
+                  const isWhisper = i === 0
+                  // Once the pitch date has passed, the prep sequence is history:
+                  // surface only the whisper date (GTM Status) and the pitch date
+                  // (Pitch calendar); leave every other step blank.
+                  const completed = isPitchCompleted(pitchDates[client.name])
+                  const iso = completed
+                    ? isPitch
+                      ? pitchDates[client.name]
+                      : isWhisper
+                        ? (WHISPER_ISO_BY_NORM.get(normName(client.name)) || '')
+                        : ''
+                    : isPitch
+                      ? pitchDates[client.name]
+                      : cellISO(client.name, i, step.offsetDays)
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
