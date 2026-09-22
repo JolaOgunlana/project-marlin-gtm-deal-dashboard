@@ -168,7 +168,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed']
 
-// ── Date helpers (ISO yyyy-mm-dd ↔ display) ────────────────────────────────────
+// ── Date helpers (ISO yyyy-mm-dd ↔ display) ───────────────────────────��────────
 function toISO(d: Date): string {
   const y = d.getFullYear()
   const m = String(d.getMonth() + 1).padStart(2, '0')
@@ -187,6 +187,36 @@ function dueISO(pitchISO: string, offsetDays: number): string {
 function fmtMD(iso: string): string {
   const [, m, d] = iso.split('-').map(Number)
   return `${m}/${d}`
+}
+
+// ── Completed-pitch handling ──────────────────────────────────────────────────
+// Fixed "today" reference (matches PitchCalendar) so completion is deterministic
+// across server/client renders — avoids hydration mismatches.
+const TODAY_ISO = '2026-09-22'
+
+// A pitch is "completed" once its scheduled date is in the past.
+function isPitchCompleted(pitchISO: string): boolean {
+  return !!pitchISO && pitchISO < TODAY_ISO
+}
+
+// Parse a GTM-Status style date ("Aug 6, 2026") into ISO ("2026-08-06").
+const GTM_MONTHS: Record<string, string> = {
+  jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06',
+  jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+}
+function parseGtmDate(s: string): string {
+  const m = /^([A-Za-z]{3})[a-z]*\s+(\d{1,2}),\s*(\d{4})$/.exec((s || '').trim())
+  if (!m) return ''
+  const mon = GTM_MONTHS[m[1].toLowerCase()]
+  if (!mon) return ''
+  return `${m[3]}-${mon}-${m[2].padStart(2, '0')}`
+}
+
+// Whisper-conversation date per client, sourced from GTM Status (lib/data).
+const WHISPER_ISO_BY_NORM = new Map<string, string>()
+for (const c of clients) {
+  const k = normName(c.name)
+  if (!WHISPER_ISO_BY_NORM.has(k)) WHISPER_ISO_BY_NORM.set(k, parseGtmDate(c.whisperDate))
 }
 
 // ── Horizontal stepper with hover detail ──────────────────────────────────────
