@@ -142,7 +142,7 @@ const ATTENDEES: Record<string, Attendee[]> = {
  const TODAY: string | null = '2026-09-22'
 const START = new Date(2026, 7, 1)  // Aug 1 2026
 const END   = new Date(2026, 9, 31) // Oct 31 2026 (Sat)
-const PAST_CUTOFF = new Date(2026, 8, 5) // Sep 5 2026 — days before this have already passed
+  const PAST_CUTOFF = new Date(2026, 8, 18) // Sep 18 2026 — days before this have already passed
 
 const DOW = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -427,11 +427,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                           {d.getDate()}
                         </span>
 
-                        {isToday && (
-                          <span style={{ position: 'absolute', top: 11, right: 12, fontSize: 8, letterSpacing: 1.5, fontWeight: 800, color: GREEN_DIM, textTransform: 'uppercase' }}>
-                            Today
-                          </span>
-                        )}
+
 
                         <div
                           onClick={(e) => { if (dayPitches && dayPitches.length > 1) e.stopPropagation() }}
