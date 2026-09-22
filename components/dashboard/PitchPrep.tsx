@@ -1,7 +1,24 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Check } from 'lucide-react'
+
+// ── localStorage persistence ──────────────────────────────────────────────────
+const STORAGE_KEY = 'pitchPrep.v1'
+
+function loadPersisted(): {
+  statuses?: Record<string, StepStatus[]>
+  pitchDates?: Record<string, string>
+  dateOverrides?: Record<string, Record<number, string>>
+} {
+  if (typeof window === 'undefined') return {}
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    return raw ? JSON.parse(raw) : {}
+  } catch {
+    return {}
+  }
+}
 
 // ── Shared style tokens (match ActionTracker) ─────────────────────────────────
 const INK = '#1a1f4e'
@@ -247,17 +264,33 @@ function DateCell({ iso, onChange, muted }: { iso: string; onChange: (next: stri
 // ── Matrix table (dates editable; prior steps back-calculated from pitch date) ─
 function PitchMatrix() {
   const [clientFilter, setClientFilter] = useState('All')
-  const [statuses, setStatuses] = useState<Record<string, StepStatus[]>>(() =>
-    Object.fromEntries(CLIENTS.map(c => [c.name, [...c.statuses]]))
-  )
+  const [statuses, setStatuses] = useState<Record<string, StepStatus[]>>(() => {
+    const base = Object.fromEntries(CLIENTS.map(c => [c.name, [...c.statuses]]))
+    return { ...base, ...loadPersisted().statuses }
+  })
   // Scheduled pitch date per client (the anchor for backward calculation).
-  const [pitchDates, setPitchDates] = useState<Record<string, string>>(() =>
-    Object.fromEntries(CLIENTS.map(c => [c.name, c.pitchDate]))
-  )
+  const [pitchDates, setPitchDates] = useState<Record<string, string>>(() => {
+    const base = Object.fromEntries(CLIENTS.map(c => [c.name, c.pitchDate]))
+    return { ...base, ...loadPersisted().pitchDates }
+  })
   // Per-cell manual date overrides: client name → { stepIndex: iso }.
-  const [dateOverrides, setDateOverrides] = useState<Record<string, Record<number, string>>>(() =>
-    Object.fromEntries(CLIENTS.map(c => [c.name, {}]))
-  )
+  const [dateOverrides, setDateOverrides] = useState<Record<string, Record<number, string>>>(() => {
+    const base = Object.fromEntries(CLIENTS.map(c => [c.name, {}]))
+    return { ...base, ...loadPersisted().dateOverrides }
+  })
+
+  // Persist edits to localStorage whenever they change.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ statuses, pitchDates, dateOverrides })
+      )
+    } catch {
+      /* ignore quota / serialization errors */
+    }
+  }, [statuses, pitchDates, dateOverrides])
 
   const rows = useMemo(() => {
     const list = clientFilter === 'All' ? CLIENTS : CLIENTS.filter(c => c.name === clientFilter)
