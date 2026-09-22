@@ -365,7 +365,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
               {mo.cells.map((d) => {
                 const key = iso(d)
                 const outside = !inRange(d)
-                const isPast = !outside && d < PAST_CUTOFF
+                const isPast = !outside && d <= PAST_CUTOFF
                 const isToday = key === TODAY
                 const dayPitches = !outside ? PITCHES[key] : undefined
                 const hasPitch = !!dayPitches
