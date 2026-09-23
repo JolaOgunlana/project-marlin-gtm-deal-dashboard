@@ -165,7 +165,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
-  'Not Applicable': { bg: '#eceef4', color: '#3f434d', dot: '#3f434d', label: 'Not Applicable' },
+  'Not Applicable': { bg: '#f1f3f7', color: '#6b7280', dot: '#6b7280', label: 'Not Applicable' },
 }
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed', 'Not Applicable']
