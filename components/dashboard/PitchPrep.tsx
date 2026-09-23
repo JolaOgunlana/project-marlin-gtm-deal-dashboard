@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { Check, Calendar } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
-const STORAGE_KEY = 'pitchPrep.v1'
+const STORAGE_KEY = 'pitchPrep.v2'
 
 function loadPersisted(): {
   statuses?: Record<string, StepStatus[]>
@@ -65,6 +65,7 @@ type ClientPitch = {
   name: string
   pitchDate: string // ISO yyyy-mm-dd — the scheduled pitch date
   statuses: StepStatus[] // one per STEP, aligned by index
+  dates: string[] // hardcoded ISO date per STEP index ('' = blank/dash); pitch index mirrors pitchDate
 }
 
 const N = STEPS.length
@@ -77,14 +78,22 @@ const NA: StepStatus = 'Not Applicable'
 
 // statuses align to STEPS by index: [step1..step8, pitch]
 const CLIENTS: ClientPitch[] = [
-    { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C] },
-    { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, P, P, P] },
-    { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C] },
-    { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, C] },
-    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C] },
-    { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [C, C, C, C, P, S, S, S, S] },
-    { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S] },
-    { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [S, S, S, S, S, S, S, S, S] },
+    { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
+      dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-10'] },
+    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, P, C, NA, C, C],
+      dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
+    { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
+      dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
+    { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
+      dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-18', '2026-09-24'] },
+    { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, S, S, S, S, S, S, S, P],
+      dates: ['2026-08-13', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', '2026-09-25'] },
+    { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
+      dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
+    { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
+      dates: ['2026-07-16', '2026-08-24', '2026-08-26', '2026-08-31', '2026-09-07', '2026-09-17', '2026-09-25', '2026-09-29', '2026-10-05'] },
+    { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [C, C, C, C, P, P, S, S, S],
+      dates: ['2026-09-08', '2026-09-09', '2026-09-11', '2026-09-16', '2026-09-23', '2026-10-03', '2026-10-11', '2026-10-15', '2026-10-21'] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
@@ -98,6 +107,7 @@ type MatrixClient = {
   scheduled: boolean
   pitchDate: string // '' when unscheduled
   statuses: StepStatus[]
+  dates: string[] // hardcoded ISO date per STEP index ('' = blank); empty array when unscheduled
 }
 
 // Normalize names so "HSBC" matches "HSBC (Global)" and "Deutsche Bank" matches
@@ -123,6 +133,7 @@ function buildUniverse(): MatrixClient[] {
       scheduled: true,
       pitchDate: c.pitchDate,
       statuses: [...c.statuses],
+      dates: [...c.dates],
     }
   })
 
@@ -135,6 +146,7 @@ function buildUniverse(): MatrixClient[] {
       scheduled: false,
       pitchDate: '',
       statuses: notStarted(),
+      dates: [],
     }))
 
   return [...scheduled, ...unscheduled]
@@ -332,7 +344,7 @@ function Stepper() {
   )
 }
 
-// ── Status button (cycles on click) ───────────────────�����───────────────────────
+// ── Status button (cycles on click) ───────────────────�������───────────────────────
 function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => void }) {
   const s = STATUS_STYLES[status]
   return (
@@ -355,80 +367,39 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
 
 // ── Editable date cell — compact M/D display, typeable, with a calendar dropdown ─
 function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange: (next: string) => void; muted?: boolean; emptyLabel?: string }) {
-  const dateRef = useRef<HTMLInputElement>(null)
-  const [text, setText] = useState(iso ? fmtMD(iso) : '')
-
-  // Keep the visible text in sync when the ISO value changes elsewhere (e.g. pitch-date edits).
-  useEffect(() => { setText(iso ? fmtMD(iso) : '') }, [iso])
-
-  const openPicker = () => {
-    const el = dateRef.current as (HTMLInputElement & { showPicker?: () => void }) | null
+  const ref = useRef<HTMLInputElement>(null)
+  const open = () => {
+    const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
     if (!el) return
-    try { el.showPicker?.() } catch { el.focus() }
+    if (typeof el.showPicker === 'function') el.showPicker()
+    else el.focus()
   }
-
-  // Commit manually-typed text. Accepts M/D, M/D/YY, or M/D/YYYY; reverts on invalid input.
-  const commit = (raw: string) => {
-    const s = raw.trim()
-    if (!s) { onChange(''); return }
-    const m = /^(\d{1,2})\s*\/\s*(\d{1,2})(?:\s*\/\s*(\d{2,4}))?$/.exec(s)
-    if (!m) { setText(iso ? fmtMD(iso) : ''); return }
-    const mm = Number(m[1]); const dd = Number(m[2])
-    let yy = m[3] ? Number(m[3]) : (iso ? Number(iso.split('-')[0]) : 2026)
-    if (yy < 100) yy += 2000
-    if (mm < 1 || mm > 12 || dd < 1 || dd > 31) { setText(iso ? fmtMD(iso) : ''); return }
-    onChange(`${yy}-${String(mm).padStart(2, '0')}-${String(dd).padStart(2, '0')}`)
-  }
-
+  const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
-    <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 3, justifyContent: 'center', width: '100%' }}>
-      <input
-        type="text"
-        inputMode="numeric"
-        value={text}
-        placeholder={emptyLabel ?? ''}
-        onChange={e => setText(e.target.value)}
-        onBlur={e => commit(e.target.value)}
-        onKeyDown={e => {
-          if (e.key === 'Enter') { e.preventDefault(); commit((e.target as HTMLInputElement).value); (e.target as HTMLInputElement).blur() }
-        }}
-        title="Type a date (M/D) or use the calendar"
-        aria-label={emptyLabel ?? 'Date'}
-        style={{
-          border: 'none', background: 'transparent', fontFamily: 'inherit',
-          fontSize: muted ? 10 : 12.5, fontWeight: 800,
-          color: text ? (muted ? MUTED : INK) : 'rgba(26,31,78,0.4)',
-          padding: '1px 0', lineHeight: 1.2, textAlign: 'center',
-          borderBottom: '1px dashed rgba(26,31,78,0.35)',
-          width: muted ? 34 : 40,
-        }}
-      />
+    <span style={{ position: 'relative', display: 'inline-block' }}>
       <button
         type="button"
-        onClick={openPicker}
-        title="Open calendar"
-        aria-label="Open calendar"
+        onClick={open}
+        title="Click to pick a date"
         style={{
-          display: 'inline-flex', alignItems: 'center', border: 'none', background: 'transparent',
-          cursor: 'pointer', padding: 0, color: muted ? MUTED : INK, opacity: 0.6, flexShrink: 0,
+          border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit',
+          fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK,
+          padding: '1px 3px', borderRadius: 5, lineHeight: 1.2,
+          borderBottom: '1px dashed rgba(26,31,78,0.35)',
         }}
       >
-        <Calendar size={muted ? 11 : 13} strokeWidth={2.25} />
+        {label}
       </button>
-      {/* Hidden native date input backing the calendar dropdown. */}
       <input
-        ref={dateRef}
+        ref={ref}
         type="date"
         value={iso}
-        onChange={e => onChange(e.target.value)}
+        onChange={e => e.target.value && onChange(e.target.value)}
         tabIndex={-1}
         aria-hidden
-        style={{
-          position: 'absolute', right: 0, bottom: 0, width: 1, height: 1,
-          opacity: 0, pointerEvents: 'none', colorScheme: 'light',
-        }}
+        style={{ position: 'absolute', left: 0, bottom: 0, width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
       />
-    </div>
+    </span>
   )
 }
 
@@ -446,7 +417,13 @@ function PitchMatrix() {
   })
   // Per-cell manual date overrides: client name → { stepIndex: iso }.
   const [dateOverrides, setDateOverrides] = useState<Record<string, Record<number, string>>>(() => {
-    const base = Object.fromEntries(UNIVERSE.map(c => [c.name, {}]))
+    // Seed each client's per-step dates from the hardcoded `dates` array (skip
+    // the pitch column — index N-1 — which is driven by pitchDates).
+    const base = Object.fromEntries(UNIVERSE.map(c => {
+      const seed: Record<number, string> = {}
+      c.dates.forEach((iso, i) => { if (iso && i < N - 1) seed[i] = iso })
+      return [c.name, seed]
+    }))
     return { ...base, ...loadPersisted().dateOverrides }
   })
 
@@ -566,13 +543,19 @@ function PitchMatrix() {
                   // steps compute backward from the pitch date, and once the
                   // pitch has passed every non-whisper/non-pitch step is blank.
                   const whisperISO = WHISPER_ISO_BY_NORM.get(normName(client.name)) || ''
+                  // Hardcoded per-step date wins (seeded from each client's
+                  // `dates` array); whisper falls back to GTM Status, and other
+                  // steps back-calculate from the pitch date.
+                  const override = !isPitch ? dateOverrides[client.name]?.[i] : ''
                   const iso = isPitch
                     ? pitchDates[client.name]
-                    : isWhisper
-                      ? (whisperISO || (completed ? '' : cellISO(client.name, i, step.offsetDays)))
-                      : completed
-                        ? ''
-                        : cellISO(client.name, i, step.offsetDays)
+                    : override
+                      ? override
+                      : isWhisper
+                        ? (whisperISO || (completed ? '' : cellISO(client.name, i, step.offsetDays)))
+                        : completed
+                          ? ''
+                          : cellISO(client.name, i, step.offsetDays)
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>

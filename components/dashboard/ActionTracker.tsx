@@ -99,6 +99,22 @@ const ACTION_DATA: ActionRow[] = [
     status: 'WIP',
     owner: 'Stewart Sims',
   },
+  {
+    clientName: 'HSBC',
+    action: 'HSBC Engagement Guidance',
+    description: 'Provide back guidance or a model for expected HSBC engagement for the transition process',
+    startDate: '9/22/2026',
+    status: 'WIP',
+    owner: 'Genpact',
+  },
+  {
+    clientName: 'HSBC',
+    action: 'HSBC Implementation & Contract Amendment Timing',
+    description: 'Provide back an answer on if we will be able to work through implementation efforts and contract amendment process simultaneously',
+    startDate: '9/22/2026',
+    status: 'WIP',
+    owner: 'Genpact',
+  },
 ]
 
 const STATUS_STYLES: Record<ActionStatus, { bg: string; color: string; dot: string }> = {
