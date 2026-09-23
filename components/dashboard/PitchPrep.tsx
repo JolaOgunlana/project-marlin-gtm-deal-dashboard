@@ -5,7 +5,7 @@ import { Check } from 'lucide-react'
 import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
-const STORAGE_KEY = 'pitchPrep.v2'
+ const STORAGE_KEY = 'pitchPrep.v3'
 
 function loadPersisted(): {
   statuses?: Record<string, StepStatus[]>
