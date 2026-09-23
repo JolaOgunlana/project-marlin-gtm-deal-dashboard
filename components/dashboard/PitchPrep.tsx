@@ -5,7 +5,7 @@ import { Check } from 'lucide-react'
 import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
-const STORAGE_KEY = 'pitchPrep.v2'
+ const STORAGE_KEY = 'pitchPrep.v3'
 
 function loadPersisted(): {
   statuses?: Record<string, StepStatus[]>
@@ -80,14 +80,14 @@ const NA: StepStatus = 'Not Applicable'
 const CLIENTS: ClientPitch[] = [
     { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
       dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-10'] },
-    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, P, C, NA, C, C],
+    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
       dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
     { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
       dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
     { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
       dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-18', '2026-09-24'] },
-    { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, S, S, S, S, S, S, S, P],
-      dates: ['2026-08-13', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', '2026-09-25'] },
+  { name: 'Citibank',        pitchDate: '', statuses: [NA, S, S, S, S, S, S, S, P],
+  dates: ['2026-08-13', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', ''] },
     { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
       dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
     { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
@@ -371,8 +371,14 @@ function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange:
   const open = () => {
     const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
     if (!el) return
-    if (typeof el.showPicker === 'function') el.showPicker()
-    else el.focus()
+    // showPicker() throws a SecurityError when called from a cross-origin
+    // iframe (e.g. the v0 preview). Fall back to focusing the input.
+    try {
+      if (typeof el.showPicker === 'function') el.showPicker()
+      else el.focus()
+    } catch {
+      el.focus()
+    }
   }
   const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
