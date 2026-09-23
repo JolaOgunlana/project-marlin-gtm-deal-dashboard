@@ -229,6 +229,11 @@ for (const c of clients) {
 // ── Horizontal stepper with hover detail ──────────────────────────────────────
 function Stepper() {
   const [hover, setHover] = useState<number | null>(null)
+  const nodeRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const hovered = hover != null ? STEPS[hover] : null
+  const hoverRect = hover != null ? nodeRefs.current[hover]?.getBoundingClientRect() : null
+  const viewportW = typeof window !== 'undefined' ? window.innerWidth : 1600
 
   return (
     <div style={{ overflowX: 'auto', paddingBottom: 8 }}>
@@ -243,6 +248,7 @@ function Stepper() {
           return (
             <div
               key={i}
+              ref={el => { nodeRefs.current[i] = el }}
               style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 100 }}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(prev => (prev === i ? null : prev))}
@@ -291,32 +297,36 @@ function Stepper() {
               }}>
                 {step.title}
               </span>
-
-              {/* hover tooltip */}
-              {hover === i && (
-                <div style={{
-                  position: 'absolute', bottom: 'calc(100% - 22px)', left: '50%', transform: 'translateX(-50%)',
-                  zIndex: 20, width: 216, background: INK, color: '#fff', borderRadius: 10,
-                  padding: '11px 13px', boxShadow: '0 10px 30px rgba(15,18,48,0.35)', textAlign: 'left',
-                }}>
-                  <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: '0.02em', marginBottom: 4 }}>
-                    {typeof step.n === 'number' ? `${step.n}. ` : ''}{step.title}
-                  </div>
-                  <div style={{ fontSize: 11, lineHeight: 1.5, color: 'rgba(255,255,255,0.86)' }}>{step.detail}</div>
-                  <div style={{ marginTop: 7, fontSize: 10, lineHeight: 1.45, color: GREEN, fontWeight: 700 }}>
-                    Owner: <span style={{ color: 'rgba(255,255,255,0.82)', fontWeight: 600 }}>{step.owner}</span>
-                  </div>
-                  <span style={{
-                    position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
-                    width: 0, height: 0, borderLeft: '7px solid transparent', borderRight: '7px solid transparent',
-                    borderTop: `7px solid ${INK}`,
-                  }} />
-                </div>
-              )}
             </div>
           )
         })}
       </div>
+
+      {/* hover tooltip — fixed so it escapes the horizontal scroll container's clipping */}
+      {hovered && hoverRect && (
+        <div style={{
+          position: 'fixed',
+          left: Math.min(Math.max(hoverRect.left + hoverRect.width / 2, 118), viewportW - 118),
+          top: hoverRect.top - 6,
+          transform: 'translate(-50%, -100%)',
+          zIndex: 50, width: 216, background: INK, color: '#fff', borderRadius: 10,
+          padding: '11px 13px', boxShadow: '0 10px 30px rgba(15,18,48,0.35)', textAlign: 'left',
+          pointerEvents: 'none',
+        }}>
+          <div style={{ fontSize: 11.5, fontWeight: 800, letterSpacing: '0.02em', marginBottom: 4 }}>
+            {typeof hovered.n === 'number' ? `${hovered.n}. ` : ''}{hovered.title}
+          </div>
+          <div style={{ fontSize: 11, lineHeight: 1.5, color: 'rgba(255,255,255,0.86)' }}>{hovered.detail}</div>
+          <div style={{ marginTop: 7, fontSize: 10, lineHeight: 1.45, color: GREEN, fontWeight: 700 }}>
+            Owner: <span style={{ color: 'rgba(255,255,255,0.82)', fontWeight: 600 }}>{hovered.owner}</span>
+          </div>
+          <span style={{
+            position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+            width: 0, height: 0, borderLeft: '7px solid transparent', borderRight: '7px solid transparent',
+            borderTop: `7px solid ${INK}`,
+          }} />
+        </div>
+      )}
     </div>
   )
 }
