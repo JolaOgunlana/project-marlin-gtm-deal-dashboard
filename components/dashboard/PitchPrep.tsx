@@ -519,15 +519,18 @@ function PitchMatrix() {
                   // surface only the whisper date (GTM Status) and the pitch date
                   // (Pitch calendar); leave every other step blank.
                   const completed = isPitchCompleted(pitchDates[client.name])
-                  const iso = completed
-                    ? isPitch
-                      ? pitchDates[client.name]
-                      : isWhisper
-                        ? (WHISPER_ISO_BY_NORM.get(normName(client.name)) || '')
-                        : ''
-                    : isPitch
-                      ? pitchDates[client.name]
-                      : cellISO(client.name, i, step.offsetDays)
+                  // The Whisper conversation date always comes from GTM Status
+                  // (lib/data), for both upcoming and completed pitches. Other
+                  // steps compute backward from the pitch date, and once the
+                  // pitch has passed every non-whisper/non-pitch step is blank.
+                  const whisperISO = WHISPER_ISO_BY_NORM.get(normName(client.name)) || ''
+                  const iso = isPitch
+                    ? pitchDates[client.name]
+                    : isWhisper
+                      ? (whisperISO || (completed ? '' : cellISO(client.name, i, step.offsetDays)))
+                      : completed
+                        ? ''
+                        : cellISO(client.name, i, step.offsetDays)
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
