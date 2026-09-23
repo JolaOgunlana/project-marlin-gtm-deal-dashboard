@@ -80,7 +80,7 @@ const NA: StepStatus = 'Not Applicable'
 const CLIENTS: ClientPitch[] = [
     { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
       dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-10'] },
-    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, P, C, NA, C, C],
+    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
       dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
     { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
       dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
