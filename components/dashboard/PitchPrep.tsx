@@ -332,7 +332,7 @@ function Stepper() {
   )
 }
 
-// ── Status button (cycles on click) ───────────────────────────────────────────
+// ── Status button (cycles on click) ───────────────────���───────────────────────
 function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => void }) {
   const s = STATUS_STYLES[status]
   return (
@@ -353,41 +353,31 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
   )
 }
 
-// ── Editable date cell (opens the native calendar picker on click) ─────────────
+// ── Editable date cell (type a date manually or pick from the calendar) ────────
 function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange: (next: string) => void; muted?: boolean; emptyLabel?: string }) {
   const ref = useRef<HTMLInputElement>(null)
-  const open = () => {
+  const openPicker = () => {
     const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
     if (!el) return
-    if (typeof el.showPicker === 'function') el.showPicker()
-    else el.focus()
+    try { el.showPicker?.() } catch { el.focus() }
   }
-  const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
-    <span style={{ position: 'relative', display: 'inline-block' }}>
-      <button
-        type="button"
-        onClick={open}
-        title="Click to pick a date"
-        style={{
-          border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit',
-          fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK,
-          padding: '1px 3px', borderRadius: 5, lineHeight: 1.2,
-          borderBottom: '1px dashed rgba(26,31,78,0.35)',
-        }}
-      >
-        {label}
-      </button>
-      <input
-        ref={ref}
-        type="date"
-        value={iso}
-        onChange={e => e.target.value && onChange(e.target.value)}
-        tabIndex={-1}
-        aria-hidden
-        style={{ position: 'absolute', left: 0, bottom: 0, width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
-      />
-    </span>
+    <input
+      ref={ref}
+      type="date"
+      value={iso}
+      onChange={e => onChange(e.target.value)}
+      onClick={openPicker}
+      title="Type a date or pick from the calendar"
+      aria-label={emptyLabel ?? 'Date'}
+      style={{
+        border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit',
+        fontSize: muted ? 10 : 12.5, fontWeight: 800, color: iso ? (muted ? MUTED : INK) : 'rgba(26,31,78,0.4)',
+        padding: '1px 2px', borderRadius: 5, lineHeight: 1.2,
+        borderBottom: '1px dashed rgba(26,31,78,0.35)', textAlign: 'center',
+        width: muted ? 92 : 104, colorScheme: 'light',
+      }}
+    />
   )
 }
 
