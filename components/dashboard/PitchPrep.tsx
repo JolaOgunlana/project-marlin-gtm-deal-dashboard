@@ -78,6 +78,7 @@ const CLIENTS: ClientPitch[] = [
     { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: seed(1, 1) },
     { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: seed(4, 2) },
     { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: seed(2, 1) },
+    { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: seed(2, 1) },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
@@ -164,7 +165,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
-  'Not Applicable': { bg: '#eceef4', color: '#c0143c', dot: '#c0143c', label: 'Not Applicable' },
+  'Not Applicable': { bg: '#eceef4', color: '#3f434d', dot: '#3f434d', label: 'Not Applicable' },
 }
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed', 'Not Applicable']
