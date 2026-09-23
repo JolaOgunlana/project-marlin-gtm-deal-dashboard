@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { Check, Calendar } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
@@ -355,80 +355,39 @@ function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => 
 
 // ── Editable date cell — compact M/D display, typeable, with a calendar dropdown ─
 function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange: (next: string) => void; muted?: boolean; emptyLabel?: string }) {
-  const dateRef = useRef<HTMLInputElement>(null)
-  const [text, setText] = useState(iso ? fmtMD(iso) : '')
-
-  // Keep the visible text in sync when the ISO value changes elsewhere (e.g. pitch-date edits).
-  useEffect(() => { setText(iso ? fmtMD(iso) : '') }, [iso])
-
-  const openPicker = () => {
-    const el = dateRef.current as (HTMLInputElement & { showPicker?: () => void }) | null
+  const ref = useRef<HTMLInputElement>(null)
+  const open = () => {
+    const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
     if (!el) return
-    try { el.showPicker?.() } catch { el.focus() }
+    if (typeof el.showPicker === 'function') el.showPicker()
+    else el.focus()
   }
-
-  // Commit manually-typed text. Accepts M/D, M/D/YY, or M/D/YYYY; reverts on invalid input.
-  const commit = (raw: string) => {
-    const s = raw.trim()
-    if (!s) { onChange(''); return }
-    const m = /^(\d{1,2})\s*\/\s*(\d{1,2})(?:\s*\/\s*(\d{2,4}))?$/.exec(s)
-    if (!m) { setText(iso ? fmtMD(iso) : ''); return }
-    const mm = Number(m[1]); const dd = Number(m[2])
-    let yy = m[3] ? Number(m[3]) : (iso ? Number(iso.split('-')[0]) : 2026)
-    if (yy < 100) yy += 2000
-    if (mm < 1 || mm > 12 || dd < 1 || dd > 31) { setText(iso ? fmtMD(iso) : ''); return }
-    onChange(`${yy}-${String(mm).padStart(2, '0')}-${String(dd).padStart(2, '0')}`)
-  }
-
+  const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
-    <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 3, justifyContent: 'center', width: '100%' }}>
-      <input
-        type="text"
-        inputMode="numeric"
-        value={text}
-        placeholder={emptyLabel ?? ''}
-        onChange={e => setText(e.target.value)}
-        onBlur={e => commit(e.target.value)}
-        onKeyDown={e => {
-          if (e.key === 'Enter') { e.preventDefault(); commit((e.target as HTMLInputElement).value); (e.target as HTMLInputElement).blur() }
-        }}
-        title="Type a date (M/D) or use the calendar"
-        aria-label={emptyLabel ?? 'Date'}
-        style={{
-          border: 'none', background: 'transparent', fontFamily: 'inherit',
-          fontSize: muted ? 10 : 12.5, fontWeight: 800,
-          color: text ? (muted ? MUTED : INK) : 'rgba(26,31,78,0.4)',
-          padding: '1px 0', lineHeight: 1.2, textAlign: 'center',
-          borderBottom: '1px dashed rgba(26,31,78,0.35)',
-          width: muted ? 34 : 40,
-        }}
-      />
+    <span style={{ position: 'relative', display: 'inline-block' }}>
       <button
         type="button"
-        onClick={openPicker}
-        title="Open calendar"
-        aria-label="Open calendar"
+        onClick={open}
+        title="Click to pick a date"
         style={{
-          display: 'inline-flex', alignItems: 'center', border: 'none', background: 'transparent',
-          cursor: 'pointer', padding: 0, color: muted ? MUTED : INK, opacity: 0.6, flexShrink: 0,
+          border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: 'inherit',
+          fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK,
+          padding: '1px 3px', borderRadius: 5, lineHeight: 1.2,
+          borderBottom: '1px dashed rgba(26,31,78,0.35)',
         }}
       >
-        <Calendar size={muted ? 11 : 13} strokeWidth={2.25} />
+        {label}
       </button>
-      {/* Hidden native date input backing the calendar dropdown. */}
       <input
-        ref={dateRef}
+        ref={ref}
         type="date"
         value={iso}
-        onChange={e => onChange(e.target.value)}
+        onChange={e => e.target.value && onChange(e.target.value)}
         tabIndex={-1}
         aria-hidden
-        style={{
-          position: 'absolute', right: 0, bottom: 0, width: 1, height: 1,
-          opacity: 0, pointerEvents: 'none', colorScheme: 'light',
-        }}
+        style={{ position: 'absolute', left: 0, bottom: 0, width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
       />
-    </div>
+    </span>
   )
 }
 
