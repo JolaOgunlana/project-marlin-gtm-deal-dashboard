@@ -84,6 +84,7 @@ const CLIENTS: ClientPitch[] = [
     { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C] },
     { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [C, C, C, C, P, S, S, S, S] },
     { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S] },
+    { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [S, S, S, S, S, S, S, S, S] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
