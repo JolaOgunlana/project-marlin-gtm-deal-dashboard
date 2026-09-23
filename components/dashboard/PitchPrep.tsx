@@ -371,8 +371,14 @@ function DateCell({ iso, onChange, muted, emptyLabel }: { iso: string; onChange:
   const open = () => {
     const el = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null
     if (!el) return
-    if (typeof el.showPicker === 'function') el.showPicker()
-    else el.focus()
+    // showPicker() throws a SecurityError when called from a cross-origin
+    // iframe (e.g. the v0 preview). Fall back to focusing the input.
+    try {
+      if (typeof el.showPicker === 'function') el.showPicker()
+      else el.focus()
+    } catch {
+      el.focus()
+    }
   }
   const label = iso ? fmtMD(iso) : (emptyLabel ?? '')
   return (
