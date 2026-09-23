@@ -68,17 +68,22 @@ type ClientPitch = {
 }
 
 const N = STEPS.length
-const seed = (done: number, wip: number): StepStatus[] =>
-  Array.from({ length: N }, (_, i) => (i < done ? 'Completed' : i < done + wip ? 'In Progress' : 'Not Started'))
 
+// Status shorthands for the per-step matrix below.
+const C: StepStatus = 'Completed'
+const P: StepStatus = 'In Progress'
+const S: StepStatus = 'Not Started'
+const NA: StepStatus = 'Not Applicable'
+
+// statuses align to STEPS by index: [step1..step8, pitch]
 const CLIENTS: ClientPitch[] = [
-    { name: 'HSBC',            pitchDate: '2026-09-21', statuses: ['Completed', 'In Progress', 'In Progress', ...seed(0, 0).slice(3)] },
-    { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: seed(3, 2) },
-    { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: seed(2, 2) },
-    { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: seed(1, 1) },
-    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: seed(4, 2) },
-    { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: seed(2, 1) },
-    { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: seed(2, 1) },
+    { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C] },
+    { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, P, P, P] },
+    { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C] },
+    { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, C] },
+    { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C] },
+    { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [C, C, C, C, P, S, S, S, S] },
+    { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
