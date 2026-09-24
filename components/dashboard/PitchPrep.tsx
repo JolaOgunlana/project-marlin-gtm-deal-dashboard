@@ -69,23 +69,23 @@ const B: StepStatus = ''
 // ============================================================
 const CLIENTS: ClientPitch[] = [
   { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
-    dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-10'] },
+    dates: ['2026-08-06', '~2026-08-08', '~2026-08-13', '~2026-08-18', '~2026-08-23', '~2026-08-28', '~2026-09-02', '~2026-09-08', '2026-09-10'] },
   { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
-    dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
+    dates: ['2026-08-06', '~2026-08-08', '~2026-08-14', '~2026-08-20', '~2026-08-26', '~2026-09-01', '~2026-09-06', '~2026-09-12', '2026-09-15'] },
   { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
-    dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
+    dates: ['2026-08-25', '~2026-08-27', '~2026-09-01', '~2026-09-04', '~2026-09-08', '~2026-09-11', '~2026-09-15', '~2026-09-18', '2026-09-21'] },
   { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, C, C, C],
-    dates: ['2026-07-20', '', '', '', '', '', '', '', '2026-08-31'] },
-  { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
-    dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-18', '2026-09-24'] },
-  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [B, S, S, S, S, S, S, S, S],
-    dates: ['', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', '2026-09-25'] },
+    dates: ['2026-07-20', '~2026-07-22', '~2026-07-28', '~2026-08-03', '~2026-08-09', '~2026-08-15', '~2026-08-21', '~2026-08-28', '2026-08-31'] },
+ { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, C, C],
+  dates: ['2026-07-17', '~2026-08-13', '~2026-08-15', '~2026-08-20', '~2026-08-27', '~2026-09-06', '~2026-09-14', '2026-09-23', '2026-09-24'] },
+  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, C, C, C, C, C, C, S],
+  dates: ['', '', '~2026-08-16', '~2026-08-21', '~2026-08-28', '~2026-09-07', '~2026-09-15', '~2026-09-18', '2026-09-25'] },
   { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
-    dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
+  dates: ['2026-08-17', '~2026-08-18', '~2026-08-20', '~2026-08-25', '~2026-09-23', '~2026-09-25', '~2026-09-26', '~2026-09-28', '2026-09-29'] },
   { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
-    dates: ['2026-07-16', '2026-08-24', '2026-08-26', '2026-08-31', '2026-09-07', '2026-09-17', '2026-09-25', '2026-09-29', '2026-10-05'] },
-  { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [C, C, C, C, P, P, S, S, S],
-    dates: ['2026-09-08', '2026-09-09', '2026-09-11', '2026-09-16', '2026-09-23', '2026-10-03', '2026-10-11', '2026-10-15', '2026-10-21'] },
+  dates: ['2026-07-16', '~2026-08-24', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '~2026-09-28', '!2026-09-30', '2026-10-05'] },
+  { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [NA, NA, C, C, P, P, S, S, S],
+  dates: ['', '', '~2026-09-11', '~2026-09-16', '~2026-09-23', '~2026-10-03', '~2026-10-11', '~2026-10-15', '2026-10-21'] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
@@ -316,7 +316,7 @@ function Stepper() {
   )
 }
 
-// ── Read-only status pill (published; not clickable) ──────────────────────────
+// ── Read-only status pill (published; not clickable) ────────���─────────────────
 function StatusPill({ status }: { status: StepStatus }) {
   if (status === '') return <span aria-hidden style={{ display: 'block', height: 22 }} />
   const s = STATUS_STYLES[status]
@@ -336,7 +336,17 @@ function StatusPill({ status }: { status: StepStatus }) {
 }
 
 // ── Read-only date display — compact M/D (published; not editable) ────────────
-function DateText({ iso, muted, emptyLabel }: { iso: string; muted?: boolean; emptyLabel?: string }) {
+function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string }) {
+  // A leading '~' marks a placeholder/estimated date: strip it and always render dimmed (grey).
+  if (iso && iso.startsWith('~')) {
+    iso = iso.slice(1)
+    dim = true
+  }
+  // A leading '!' forces a confirmed (dark) date even when the step status is Not Started.
+  if (iso && iso.startsWith('!')) {
+    iso = iso.slice(1)
+    dim = false
+  }
   if (!iso) {
     // emptyLabel provided (even '') → render that text (blank cell shows nothing).
     if (emptyLabel !== undefined) {
@@ -347,9 +357,9 @@ function DateText({ iso, muted, emptyLabel }: { iso: string; muted?: boolean; em
     return <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
   }
   return (
-    <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK, lineHeight: 1.2 }}>
-      {fmtMD(iso)}
-    </span>
+      <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
+        {fmtMD(iso)}
+      </span>
   )
 }
 
@@ -431,8 +441,9 @@ function PitchMatrix() {
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
-                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} />
+                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
+                        {/* Projected dates for not-yet-started steps render grey; confirmed/active dates stay dark. */}
+                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} />
                       </div>
                       <StatusPill status={status} />
                     </td>
