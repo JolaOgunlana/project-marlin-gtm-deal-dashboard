@@ -436,8 +436,9 @@ function PitchMatrix() {
                   const isPitch = step.n === 'pitch'
                   // Read directly from the published, hard-coded source: the pitch
                   // column mirrors pitchDate; all other steps come from `dates`.
-                  const iso = isPitch ? client.pitchDate : (client.dates[i] ?? '')
                   const status = client.statuses[i] ?? ''
+                  // Not Applicable steps always render a blank date.
+                  const iso = status === 'Not Applicable' ? '' : (isPitch ? client.pitchDate : (client.dates[i] ?? ''))
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
