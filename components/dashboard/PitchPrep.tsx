@@ -361,7 +361,7 @@ function DateText({ iso, muted, dim, emptyLabel, small }: { iso: string; muted?:
         ? <span style={{ fontSize: size, fontWeight: 700, color: MUTED }}>{emptyLabel}</span>
         : <span aria-hidden />
     }
-    return <span style={{ fontSize: size, fontWeight: 700, color: MUTED }}>—</span>
+    return <span aria-hidden />
   }
   return (
       <span style={{ fontSize: size, fontWeight: 700, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
