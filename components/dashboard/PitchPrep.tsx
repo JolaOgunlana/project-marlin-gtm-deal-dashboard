@@ -320,13 +320,13 @@ function Stepper() {
 
 // ── Read-only status pill (published; not clickable) ────────���─────────────────
 function StatusPill({ status }: { status: StepStatus }) {
-  if (status === '') return <span aria-hidden style={{ display: 'block', height: 26 }} />
+  if (status === '') return <span aria-hidden style={{ display: 'block', height: 52 }} />
   const s = STATUS_STYLES[status]
   return (
     <span
       style={{
         display: 'inline-flex', alignItems: 'center', gap: 6, width: '100%', justifyContent: 'center',
-        padding: '6px 8px', borderRadius: 7, fontFamily: 'inherit',
+        padding: '18px 8px', borderRadius: 7, fontFamily: 'inherit',
         background: s.bg, color: s.color, fontSize: 11, fontWeight: 800, letterSpacing: '0.02em',
         textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}
