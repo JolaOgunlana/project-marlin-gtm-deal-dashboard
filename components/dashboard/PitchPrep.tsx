@@ -48,6 +48,8 @@ type ClientPitch = {
   pitchDate: string // ISO yyyy-mm-dd — the scheduled pitch date ('' = TBD)
   statuses: StepStatus[] // one per STEP, aligned by index
   dates: string[] // hardcoded ISO date per STEP index ('' = blank/dash); pitch index mirrors pitchDate
+  wave?: '1' | '2' | '3' // optional override when the master lookup resolves to the wrong entry
+  isPrime?: boolean // optional override for the same reason
 }
 
 const N = STEPS.length
@@ -68,24 +70,24 @@ const B: StepStatus = ''
 // statuses align to STEPS by index: [step1..step8, pitch]
 // ============================================================
 const CLIENTS: ClientPitch[] = [
-  { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
+  { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-13', '~2026-08-18', '~2026-08-23', '~2026-08-28', '~2026-09-02', '~2026-09-08', '2026-09-10'] },
-  { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
+  { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-14', '~2026-08-20', '~2026-08-26', '~2026-09-01', '~2026-09-06', '~2026-09-12', '2026-09-15'] },
-  { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
+  { name: 'HSBC',            pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-25', '~2026-08-27', '~2026-09-01', '~2026-09-04', '~2026-09-08', '~2026-09-11', '~2026-09-15', '~2026-09-18', '2026-09-21'] },
-  { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, C, C, C],
+  { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, NA, NA, C],
     dates: ['2026-07-20', '~2026-07-22', '~2026-07-28', '~2026-08-03', '~2026-08-09', '~2026-08-15', '~2026-08-21', '~2026-08-28', '2026-08-31'] },
- { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, C, C],
+  { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, NA, NA, C, C],
   dates: ['2026-07-17', '~2026-07-19', '~2026-08-15', '~2026-08-20', '~2026-08-27', '~2026-09-06', '~2026-09-14', '2026-09-23', '2026-09-24'] },
-  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, C, C, C, C, C, C, S],
+  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, C, C, C, NA, NA, NA, C],
   dates: ['', '', '~2026-08-16', '~2026-08-21', '~2026-08-28', '~2026-09-07', '~2026-09-15', '~2026-09-18', '2026-09-25'] },
-  { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
+  { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, NA, NA, NA, S],
   dates: ['2026-08-17', '~2026-08-19', '~2026-08-20', '~2026-08-25', '~2026-09-23', '~2026-09-25', '~2026-09-26', '~2026-09-28', '2026-09-29'] },
-  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, S, S, S],
-  dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '~2026-09-28', '!2026-09-30', '2026-10-05'] },
-  { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [NA, NA, C, C, P, S, S, S, S],
-  dates: ['', '', '~2026-09-11', '~2026-09-16', '~2026-09-23', '~2026-10-03', '~2026-10-11', '~2026-10-15', '2026-10-21'] },
+  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, NA, P, S, S],
+  dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '2026-09-28', '!2026-09-30', '2026-10-05'] },
+  { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, S, S, NA, S],
+  dates: ['2026-10-21', '', '', '', '', '', '', '', ''] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
@@ -134,8 +136,8 @@ function buildUniverse(): MatrixClient[] {
     const m = masterByNorm.get(normName(c.name))
     return {
       name: c.name,
-      wave: m?.wave ?? '1',
-      isPrime: m?.isPrime ?? false,
+      wave: c.wave ?? m?.wave ?? '1',
+      isPrime: c.isPrime ?? m?.isPrime ?? false,
       scheduled: true,
       pitchDate: c.pitchDate,
       statuses: [...c.statuses],
@@ -200,7 +202,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
-  'Not Applicable': { bg: '#f1f3f7', color: '#6b7280', dot: '#6b7280', label: 'Not Applicable' },
+  'Not Applicable': { bg: '#fafbfc', color: '#c2c7d0', dot: '#dcdfe6', label: 'Not Applicable' },
   '': { bg: 'transparent', color: 'transparent', dot: 'transparent', label: '' },
 }
 
@@ -317,49 +319,39 @@ function Stepper() {
 }
 
 // ── Read-only status pill (published; not clickable) ────────���─────────────────
-function StatusPill({ status }: { status: StepStatus }) {
-  if (status === '') return <span aria-hidden style={{ display: 'block', height: 22 }} />
+// Resolve the visible date label for a step, preserving the published rules:
+// '~' forces a hidden (grey) placeholder, '!' forces a confirmed date, and
+// Not Started steps hide their projected date.
+function resolveDateLabel(iso: string, notStarted: boolean): string {
+  let dim = notStarted
+  if (iso && iso.startsWith('~')) { iso = iso.slice(1); dim = true }
+  if (iso && iso.startsWith('!')) { iso = iso.slice(1); dim = false }
+  if (dim || !iso) return ''
+  return fmtMD(iso)
+}
+
+// The status is the main tag and fills the cell; the confirmed date, when
+// available, sits inside the pill beneath the label. A fixed min-height keeps
+// every pill on the same level whether or not it carries a date.
+function StatusPill({ status, date }: { status: StepStatus; date?: string }) {
+  if (status === '') return <span aria-hidden style={{ display: 'block', height: 56 }} />
   const s = STATUS_STYLES[status]
   return (
     <span
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: 5, width: '100%', justifyContent: 'center',
-        padding: '4px 6px', borderRadius: 6, fontFamily: 'inherit',
-        background: s.bg, color: s.color, fontSize: 9, fontWeight: 800, letterSpacing: '0.02em',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 3, width: '100%', minHeight: 56, boxSizing: 'border-box',
+        padding: '10px 8px', borderRadius: 7, fontFamily: 'inherit',
+        background: s.bg, color: s.color, fontSize: 11, fontWeight: 800, letterSpacing: '0.02em',
         textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}
     >
-      <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
-      {s.label}
-    </span>
-  )
-}
-
-// ── Read-only date display — compact M/D (published; not editable) ────────────
-function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string }) {
-  // A leading '~' marks a placeholder/estimated date: strip it and always render dimmed (grey).
-  if (iso && iso.startsWith('~')) {
-    iso = iso.slice(1)
-    dim = true
-  }
-  // A leading '!' forces a confirmed (dark) date even when the step status is Not Started.
-  if (iso && iso.startsWith('!')) {
-    iso = iso.slice(1)
-    dim = false
-  }
-  if (!iso) {
-    // emptyLabel provided (even '') → render that text (blank cell shows nothing).
-    if (emptyLabel !== undefined) {
-      return emptyLabel
-        ? <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: MUTED }}>{emptyLabel}</span>
-        : <span aria-hidden />
-    }
-    return <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
-  }
-  return (
-      <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
-        {fmtMD(iso)}
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ width: 7, height: 7, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
+        {s.label}
       </span>
+      {date ? <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.01em', opacity: 0.85 }}>{date}</span> : null}
+    </span>
   )
 }
 
@@ -428,9 +420,6 @@ function PitchMatrix() {
                     {client.isPrime && <span style={PRIME_BADGE}>Prime</span>}
                     {!client.scheduled && <span style={UNSCHED_BADGE}>Unscheduled</span>}
                   </div>
-                  <div style={{ fontSize: 10, color: MUTED, marginTop: 4, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-                    Pitch <DateText iso={client.pitchDate} muted emptyLabel="TBD" />
-                  </div>
                 </td>
                 {STEPS.map((step, i) => {
                   const isPitch = step.n === 'pitch'
@@ -439,14 +428,11 @@ function PitchMatrix() {
                   const status = client.statuses[i] ?? ''
                   // Not Applicable steps always render a blank date.
                   const iso = status === 'Not Applicable' ? '' : (isPitch ? client.pitchDate : (client.dates[i] ?? ''))
+                  // Status is the main tag; the confirmed date sits inside the pill beneath the label.
+                  const dateLabel = resolveDateLabel(iso, !isPitch && status === 'Not Started')
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
-                      <div style={{ marginBottom: 6 }}>
-                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
-                        {/* Projected dates for not-yet-started steps render grey; confirmed/active dates stay dark. */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} />
-                      </div>
-                      <StatusPill status={status} />
+                      <StatusPill status={status} date={dateLabel} />
                     </td>
                   )
                 })}
