@@ -336,7 +336,7 @@ function StatusPill({ status }: { status: StepStatus }) {
 }
 
 // ── Read-only date display — compact M/D (published; not editable) ────────────
-function DateText({ iso, muted, emptyLabel }: { iso: string; muted?: boolean; emptyLabel?: string }) {
+function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string }) {
   if (!iso) {
     // emptyLabel provided (even '') → render that text (blank cell shows nothing).
     if (emptyLabel !== undefined) {
@@ -347,9 +347,9 @@ function DateText({ iso, muted, emptyLabel }: { iso: string; muted?: boolean; em
     return <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
   }
   return (
-    <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: muted ? MUTED : INK, lineHeight: 1.2 }}>
-      {fmtMD(iso)}
-    </span>
+      <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
+        {fmtMD(iso)}
+      </span>
   )
 }
 
@@ -431,8 +431,9 @@ function PitchMatrix() {
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
                       <div style={{ marginBottom: 6 }}>
-                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} />
+                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
+                        {/* Projected dates for not-yet-started steps render grey; confirmed/active dates stay dark. */}
+                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={status === 'Not Started'} />
                       </div>
                       <StatusPill status={status} />
                     </td>
