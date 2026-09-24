@@ -196,7 +196,6 @@ const BADGE_BASE: CSSProperties = {
 }
 const WAVE_BADGE: CSSProperties = { ...BADGE_BASE, color: INK, background: '#eef0f6', border: '1px solid #e3e5f0' }
 const PRIME_BADGE: CSSProperties = { ...BADGE_BASE, color: '#8a5a00', background: '#fff4e0', border: '1px solid #f0dcae' }
-const UNSCHED_BADGE: CSSProperties = { ...BADGE_BASE, color: '#454b6e', background: '#f3f4fa', border: '1px solid #e3e5f0' }
 
 const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string; label: string }> = {
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
@@ -418,7 +417,6 @@ function PitchMatrix() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, marginTop: 4 }}>
                     <span style={WAVE_BADGE}>Wave {client.wave}</span>
                     {client.isPrime && <span style={PRIME_BADGE}>Prime</span>}
-                    {!client.scheduled && <span style={UNSCHED_BADGE}>Unscheduled</span>}
                   </div>
                 </td>
                 {STEPS.map((step, i) => {
