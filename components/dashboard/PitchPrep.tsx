@@ -74,7 +74,7 @@ const CLIENTS: ClientPitch[] = [
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-13', '~2026-08-18', '~2026-08-23', '~2026-08-28', '~2026-09-02', '~2026-09-08', '2026-09-10'] },
   { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-14', '~2026-08-20', '~2026-08-26', '~2026-09-01', '~2026-09-06', '~2026-09-12', '2026-09-15'] },
-  { name: 'HSBC',            pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, NA, NA, NA, C],
+  { name: 'HSBC Technology & Services (USA)', pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-25', '~2026-08-27', '~2026-09-01', '~2026-09-04', '~2026-09-08', '~2026-09-11', '~2026-09-15', '~2026-09-18', '2026-09-21'] },
   { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, NA, NA, C],
     dates: ['2026-07-20', '~2026-07-22', '~2026-07-28', '~2026-08-03', '~2026-08-09', '~2026-08-15', '~2026-08-21', '~2026-08-28', '2026-08-31'] },
@@ -86,7 +86,7 @@ const CLIENTS: ClientPitch[] = [
   dates: ['2026-08-17', '~2026-08-19', '~2026-08-20', '~2026-08-25', '~2026-09-23', '~2026-09-25', '~2026-09-26', '~2026-09-28', '2026-09-29'] },
   { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, NA, P, S, S],
   dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '2026-09-28', '!2026-09-30', '2026-10-05'] },
-  { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, S, S, NA, S],
+  { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, S, S, S, S],
   dates: ['2026-10-21', '', '', '', '', '', '', '', ''] },
 ]
 
@@ -124,6 +124,10 @@ function parseWhisper(s: string): string {
   return `${m[3]}-${mm}-${String(Number(m[2])).padStart(2, '0')}`
 }
 
+// Unscheduled clients here keep step 1 (Whisper) Not Started even if the
+// master record carries a whisper date.
+const STAGE1_NOT_STARTED = new Set<string>(['HSBC (Global)'])
+
 function buildUniverse(): MatrixClient[] {
   const masterByNorm = new Map<string, ClientRow>()
   for (const c of clients) {
@@ -150,10 +154,11 @@ function buildUniverse(): MatrixClient[] {
     .map(c => {
       // Reflect a completed whisper (step 1) when the master has a real
       // whisper date; every later step stays Not Started until scheduled.
+      // Names in STAGE1_NOT_STARTED keep step 1 as Not Started regardless.
       const whisperIso = parseWhisper(c.whisperDate)
       const statuses = notStarted()
       const dates = Array.from({ length: N }, () => '')
-      if (whisperIso) {
+      if (whisperIso && !STAGE1_NOT_STARTED.has(c.name)) {
         statuses[0] = 'Completed'
         dates[0] = whisperIso
       }
@@ -196,7 +201,6 @@ const BADGE_BASE: CSSProperties = {
 }
 const WAVE_BADGE: CSSProperties = { ...BADGE_BASE, color: INK, background: '#eef0f6', border: '1px solid #e3e5f0' }
 const PRIME_BADGE: CSSProperties = { ...BADGE_BASE, color: '#8a5a00', background: '#fff4e0', border: '1px solid #f0dcae' }
-const UNSCHED_BADGE: CSSProperties = { ...BADGE_BASE, color: '#454b6e', background: '#f3f4fa', border: '1px solid #e3e5f0' }
 
 const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string; label: string }> = {
   Completed:     { bg: '#e9fbe6', color: '#1d6b12', dot: GREEN,     label: 'Completed' },
@@ -418,7 +422,6 @@ function PitchMatrix() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 4, marginTop: 4 }}>
                     <span style={WAVE_BADGE}>Wave {client.wave}</span>
                     {client.isPrime && <span style={PRIME_BADGE}>Prime</span>}
-                    {!client.scheduled && <span style={UNSCHED_BADGE}>Unscheduled</span>}
                   </div>
                 </td>
                 {STEPS.map((step, i) => {
