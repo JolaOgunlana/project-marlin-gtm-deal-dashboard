@@ -81,11 +81,11 @@ const CLIENTS: ClientPitch[] = [
   { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, S, S, S, S, S, S, S],
   dates: ['', '', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', '2026-09-25'] },
   { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
-    dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
+  dates: ['2026-08-17', '~2026-08-18', '~2026-08-20', '~2026-08-25', '~2026-09-01', '~2026-09-11', '~2026-09-19', '!2026-09-23', '2026-09-29'] },
   { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
-    dates: ['2026-07-16', '2026-08-24', '2026-08-26', '2026-08-31', '2026-09-07', '2026-09-17', '2026-09-25', '2026-09-30', '2026-10-05'] },
+  dates: ['2026-07-16', '~2026-08-24', '~2026-08-26', '~2026-08-31', '~2026-09-07', '~2026-09-17', '~2026-09-25', '!2026-09-30', '2026-10-05'] },
   { name: 'Deutsche Bank',   pitchDate: '2026-10-21', statuses: [NA, NA, C, C, P, P, S, S, S],
-  dates: ['', '', '2026-09-11', '2026-09-16', '2026-09-23', '2026-10-03', '2026-10-11', '2026-10-15', '2026-10-21'] },
+  dates: ['', '', '~2026-09-11', '~2026-09-16', '~2026-09-23', '~2026-10-03', '~2026-10-11', '!2026-10-15', '2026-10-21'] },
 ]
 
 // ── Merged client universe (scheduled prep rows + full master list) ───────────
@@ -316,7 +316,7 @@ function Stepper() {
   )
 }
 
-// ── Read-only status pill (published; not clickable) ──────────────────────────
+// ── Read-only status pill (published; not clickable) ────────���─────────────────
 function StatusPill({ status }: { status: StepStatus }) {
   if (status === '') return <span aria-hidden style={{ display: 'block', height: 22 }} />
   const s = STATUS_STYLES[status]
@@ -341,6 +341,11 @@ function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolea
   if (iso && iso.startsWith('~')) {
     iso = iso.slice(1)
     dim = true
+  }
+  // A leading '!' forces a confirmed (dark) date even when the step status is Not Started.
+  if (iso && iso.startsWith('!')) {
+    iso = iso.slice(1)
+    dim = false
   }
   if (!iso) {
     // emptyLabel provided (even '') → render that text (blank cell shows nothing).
