@@ -433,7 +433,7 @@ function PitchMatrix() {
                       <div style={{ marginBottom: 6 }}>
                         {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
                         {/* Projected dates for not-yet-started steps render grey; confirmed/active dates stay dark. */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={status === 'Not Started'} />
+                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} />
                       </div>
                       <StatusPill status={status} />
                     </td>
