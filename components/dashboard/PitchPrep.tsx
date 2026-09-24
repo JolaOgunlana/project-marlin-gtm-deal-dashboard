@@ -5,7 +5,7 @@ import { Check } from 'lucide-react'
 import { clients, type ClientRow } from '@/lib/data'
 
 // ── localStorage persistence ──────────────────────────────────────────────────
- const STORAGE_KEY = 'pitchPrep.v3'
+  const STORAGE_KEY = 'pitchPrep.v4'
 
 function loadPersisted(): {
   statuses?: Record<string, StepStatus[]>
@@ -33,7 +33,7 @@ const MUTED = 'rgba(26,31,78,0.55)'
 // days BEFORE the pitch) used to back-calculate its due date
 // from a client's scheduled pitch date.
 // ============================================================
-type StepStatus = 'Completed' | 'In Progress' | 'Not Started' | 'Not Applicable'
+type StepStatus = 'Completed' | 'In Progress' | 'Not Started' | 'Not Applicable' | ''
 
 type PitchStep = {
   n: number | 'pitch'
@@ -74,7 +74,8 @@ const N = STEPS.length
 const C: StepStatus = 'Completed'
 const P: StepStatus = 'In Progress'
 const S: StepStatus = 'Not Started'
-const NA: StepStatus = 'Not Applicable'
+  const NA: StepStatus = 'Not Applicable'
+  const B: StepStatus = ''
 
 // statuses align to STEPS by index: [step1..step8, pitch]
 const CLIENTS: ClientPitch[] = [
@@ -86,8 +87,8 @@ const CLIENTS: ClientPitch[] = [
       dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
     { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
       dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-18', '2026-09-24'] },
-  { name: 'Citibank',        pitchDate: '', statuses: [NA, S, S, S, S, S, S, S, P],
-  dates: ['2026-08-13', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', ''] },
+  { name: 'Citibank',        pitchDate: '', statuses: [B, S, S, S, S, S, S, S, P],
+  dates: ['', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', ''] },
     { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
       dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
     { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
@@ -184,6 +185,7 @@ const STATUS_STYLES: Record<StepStatus, { bg: string; color: string; dot: string
   'In Progress': { bg: '#fff4e0', color: '#8a5a00', dot: '#e8a33d', label: 'In Progress' },
   'Not Started': { bg: '#eef0f6', color: '#454b6e', dot: '#9aa0bf', label: 'Not Started' },
   'Not Applicable': { bg: '#f1f3f7', color: '#6b7280', dot: '#6b7280', label: 'Not Applicable' },
+  '': { bg: 'transparent', color: 'transparent', dot: 'transparent', label: '' },
 }
 
 const CYCLE: StepStatus[] = ['Not Started', 'In Progress', 'Completed', 'Not Applicable']
@@ -346,6 +348,20 @@ function Stepper() {
 
 // ── Status button (cycles on click) ───────────────────�������───────────────────────
 function StatusButton({ status, onClick }: { status: StepStatus; onClick: () => void }) {
+  if (status === '') {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        title="Click to change status"
+        aria-label="Set status"
+        style={{
+          display: 'inline-flex', width: '100%', height: 22, padding: '4px 6px',
+          border: 'none', background: 'transparent', cursor: 'pointer',
+        }}
+      />
+    )
+  }
   const s = STATUS_STYLES[status]
   return (
     <button
@@ -553,7 +569,12 @@ function PitchMatrix() {
                   // `dates` array); whisper falls back to GTM Status, and other
                   // steps back-calculate from the pitch date.
                   const override = !isPitch ? dateOverrides[client.name]?.[i] : ''
-                  const iso = isPitch
+                  // A blank status marks the whole cell as intentionally empty:
+                  // suppress the date (including any GTM whisper fallback).
+                  const blankCell = statuses[client.name]?.[i] === ''
+                  const iso = blankCell
+                    ? ''
+                    : isPitch
                     ? pitchDates[client.name]
                     : override
                       ? override
