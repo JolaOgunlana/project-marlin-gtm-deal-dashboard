@@ -70,23 +70,23 @@ const B: StepStatus = ''
 // statuses align to STEPS by index: [step1..step8, pitch]
 // ============================================================
 const CLIENTS: ClientPitch[] = [
-  { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
+  { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, NA, NA, C, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-13', '~2026-08-18', '~2026-08-23', '~2026-08-28', '~2026-09-02', '~2026-09-08', '2026-09-10'] },
-  { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
+  { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, NA, NA, C, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-14', '~2026-08-20', '~2026-08-26', '~2026-09-01', '~2026-09-06', '~2026-09-12', '2026-09-15'] },
-  { name: 'HSBC',            pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, C, NA, NA, C],
+  { name: 'HSBC',            pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, NA, NA, NA, C],
     dates: ['2026-08-25', '~2026-08-27', '~2026-09-01', '~2026-09-04', '~2026-09-08', '~2026-09-11', '~2026-09-15', '~2026-09-18', '2026-09-21'] },
   { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, NA, C, C],
     dates: ['2026-07-20', '~2026-07-22', '~2026-07-28', '~2026-08-03', '~2026-08-09', '~2026-08-15', '~2026-08-21', '~2026-08-28', '2026-08-31'] },
-  { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, NA, C, C],
+  { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, NA, NA, C, C],
   dates: ['2026-07-17', '~2026-07-19', '~2026-08-15', '~2026-08-20', '~2026-08-27', '~2026-09-06', '~2026-09-14', '2026-09-23', '2026-09-24'] },
-  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, C, C, C, C, NA, C, S],
+  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, C, C, C, NA, NA, C, S],
   dates: ['', '', '~2026-08-16', '~2026-08-21', '~2026-08-28', '~2026-09-07', '~2026-09-15', '~2026-09-18', '2026-09-25'] },
-  { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, NA, S, S],
+  { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, NA, NA, S, S],
   dates: ['2026-08-17', '~2026-08-19', '~2026-08-20', '~2026-08-25', '~2026-09-23', '~2026-09-25', '~2026-09-26', '~2026-09-28', '2026-09-29'] },
-  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, P, S, S],
+  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, NA, P, S, S],
   dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '2026-09-28', '!2026-09-30', '2026-10-05'] },
-  { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, S, NA, S, S],
+  { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, NA, NA, S, S],
   dates: ['2026-10-21', '', '', '', '', '', '', '', ''] },
 ]
 
