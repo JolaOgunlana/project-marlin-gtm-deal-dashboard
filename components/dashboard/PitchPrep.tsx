@@ -124,6 +124,10 @@ function parseWhisper(s: string): string {
   return `${m[3]}-${mm}-${String(Number(m[2])).padStart(2, '0')}`
 }
 
+// Unscheduled clients here keep step 1 (Whisper) Not Started even if the
+// master record carries a whisper date.
+const STAGE1_NOT_STARTED = new Set<string>(['HSBC (Global)'])
+
 function buildUniverse(): MatrixClient[] {
   const masterByNorm = new Map<string, ClientRow>()
   for (const c of clients) {
@@ -150,10 +154,11 @@ function buildUniverse(): MatrixClient[] {
     .map(c => {
       // Reflect a completed whisper (step 1) when the master has a real
       // whisper date; every later step stays Not Started until scheduled.
+      // Names in STAGE1_NOT_STARTED keep step 1 as Not Started regardless.
       const whisperIso = parseWhisper(c.whisperDate)
       const statuses = notStarted()
       const dates = Array.from({ length: N }, () => '')
-      if (whisperIso) {
+      if (whisperIso && !STAGE1_NOT_STARTED.has(c.name)) {
         statuses[0] = 'Completed'
         dates[0] = whisperIso
       }
