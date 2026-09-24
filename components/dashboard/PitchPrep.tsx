@@ -69,13 +69,13 @@ const B: StepStatus = ''
 // ============================================================
 const CLIENTS: ClientPitch[] = [
   { name: 'Metro Bank',      pitchDate: '2026-09-10', statuses: [C, C, C, C, C, C, NA, C, C],
-    dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-10'] },
+    dates: ['2026-08-06', '~2026-08-08', '', '', '', '', '', '~2026-09-08', '2026-09-10'] },
   { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
-    dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
+    dates: ['2026-08-06', '~2026-08-08', '', '', '', '', '', '~2026-09-12', '2026-09-15'] },
   { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
-    dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
+    dates: ['2026-08-25', '~2026-08-27', '', '', '', '', '', '~2026-09-18', '2026-09-21'] },
   { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, C, C, C],
-    dates: ['2026-07-20', '', '', '', '', '', '', '', '2026-08-31'] },
+    dates: ['2026-07-20', '~2026-07-22', '', '', '', '', '', '~2026-08-28', '2026-08-31'] },
   { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
     dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-23', '2026-09-24'] },
   { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [NA, NA, S, S, S, S, S, S, S],
@@ -337,6 +337,11 @@ function StatusPill({ status }: { status: StepStatus }) {
 
 // ── Read-only date display — compact M/D (published; not editable) ────────────
 function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string }) {
+  // A leading '~' marks a placeholder/estimated date: strip it and always render dimmed (grey).
+  if (iso && iso.startsWith('~')) {
+    iso = iso.slice(1)
+    dim = true
+  }
   if (!iso) {
     // emptyLabel provided (even '') → render that text (blank cell shows nothing).
     if (emptyLabel !== undefined) {
