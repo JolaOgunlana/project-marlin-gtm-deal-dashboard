@@ -74,10 +74,12 @@ const CLIENTS: ClientPitch[] = [
     dates: ['2026-08-06', '', '', '', '', '', '', '', '2026-09-15'] },
   { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
     dates: ['2026-08-25', '', '', '', '', '', '', '', '2026-09-21'] },
+  { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, C, C, C],
+    dates: ['2026-07-20', '', '', '', '', '', '', '', '2026-08-31'] },
   { name: 'Fifth Third Bank',pitchDate: '2026-09-24', statuses: [C, C, C, C, C, C, C, P, S],
     dates: ['2026-07-17', '2026-08-13', '2026-08-15', '2026-08-20', '2026-08-27', '2026-09-06', '2026-09-14', '2026-09-18', '2026-09-24'] },
-  { name: 'Citibank',        pitchDate: '', statuses: [B, S, S, S, S, S, S, S, P],
-    dates: ['', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', ''] },
+  { name: 'Citibank',        pitchDate: '2026-09-25', statuses: [B, S, S, S, S, S, S, S, S],
+    dates: ['', '2026-08-14', '2026-08-16', '2026-08-21', '2026-08-28', '2026-09-07', '2026-09-15', '2026-09-18', '2026-09-25'] },
   { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
     dates: ['2026-08-17', '2026-08-18', '2026-08-20', '2026-08-25', '2026-09-01', '2026-09-11', '2026-09-19', '2026-09-23', '2026-09-29'] },
   { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, P, C, C, P, P, P, P, P],
@@ -106,6 +108,20 @@ const normName = (s: string) => s.toLowerCase().replace(/\s*\(.*?\)\s*/g, '').tr
 
 const notStarted = (): StepStatus[] => Array.from({ length: N }, () => 'Not Started')
 
+// Parse a master whisper date like "Jul 20, 2026" → ISO "2026-07-20".
+// Returns '' for TBD/unparseable values.
+const WHISPER_MONTHS: Record<string, string> = {
+  jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06',
+  jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+}
+function parseWhisper(s: string): string {
+  const m = /^([A-Za-z]{3})\s+(\d{1,2}),\s*(\d{4})$/.exec(s.trim())
+  if (!m) return ''
+  const mm = WHISPER_MONTHS[m[1].toLowerCase()]
+  if (!mm) return ''
+  return `${m[3]}-${mm}-${String(Number(m[2])).padStart(2, '0')}`
+}
+
 function buildUniverse(): MatrixClient[] {
   const masterByNorm = new Map<string, ClientRow>()
   for (const c of clients) {
@@ -129,15 +145,26 @@ function buildUniverse(): MatrixClient[] {
 
   const unscheduled: MatrixClient[] = clients
     .filter(c => !scheduledNorms.has(normName(c.name)))
-    .map(c => ({
-      name: c.name,
-      wave: c.wave,
-      isPrime: !!c.isPrime,
-      scheduled: false,
-      pitchDate: '',
-      statuses: notStarted(),
-      dates: [],
-    }))
+    .map(c => {
+      // Reflect a completed whisper (step 1) when the master has a real
+      // whisper date; every later step stays Not Started until scheduled.
+      const whisperIso = parseWhisper(c.whisperDate)
+      const statuses = notStarted()
+      const dates = Array.from({ length: N }, () => '')
+      if (whisperIso) {
+        statuses[0] = 'Completed'
+        dates[0] = whisperIso
+      }
+      return {
+        name: c.name,
+        wave: c.wave,
+        isPrime: !!c.isPrime,
+        scheduled: false,
+        pitchDate: '',
+        statuses,
+        dates,
+      }
+    })
 
   return [...scheduled, ...unscheduled]
 }
