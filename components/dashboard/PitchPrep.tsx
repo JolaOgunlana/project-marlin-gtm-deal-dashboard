@@ -430,9 +430,6 @@ function PitchMatrix() {
                     {client.isPrime && <span style={PRIME_BADGE}>Prime</span>}
                     {!client.scheduled && <span style={UNSCHED_BADGE}>Unscheduled</span>}
                   </div>
-                  <div style={{ fontSize: 10, color: MUTED, marginTop: 4, display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-                    Pitch <DateText iso={client.pitchDate} muted emptyLabel="TBD" />
-                  </div>
                 </td>
                 {STEPS.map((step, i) => {
                   const isPitch = step.n === 'pitch'
