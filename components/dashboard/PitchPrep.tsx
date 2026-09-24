@@ -48,6 +48,8 @@ type ClientPitch = {
   pitchDate: string // ISO yyyy-mm-dd — the scheduled pitch date ('' = TBD)
   statuses: StepStatus[] // one per STEP, aligned by index
   dates: string[] // hardcoded ISO date per STEP index ('' = blank/dash); pitch index mirrors pitchDate
+  wave?: '1' | '2' | '3' // optional override when the master lookup resolves to the wrong entry
+  isPrime?: boolean // optional override for the same reason
 }
 
 const N = STEPS.length
@@ -72,7 +74,7 @@ const CLIENTS: ClientPitch[] = [
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-13', '~2026-08-18', '~2026-08-23', '~2026-08-28', '~2026-09-02', '~2026-09-08', '2026-09-10'] },
   { name: 'Lloyds',          pitchDate: '2026-09-15', statuses: [C, C, C, C, C, C, NA, C, C],
     dates: ['2026-08-06', '~2026-08-08', '~2026-08-14', '~2026-08-20', '~2026-08-26', '~2026-09-01', '~2026-09-06', '~2026-09-12', '2026-09-15'] },
-  { name: 'HSBC',            pitchDate: '2026-09-21', statuses: [C, C, C, C, C, C, NA, NA, C],
+  { name: 'HSBC',            pitchDate: '2026-09-21', wave: '1', isPrime: false, statuses: [C, C, C, C, C, C, NA, NA, C],
     dates: ['2026-08-25', '~2026-08-27', '~2026-09-01', '~2026-09-04', '~2026-09-08', '~2026-09-11', '~2026-09-15', '~2026-09-18', '2026-09-21'] },
   { name: 'UMB',             pitchDate: '2026-08-31', statuses: [C, C, C, C, C, C, C, C, C],
     dates: ['2026-07-20', '~2026-07-22', '~2026-07-28', '~2026-08-03', '~2026-08-09', '~2026-08-15', '~2026-08-21', '~2026-08-28', '2026-08-31'] },
@@ -134,8 +136,8 @@ function buildUniverse(): MatrixClient[] {
     const m = masterByNorm.get(normName(c.name))
     return {
       name: c.name,
-      wave: m?.wave ?? '1',
-      isPrime: m?.isPrime ?? false,
+      wave: c.wave ?? m?.wave ?? '1',
+      isPrime: c.isPrime ?? m?.isPrime ?? false,
       scheduled: true,
       pitchDate: c.pitchDate,
       statuses: [...c.statuses],
