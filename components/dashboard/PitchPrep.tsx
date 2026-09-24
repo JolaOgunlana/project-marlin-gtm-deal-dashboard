@@ -84,8 +84,8 @@ const CLIENTS: ClientPitch[] = [
   dates: ['', '', '~2026-08-16', '~2026-08-21', '~2026-08-28', '~2026-09-07', '~2026-09-15', '~2026-09-18', '2026-09-25'] },
   { name: 'Union Bank MUFG', pitchDate: '2026-09-29', statuses: [C, C, C, C, P, S, S, S, S],
   dates: ['2026-08-17', '~2026-08-19', '~2026-08-20', '~2026-08-25', '~2026-09-23', '~2026-09-25', '~2026-09-26', '~2026-09-28', '2026-09-29'] },
-  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, S, S, S],
-  dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '~2026-09-28', '!2026-09-30', '2026-10-05'] },
+  { name: 'Virgin Money',    pitchDate: '2026-10-05', statuses: [C, C, C, C, P, P, P, S, S],
+  dates: ['2026-07-16', '~2026-07-18', '~2026-08-26', '~2026-08-31', '~2026-09-17', '~2026-09-23', '2026-09-28', '!2026-09-30', '2026-10-05'] },
   { name: 'Deutsche Bank',   pitchDate: '', statuses: [P, S, S, S, S, S, S, S, S],
   dates: ['2026-10-21', '', '', '', '', '', '', '', ''] },
 ]
@@ -320,25 +320,25 @@ function Stepper() {
 
 // ── Read-only status pill (published; not clickable) ────────���─────────────────
 function StatusPill({ status }: { status: StepStatus }) {
-  if (status === '') return <span aria-hidden style={{ display: 'block', height: 22 }} />
+  if (status === '') return <span aria-hidden style={{ display: 'block', height: 26 }} />
   const s = STATUS_STYLES[status]
   return (
     <span
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: 5, width: '100%', justifyContent: 'center',
-        padding: '4px 6px', borderRadius: 6, fontFamily: 'inherit',
-        background: s.bg, color: s.color, fontSize: 9, fontWeight: 800, letterSpacing: '0.02em',
+        display: 'inline-flex', alignItems: 'center', gap: 6, width: '100%', justifyContent: 'center',
+        padding: '6px 8px', borderRadius: 7, fontFamily: 'inherit',
+        background: s.bg, color: s.color, fontSize: 11, fontWeight: 800, letterSpacing: '0.02em',
         textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}
     >
-      <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
+      <span style={{ width: 7, height: 7, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
       {s.label}
     </span>
   )
 }
 
 // ── Read-only date display — compact M/D (published; not editable) ────────────
-function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string }) {
+function DateText({ iso, muted, dim, emptyLabel, small }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string; small?: boolean }) {
   // A leading '~' marks a placeholder/estimated date: strip it and always render dimmed (grey).
   if (iso && iso.startsWith('~')) {
     iso = iso.slice(1)
@@ -349,17 +349,22 @@ function DateText({ iso, muted, dim, emptyLabel }: { iso: string; muted?: boolea
     iso = iso.slice(1)
     dim = false
   }
+  // Greyed/dimmed dates are hidden entirely — only confirmed (dark) dates render.
+  if (dim) {
+    iso = ''
+  }
+  const size = small ? 10.5 : (muted ? 10 : 12.5)
   if (!iso) {
     // emptyLabel provided (even '') → render that text (blank cell shows nothing).
     if (emptyLabel !== undefined) {
       return emptyLabel
-        ? <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: MUTED }}>{emptyLabel}</span>
+        ? <span style={{ fontSize: size, fontWeight: 700, color: MUTED }}>{emptyLabel}</span>
         : <span aria-hidden />
     }
-    return <span style={{ fontSize: 12, fontWeight: 800, color: MUTED }}>—</span>
+    return <span style={{ fontSize: size, fontWeight: 700, color: MUTED }}>—</span>
   }
   return (
-      <span style={{ fontSize: muted ? 10 : 12.5, fontWeight: 800, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
+      <span style={{ fontSize: size, fontWeight: 700, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
         {fmtMD(iso)}
       </span>
   )
@@ -440,12 +445,12 @@ function PitchMatrix() {
                   const iso = status === 'Not Applicable' ? '' : (isPitch ? client.pitchDate : (client.dates[i] ?? ''))
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
-                      <div style={{ marginBottom: 6 }}>
-                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
-                        {/* Projected dates for not-yet-started steps render grey; confirmed/active dates stay dark. */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} />
-                      </div>
                       <StatusPill status={status} />
+                      <div style={{ marginTop: 6 }}>
+                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
+                        {/* Status is the main tag; the date sits small beneath it, keeping dark/grey coloring. */}
+                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} small />
+                      </div>
                     </td>
                   )
                 })}
