@@ -319,54 +319,39 @@ function Stepper() {
 }
 
 // ── Read-only status pill (published; not clickable) ────────���─────────────────
-function StatusPill({ status }: { status: StepStatus }) {
-  if (status === '') return <span aria-hidden style={{ display: 'block', height: 52 }} />
+// Resolve the visible date label for a step, preserving the published rules:
+// '~' forces a hidden (grey) placeholder, '!' forces a confirmed date, and
+// Not Started steps hide their projected date.
+function resolveDateLabel(iso: string, notStarted: boolean): string {
+  let dim = notStarted
+  if (iso && iso.startsWith('~')) { iso = iso.slice(1); dim = true }
+  if (iso && iso.startsWith('!')) { iso = iso.slice(1); dim = false }
+  if (dim || !iso) return ''
+  return fmtMD(iso)
+}
+
+// The status is the main tag and fills the cell; the confirmed date, when
+// available, sits inside the pill beneath the label. A fixed min-height keeps
+// every pill on the same level whether or not it carries a date.
+function StatusPill({ status, date }: { status: StepStatus; date?: string }) {
+  if (status === '') return <span aria-hidden style={{ display: 'block', height: 56 }} />
   const s = STATUS_STYLES[status]
   return (
     <span
       style={{
-        display: 'inline-flex', alignItems: 'center', gap: 6, width: '100%', justifyContent: 'center',
-        padding: '18px 8px', borderRadius: 7, fontFamily: 'inherit',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 3, width: '100%', minHeight: 56, boxSizing: 'border-box',
+        padding: '10px 8px', borderRadius: 7, fontFamily: 'inherit',
         background: s.bg, color: s.color, fontSize: 11, fontWeight: 800, letterSpacing: '0.02em',
         textTransform: 'uppercase', whiteSpace: 'nowrap',
       }}
     >
-      <span style={{ width: 7, height: 7, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
-      {s.label}
-    </span>
-  )
-}
-
-// ── Read-only date display — compact M/D (published; not editable) ────────────
-function DateText({ iso, muted, dim, emptyLabel, small }: { iso: string; muted?: boolean; dim?: boolean; emptyLabel?: string; small?: boolean }) {
-  // A leading '~' marks a placeholder/estimated date: strip it and always render dimmed (grey).
-  if (iso && iso.startsWith('~')) {
-    iso = iso.slice(1)
-    dim = true
-  }
-  // A leading '!' forces a confirmed (dark) date even when the step status is Not Started.
-  if (iso && iso.startsWith('!')) {
-    iso = iso.slice(1)
-    dim = false
-  }
-  // Greyed/dimmed dates are hidden entirely — only confirmed (dark) dates render.
-  if (dim) {
-    iso = ''
-  }
-  const size = small ? 10.5 : (muted ? 10 : 12.5)
-  if (!iso) {
-    // emptyLabel provided (even '') → render that text (blank cell shows nothing).
-    if (emptyLabel !== undefined) {
-      return emptyLabel
-        ? <span style={{ fontSize: size, fontWeight: 700, color: MUTED }}>{emptyLabel}</span>
-        : <span aria-hidden />
-    }
-    return <span aria-hidden />
-  }
-  return (
-      <span style={{ fontSize: size, fontWeight: 700, color: (muted || dim) ? MUTED : INK, lineHeight: 1.2 }}>
-        {fmtMD(iso)}
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ width: 7, height: 7, borderRadius: '50%', background: s.dot, flexShrink: 0 }} />
+        {s.label}
       </span>
+      {date ? <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.01em', opacity: 0.85 }}>{date}</span> : null}
+    </span>
   )
 }
 
@@ -443,14 +428,11 @@ function PitchMatrix() {
                   const status = client.statuses[i] ?? ''
                   // Not Applicable steps always render a blank date.
                   const iso = status === 'Not Applicable' ? '' : (isPitch ? client.pitchDate : (client.dates[i] ?? ''))
+                  // Status is the main tag; the confirmed date sits inside the pill beneath the label.
+                  const dateLabel = resolveDateLabel(iso, !isPitch && status === 'Not Started')
                   return (
                     <td key={i} style={{ padding: '10px 6px', textAlign: 'center', verticalAlign: 'middle', borderLeft: '1px solid #f1f2f7' }}>
-                      <StatusPill status={status} />
-                      <div style={{ marginTop: 6 }}>
-                        {/* pitch column renders blank (no dash) when TBD; other steps show a dash. */}
-                        {/* Status is the main tag; the date sits small beneath it, keeping dark/grey coloring. */}
-                        <DateText iso={iso} emptyLabel={isPitch ? '' : undefined} dim={!isPitch && status === 'Not Started'} small />
-                      </div>
+                      <StatusPill status={status} date={dateLabel} />
                     </td>
                   )
                 })}
