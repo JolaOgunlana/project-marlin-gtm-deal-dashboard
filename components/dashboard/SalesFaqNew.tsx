@@ -709,6 +709,16 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     followUp: "9-10",
     commentPwc: "Follow up with Genpact/Tisha",
   },
+  {
+    category: "Outsourcing & Offshoring",
+    sharedWithGenpact: "No",
+    points: "What is an accurate size of retained org (non-agents)?",
+    response: "[9/22/2026] FIS will continue to retain certain leadership roles and oversight of support functions; the exact size of the retained organization will depend on client consents. If Sales requires greater specificity, please clarify the business need so we can determine whether there is an appropriate FIS owner to address it.",
+    responseDate: "[9/22/2026]",
+    status: "Complete" as FaqNewStatus,
+    followUp: "",
+    commentPwc: "",
+  },
 ]
 
 const STATUS_STYLES: Record<FaqNewStatus, { bg: string; color: string; dot: string }> = {
