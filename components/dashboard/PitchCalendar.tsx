@@ -403,20 +403,18 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                       <div style={{
                         position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
                         background: outside
-                          ? 'repeating-linear-gradient(135deg,#f7f8fc,#f7f8fc 8px,#f4f5fa 8px,#f4f5fa 16px)'
-                          : isGrayedRange
-                            ? '#e2e4ea'
-                            : isPast
-                              ? '#eef0f5'
-                              : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
-                        border: `1px solid ${isGrayedRange ? '#c9ccd6' : hasPitch ? '#d5e7f7' : LINE}`,
+                ? 'repeating-linear-gradient(135deg,#f7f8fc,#f7f8fc 8px,#f4f5fa 8px,#f4f5fa 16px)'
+                : isGrayedRange || isPast
+                ? '#eef0f5'
+                : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
+              border: `1px solid ${isGrayedRange ? LINE : hasPitch ? '#d5e7f7' : LINE}`,
                         borderRadius: 14,
                         padding: '10px 10px 10px',
                         overflow: 'hidden',
                         boxShadow: outside || isPast || isGrayedRange ? 'none' : hasPitch
                           ? '0 2px 6px rgba(29,31,72,.06), 0 0 0 1px rgba(62,139,205,.08) inset'
                           : '0 1px 3px rgba(29,31,72,.05)',
-                        borderColor: isGrayedRange ? '#c9ccd6' : isHovered && !outside && !isPast ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
+                        borderColor: isGrayedRange ? LINE : isHovered && !outside && !isPast ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
                       }}>
                         <span style={{
                           fontSize: hasPitch ? 12.5 : 15,
