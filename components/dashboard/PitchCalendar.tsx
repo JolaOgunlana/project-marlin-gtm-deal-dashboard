@@ -419,7 +419,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                         <span style={{
                           fontSize: hasPitch ? 12.5 : 15,
                           fontWeight: 800,
-                          color: outside ? MUTED_2 : isGrayedRange ? MUTED_2 : hasPitch ? '#fff' : isPast ? MUTED_2 : INK,
+                          color: outside ? MUTED_2 : hasPitch ? '#fff' : isGrayedRange ? MUTED_2 : isPast ? MUTED_2 : INK,
                           lineHeight: 1,
                           letterSpacing: 0.3,
                           display: 'inline-flex',
