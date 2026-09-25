@@ -660,16 +660,6 @@ const FAQ_NEW_DATA: FaqNewRow[] = [
     commentPwc: "",
   },
   {
-    category: "Transition",
-    sharedWithGenpact: "No",
-    points: "What is the ramp-down schedule for non-agents?",
-    response: "[8/26/26 prel. ]  Actively being worked with FIS Operations. The exact timing will depend on client consents.",
-    responseDate: "[8/26/26]",
-    status: "Delayed" as FaqNewStatus,
-    followUp: "9-10",
-    commentPwc: "Follow up with Tessa",
-  },
-  {
     category: "Operations",
     sharedWithGenpact: "No",
     points: "Delineation between Genpact a third party supplier and FIS (even though this is badged as a TMS service with one contract for HSBC, Genpact will be engaged by FIS under third party terms) so what are they responsible for eg agents, supervision, training?",
