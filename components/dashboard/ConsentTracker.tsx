@@ -837,15 +837,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$33.7M', acvColor: '#4bcd3e',
-              meta: '4 clients · 36% of ACV · 20% of clients',
-              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'HSBC (Sep 21)'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$47.4M', acvColor: '#4bcd3e',
+              meta: '6 clients · 51% of ACV · 30% of clients',
+              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'HSBC (Sep 21)', 'Fifth Third (Sep 23)', 'Citibank (Sep 25)'],
               nameColor: '#4bcd3e',
             },
             {
-    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$40.2M', acvColor: ALIGNMENT,
-      meta: '4 clients · 43% of ACV · 20% of clients',
-      names: ['Fifth Third (Sep 24)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
+    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$26.5M', acvColor: ALIGNMENT,
+      meta: '2 clients · 28% of ACV · 10% of clients',
+      names: ['Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
@@ -1061,10 +1061,9 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
               </div>
             </div>
             {/* Header */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px', background: INK, color: '#fff', padding: '11px 20px', gap: 8, fontSize: 10, letterSpacing: '0.07em', textTransform: 'uppercase', fontWeight: 700, alignItems: 'center' }}>
               <div>Client Name</div>
               <div>ACV Business Case</div>
-              <div style={{ textAlign: 'center' }}>Wave</div>
               <div style={{ textAlign: 'center' }}>Salesforce Stage</div>
               <div style={{ textAlign: 'center' }}>Rating Outsourcing</div>
               <div style={{ textAlign: 'center' }}>Rating Offshoring</div>
@@ -1164,7 +1163,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     <div
                       onClick={() => setExpandedRow(isOpen ? null : row.name)}
                       style={{
-                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.6fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
+                        display: 'grid', gridTemplateColumns: '1.8fr 0.8fr 0.8fr 1fr 1fr 1fr 1fr 0.8fr 1.1fr 28px',
                         padding: '10px 20px', gap: 8, fontSize: 12.5, alignItems: 'center',
                         background: isOpen ? 'rgba(91,45,110,0.04)' : isAlt ? '#fafbfc' : '#fff',
                         borderBottom: BORDER,
@@ -1175,7 +1174,6 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                     >
                       <div style={{ fontWeight: 600, color: INK }}>{row.name}</div>
                       <div style={{ fontWeight: 700, color: INK }}>{row.acv}</div>
-                      <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>{row.wave}</div>
                       <div style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, color: '#1a1f4e' }}>Stage {row.sfStage}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.out)}</div>
                       <div style={{ textAlign: 'center' }}>{ratingChip(row.off)}</div>

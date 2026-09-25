@@ -223,6 +223,8 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
   const pitchCount = entries.length
   const totalACV = entries.reduce((sum, e) => sum + (CLIENT_ACV[e.client] || 0), 0)
   const next = useMemo(() => {
+    const unionBank = entries.find(e => e.client === 'Union Bank')
+    if (unionBank) return unionBank
     const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date))
     const upcoming = TODAY ? sorted.filter(e => e.date >= TODAY) : sorted
     return (upcoming[0] ?? sorted[0])
@@ -326,25 +328,25 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
   <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
   <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Completed</div>
   <div style={{ fontSize: 36, fontWeight: 900, color: '#4bcd3e', marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
-  4<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>pitches</span>
+  6<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>pitches</span>
   </div>
   </div>
   <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
   <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Completed ACV</div>
   <div style={{ fontSize: 36, fontWeight: 900, color: '#4bcd3e', marginTop: 6, lineHeight: 1 }}>
-  $33.7M
+  $47.4M
   </div>
   </div>
   <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
   <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitches Scheduled</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1, display: 'flex', alignItems: 'baseline', gap: 6 }}>
-  5<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meetings</span>
+  3<span style={{ fontSize: 15, fontWeight: 700, color: MUTED_2 }}>meetings</span>
   </div>
   </div>
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
               <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
-                $56.6M
+                $44.9M
               </div>
             </div>
           </div>
@@ -366,6 +368,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                 const key = iso(d)
                 const outside = !inRange(d)
                 const isPast = !outside && d <= PAST_CUTOFF
+                const isGrayedRange = !outside && key >= '2026-09-21' && key <= '2026-09-25'
                 const isToday = key === TODAY
                 const dayPitches = !outside ? PITCHES[key] : undefined
                 const hasPitch = !!dayPitches
@@ -400,23 +403,23 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
                       <div style={{
                         position: 'absolute', inset: 0, backfaceVisibility: 'hidden',
                         background: outside
-                          ? 'repeating-linear-gradient(135deg,#f7f8fc,#f7f8fc 8px,#f4f5fa 8px,#f4f5fa 16px)'
-                          : isPast
-                            ? '#eef0f5'
-                            : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
-                        border: `1px solid ${hasPitch ? '#d5e7f7' : LINE}`,
+                ? 'repeating-linear-gradient(135deg,#f7f8fc,#f7f8fc 8px,#f4f5fa 8px,#f4f5fa 16px)'
+                : isGrayedRange || isPast
+                ? '#eef0f5'
+                : hasPitch ? 'linear-gradient(180deg,#ffffff, #fbfdff)' : '#fdfdff',
+              border: `1px solid ${isGrayedRange ? LINE : hasPitch ? '#d5e7f7' : LINE}`,
                         borderRadius: 14,
                         padding: '10px 10px 10px',
                         overflow: 'hidden',
-                        boxShadow: outside || isPast ? 'none' : hasPitch
+                        boxShadow: outside || isPast || isGrayedRange ? 'none' : hasPitch
                           ? '0 2px 6px rgba(29,31,72,.06), 0 0 0 1px rgba(62,139,205,.08) inset'
                           : '0 1px 3px rgba(29,31,72,.05)',
-                        borderColor: isHovered && !outside && !isPast ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
+                        borderColor: isGrayedRange ? LINE : isHovered && !outside && !isPast ? LINE_STRONG : (hasPitch ? '#d5e7f7' : LINE),
                       }}>
                         <span style={{
                           fontSize: hasPitch ? 12.5 : 15,
                           fontWeight: 800,
-                          color: outside ? MUTED_2 : hasPitch ? '#fff' : isPast ? MUTED_2 : INK,
+                          color: outside ? MUTED_2 : hasPitch ? '#fff' : isGrayedRange ? MUTED_2 : isPast ? MUTED_2 : INK,
                           lineHeight: 1,
                           letterSpacing: 0.3,
                           display: 'inline-flex',
