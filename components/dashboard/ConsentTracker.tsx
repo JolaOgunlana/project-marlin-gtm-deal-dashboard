@@ -1092,7 +1092,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Union Bank (MUFG)',              acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: 'Medium', off: 'High',       dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
                 { name: 'Citizens Bank',                  acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: 'High',   off: 'Low',        dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
                 { name: 'Empire Innovation Group',        acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'MotivHealth',                    acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'ING (BV / Barneveld)',           acv: '$4.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
