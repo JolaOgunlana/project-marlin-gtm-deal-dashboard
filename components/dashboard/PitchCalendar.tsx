@@ -334,7 +334,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
   <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
   <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Completed ACV</div>
   <div style={{ fontSize: 36, fontWeight: 900, color: '#4bcd3e', marginTop: 6, lineHeight: 1 }}>
-  $48.9M
+  $47.7M
   </div>
   </div>
   <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
@@ -346,7 +346,7 @@ export function PitchCalendarPage({ page, onNavigate }: { page: Page; onNavigate
             <div style={{ background: 'linear-gradient(180deg,#ffffff,#fbfdff)', border: `1px solid ${LINE}`, borderRadius: 14, padding: '14px 16px' }}>
               <div style={{ fontSize: 13, letterSpacing: '0.08em', fontWeight: 800, color: MUTED, textTransform: 'uppercase' }}>Pitch Scheduled ACV</div>
               <div style={{ fontSize: 36, fontWeight: 900, color: INK, marginTop: 6, lineHeight: 1 }}>
-                $43.4M
+                $42.6M
               </div>
             </div>
           </div>
