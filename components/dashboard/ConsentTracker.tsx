@@ -1076,7 +1076,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {(() => {
               const allRows = [
                 { name: 'Virgin Money',                   acv: '$26.2M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
-                { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
+                { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low', score: 81,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', wave: 'Wave 1', sfStage: '3', out: 'Low',    off: 'Medium',     dig: 'High',   price: 'Low',    score: 69,   status: 'Alignment' },
                 { name: 'UMB',                            acv: '$9.9M',  wave: 'Wave 1', sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
                 { name: 'Lloyds',                         acv: '$9.1M',  wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
