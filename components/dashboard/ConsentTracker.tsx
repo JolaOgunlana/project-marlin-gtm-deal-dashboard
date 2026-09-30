@@ -1089,7 +1089,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Brim Financial',                 acv: '$1.1M',  wave: 'Wave 1', sfStage: '1', out: 'Low',    off: 'Low',        dig: 'High',   price: 'Low',    score: 61,   status: 'Exploration' },
                 { name: 'ServisFirst',                    acv: '$0.6M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: "President's Choice",             acv: '$0.5M',  wave: 'Wave 1', sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
-                              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Union Bank (MUFG)',              acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: 'Medium', off: 'High',       dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
                 { name: 'Citizens Bank',                  acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
