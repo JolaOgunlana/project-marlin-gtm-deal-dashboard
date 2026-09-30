@@ -837,15 +837,15 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
           const ALIGNMENT = '#0891b2'
           const alignmentCols = [
             {
-              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$47.4M', acvColor: '#4bcd3e',
-              meta: '6 clients · 51% of ACV · 30% of clients',
-              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'HSBC (Sep 21)', 'Fifth Third (Sep 23)', 'Citibank (Sep 25)'],
+              label: 'Completed', date: null, barColor: '#4bcd3e', acv: '$47.7M', acvColor: '#4bcd3e',
+              meta: '7 clients · 51% of ACV · 35% of clients',
+              names: ['UMB (Aug 31)', 'Metro Bank (Sep 10)', 'Lloyds (Sep 15)', 'HSBC (Sep 21)', 'Fifth Third (Sep 23)', 'Citibank (Sep 25)', 'Union Bank (Sep 29)'],
               nameColor: '#4bcd3e',
             },
             {
-    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$26.5M', acvColor: ALIGNMENT,
-      meta: '2 clients · 28% of ACV · 10% of clients',
-      names: ['Union Bank (Sep 29)', 'Virgin Money (Oct 5)'],
+    label: 'Pitch Scheduled', date: null, barColor: ALIGNMENT, acv: '$26.2M', acvColor: ALIGNMENT,
+      meta: '1 client · 28% of ACV · 5% of clients',
+      names: ['Virgin Money (Oct 5)'],
               nameColor: INK,
             },
             {
@@ -971,7 +971,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
 
           {/* Card 4: Avg propensity score */}
           <div style={{ background: '#fff', padding: '24px 22px', borderRadius: 12, border: '1px solid #e2e4ee', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
- <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>86</div>
+ <div style={{ fontSize: 40, fontWeight: 900, color: '#4bcd3e', lineHeight: 1, marginBottom: 8 }}>85</div>
  <div style={{ fontSize: 12, fontWeight: 500, color: 'rgba(26,31,78,0.42)', lineHeight: 1.4, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Avg. propensity score (in-scope)</div>
   </div>
   </div>{/* end metric cards grid */}
@@ -1076,7 +1076,7 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
             {(() => {
               const allRows = [
                 { name: 'Virgin Money',                   acv: '$26.2M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
-                { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Medium', score: 88,   status: 'Alignment' },
+                { name: 'Fifth Third Bank',               acv: '$13.6M', wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low', score: 81,   status: 'Alignment' },
                 { name: 'Metro Bank',                     acv: '$11.8M', wave: 'Wave 1', sfStage: '3', out: 'Low',    off: 'Medium',     dig: 'High',   price: 'Low',    score: 69,   status: 'Alignment' },
                 { name: 'UMB',                            acv: '$9.9M',  wave: 'Wave 1', sfStage: '3', out: 'Medium', off: 'Medium',     dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
                 { name: 'Lloyds',                         acv: '$9.1M',  wave: 'Wave 1', sfStage: '3', out: 'High',   off: 'Medium',     dig: 'High',   price: 'Low',    score: 81,   status: 'Alignment' },
@@ -1089,10 +1089,10 @@ export function ConsentTrackerPage({ page, onNavigate, onFaqLink }: { page: Page
                 { name: 'Brim Financial',                 acv: '$1.1M',  wave: 'Wave 1', sfStage: '1', out: 'Low',    off: 'Low',        dig: 'High',   price: 'Low',    score: 61,   status: 'Exploration' },
                 { name: 'ServisFirst',                    acv: '$0.6M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: "President's Choice",             acv: '$0.5M',  wave: 'Wave 1', sfStage: '2', out: 'High',   off: 'High',       dig: 'High',   price: 'High',   score: 100,  status: 'Exploration' },
-                              { name: 'Union Bank (MUFG)',               acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Union Bank (MUFG)',              acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: 'Medium', off: 'High',       dig: 'High',   price: 'High',   score: 94,   status: 'Alignment' },
                 { name: 'Citizens Bank',                  acv: '$0.3M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'The Bank Of Nova Scotia',        acv: '$0.2M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
-                { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
+                { name: 'Citibank',                       acv: '$0.1M',  wave: 'Wave 1', sfStage: '1', out: 'High',   off: 'Low',        dig: 'High',   price: 'Medium', score: 81,   status: 'Alignment' },
                 { name: 'Empire Innovation Group',        acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'MotivHealth',                    acv: '$0.0M',  wave: 'Wave 1', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'No Whisper' },
                 { name: 'ING (BV / Barneveld)',           acv: '$4.5M',  wave: 'Wave 2', sfStage: '1', out: null,     off: null,         dig: null,     price: null,     score: null, status: 'Exploration' },
